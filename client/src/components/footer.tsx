@@ -33,9 +33,9 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">AM</span>
+                <span className="text-white font-bold text-lg">EG</span>
               </div>
-              <span className="text-xl font-bold">Alex Martinez</span>
+              <span className="text-xl font-bold">Emperor Gavin</span>
             </div>
             <p className="text-slate-300 mb-6 leading-relaxed max-w-md">
               Crafting beautiful, functional web applications with modern technologies. 
@@ -95,7 +95,7 @@ export default function Footer() {
         <div className="border-t border-slate-700 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-slate-400 text-sm" data-testid="footer-copyright">
-              © {currentYear} Alex Martinez. All rights reserved.
+              © {currentYear} Emperor Gavin. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-slate-400 hover:text-white text-sm transition-colors" data-testid="footer-link-privacy">

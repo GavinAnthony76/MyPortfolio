@@ -36,7 +36,7 @@ export default function AboutSection() {
           </div>
           
           <div>
-            <h3 className="text-2xl font-bold text-slate-800 mb-6">Hi, I'm Alex Martinez</h3>
+            <h3 className="text-2xl font-bold text-slate-800 mb-6">Hi, I'm Emperor Gavin</h3>
             <p className="text-slate-600 mb-6 leading-relaxed">
               I'm a passionate full-stack developer who loves turning complex problems into 
               simple, beautiful solutions. When I'm not coding, you'll find me exploring 
