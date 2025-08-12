@@ -14,6 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 
 const projectTypes = [
+  { value: 'fullstack', label: 'Full-Stack Development' },
   { value: 'prototype', label: 'Rapid Prototype/POC' },
   { value: 'code-generation', label: 'Code Generation' },
   { value: 'debugging', label: 'Code Review & Debugging' },

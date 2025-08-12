@@ -3,14 +3,30 @@ import { Code, Smartphone, ShoppingCart, TrendingUp, Settings, Rocket, Check } f
 
 const services = [
   {
-    id: 'prototyping',
+    id: 'fullstack',
     icon: Code,
-    title: 'Rapid Prototyping',
-    description: 'AI-powered rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly.',
-    price: '$1,500 - $3,000',
+    title: 'Full-Stack Development',
+    description: 'Complete web application development from frontend to backend, including database design and deployment.',
+    price: '$5,000 - $15,000',
     color: 'from-blue-50 to-cyan-50',
     iconBg: 'bg-blue-600',
     priceColor: 'text-blue-600',
+    features: [
+      'React/TypeScript frontend',
+      'Node.js/Express backend',
+      'Database design & integration',
+      'Authentication & security'
+    ]
+  },
+  {
+    id: 'prototyping',
+    icon: Rocket,
+    title: 'Rapid Prototyping',
+    description: 'AI-powered rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly.',
+    price: '$1,500 - $3,000',
+    color: 'from-green-50 to-emerald-50',
+    iconBg: 'bg-green-600',
+    priceColor: 'text-green-600',
     features: [
       'Full-stack prototypes',
       'Modern tech stacks',
@@ -20,13 +36,13 @@ const services = [
   },
   {
     id: 'codegeneration',
-    icon: Rocket,
+    icon: Settings,
     title: 'Code Generation',
     description: 'Intelligent code generation for React, Node.js, and modern web applications with best practices built-in.',
     price: '$500 - $2,000',
-    color: 'from-green-50 to-emerald-50',
-    iconBg: 'bg-green-600',
-    priceColor: 'text-green-600',
+    color: 'from-purple-50 to-pink-50',
+    iconBg: 'bg-purple-600',
+    priceColor: 'text-purple-600',
     features: [
       'TypeScript support',
       'Component libraries',
@@ -36,13 +52,13 @@ const services = [
   },
   {
     id: 'debugging',
-    icon: Settings,
+    icon: TrendingUp,
     title: 'Code Review & Debugging',
     description: 'AI-assisted code analysis, bug detection, and performance optimization suggestions for existing projects.',
     price: '$100/hour',
-    color: 'from-purple-50 to-pink-50',
-    iconBg: 'bg-purple-600',
-    priceColor: 'text-purple-600',
+    color: 'from-orange-50 to-red-50',
+    iconBg: 'bg-orange-600',
+    priceColor: 'text-orange-600',
     features: [
       'Error analysis',
       'Performance insights',
@@ -52,13 +68,13 @@ const services = [
   },
   {
     id: 'consulting',
-    icon: TrendingUp,
+    icon: Smartphone,
     title: 'Technical Consulting',
     description: 'Architecture planning, technology stack recommendations, and development strategy for your projects.',
     price: '$150/hour',
-    color: 'from-orange-50 to-red-50',
-    iconBg: 'bg-orange-600',
-    priceColor: 'text-orange-600',
+    color: 'from-indigo-50 to-blue-50',
+    iconBg: 'bg-indigo-600',
+    priceColor: 'text-indigo-600',
     features: [
       'Architecture design',
       'Tech stack selection',

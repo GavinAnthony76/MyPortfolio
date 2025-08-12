@@ -93,6 +93,7 @@ ${additionalInfo}`;
 
 function getProjectTypeLabel(type: string): string {
   const labels: Record<string, string> = {
+    'fullstack': 'Full-Stack Development',
     'prototype': 'Rapid Prototype/POC',
     'code-generation': 'Code Generation',
     'debugging': 'Code Review & Debugging',
@@ -129,11 +130,11 @@ function getTimelineLabel(timeline: string): string {
 
 function getRecommendedTechStack(projectType: string): string | null {
   const stacks: Record<string, string> = {
+    'fullstack': '- **Frontend:** React with TypeScript, Tailwind CSS, Shadcn/ui\n- **Backend:** Node.js with Express.js, RESTful APIs\n- **Database:** PostgreSQL with Drizzle ORM\n- **Authentication:** JWT, OAuth, or NextAuth.js\n- **Deployment:** Vercel, Railway, or AWS\n- **Testing:** Jest, Vitest, Playwright for E2E',
     'prototype': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express\n- **Database:** In-memory or SQLite for speed\n- **Development:** Vite for fast iteration\n- **Hosting:** Replit, Vercel, or Netlify',
     'code-generation': '- **AI Tools:** Advanced code generation algorithms\n- **Languages:** TypeScript, JavaScript, Python\n- **Frameworks:** React, Vue, Node.js, FastAPI\n- **Quality:** ESLint, Prettier, automated testing\n- **Documentation:** Auto-generated comments',
     'debugging': '- **Analysis:** Static code analysis, performance profiling\n- **Tools:** TypeScript compiler, ESLint, testing frameworks\n- **Monitoring:** Error tracking, performance metrics\n- **Optimization:** Bundle analysis, code refactoring\n- **Documentation:** Technical debt analysis',
     'consulting': '- **Architecture:** Scalable system design patterns\n- **Technologies:** Modern frameworks and tools\n- **Performance:** Optimization strategies\n- **Security:** Best practices and auditing\n- **DevOps:** CI/CD and deployment strategies',
-
     'integration': '- **APIs:** RESTful and GraphQL integration\n- **Authentication:** OAuth, JWT, API keys\n- **Data:** JSON processing and validation\n- **Testing:** API testing and mocking\n- **Security:** Rate limiting and validation',
   };
   return stacks[projectType] || null;
@@ -143,6 +144,30 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
   const isRush = timeline === 'asap';
   
   const phases: Record<string, string> = {
+    'fullstack': `**Phase 1: Planning & Architecture (${isRush ? '3-5 days' : '1-2 weeks'})**
+- Requirements analysis and user story mapping
+- Database schema and API design
+- UI/UX wireframes and component planning
+- Technology stack finalization
+
+**Phase 2: Backend Development (${isRush ? '1-2 weeks' : '3-4 weeks'})**
+- Database setup and migration scripts
+- RESTful API development and testing
+- Authentication and authorization implementation
+- Core business logic development
+
+**Phase 3: Frontend Development (${isRush ? '1-2 weeks' : '3-4 weeks'})**
+- Component library setup and styling
+- User interface implementation
+- API integration and state management
+- Responsive design and accessibility
+
+**Phase 4: Integration & Deployment (${isRush ? '3-5 days' : '1 week'})**
+- End-to-end testing and bug fixes
+- Performance optimization
+- Production deployment and monitoring
+- Documentation and handover`,
+
     'prototype': `**Phase 1: Discovery & Planning (${isRush ? '1-2 days' : '3-5 days'})**
 - Requirements analysis and scope definition
 - Technology stack selection

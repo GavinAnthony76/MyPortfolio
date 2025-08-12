@@ -12,11 +12,11 @@ export default function Footer() {
   ];
 
   const services = [
+    { label: 'Full-Stack Development' },
     { label: 'Rapid Prototyping' },
     { label: 'Code Generation' },
     { label: 'AI Debugging' },
     { label: 'Tech Consulting' },
-    { label: 'API Integration' },
   ];
 
   const handleLinkClick = (href: string) => {
