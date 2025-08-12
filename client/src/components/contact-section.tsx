@@ -1,0 +1,442 @@
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { insertProjectRequestSchema, type InsertProjectRequest } from "@shared/schema";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+
+const projectTypes = [
+  { value: 'web-app', label: 'Web Application' },
+  { value: 'mobile-app', label: 'Mobile Application' },
+  { value: 'ecommerce', label: 'E-commerce Platform' },
+  { value: 'landing-page', label: 'Landing Page' },
+  { value: 'api', label: 'API Development' },
+  { value: 'consulting', label: 'Consulting' },
+  { value: 'maintenance', label: 'Maintenance & Support' },
+  { value: 'other', label: 'Other' },
+];
+
+const budgetRanges = [
+  { value: 'under-5k', label: 'Under $5,000' },
+  { value: '5k-10k', label: '$5,000 - $10,000' },
+  { value: '10k-25k', label: '$10,000 - $25,000' },
+  { value: '25k-50k', label: '$25,000 - $50,000' },
+  { value: '50k-plus', label: '$50,000+' },
+  { value: 'discuss', label: "Let's discuss" },
+];
+
+const timelines = [
+  { value: 'asap', label: 'ASAP' },
+  { value: '1-month', label: 'Within 1 month' },
+  { value: '2-3-months', label: '2-3 months' },
+  { value: '3-6-months', label: '3-6 months' },
+  { value: '6-plus-months', label: '6+ months' },
+  { value: 'flexible', label: 'Flexible' },
+];
+
+export default function ContactSection() {
+  const { toast } = useToast();
+  
+  const form = useForm<InsertProjectRequest>({
+    resolver: zodResolver(insertProjectRequestSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      company: "",
+      projectType: "",
+      budget: "",
+      timeline: "",
+      description: "",
+      targetAudience: "",
+      keyFeatures: "",
+      techPreferences: "",
+      designReferences: "",
+      additionalInfo: "",
+    },
+  });
+
+  const submitMutation = useMutation({
+    mutationFn: async (data: InsertProjectRequest) => {
+      const response = await apiRequest('POST', '/api/project-requests', data);
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Project request submitted!",
+        description: "Thank you for your interest. I'll get back to you within 24 hours.",
+      });
+      form.reset();
+    },
+    onError: (error) => {
+      toast({
+        title: "Error submitting request",
+        description: error instanceof Error ? error.message : "Please try again later.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const onSubmit = (data: InsertProjectRequest) => {
+    submitMutation.mutate(data);
+  };
+
+  return (
+    <section id="contact" className="py-20 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-slate-800 mb-4">Start Your Project</h2>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            Ready to bring your idea to life? Fill out the form below and I'll get back to you within 24 hours.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-2xl font-bold text-slate-800 mb-8">Let's Connect</h3>
+            
+            <div className="space-y-6">
+              <div className="flex items-start space-x-4" data-testid="contact-email">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Mail className="text-blue-600 text-xl" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-slate-800 mb-1">Email</h4>
+                  <p className="text-slate-600">alex@alexmartinez.dev</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4" data-testid="contact-phone">
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Phone className="text-green-600 text-xl" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-slate-800 mb-1">Phone</h4>
+                  <p className="text-slate-600">+1 (555) 123-4567</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4" data-testid="contact-location">
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <MapPin className="text-purple-600 text-xl" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-slate-800 mb-1">Location</h4>
+                  <p className="text-slate-600">San Francisco, CA</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4" data-testid="contact-response-time">
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Clock className="text-orange-600 text-xl" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-slate-800 mb-1">Response Time</h4>
+                  <p className="text-slate-600">Within 24 hours</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-8">
+              <img 
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400" 
+                alt="Modern office workspace" 
+                className="rounded-xl shadow-lg w-full h-auto"
+                data-testid="img-workspace"
+              />
+            </div>
+          </div>
+
+          {/* Project Request Form */}
+          <Card className="shadow-lg">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-slate-800 mb-6">Project Details</h3>
+              
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-project-request">
+                  {/* Basic Info */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="firstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>First Name *</FormLabel>
+                          <FormControl>
+                            <Input placeholder="John" {...field} data-testid="input-firstName" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="lastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Last Name *</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Doe" {...field} data-testid="input-lastName" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email *</FormLabel>
+                          <FormControl>
+                            <Input type="email" placeholder="john@example.com" {...field} data-testid="input-email" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="company"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Company</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Acme Inc." {...field} data-testid="input-company" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  {/* Project Type */}
+                  <FormField
+                    control={form.control}
+                    name="projectType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Project Type *</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-projectType">
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select project type" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {projectTypes.map((type) => (
+                              <SelectItem key={type.value} value={type.value}>
+                                {type.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Budget and Timeline */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="budget"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Budget Range *</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-budget">
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select budget range" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {budgetRanges.map((budget) => (
+                                <SelectItem key={budget.value} value={budget.value}>
+                                  {budget.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="timeline"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Timeline *</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-timeline">
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select timeline" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {timelines.map((timeline) => (
+                                <SelectItem key={timeline.value} value={timeline.value}>
+                                  {timeline.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  {/* Project Description */}
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Project Description *</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="Describe your project in detail. What are you looking to build? What problem does it solve?"
+                            className="min-h-[100px]"
+                            {...field}
+                            data-testid="textarea-description"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Target Audience */}
+                  <FormField
+                    control={form.control}
+                    name="targetAudience"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Target Audience</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="Who will be using your application? (e.g., small businesses, consumers, enterprise)"
+                            {...field}
+                            data-testid="input-targetAudience"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Key Features */}
+                  <FormField
+                    control={form.control}
+                    name="keyFeatures"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Key Features Required</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="List the main features you need (e.g., user authentication, payment processing, real-time chat)"
+                            className="min-h-[80px]"
+                            {...field}
+                            data-testid="textarea-keyFeatures"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Technical Requirements */}
+                  <FormField
+                    control={form.control}
+                    name="techPreferences"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Technical Preferences</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="Any specific technologies, frameworks, or integrations you prefer?"
+                            className="min-h-[60px]"
+                            {...field}
+                            data-testid="textarea-techPreferences"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Design Inspiration */}
+                  <FormField
+                    control={form.control}
+                    name="designReferences"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Design References</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="Any websites or apps you like the design of? (URLs or descriptions)"
+                            {...field}
+                            data-testid="input-designReferences"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Additional Information */}
+                  <FormField
+                    control={form.control}
+                    name="additionalInfo"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Additional Information</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="Anything else you'd like me to know about your project?"
+                            className="min-h-[80px]"
+                            {...field}
+                            data-testid="textarea-additionalInfo"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl"
+                    disabled={submitMutation.isPending}
+                    data-testid="button-submit"
+                  >
+                    <Send className="mr-2 h-4 w-4" />
+                    {submitMutation.isPending ? "Sending..." : "Send Project Request"}
+                  </Button>
+                  
+                  <p className="text-sm text-slate-500 text-center">
+                    I'll review your project details and get back to you within 24 hours with a detailed proposal.
+                  </p>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+}
