@@ -93,13 +93,12 @@ ${additionalInfo}`;
 
 function getProjectTypeLabel(type: string): string {
   const labels: Record<string, string> = {
-    'web-app': 'Web Application',
-
-    'ecommerce': 'E-commerce Platform',
-    'landing-page': 'Landing Page',
-    'api': 'API Development',
+    'prototype': 'Rapid Prototype/POC',
+    'code-generation': 'Code Generation',
+    'debugging': 'Code Review & Debugging',
     'consulting': 'Technical Consulting',
-    'maintenance': 'Maintenance & Support',
+    'learning': 'Interactive Learning',
+    'integration': 'API Integration',
     'other': 'Custom Solution',
   };
   return labels[type] || type;
@@ -131,10 +130,12 @@ function getTimelineLabel(timeline: string): string {
 
 function getRecommendedTechStack(projectType: string): string | null {
   const stacks: Record<string, string> = {
-    'web-app': '- **Frontend:** React.js with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express.js\n- **Database:** PostgreSQL\n- **Hosting:** Vercel/AWS\n- **Authentication:** NextAuth or Auth0',
-    'ecommerce': '- **Frontend:** Next.js with TypeScript\n- **Backend:** Node.js with Express.js\n- **Database:** PostgreSQL\n- **Payments:** Stripe integration\n- **CMS:** Headless CMS (Contentful/Strapi)\n- **Hosting:** AWS or Vercel',
-    'landing-page': '- **Framework:** Next.js or React\n- **Styling:** Tailwind CSS\n- **Analytics:** Google Analytics\n- **Forms:** React Hook Form\n- **Hosting:** Vercel or Netlify',
-    'api': '- **Framework:** Express.js with TypeScript\n- **Database:** PostgreSQL or MongoDB\n- **Documentation:** OpenAPI/Swagger\n- **Testing:** Jest and Supertest\n- **Deployment:** AWS or Railway',
+    'prototype': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express\n- **Database:** In-memory or SQLite for speed\n- **Development:** Vite for fast iteration\n- **Hosting:** Replit, Vercel, or Netlify',
+    'code-generation': '- **AI Tools:** Advanced code generation algorithms\n- **Languages:** TypeScript, JavaScript, Python\n- **Frameworks:** React, Vue, Node.js, FastAPI\n- **Quality:** ESLint, Prettier, automated testing\n- **Documentation:** Auto-generated comments',
+    'debugging': '- **Analysis:** Static code analysis, performance profiling\n- **Tools:** TypeScript compiler, ESLint, testing frameworks\n- **Monitoring:** Error tracking, performance metrics\n- **Optimization:** Bundle analysis, code refactoring\n- **Documentation:** Technical debt analysis',
+    'consulting': '- **Architecture:** Scalable system design patterns\n- **Technologies:** Modern frameworks and tools\n- **Performance:** Optimization strategies\n- **Security:** Best practices and auditing\n- **DevOps:** CI/CD and deployment strategies',
+    'learning': '- **Interactive:** Live coding and explanations\n- **Technologies:** React, TypeScript, Node.js\n- **Practice:** Hands-on project development\n- **Best Practices:** Clean code and testing\n- **Tools:** Modern development environment',
+    'integration': '- **APIs:** RESTful and GraphQL integration\n- **Authentication:** OAuth, JWT, API keys\n- **Data:** JSON processing and validation\n- **Testing:** API testing and mocking\n- **Security:** Rate limiting and validation',
   };
   return stacks[projectType] || null;
 }
@@ -143,50 +144,95 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
   const isRush = timeline === 'asap';
   
   const phases: Record<string, string> = {
-    'web-app': `**Phase 1: Planning & Design (${isRush ? '1' : '2'} weeks)**
-- Requirements analysis and technical architecture
-- UI/UX design and wireframes
-- Database schema design
+    'prototype': `**Phase 1: Discovery & Planning (${isRush ? '1-2 days' : '3-5 days'})**
+- Requirements analysis and scope definition
+- Technology stack selection
+- Architecture and data flow design
 
-**Phase 2: Core Development (${isRush ? '3-4' : '6-8'} weeks)**
-- Backend API development
-- Frontend component development
-- Database integration
+**Phase 2: Rapid Development (${isRush ? '3-5 days' : '1-2 weeks'})**
+- Core feature implementation
+- Basic UI/UX development
+- Essential functionality integration
 
-**Phase 3: Testing & Launch (${isRush ? '1' : '2'} weeks)**
-- Quality assurance testing
+**Phase 3: Demo & Iteration (${isRush ? '1-2 days' : '3-5 days'})**
+- Testing and bug fixes
+- Demo preparation and presentation
+- Feedback collection and refinements`,
+
+    'code-generation': `**Phase 1: Analysis & Setup (${isRush ? '1 day' : '2-3 days'})**
+- Code requirements analysis
+- Template and pattern identification
+- Development environment configuration
+
+**Phase 2: Generation & Customization (${isRush ? '2-3 days' : '1 week'})**
+- Automated code generation
+- Custom logic implementation
+- Code quality optimization
+
+**Phase 3: Review & Documentation (${isRush ? '1 day' : '2-3 days'})**
+- Code review and testing
+- Documentation generation
+- Best practices implementation`,
+
+    'debugging': `**Phase 1: Analysis & Assessment (${isRush ? '1-2 days' : '3-5 days'})**
+- Codebase analysis and issue identification
+- Performance profiling and bottleneck detection
+- Technical debt assessment
+
+**Phase 2: Optimization & Fixes (${isRush ? '3-5 days' : '1-2 weeks'})**
+- Bug fixes and error resolution
 - Performance optimization
-- Deployment and go-live`,
+- Code refactoring and improvements
 
-    'landing-page': `**Phase 1: Planning & Design (${isRush ? '3-5 days' : '1'} week)**
-- Content strategy and structure planning
-- Visual design and branding
-- Performance optimization planning
+**Phase 3: Testing & Documentation (${isRush ? '1-2 days' : '3-5 days'})**
+- Comprehensive testing
+- Documentation updates
+- Best practices recommendations`,
 
-**Phase 2: Development (${isRush ? '1' : '2'} weeks)**
-- Responsive layout development
-- Content integration and optimization
-- SEO implementation
+    'consulting': `**Phase 1: Discovery & Assessment (${isRush ? '2-3 days' : '1 week'})**
+- Current system analysis
+- Requirements gathering
+- Technology assessment
 
-**Phase 3: Testing & Launch (${isRush ? '2-3 days' : '3-5 days'} days)**
-- Cross-browser testing
-- Performance optimization
-- Analytics setup and go-live`,
+**Phase 2: Strategy Development (${isRush ? '3-5 days' : '1-2 weeks'})**
+- Architecture planning
+- Technology recommendations
+- Implementation roadmap creation
 
-    'ecommerce': `**Phase 1: Planning & Setup (${isRush ? '1-2' : '3'} weeks)**
-- E-commerce requirements analysis
-- Payment gateway setup
-- Database and product catalog design
+**Phase 3: Presentation & Handoff (${isRush ? '1-2 days' : '3-5 days'})**
+- Strategy presentation
+- Documentation delivery
+- Implementation guidance`,
 
-**Phase 2: Core Development (${isRush ? '6-8' : '10-12'} weeks)**
-- Product catalog and shopping cart
-- Payment processing integration
-- Admin dashboard development
+    'learning': `**Phase 1: Curriculum Design (${isRush ? '1 day' : '2-3 days'})**
+- Learning objectives definition
+- Curriculum structure planning
+- Resource preparation
 
-**Phase 3: Testing & Launch (${isRush ? '2' : '3'} weeks)**
-- Payment testing and security audit
-- Performance optimization
-- Go-live and monitoring setup`,
+**Phase 2: Interactive Sessions (${isRush ? '1 week' : '2-4 weeks'})**
+- Live coding tutorials
+- Hands-on project development
+- Q&A and problem solving
+
+**Phase 3: Project & Assessment (${isRush ? '3-5 days' : '1 week'})**
+- Final project development
+- Code review and feedback
+- Skills assessment and next steps`,
+
+    'integration': `**Phase 1: API Analysis (${isRush ? '1 day' : '2-3 days'})**
+- API documentation review
+- Integration requirements analysis
+- Authentication setup planning
+
+**Phase 2: Development & Testing (${isRush ? '3-5 days' : '1 week'})**
+- API integration implementation
+- Error handling and validation
+- Comprehensive testing
+
+**Phase 3: Deployment & Monitoring (${isRush ? '1-2 days' : '2-3 days'})**
+- Production deployment
+- Monitoring setup
+- Documentation and maintenance guide`,
   };
 
   return phases[projectType] || null;

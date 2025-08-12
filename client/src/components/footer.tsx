@@ -12,10 +12,10 @@ export default function Footer() {
   ];
 
   const services = [
-    { label: 'Web Development' },
-    { label: 'Landing Pages' },
-    { label: 'E-commerce' },
-    { label: 'Consulting' },
+    { label: 'Rapid Prototyping' },
+    { label: 'Code Generation' },
+    { label: 'AI Debugging' },
+    { label: 'Tech Consulting' },
   ];
 
   const handleLinkClick = (href: string) => {
@@ -38,8 +38,8 @@ export default function Footer() {
               <span className="text-xl font-bold">Emperor Gavin</span>
             </div>
             <p className="text-slate-300 mb-6 leading-relaxed max-w-md">
-              Crafting beautiful, functional web applications with modern technologies. 
-              Let's build something amazing together.
+              AI-powered development services for rapid prototyping, intelligent code generation, 
+              and modern web solutions that bring your ideas to life quickly.
             </p>
             <div className="flex space-x-4">
               <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white" data-testid="footer-link-github">

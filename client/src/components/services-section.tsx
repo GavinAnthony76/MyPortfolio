@@ -3,99 +3,99 @@ import { Code, Smartphone, ShoppingCart, TrendingUp, Settings, Rocket, Check } f
 
 const services = [
   {
-    id: 'fullstack',
+    id: 'prototyping',
     icon: Code,
-    title: 'Full Stack Development',
-    description: 'Complete web application development from frontend to backend, including database design and API development.',
-    price: 'Starting at $5,000',
+    title: 'Rapid Prototyping',
+    description: 'AI-powered rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly.',
+    price: 'Custom Quote',
     color: 'from-blue-50 to-cyan-50',
     iconBg: 'bg-blue-600',
     priceColor: 'text-blue-600',
     features: [
-      'Custom web application',
-      'Responsive design',
+      'Full-stack prototypes',
+      'Modern tech stacks',
       'Database integration',
-      'API development'
+      'Real-time development'
     ]
   },
   {
-    id: 'responsive',
-    icon: Smartphone,
-    title: 'Responsive Web Design',
-    description: 'Mobile-first responsive websites that work perfectly on all devices, from smartphones to desktops.',
-    price: 'Starting at $3,000',
+    id: 'codegeneration',
+    icon: Rocket,
+    title: 'Code Generation',
+    description: 'Intelligent code generation for React, Node.js, and modern web applications with best practices built-in.',
+    price: 'Per Project',
     color: 'from-green-50 to-emerald-50',
     iconBg: 'bg-green-600',
     priceColor: 'text-green-600',
     features: [
-      'Mobile-first design',
-      'Cross-device compatibility',
-      'Touch-friendly interfaces',
-      'Performance optimized'
+      'TypeScript support',
+      'Component libraries',
+      'API endpoints',
+      'Database schemas'
     ]
   },
   {
-    id: 'ecommerce',
-    icon: ShoppingCart,
-    title: 'E-commerce Solutions',
-    description: 'Complete e-commerce platforms with payment processing, inventory management, and admin dashboards.',
-    price: 'Starting at $7,000',
+    id: 'debugging',
+    icon: Settings,
+    title: 'Code Review & Debugging',
+    description: 'AI-assisted code analysis, bug detection, and performance optimization suggestions for existing projects.',
+    price: 'Hourly Rate',
     color: 'from-purple-50 to-pink-50',
     iconBg: 'bg-purple-600',
     priceColor: 'text-purple-600',
     features: [
-      'Payment integration',
-      'Inventory management',
-      'Admin dashboard',
-      'Order tracking'
+      'Error analysis',
+      'Performance insights',
+      'Best practice recommendations',
+      'Refactoring suggestions'
     ]
   },
   {
     id: 'consulting',
     icon: TrendingUp,
-    title: 'Web Consulting',
-    description: 'Technical consulting, code reviews, architecture planning, and performance optimization for existing projects.',
-    price: '$150/hour',
+    title: 'Technical Consulting',
+    description: 'Architecture planning, technology stack recommendations, and development strategy for your projects.',
+    price: 'Consultation',
     color: 'from-orange-50 to-red-50',
     iconBg: 'bg-orange-600',
     priceColor: 'text-orange-600',
     features: [
-      'Technical audits',
-      'Architecture planning',
-      'Performance optimization',
-      'Code reviews'
+      'Architecture design',
+      'Tech stack selection',
+      'Scalability planning',
+      'Development roadmaps'
     ]
   },
   {
-    id: 'maintenance',
-    icon: Settings,
-    title: 'Maintenance & Support',
-    description: 'Ongoing maintenance, bug fixes, feature updates, and technical support for your applications.',
-    price: '$500/month',
+    id: 'learning',
+    icon: Smartphone,
+    title: 'Interactive Learning',
+    description: 'Hands-on coding tutorials and guided development sessions to help you learn modern web technologies.',
+    price: 'Educational',
     color: 'from-indigo-50 to-blue-50',
     iconBg: 'bg-indigo-600',
     priceColor: 'text-indigo-600',
     features: [
-      'Bug fixes',
-      'Security updates',
-      'Performance monitoring',
-      '24/7 support'
+      'Live coding sessions',
+      'Concept explanations',
+      'Best practice guidance',
+      'Project-based learning'
     ]
   },
   {
-    id: 'mvp',
-    icon: Rocket,
-    title: 'MVP Development',
-    description: 'Rapid development of Minimum Viable Products to validate your idea and get to market quickly.',
-    price: 'Starting at $3,000',
+    id: 'integration',
+    icon: ShoppingCart,
+    title: 'API Integration',
+    description: 'Seamless integration of third-party APIs, payment systems, and external services into your applications.',
+    price: 'Per Integration',
     color: 'from-teal-50 to-cyan-50',
     iconBg: 'bg-teal-600',
     priceColor: 'text-teal-600',
     features: [
-      'Quick turnaround',
-      'Core features only',
-      'Scalable foundation',
-      'User feedback integration'
+      'Payment gateways',
+      'Social authentication',
+      'External APIs',
+      'Webhook handling'
     ]
   }
 ];
@@ -105,9 +105,9 @@ export default function ServicesSection() {
     <section id="services" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-800 mb-4">Services</h2>
+          <h2 className="text-4xl font-bold text-slate-800 mb-4">AI-Powered Development Services</h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Comprehensive development solutions tailored to your business needs
+            Intelligent code generation, rapid prototyping, and development assistance powered by advanced AI technology
           </p>
         </div>
 

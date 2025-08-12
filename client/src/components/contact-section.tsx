@@ -14,12 +14,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 
 const projectTypes = [
-  { value: 'web-app', label: 'Web Application' },
-  { value: 'ecommerce', label: 'E-commerce Platform' },
-  { value: 'landing-page', label: 'Landing Page' },
-  { value: 'api', label: 'API Development' },
-  { value: 'consulting', label: 'Consulting' },
-  { value: 'maintenance', label: 'Maintenance & Support' },
+  { value: 'prototype', label: 'Rapid Prototype/POC' },
+  { value: 'code-generation', label: 'Code Generation' },
+  { value: 'debugging', label: 'Code Review & Debugging' },
+  { value: 'consulting', label: 'Technical Consulting' },
+  { value: 'learning', label: 'Interactive Learning' },
+  { value: 'integration', label: 'API Integration' },
   { value: 'other', label: 'Other' },
 ];
 
