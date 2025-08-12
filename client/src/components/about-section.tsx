@@ -16,40 +16,43 @@ export default function AboutSection() {
   };
 
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-800 mb-4">About Me</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Passionate developer with 5+ years of experience creating digital solutions
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            About <span className="tech-title">Me</span>
+          </h2>
+          <p className="text-lg text-slate-700 max-w-2xl mx-auto">
+            AI-powered developer with expertise in cutting-edge web technologies and intelligent development solutions
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <div className="glass-card p-2">
             <img 
               src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
               alt="Developer working on code" 
-              className="rounded-xl shadow-lg w-full h-auto"
+              className="rounded-xl w-full h-auto"
               data-testid="img-developer"
             />
           </div>
           
           <div>
-            <h3 className="text-2xl font-bold text-slate-800 mb-6">Hi, I'm Emperor Gavin</h3>
-            <p className="text-slate-600 mb-6 leading-relaxed">
-              I'm a passionate full-stack developer who loves turning complex problems into 
-              simple, beautiful solutions. When I'm not coding, you'll find me exploring 
-              new technologies, contributing to open source projects, or sharing knowledge 
-              with the developer community.
+            <h3 className="text-2xl md:text-3xl font-bold mb-6">
+              Hi, I'm <span className="gradient-text">Emperor Gavin</span>
+            </h3>
+            <p className="text-slate-700 mb-6 leading-relaxed">
+              I specialize in AI-powered development, creating intelligent web applications 
+              that leverage modern technologies and best practices. From rapid prototyping 
+              to full-scale applications, I deliver solutions that combine innovation with reliability.
             </p>
             
             <div className="grid grid-cols-2 gap-6 mb-8">
-              <div>
-                <h4 className="font-semibold text-slate-800 mb-3">Frontend</h4>
+              <div className="glass-card p-6">
+                <h4 className="font-semibold text-slate-800 mb-3 gradient-text">Frontend</h4>
                 <div className="space-y-2">
                   {skills.frontend.map((skill) => (
-                    <div key={skill.name} className="flex items-center text-slate-600" data-testid={`skill-${skill.name.toLowerCase()}`}>
+                    <div key={skill.name} className="flex items-center text-slate-700" data-testid={`skill-${skill.name.toLowerCase()}`}>
                       <span className="mr-2">{skill.icon}</span>
                       {skill.name}
                     </div>
@@ -57,11 +60,11 @@ export default function AboutSection() {
                 </div>
               </div>
               
-              <div>
-                <h4 className="font-semibold text-slate-800 mb-3">Backend</h4>
+              <div className="glass-card p-6">
+                <h4 className="font-semibold text-slate-800 mb-3 gradient-text">Backend</h4>
                 <div className="space-y-2">
                   {skills.backend.map((skill) => (
-                    <div key={skill.name} className="flex items-center text-slate-600" data-testid={`skill-${skill.name.toLowerCase()}`}>
+                    <div key={skill.name} className="flex items-center text-slate-700" data-testid={`skill-${skill.name.toLowerCase()}`}>
                       <span className="mr-2">{skill.icon}</span>
                       {skill.name}
                     </div>

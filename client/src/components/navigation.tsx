@@ -28,14 +28,14 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-200 shadow-sm">
+    <nav className="sticky top-0 z-50 glass-nav">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="flex items-center space-x-3" data-testid="link-home">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center glass">
               <span className="text-white font-bold text-lg">EG</span>
             </div>
-            <span className="text-xl font-bold text-slate-800">Emperor Gavin</span>
+            <span className="text-xl font-bold gradient-text">Emperor Gavin</span>
           </Link>
           
           <div className="hidden md:flex space-x-8">

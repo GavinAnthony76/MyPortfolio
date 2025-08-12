@@ -81,25 +81,27 @@ export default function ProjectsSection() {
   );
 
   return (
-    <section id="projects" className="py-20 bg-slate-50">
+    <section id="projects" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-800 mb-4">Featured Projects</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            A showcase of my recent work and the technologies I've mastered
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Featured <span className="tech-title">Projects</span>
+          </h2>
+          <p className="text-lg text-slate-700 max-w-2xl mx-auto">
+            Showcasing AI-powered development solutions and cutting-edge web applications
           </p>
         </div>
 
         {/* Filter tabs */}
         <div className="flex justify-center mb-12">
-          <div className="bg-white rounded-lg p-2 shadow-sm">
+          <div className="glass-card p-2">
             {filterOptions.map((option) => (
               <Button
                 key={option.value}
                 variant={activeFilter === option.value ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setActiveFilter(option.value as typeof activeFilter)}
-                className={activeFilter === option.value ? "bg-blue-600 text-white" : "text-slate-600"}
+                className={activeFilter === option.value ? "tech-button" : "text-slate-700 hover:text-cyan-600"}
                 data-testid={`filter-${option.value}`}
               >
                 {option.label}
@@ -111,7 +113,7 @@ export default function ProjectsSection() {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
-            <Card key={project.id} className="bg-white shadow-lg hover:shadow-xl transition-shadow" data-testid={`card-project-${project.id}`}>
+            <div key={project.id} className="glass-card overflow-hidden" data-testid={`card-project-${project.id}`}>
               <div className="relative overflow-hidden rounded-t-xl">
                 <img 
                   src={project.image} 
@@ -120,7 +122,7 @@ export default function ProjectsSection() {
                   data-testid={`img-project-${project.id}`}
                 />
               </div>
-              <CardContent className="p-6">
+              <div className="p-6">
                 <h3 className="text-xl font-bold text-slate-800 mb-2" data-testid={`text-title-${project.id}`}>
                   {project.title}
                 </h3>
@@ -149,8 +151,8 @@ export default function ProjectsSection() {
                     Code
                   </Button>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>

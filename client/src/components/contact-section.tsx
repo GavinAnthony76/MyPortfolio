@@ -6,7 +6,7 @@ import { insertProjectRequestSchema, type InsertProjectRequest } from "@shared/s
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -89,19 +89,23 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-slate-50">
+    <section id="contact" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-800 mb-4">Start Your Project</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Ready to bring your idea to life? Fill out the form below and I'll get back to you within 24 hours.
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Start Your <span className="tech-title">Project</span>
+          </h2>
+          <p className="text-lg text-slate-700 max-w-2xl mx-auto">
+            Ready to build something amazing with AI-powered development? Share your vision and I'll respond within 24 hours.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Info */}
-          <div>
-            <h3 className="text-2xl font-bold text-slate-800 mb-8">Let's Connect</h3>
+          <div className="glass-card p-8">
+            <h3 className="text-2xl font-bold mb-8">
+              Let's <span className="gradient-text">Connect</span>
+            </h3>
             
             <div className="space-y-6">
               <div className="flex items-start space-x-4" data-testid="contact-email">
@@ -156,9 +160,10 @@ export default function ContactSection() {
           </div>
 
           {/* Project Request Form */}
-          <Card className="shadow-lg">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-slate-800 mb-6">Project Details</h3>
+          <div className="glass-card p-8">
+            <h3 className="text-2xl font-bold mb-6">
+              <span className="gradient-text">Project Details</span>
+            </h3>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-project-request">
@@ -432,8 +437,7 @@ export default function ContactSection() {
                   </p>
                 </form>
               </Form>
-            </CardContent>
-          </Card>
+          </div>
         </div>
       </div>
     </section>

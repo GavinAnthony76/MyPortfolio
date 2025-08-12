@@ -102,11 +102,13 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="py-20 bg-white">
+    <section id="services" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-slate-800 mb-4">AI-Powered Development Services</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <span className="tech-title">AI-Powered</span> Development Services
+          </h2>
+          <p className="text-lg text-slate-700 max-w-2xl mx-auto">
             Intelligent code generation, rapid prototyping, and development assistance powered by advanced AI technology
           </p>
         </div>
@@ -115,38 +117,36 @@ export default function ServicesSection() {
           {services.map((service) => {
             const IconComponent = service.icon;
             return (
-              <Card 
+              <div 
                 key={service.id} 
-                className={`bg-gradient-to-br ${service.color} hover:shadow-lg transition-shadow`}
+                className="glass-card p-8"
                 data-testid={`card-service-${service.id}`}
               >
-                <CardContent className="p-8">
-                  <div className={`w-12 h-12 ${service.iconBg} rounded-lg flex items-center justify-center mb-6`}>
-                    <IconComponent className="text-white text-xl" />
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-800 mb-4" data-testid={`text-title-${service.id}`}>
-                    {service.title}
-                  </h3>
-                  <p className="text-slate-600 mb-6" data-testid={`text-description-${service.id}`}>
-                    {service.description}
-                  </p>
-                  <div className={`text-2xl font-bold ${service.priceColor} mb-4`} data-testid={`text-price-${service.id}`}>
-                    {service.price}
-                  </div>
-                  <ul className="space-y-2 text-slate-600">
-                    {service.features.map((feature, index) => (
-                      <li 
-                        key={index} 
-                        className="flex items-center"
-                        data-testid={`feature-${service.id}-${index}`}
-                      >
-                        <Check className="text-green-500 mr-2 h-4 w-4" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
+                <div className={`w-12 h-12 ${service.iconBg} rounded-lg flex items-center justify-center mb-6 glass`}>
+                  <IconComponent className="text-white text-xl" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-800 mb-4" data-testid={`text-title-${service.id}`}>
+                  {service.title}
+                </h3>
+                <p className="text-slate-700 mb-6" data-testid={`text-description-${service.id}`}>
+                  {service.description}
+                </p>
+                <div className={`text-2xl font-bold ${service.priceColor} mb-4 gradient-text`} data-testid={`text-price-${service.id}`}>
+                  {service.price}
+                </div>
+                <ul className="space-y-2 text-slate-700">
+                  {service.features.map((feature, index) => (
+                    <li 
+                      key={index} 
+                      className="flex items-center"
+                      data-testid={`feature-${service.id}-${index}`}
+                    >
+                      <Check className="text-emerald-500 mr-2 h-4 w-4" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             );
           })}
         </div>

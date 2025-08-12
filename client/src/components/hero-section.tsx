@@ -10,30 +10,31 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="home" className="bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 py-20">
+    <section id="home" className="relative min-h-screen py-20 flex items-center">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center">
           <div className="mb-8">
-            <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 flex items-center justify-center">
+            <div className="w-32 h-32 mx-auto rounded-full glass flex items-center justify-center bg-gradient-to-r from-blue-600 to-cyan-500">
               <Code className="text-white text-4xl" />
             </div>
           </div>
           
-          <h1 className="text-5xl md:text-6xl font-bold text-slate-800 mb-6">
-            Full Stack <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Developer</span>
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <span className="tech-title">AI-Powered</span>{' '}
+            <span className="gradient-text">Developer</span>
           </h1>
           
-          <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            I craft beautiful, functional web applications that bring your ideas to life. 
-            With expertise in modern technologies and a passion for clean code, 
-            I deliver solutions that exceed expectations.
+          <p className="text-xl text-slate-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+            I create cutting-edge web applications using AI-powered development. 
+            From rapid prototyping to full-stack solutions, I deliver intelligent code 
+            that transforms your ideas into reality.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
               onClick={() => handleScrollTo('projects')}
-              className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl"
+              className="tech-button"
               data-testid="button-view-work"
             >
               <FolderOpen className="mr-2 h-5 w-5" />
@@ -43,7 +44,7 @@ export default function HeroSection() {
               variant="outline" 
               size="lg"
               onClick={() => handleScrollTo('contact')}
-              className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+              className="glass-card border-2 border-cyan-400 text-slate-700 hover:bg-cyan-50"
               data-testid="button-start-project"
             >
               <Send className="mr-2 h-5 w-5" />
