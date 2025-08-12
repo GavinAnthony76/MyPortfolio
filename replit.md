@@ -10,13 +10,13 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - Updated contact form project types to reflect accurate web development services
 - Enhanced prompt generation system to provide detailed technical briefs for web-focused projects
 - Updated developer identity: Changed name to Emperor Gavin, email to guidato.llc@gmail.com, phone to (254) 300-8158, location to Austin, TX
-- Redesigned services to reflect AI-powered development capabilities:
-  - Rapid Prototyping: AI-powered proof-of-concept development
-  - Code Generation: Intelligent code creation with best practices
-  - Code Review & Debugging: AI-assisted analysis and optimization
-  - Technical Consulting: Architecture and technology recommendations
-  - Interactive Learning: Hands-on coding tutorials and guidance
-  - API Integration: Seamless third-party service integration
+- Redesigned services to reflect AI-powered development capabilities with pricing:
+  - Rapid Prototyping: $1,500 - $3,000 (AI-powered proof-of-concept development)
+  - Code Generation: $500 - $2,000 (Intelligent code creation with best practices)
+  - Code Review & Debugging: $100/hour (AI-assisted analysis and optimization)
+  - Technical Consulting: $150/hour (Architecture and technology recommendations)
+  - API Integration: $750 - $1,500 (Seamless third-party service integration)
+- Removed Interactive Learning service to focus on core development capabilities
 
 # User Preferences
 

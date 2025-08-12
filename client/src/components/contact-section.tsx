@@ -18,7 +18,6 @@ const projectTypes = [
   { value: 'code-generation', label: 'Code Generation' },
   { value: 'debugging', label: 'Code Review & Debugging' },
   { value: 'consulting', label: 'Technical Consulting' },
-  { value: 'learning', label: 'Interactive Learning' },
   { value: 'integration', label: 'API Integration' },
   { value: 'other', label: 'Other' },
 ];

@@ -97,7 +97,6 @@ function getProjectTypeLabel(type: string): string {
     'code-generation': 'Code Generation',
     'debugging': 'Code Review & Debugging',
     'consulting': 'Technical Consulting',
-    'learning': 'Interactive Learning',
     'integration': 'API Integration',
     'other': 'Custom Solution',
   };
@@ -134,7 +133,7 @@ function getRecommendedTechStack(projectType: string): string | null {
     'code-generation': '- **AI Tools:** Advanced code generation algorithms\n- **Languages:** TypeScript, JavaScript, Python\n- **Frameworks:** React, Vue, Node.js, FastAPI\n- **Quality:** ESLint, Prettier, automated testing\n- **Documentation:** Auto-generated comments',
     'debugging': '- **Analysis:** Static code analysis, performance profiling\n- **Tools:** TypeScript compiler, ESLint, testing frameworks\n- **Monitoring:** Error tracking, performance metrics\n- **Optimization:** Bundle analysis, code refactoring\n- **Documentation:** Technical debt analysis',
     'consulting': '- **Architecture:** Scalable system design patterns\n- **Technologies:** Modern frameworks and tools\n- **Performance:** Optimization strategies\n- **Security:** Best practices and auditing\n- **DevOps:** CI/CD and deployment strategies',
-    'learning': '- **Interactive:** Live coding and explanations\n- **Technologies:** React, TypeScript, Node.js\n- **Practice:** Hands-on project development\n- **Best Practices:** Clean code and testing\n- **Tools:** Modern development environment',
+
     'integration': '- **APIs:** RESTful and GraphQL integration\n- **Authentication:** OAuth, JWT, API keys\n- **Data:** JSON processing and validation\n- **Testing:** API testing and mocking\n- **Security:** Rate limiting and validation',
   };
   return stacks[projectType] || null;
@@ -204,20 +203,7 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
 - Documentation delivery
 - Implementation guidance`,
 
-    'learning': `**Phase 1: Curriculum Design (${isRush ? '1 day' : '2-3 days'})**
-- Learning objectives definition
-- Curriculum structure planning
-- Resource preparation
 
-**Phase 2: Interactive Sessions (${isRush ? '1 week' : '2-4 weeks'})**
-- Live coding tutorials
-- Hands-on project development
-- Q&A and problem solving
-
-**Phase 3: Project & Assessment (${isRush ? '3-5 days' : '1 week'})**
-- Final project development
-- Code review and feedback
-- Skills assessment and next steps`,
 
     'integration': `**Phase 1: API Analysis (${isRush ? '1 day' : '2-3 days'})**
 - API documentation review

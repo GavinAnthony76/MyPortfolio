@@ -16,6 +16,7 @@ export default function Footer() {
     { label: 'Code Generation' },
     { label: 'AI Debugging' },
     { label: 'Tech Consulting' },
+    { label: 'API Integration' },
   ];
 
   const handleLinkClick = (href: string) => {
