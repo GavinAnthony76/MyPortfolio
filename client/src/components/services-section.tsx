@@ -19,19 +19,19 @@ const services = [
     ]
   },
   {
-    id: 'mobile',
+    id: 'responsive',
     icon: Smartphone,
-    title: 'Mobile App Development',
-    description: 'Cross-platform mobile applications using React Native for iOS and Android deployment.',
-    price: 'Starting at $8,000',
+    title: 'Responsive Web Design',
+    description: 'Mobile-first responsive websites that work perfectly on all devices, from smartphones to desktops.',
+    price: 'Starting at $3,000',
     color: 'from-green-50 to-emerald-50',
     iconBg: 'bg-green-600',
     priceColor: 'text-green-600',
     features: [
-      'iOS & Android apps',
-      'Native performance',
-      'App store deployment',
-      'Backend integration'
+      'Mobile-first design',
+      'Cross-device compatibility',
+      'Touch-friendly interfaces',
+      'Performance optimized'
     ]
   },
   {

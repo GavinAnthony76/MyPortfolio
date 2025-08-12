@@ -15,7 +15,6 @@ import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 
 const projectTypes = [
   { value: 'web-app', label: 'Web Application' },
-  { value: 'mobile-app', label: 'Mobile Application' },
   { value: 'ecommerce', label: 'E-commerce Platform' },
   { value: 'landing-page', label: 'Landing Page' },
   { value: 'api', label: 'API Development' },

@@ -94,7 +94,7 @@ ${additionalInfo}`;
 function getProjectTypeLabel(type: string): string {
   const labels: Record<string, string> = {
     'web-app': 'Web Application',
-    'mobile-app': 'Mobile Application',
+
     'ecommerce': 'E-commerce Platform',
     'landing-page': 'Landing Page',
     'api': 'API Development',
@@ -132,7 +132,6 @@ function getTimelineLabel(timeline: string): string {
 function getRecommendedTechStack(projectType: string): string | null {
   const stacks: Record<string, string> = {
     'web-app': '- **Frontend:** React.js with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express.js\n- **Database:** PostgreSQL\n- **Hosting:** Vercel/AWS\n- **Authentication:** NextAuth or Auth0',
-    'mobile-app': '- **Framework:** React Native (cross-platform)\n- **Backend:** Node.js with Express.js or Firebase\n- **Database:** MongoDB or PostgreSQL\n- **Authentication:** Firebase Auth\n- **Deployment:** App Store & Google Play',
     'ecommerce': '- **Frontend:** Next.js with TypeScript\n- **Backend:** Node.js with Express.js\n- **Database:** PostgreSQL\n- **Payments:** Stripe integration\n- **CMS:** Headless CMS (Contentful/Strapi)\n- **Hosting:** AWS or Vercel',
     'landing-page': '- **Framework:** Next.js or React\n- **Styling:** Tailwind CSS\n- **Analytics:** Google Analytics\n- **Forms:** React Hook Form\n- **Hosting:** Vercel or Netlify',
     'api': '- **Framework:** Express.js with TypeScript\n- **Database:** PostgreSQL or MongoDB\n- **Documentation:** OpenAPI/Swagger\n- **Testing:** Jest and Supertest\n- **Deployment:** AWS or Railway',
@@ -159,20 +158,20 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
 - Performance optimization
 - Deployment and go-live`,
 
-    'mobile-app': `**Phase 1: Planning & Design (${isRush ? '1-2' : '2-3'} weeks)**
-- App architecture and user flow design
-- UI/UX design for mobile interface
-- Backend planning
+    'landing-page': `**Phase 1: Planning & Design (${isRush ? '3-5 days' : '1'} week)**
+- Content strategy and structure planning
+- Visual design and branding
+- Performance optimization planning
 
-**Phase 2: Development (${isRush ? '4-6' : '8-10'} weeks)**
-- Core app functionality
-- API integration
-- Platform-specific features
+**Phase 2: Development (${isRush ? '1' : '2'} weeks)**
+- Responsive layout development
+- Content integration and optimization
+- SEO implementation
 
-**Phase 3: Testing & Deployment (${isRush ? '2' : '3'} weeks)**
-- Device testing and optimization
-- App store submission
-- Beta testing and bug fixes`,
+**Phase 3: Testing & Launch (${isRush ? '2-3 days' : '3-5 days'} days)**
+- Cross-browser testing
+- Performance optimization
+- Analytics setup and go-live`,
 
     'ecommerce': `**Phase 1: Planning & Setup (${isRush ? '1-2' : '3'} weeks)**
 - E-commerce requirements analysis

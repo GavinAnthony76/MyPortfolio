@@ -1,8 +1,14 @@
 # Overview
 
-This is a professional portfolio website for a full-stack developer named Alex Martinez, featuring both a public-facing portfolio site and an internal project request management system. The application serves as both a marketing tool to showcase development skills and services, and a business tool to collect and manage client inquiries.
+This is a professional portfolio website for a full-stack developer named Alex Martinez, featuring both a public-facing portfolio site and an internal project request management system. The application serves as both a marketing tool to showcase web development skills and services, and a business tool to collect and manage client inquiries.
 
-The portfolio includes sections for personal introduction, featured projects, service offerings, and a comprehensive contact form. The contact form generates detailed project briefs that are stored in a database and can be managed through an administrative dashboard.
+The portfolio includes sections for personal introduction, featured projects (focused on web applications, landing pages, and e-commerce), service offerings (web development, responsive design, e-commerce, consulting, maintenance, and MVP development), and a comprehensive contact form. The contact form generates detailed project briefs that are stored in a database and can be managed through an administrative dashboard.
+
+## Recent Changes (August 12, 2025)
+- Updated services section to focus on web development capabilities, removing mobile app development
+- Modified project showcase to include web applications, landing pages, and e-commerce instead of mobile apps
+- Updated contact form project types to reflect accurate web development services
+- Enhanced prompt generation system to provide detailed technical briefs for web-focused projects
 
 # User Preferences
 

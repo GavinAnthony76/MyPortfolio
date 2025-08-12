@@ -13,7 +13,7 @@ export default function Footer() {
 
   const services = [
     { label: 'Web Development' },
-    { label: 'Mobile Apps' },
+    { label: 'Landing Pages' },
     { label: 'E-commerce' },
     { label: 'Consulting' },
   ];

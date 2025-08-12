@@ -9,7 +9,7 @@ interface Project {
   title: string;
   description: string;
   image: string;
-  category: 'all' | 'web' | 'mobile' | 'ecommerce';
+  category: 'all' | 'web' | 'landing' | 'ecommerce';
   technologies: string[];
   liveUrl?: string;
   codeUrl?: string;
@@ -26,11 +26,11 @@ const projects: Project[] = [
   },
   {
     id: '2',
-    title: 'FitTracker - Fitness Mobile App',
-    description: 'Cross-platform mobile app for fitness tracking with social features and workout plans.',
+    title: 'FinanceTracker - Personal Finance Web App',
+    description: 'Responsive web application for tracking expenses, budgeting, and financial goal setting with interactive charts.',
     image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400',
-    category: 'mobile',
-    technologies: ['React Native', 'Firebase', 'Redux'],
+    category: 'web',
+    technologies: ['Vue.js', 'Express.js', 'Chart.js'],
   },
   {
     id: '3',
@@ -58,23 +58,23 @@ const projects: Project[] = [
   },
   {
     id: '6',
-    title: 'ConnectHub - Social Platform',
-    description: 'Professional networking platform with messaging, job postings, and skill endorsements.',
+    title: 'TechStartup - Company Landing Page',
+    description: 'Modern, conversion-focused landing page for a tech startup with hero sections, testimonials, and lead capture.',
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400',
-    category: 'web',
-    technologies: ['Vue.js', 'Redis', 'AWS'],
+    category: 'landing',
+    technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
   },
 ];
 
 const filterOptions = [
   { value: 'all', label: 'All' },
   { value: 'web', label: 'Web Apps' },
-  { value: 'mobile', label: 'Mobile' },
+  { value: 'landing', label: 'Landing Pages' },
   { value: 'ecommerce', label: 'E-commerce' },
 ];
 
 export default function ProjectsSection() {
-  const [activeFilter, setActiveFilter] = useState<'all' | 'web' | 'mobile' | 'ecommerce'>('all');
+  const [activeFilter, setActiveFilter] = useState<'all' | 'web' | 'landing' | 'ecommerce'>('all');
 
   const filteredProjects = projects.filter(
     project => activeFilter === 'all' || project.category === activeFilter

@@ -39,8 +39,21 @@ export class MemStorage implements IStorage {
   async createProjectRequest(requestData: InsertProjectRequest & { generatedPrompt: string }): Promise<ProjectRequest> {
     const id = randomUUID();
     const request: ProjectRequest = {
-      ...requestData,
       id,
+      firstName: requestData.firstName,
+      lastName: requestData.lastName,
+      email: requestData.email,
+      company: requestData.company || "",
+      projectType: requestData.projectType,
+      budget: requestData.budget,
+      timeline: requestData.timeline,
+      description: requestData.description,
+      targetAudience: requestData.targetAudience || "",
+      keyFeatures: requestData.keyFeatures || "",
+      techPreferences: requestData.techPreferences || "",
+      designReferences: requestData.designReferences || "",
+      additionalInfo: requestData.additionalInfo || "",
+      generatedPrompt: requestData.generatedPrompt,
       status: 'new',
       createdAt: new Date(),
     };
