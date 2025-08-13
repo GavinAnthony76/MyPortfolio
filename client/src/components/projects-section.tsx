@@ -4,6 +4,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 
+// Import generated tech images
+import aiDashboardImage from "@assets/generated_images/AI_Dashboard_Interface_dc1310fc.png";
+import ecommerceImage from "@assets/generated_images/E-commerce_Analytics_Interface_a340d8f8.png";
+import webArchImage from "@assets/generated_images/Web_Architecture_Visualization_1e476c99.png";
+import cryptoImage from "@assets/generated_images/Crypto_Trading_Platform_e3e8b01c.png";
+import realEstateImage from "@assets/generated_images/Real_Estate_Management_64385fdb.png";
+import taskMgmtImage from "@assets/generated_images/Task_Management_System_15136412.png";
+
 interface Project {
   id: string;
   title: string;
@@ -20,48 +28,48 @@ const projects: Project[] = [
     id: '1',
     title: 'ShopFlow - E-commerce Platform',
     description: 'A complete e-commerce solution with payment integration, inventory management, and admin dashboard.',
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400',
+    image: ecommerceImage,
     category: 'ecommerce',
     technologies: ['React', 'Node.js', 'Stripe'],
   },
   {
     id: '2',
-    title: 'FinanceTracker - Personal Finance Web App',
-    description: 'Responsive web application for tracking expenses, budgeting, and financial goal setting with interactive charts.',
-    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400',
+    title: 'CryptoTrader - Digital Asset Platform',
+    description: 'Advanced cryptocurrency trading platform with real-time market data, portfolio tracking, and secure wallet integration.',
+    image: cryptoImage,
     category: 'web',
-    technologies: ['Vue.js', 'Express.js', 'Chart.js'],
+    technologies: ['Vue.js', 'Express.js', 'WebSocket'],
   },
   {
     id: '3',
     title: 'DataViz - Analytics Dashboard',
-    description: 'Real-time analytics dashboard with interactive charts and customizable reports.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400',
+    description: 'Real-time analytics dashboard with interactive charts and customizable reports powered by AI insights.',
+    image: aiDashboardImage,
     category: 'web',
-    technologies: ['Vue.js', 'D3.js', 'Python'],
+    technologies: ['React', 'D3.js', 'Python'],
   },
   {
     id: '4',
-    title: 'FoodHub - Restaurant Ordering',
-    description: 'Multi-restaurant food ordering platform with real-time tracking and payment processing.',
-    image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400',
-    category: 'ecommerce',
+    title: 'PropertyFlow - Real Estate Management',
+    description: 'Comprehensive property management system with virtual tours, tenant portals, and automated workflows.',
+    image: realEstateImage,
+    category: 'web',
     technologies: ['Next.js', 'MongoDB', 'Socket.io'],
   },
   {
     id: '5',
     title: 'TaskMaster - Project Management',
-    description: 'Collaborative project management tool with kanban boards and team communication features.',
-    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400',
+    description: 'Collaborative project management tool with kanban boards, team communication, and AI-powered insights.',
+    image: taskMgmtImage,
     category: 'web',
     technologies: ['React', 'GraphQL', 'PostgreSQL'],
   },
   {
     id: '6',
-    title: 'TechStartup - Company Landing Page',
-    description: 'Modern, conversion-focused landing page for a tech startup with hero sections, testimonials, and lead capture.',
-    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400',
-    category: 'landing',
+    title: 'TechArch - System Architecture Visualizer',
+    description: 'Interactive web application for visualizing and designing complex system architectures with real-time collaboration.',
+    image: webArchImage,
+    category: 'web',
     technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
   },
 ];
