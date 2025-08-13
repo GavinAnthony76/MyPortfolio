@@ -33,9 +33,9 @@ export default function Navigation() {
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="flex items-center space-x-3" data-testid="link-home">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center glass">
-              <span className="text-white font-bold text-lg">EG</span>
+              <span className="text-white font-bold text-lg">GA</span>
             </div>
-            <span className="text-xl font-bold gradient-text">Emperor Gavin</span>
+            <span className="text-xl font-bold gradient-text">Gavin Anthony</span>
           </Link>
           
           <div className="hidden md:flex space-x-8">

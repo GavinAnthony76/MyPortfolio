@@ -39,7 +39,7 @@ export default function AboutSection() {
           
           <div>
             <h3 className="text-2xl md:text-3xl font-bold mb-6">
-              Hi, I'm <span className="gradient-text">Emperor Gavin</span>
+              Hi, I'm <span className="gradient-text">Gavin Anthony</span>
             </h3>
             <p className="text-slate-700 mb-6 leading-relaxed">
               I specialize in AI-powered development, creating intelligent web applications 
