@@ -23,12 +23,12 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - Enhanced prompt generation system to provide detailed technical briefs for web-focused projects
 - Updated developer identity: Changed name to Gavin Anthony, email to guidato.llc@gmail.com, phone to (254) 300-8158, location to Austin, TX, Twitter/X: https://x.com/gavineanthony
 - Redesigned services to reflect professional development capabilities with pricing:
-  - Full-Stack Development: $5,000 - $15,000 (Complete web application development)
-  - Rapid Prototyping: $1,500 - $3,000 (Modern proof-of-concept development)
-  - Progressive Web Applications: $2,000 - $5,000 (Modern PWAs with offline capabilities and app-like experiences)
-  - Landing Pages: $250 - $500 (High-converting pages with modern design and optimization)
-  - Static Web Page Development: $150/hour (Professional static websites with modern design and optimization)
-  - API Integration: $750 - $1,500 (Seamless third-party service integration)
+  - Full-Stack Development: $4,000 - $4,800 (Complete web application development)
+  - Rapid Prototyping: $2,450 - $3,150 (Modern proof-of-concept development)
+  - Progressive Web Applications: $3,375 - $4,125 (Modern PWAs with offline capabilities and app-like experiences)
+  - Landing Pages: $1,375 - $1,925 (High-converting pages with modern design and optimization)
+  - Static Web Page Development: $1,500 - $2,000 (Professional static websites with modern design and optimization)
+  - API Integration: $1,800 - $2,400 (Seamless third-party service integration)
 - Removed Interactive Learning service to focus on core development capabilities
 - Added Full-Stack Development as the primary service offering with comprehensive project phases
 
