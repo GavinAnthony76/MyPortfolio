@@ -57,8 +57,8 @@
    - `NODE_ENV=production` should be set
 
 ### Admin Credentials:
-- **Username**: `admin`
-- **Password**: `@nT##3275`
+- Credentials are set via environment variables in deployment settings
+- Contact the developer for access credentials
 
 ### If Issues Persist:
 

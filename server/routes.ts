@@ -40,14 +40,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create admin user if doesn't exist
   const initializeAdmin = async () => {
     try {
-      const existingAdmin = await storage.getUserByUsername('admin');
+      const adminUsername = process.env.ADMIN_USERNAME || 'admin';
+      const adminPassword = process.env.ADMIN_PASSWORD;
+      
+      if (!adminPassword) {
+        console.error('ADMIN_PASSWORD environment variable is required');
+        return;
+      }
+      
+      const existingAdmin = await storage.getUserByUsername(adminUsername);
       if (!existingAdmin) {
-        const hashedPassword = await bcrypt.hash('@nT##3275', 10);
+        const hashedPassword = await bcrypt.hash(adminPassword, 10);
         await storage.createUser({
-          username: 'admin',
+          username: adminUsername,
           password: hashedPassword
         });
-        console.log('Admin user created: username=admin, password=@nT##3275');
+        console.log('Admin user created successfully');
       }
     } catch (error) {
       console.error('Error initializing admin user:', error);

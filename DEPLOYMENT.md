@@ -39,6 +39,10 @@ DATABASE_URL=your_production_database_url
 SESSION_SECRET=your_secure_random_session_secret
 NODE_ENV=production
 
+# Admin Authentication
+ADMIN_USERNAME=your_admin_username
+ADMIN_PASSWORD=your_secure_admin_password
+
 # Optional PayPal Integration
 PAYPAL_CLIENT_ID=your_paypal_client_id
 PAYPAL_CLIENT_SECRET=your_paypal_client_secret
