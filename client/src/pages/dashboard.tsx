@@ -82,6 +82,9 @@ P.S. Feel free to check out some of my recent work at [your portfolio URL]`;
     try {
       // Try to open default email client
       window.open(mailtoLink, '_blank');
+      
+      // Update status to "responded" after successfully opening email
+      updateStatusMutation.mutate({ id: request.id, status: 'responded' });
     } catch (error) {
       // Fallback: copy email content to clipboard
       const emailContent = `To: ${request.email}\nSubject: ${subject}\n\n${body}`;
@@ -123,6 +126,9 @@ P.S. Feel free to check out some of my recent work at [your portfolio URL]`;
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+    
+    // Update status to "proposal-sent" after generating proposal
+    updateStatusMutation.mutate({ id: request.id, status: 'proposal-sent' });
   };
 
   const createProposalDocument = (request: ProjectRequest): string => {
@@ -316,15 +322,23 @@ Generated on ${new Date().toLocaleDateString()} for ${request.company || `${requ
   });
 
   const getStatusBadge = (status: string) => {
-    const variants: Record<string, 'default' | 'secondary' | 'destructive'> = {
+    const variants: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
       'new': 'default',
-      'in-review': 'secondary',
+      'responded': 'secondary',
+      'proposal-sent': 'outline',
+      'follow-up': 'secondary',
+      'won': 'default',
+      'lost': 'destructive',
       'archived': 'destructive',
     };
     
     const labels: Record<string, string> = {
       'new': 'New',
-      'in-review': 'In Review',
+      'responded': 'Responded',
+      'proposal-sent': 'Proposal Sent',
+      'follow-up': 'Follow-up',
+      'won': 'Won',
+      'lost': 'Lost',
       'archived': 'Archived',
     };
 
@@ -465,21 +479,70 @@ Generated on ${new Date().toLocaleDateString()} for ${request.company || `${requ
                           </Button>
                         </div>
                         
-                        {request.status !== 'archived' && (
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => updateStatusMutation.mutate({ 
-                              id: request.id, 
-                              status: request.status === 'new' ? 'in-review' : 'archived' 
-                            })}
-                            disabled={updateStatusMutation.isPending}
-                            data-testid={`button-update-status-${request.id}`}
-                          >
-                            <Archive className="w-4 h-4 mr-1" />
-                            {request.status === 'new' ? 'Mark In Review' : 'Archive'}
-                          </Button>
-                        )}
+                        <div className="flex space-x-2">
+                          {request.status !== 'archived' && request.status !== 'won' && request.status !== 'lost' && (
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => updateStatusMutation.mutate({ 
+                                id: request.id, 
+                                status: 'follow-up'
+                              })}
+                              disabled={updateStatusMutation.isPending}
+                              data-testid={`button-follow-up-${request.id}`}
+                            >
+                              <Reply className="w-4 h-4 mr-1" />
+                              Follow-up
+                            </Button>
+                          )}
+                          
+                          {(request.status === 'proposal-sent' || request.status === 'follow-up') && (
+                            <>
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                className="border-green-500 text-green-600 hover:bg-green-50"
+                                onClick={() => updateStatusMutation.mutate({ 
+                                  id: request.id, 
+                                  status: 'won'
+                                })}
+                                disabled={updateStatusMutation.isPending}
+                                data-testid={`button-won-${request.id}`}
+                              >
+                                Won
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                className="border-red-500 text-red-600 hover:bg-red-50"
+                                onClick={() => updateStatusMutation.mutate({ 
+                                  id: request.id, 
+                                  status: 'lost'
+                                })}
+                                disabled={updateStatusMutation.isPending}
+                                data-testid={`button-lost-${request.id}`}
+                              >
+                                Lost
+                              </Button>
+                            </>
+                          )}
+                          
+                          {request.status !== 'archived' && (
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => updateStatusMutation.mutate({ 
+                                id: request.id, 
+                                status: 'archived'
+                              })}
+                              disabled={updateStatusMutation.isPending}
+                              data-testid={`button-archive-${request.id}`}
+                            >
+                              <Archive className="w-4 h-4 mr-1" />
+                              Archive
+                            </Button>
+                          )}
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
