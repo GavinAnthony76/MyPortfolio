@@ -213,7 +213,7 @@ NEXT STEPS:
 2. Provide complete proposal with timeline and pricing
 3. Begin development work
 
-For your convenience, I accept payments via PayPal (paypal.me/guidatollc) with flexible terms.
+For your convenience, I accept payments via PayPal with flexible terms.
 
 I'm excited to bring your vision to life! Would you be available for a call this week?
 
@@ -250,7 +250,7 @@ I wanted to follow up on the project request you submitted recently. I hope you 
 
 I'm still very interested in working with you on this project and would love to discuss how I can help bring your vision to life.
 
-If you have any questions or would like to schedule a call, please don't hesitate to reach out. For your convenience, I accept payments via PayPal (paypal.me/guidatollc) with flexible terms.
+If you have any questions or would like to schedule a call, please don't hesitate to reach out. For your convenience, I accept payments via PayPal with flexible terms.
 
 Looking forward to hearing from you!
 
@@ -349,7 +349,7 @@ Final pricing details will be provided during our initial consultation call.
 
 PAYMENT OPTIONS
 For your convenience, I accept payments via:
-• PayPal: https://paypal.me/guidatollc
+• PayPal: Payment link will be provided upon agreement
 • Bank transfer (details provided upon agreement)
 • Payment can be structured as 50% upfront, 50% upon completion
 

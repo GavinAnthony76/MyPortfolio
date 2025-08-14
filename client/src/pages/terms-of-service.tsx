@@ -68,7 +68,7 @@ export default function TermsOfServicePage() {
               <h3 className="text-lg font-semibold text-slate-700 mb-2 mt-4">4.2 Payment Methods</h3>
               <p>We accept payment via:</p>
               <ul className="list-disc pl-6 space-y-1">
-                <li>PayPal: <a href="https://paypal.me/guidatollc" className="text-blue-600 hover:text-blue-800">paypal.me/guidatollc</a></li>
+                <li>PayPal: Payment link will be provided upon service agreement</li>
                 <li>Bank transfer (details provided in invoice)</li>
                 <li>Other methods by arrangement</li>
               </ul>
