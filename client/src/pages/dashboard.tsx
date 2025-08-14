@@ -205,8 +205,7 @@ I would love to schedule a brief call to discuss your project in more detail and
 
 Would you be available for a 15-20 minute call this week? I'm flexible with timing and can work around your schedule.
 
-For your reference, I accept payments via PayPal. Here's the invoice link for your convenience: https://www.paypal.com/invoice/p/#ERWXNMWFMSC3ZVF8
-Bank transfer is also available with flexible payment terms.
+For your reference, I accept payments via PayPal (paypal.me/guidatollc) and bank transfer, with flexible payment terms available.
 
 Looking forward to hearing from you!
 
@@ -232,7 +231,7 @@ I wanted to follow up on the project request you submitted recently. I hope you 
 
 I'm still very interested in working with you on this project and would love to discuss how I can help bring your vision to life.
 
-If you have any questions or would like to schedule a call, please don't hesitate to reach out. For your convenience, I accept payments via PayPal with this invoice link: https://www.paypal.com/invoice/p/#ERWXNMWFMSC3ZVF8
+If you have any questions or would like to schedule a call, please don't hesitate to reach out. For your convenience, I accept payments via PayPal (paypal.me/guidatollc) with flexible terms.
 
 Looking forward to hearing from you!
 
@@ -317,7 +316,7 @@ Final pricing details will be provided during our initial consultation.
 
 PAYMENT OPTIONS
 For your convenience, I accept payments via:
-• PayPal Invoice: https://www.paypal.com/invoice/p/#ERWXNMWFMSC3ZVF8
+• PayPal: https://paypal.me/guidatollc
 • Bank transfer (details provided upon agreement)
 • Payment can be structured as 50% upfront, 50% upon completion
 
