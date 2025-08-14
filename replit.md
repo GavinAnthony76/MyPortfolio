@@ -33,6 +33,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - **Added contextual action buttons** - status-specific buttons appear based on project state (In Progress, Complete, Won/Lost)
 - **Persistent Won/Lost buttons** - Won/Lost decision buttons remain available across proposal-sent, follow-up, and in-progress statuses until decision is made
 - **Email-based proposal system** - Create Proposal button now opens default email client with comprehensive proposal content instead of downloading text files
+- **Enhanced email reliability** - Improved mailto functionality with fallback clipboard support for email content when default client fails to open
 - **Secure data handling** - All project data stored securely in PostgreSQL database with proper encryption and validation
 - **Removed budget range field completely** - eliminated budget selection from contact form, database schema, and all related UI components
 - **Updated pricing approach** - pricing now based on project type rather than client budget ranges, with fixed transparent rates

@@ -223,7 +223,19 @@ guidato.llc@gmail.com
     updateStatusMutation.mutate({ id: request.id, status: 'responded' });
 
     const mailtoLink = `mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
+    
+    try {
+      window.open(mailtoLink, '_self');
+    } catch (error) {
+      console.error('Error opening email client:', error);
+      navigator.clipboard.writeText(`Subject: ${subject}\n\nTo: ${request.email}\n\n${body}`).then(() => {
+        toast({
+          title: "Email content copied",
+          description: "Response copied to clipboard - please paste into your email client",
+          duration: 6000,
+        });
+      });
+    }
   };
 
   const followUpClient = (request: ProjectRequest) => {
@@ -249,7 +261,19 @@ guidato.llc@gmail.com
     updateStatusMutation.mutate({ id: request.id, status: 'follow-up' });
 
     const mailtoLink = `mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
+    
+    try {
+      window.open(mailtoLink, '_self');
+    } catch (error) {
+      console.error('Error opening email client:', error);
+      navigator.clipboard.writeText(`Subject: ${subject}\n\nTo: ${request.email}\n\n${body}`).then(() => {
+        toast({
+          title: "Email content copied",
+          description: "Follow-up copied to clipboard - please paste into your email client",
+          duration: 6000,
+        });
+      });
+    }
   };
 
   const generateProposal = (request: ProjectRequest) => {
@@ -346,14 +370,42 @@ Proposal generated on ${new Date().toLocaleDateString()} for ${request.company |
     // Update status to 'proposal-sent'
     updateStatusMutation.mutate({ id: request.id, status: 'proposal-sent' });
 
-    // Open default email client with proposal
-    const mailtoLink = `mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(proposalBody)}`;
-    window.location.href = mailtoLink;
+    // Create mailto link - handle long content by truncating if necessary
+    const maxBodyLength = 1900; // Safe limit for most email clients
+    let emailBody = proposalBody;
+    
+    if (emailBody.length > maxBodyLength) {
+      emailBody = emailBody.substring(0, maxBodyLength) + "\n\n[Content truncated - full proposal will be sent as follow-up]";
+    }
 
-    toast({
-      title: "Proposal email opened",
-      description: "Default email client opened with proposal content and status updated",
-    });
+    const mailtoLink = `mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+    
+    try {
+      // Try to open email client
+      window.open(mailtoLink, '_self');
+      
+      toast({
+        title: "Opening email client",
+        description: "Default email client should open with proposal content",
+      });
+    } catch (error) {
+      console.error('Error opening email client:', error);
+      
+      // Fallback: copy to clipboard and show instructions
+      navigator.clipboard.writeText(`Subject: ${subject}\n\nTo: ${request.email}\n\n${proposalBody}`).then(() => {
+        toast({
+          title: "Email content copied",
+          description: "Proposal copied to clipboard - please paste into your email client",
+          duration: 8000,
+        });
+      }).catch(() => {
+        toast({
+          title: "Manual email needed",
+          description: `Please manually email ${request.email} with the proposal content`,
+          duration: 8000,
+        });
+      });
+    }
   };
 
   function renderRequestsList(requestsToRender: ProjectRequest[], emptyMessage: string) {
