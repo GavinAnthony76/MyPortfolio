@@ -17,7 +17,7 @@ export default function Dashboard() {
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
-      await apiRequest('/api/logout', { method: 'POST' });
+      await apiRequest('POST', '/api/logout');
     },
     onSuccess: () => {
       // Invalidate auth status to update authentication state
