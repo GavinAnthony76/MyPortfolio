@@ -17,34 +17,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Session configuration with persistent storage
   const isProduction = process.env.NODE_ENV === 'production';
-  const PostgresqlStore = pgSession(session);
+  let sessionStore;
   
-  // Create session store with PostgreSQL
-  const sessionStore = new PostgresqlStore({
-    // Use the existing database connection
-    conObject: {
-      connectionString: process.env.DATABASE_URL,
-      ssl: isProduction ? { rejectUnauthorized: false } : false
-    },
-    tableName: 'user_sessions', // Store sessions in separate table
-    createTableIfMissing: true, // Auto-create session table
-  });
+  try {
+    if (process.env.DATABASE_URL && isProduction) {
+      const PostgresqlStore = pgSession(session);
+      
+      // Create session store with PostgreSQL
+      sessionStore = new PostgresqlStore({
+        conObject: {
+          connectionString: process.env.DATABASE_URL,
+          ssl: { rejectUnauthorized: false }
+        },
+        tableName: 'user_sessions',
+        createTableIfMissing: true,
+      });
+      console.log('Using PostgreSQL session store for production');
+    } else {
+      console.log('Using default session store for development');
+    }
+  } catch (error) {
+    console.error('Failed to create PostgreSQL session store:', error);
+    console.log('Falling back to default session store');
+  }
 
-  app.use(session({
+  const sessionConfig = {
     secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production-12345',
     resave: false,
     saveUninitialized: false,
-    store: sessionStore, // Use PostgreSQL session store
-    name: 'auth_session', // Distinctive session name
+    name: 'auth_session',
     cookie: {
-      secure: isProduction, // Secure cookies in production
-      httpOnly: true, // Prevent XSS access to cookies
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days instead of 24 hours
-      sameSite: isProduction ? 'none' : 'lax', // Cross-site compatibility for production
-      domain: isProduction ? '.gavineanthony.com' : undefined, // Domain-wide cookies for production
+      secure: false, // Set to false to fix production login issues
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      sameSite: 'lax' as const, // Use lax instead of none for compatibility
     },
-    rolling: true, // Extend session on activity
-  }));
+    rolling: true,
+  };
+
+  if (sessionStore) {
+    (sessionConfig as any).store = sessionStore;
+  }
+
+  app.use(session(sessionConfig));
 
   // Enhanced authentication middleware
   const requireAuth = async (req: any, res: any, next: any) => {
