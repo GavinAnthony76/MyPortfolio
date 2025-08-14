@@ -102,46 +102,46 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+    <section id="services" className="py-12 sm:py-16 md:py-20 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             <span className="tech-title">Professional</span> Development Services
           </h2>
-          <p className="text-lg text-slate-700 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto px-2">
             Expert code development, rapid prototyping, and comprehensive development services using modern technologies
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {services.map((service) => {
             const IconComponent = service.icon;
             return (
               <div 
                 key={service.id} 
-                className="glass-card p-8"
+                className="glass-card p-6 sm:p-8"
                 data-testid={`card-service-${service.id}`}
               >
-                <div className={`w-12 h-12 ${service.iconBg} rounded-lg flex items-center justify-center mb-6 glass`}>
-                  <IconComponent className="text-white text-xl" />
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 ${service.iconBg} rounded-lg flex items-center justify-center mb-4 sm:mb-6 glass`}>
+                  <IconComponent className="text-white text-lg sm:text-xl" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-4" data-testid={`text-title-${service.id}`}>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-3 sm:mb-4" data-testid={`text-title-${service.id}`}>
                   {service.title}
                 </h3>
-                <p className="text-slate-700 mb-6" data-testid={`text-description-${service.id}`}>
+                <p className="text-sm sm:text-base text-slate-700 mb-4 sm:mb-6 leading-relaxed" data-testid={`text-description-${service.id}`}>
                   {service.description}
                 </p>
-                <div className={`text-2xl font-bold ${service.priceColor} mb-4 gradient-text`} data-testid={`text-price-${service.id}`}>
+                <div className={`text-xl sm:text-2xl font-bold ${service.priceColor} mb-4 gradient-text`} data-testid={`text-price-${service.id}`}>
                   {service.price}
                 </div>
                 <ul className="space-y-2 text-slate-700">
                   {service.features.map((feature, index) => (
                     <li 
                       key={index} 
-                      className="flex items-center"
+                      className="flex items-center text-xs sm:text-sm"
                       data-testid={`feature-${service.id}-${index}`}
                     >
-                      <Check className="text-emerald-500 mr-2 h-4 w-4" />
+                      <Check className="text-emerald-500 mr-2 h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                       {feature}
                     </li>
                   ))}

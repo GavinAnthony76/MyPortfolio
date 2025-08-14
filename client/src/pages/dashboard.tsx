@@ -418,43 +418,48 @@ Generated on ${new Date().toLocaleDateString()} for ${request.company || `${requ
   return (
     <div className="min-h-screen bg-slate-50">
       <Navigation />
-      <div className="max-w-7xl mx-auto px-6 py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-20">
         <Card className="shadow-lg">
-          <CardContent className="p-8">
-            <div className="flex items-center justify-between mb-8">
-              <h1 className="text-3xl font-bold text-slate-800" data-testid="dashboard-title">Developer Dashboard</h1>
-              <div className="flex items-center space-x-4">
-                <span className="text-sm text-slate-600">
+          <CardContent className="p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+              <h1 className="text-2xl sm:text-3xl font-bold text-slate-800" data-testid="dashboard-title">Developer Dashboard</h1>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                <span className="text-sm text-slate-600 order-last sm:order-first">
                   {requests.length} request{requests.length !== 1 ? 's' : ''}
                 </span>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => queryClient.invalidateQueries({ queryKey: ['/api/project-requests'] })}
-                  data-testid="button-refresh"
-                >
-                  <Clock className="w-4 h-4 mr-2" />
-                  Refresh
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={handleGoHome}
-                  data-testid="button-home"
-                >
-                  <Home className="w-4 h-4 mr-2" />
-                  Portfolio
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={handleLogout}
-                  disabled={logoutMutation.isPending}
-                  data-testid="button-logout"
-                >
-                  <LogOut className="w-4 h-4 mr-2" />
-                  {logoutMutation.isPending ? 'Logging out...' : 'Logout'}
-                </Button>
+                <div className="flex flex-wrap gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => queryClient.invalidateQueries({ queryKey: ['/api/project-requests'] })}
+                    data-testid="button-refresh"
+                    className="flex-shrink-0"
+                  >
+                    <Clock className="w-4 h-4 sm:mr-2" />
+                    <span className="hidden sm:inline">Refresh</span>
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={handleGoHome}
+                    data-testid="button-home"
+                    className="flex-shrink-0"
+                  >
+                    <Home className="w-4 h-4 sm:mr-2" />
+                    <span className="hidden sm:inline">Portfolio</span>
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={handleLogout}
+                    disabled={logoutMutation.isPending}
+                    data-testid="button-logout"
+                    className="flex-shrink-0"
+                  >
+                    <LogOut className="w-4 h-4 sm:mr-2" />
+                    <span className="hidden sm:inline">{logoutMutation.isPending ? 'Logging out...' : 'Logout'}</span>
+                  </Button>
+                </div>
               </div>
             </div>
 
@@ -468,37 +473,39 @@ Generated on ${new Date().toLocaleDateString()} for ${request.company || `${requ
               <div className="space-y-6">
                 {requests.map((request) => (
                   <Card key={request.id} className="border border-slate-200 hover:shadow-md transition-shadow" data-testid={`card-request-${request.id}`}>
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <h3 className="text-lg font-bold text-slate-800 mb-2" data-testid={`text-project-title-${request.id}`}>
+                    <CardContent className="p-4 sm:p-6">
+                      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-4">
+                        <div className="flex-1">
+                          <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-2" data-testid={`text-project-title-${request.id}`}>
                             {request.projectType.split('-').map(word => 
                               word.charAt(0).toUpperCase() + word.slice(1)
                             ).join(' ')} Project
                           </h3>
-                          <div className="flex items-center flex-wrap gap-4 text-sm text-slate-600">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-2 sm:gap-4 text-sm text-slate-600">
                             <div className="flex items-center" data-testid={`text-client-${request.id}`}>
-                              <Mail className="w-4 h-4 mr-1" />
-                              {request.firstName} {request.lastName}
+                              <Mail className="w-4 h-4 mr-1 flex-shrink-0" />
+                              <span className="truncate">{request.firstName} {request.lastName}</span>
                             </div>
                             {request.company && (
                               <div className="flex items-center" data-testid={`text-company-${request.id}`}>
-                                <Building className="w-4 h-4 mr-1" />
-                                {request.company}
+                                <Building className="w-4 h-4 mr-1 flex-shrink-0" />
+                                <span className="truncate">{request.company}</span>
                               </div>
                             )}
                             <div className="flex items-center" data-testid={`text-budget-${request.id}`}>
-                              <DollarSign className="w-4 h-4 mr-1" />
-                              {request.budget.replace('-', ' - ').replace('k', 'K')}
+                              <DollarSign className="w-4 h-4 mr-1 flex-shrink-0" />
+                              <span className="truncate">{request.budget.replace('-', ' - ').replace('k', 'K')}</span>
                             </div>
                             <div className="flex items-center" data-testid={`text-timeline-${request.id}`}>
-                              <Calendar className="w-4 h-4 mr-1" />
-                              {request.timeline.replace('-', ' ')}
+                              <Calendar className="w-4 h-4 mr-1 flex-shrink-0" />
+                              <span className="truncate">{request.timeline.replace('-', ' ')}</span>
                             </div>
-                            {getStatusBadge(request.status)}
+                            <div className="col-span-full sm:col-span-1 lg:col-span-auto">
+                              {getStatusBadge(request.status)}
+                            </div>
                           </div>
                         </div>
-                        <div className="text-sm text-slate-500" data-testid={`text-created-${request.id}`}>
+                        <div className="text-sm text-slate-500 flex-shrink-0 lg:text-right" data-testid={`text-created-${request.id}`}>
                           {formatDistanceToNow(new Date(request.createdAt), { addSuffix: true })}
                         </div>
                       </div>

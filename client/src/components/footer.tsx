@@ -28,21 +28,21 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-slate-800 text-white py-16">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-8">
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">GA</span>
+    <footer className="bg-slate-800 text-white py-12 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+          <div className="sm:col-span-2 md:col-span-2">
+            <div className="flex items-center space-x-3 mb-4 sm:mb-6">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm sm:text-lg">GA</span>
               </div>
-              <span className="text-xl font-bold">Gavin Anthony</span>
+              <span className="text-lg sm:text-xl font-bold">Gavin Anthony</span>
             </div>
-            <p className="text-slate-300 mb-6 leading-relaxed max-w-md">
+            <p className="text-slate-300 mb-4 sm:mb-6 leading-relaxed max-w-md text-sm sm:text-base">
               Professional web development services specializing in full-stack applications, 
               progressive web apps, and modern web solutions that bring your ideas to life.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap gap-2 sm:gap-4">
               <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white" data-testid="footer-link-github">
                 <Github className="h-5 w-5" />
               </Button>
@@ -61,8 +61,8 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="font-bold text-lg mb-6">Quick Links</h4>
-            <ul className="space-y-3">
+            <h4 className="font-bold text-base sm:text-lg mb-4 sm:mb-6">Quick Links</h4>
+            <ul className="space-y-2 sm:space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <a 
@@ -71,7 +71,7 @@ export default function Footer() {
                       e.preventDefault();
                       handleLinkClick(link.href);
                     }}
-                    className="text-slate-300 hover:text-white transition-colors"
+                    className="text-slate-300 hover:text-white transition-colors text-sm sm:text-base"
                     data-testid={`footer-link-${link.label.toLowerCase()}`}
                   >
                     {link.label}
@@ -82,11 +82,11 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="font-bold text-lg mb-6">Services</h4>
-            <ul className="space-y-3">
+            <h4 className="font-bold text-base sm:text-lg mb-4 sm:mb-6">Services</h4>
+            <ul className="space-y-2 sm:space-y-3">
               {services.map((service) => (
                 <li key={service.label}>
-                  <span className="text-slate-300 hover:text-white transition-colors">
+                  <span className="text-slate-300 hover:text-white transition-colors text-sm sm:text-base">
                     {service.label}
                   </span>
                 </li>
@@ -95,16 +95,16 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-slate-700 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-slate-400 text-sm" data-testid="footer-copyright">
+        <div className="border-t border-slate-700 mt-8 sm:mt-12 pt-6 sm:pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-slate-400 text-sm sm:text-base text-center md:text-left" data-testid="footer-copyright">
               © {currentYear} Gavin Anthony. All rights reserved.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-slate-400 hover:text-white text-sm transition-colors" data-testid="footer-link-privacy">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 text-center md:text-left">
+              <a href="#" className="text-slate-400 hover:text-white text-xs sm:text-sm transition-colors" data-testid="footer-link-privacy">
                 Privacy Policy
               </a>
-              <a href="#" className="text-slate-400 hover:text-white text-sm transition-colors" data-testid="footer-link-terms">
+              <a href="#" className="text-slate-400 hover:text-white text-xs sm:text-sm transition-colors" data-testid="footer-link-terms">
                 Terms of Service
               </a>
             </div>

@@ -99,27 +99,27 @@ export default function ProjectsSection() {
   }
 
   return (
-    <section id="projects" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+    <section id="projects" className="py-12 sm:py-16 md:py-20 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Featured <span className="tech-title">Projects</span>
           </h2>
-          <p className="text-lg text-slate-700 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto px-2">
             Showcasing professional development solutions and cutting-edge web applications
           </p>
         </div>
 
         {/* Filter tabs */}
-        <div className="flex justify-center mb-12">
-          <div className="glass-card p-2">
+        <div className="flex justify-center mb-8 sm:mb-12">
+          <div className="glass-card p-1 sm:p-2 flex flex-wrap gap-1">
             {filterOptions.map((option) => (
               <Button
                 key={option.value}
                 variant={activeFilter === option.value ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setActiveFilter(option.value as typeof activeFilter)}
-                className={activeFilter === option.value ? "tech-button" : "text-slate-700 hover:text-cyan-600"}
+                className={`${activeFilter === option.value ? "tech-button" : "text-slate-700 hover:text-cyan-600"} text-xs sm:text-sm px-2 sm:px-3`}
                 data-testid={`filter-${option.value}`}
               >
                 {option.label}
@@ -129,7 +129,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredProjects.map((project) => (
             <div key={project.id} className="glass-card overflow-hidden" data-testid={`card-project-${project.id}`}>
               <div className="relative overflow-hidden rounded-t-xl">

@@ -90,20 +90,20 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+    <section id="contact" className="py-12 sm:py-16 md:py-20 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Start Your <span className="tech-title">Project</span>
           </h2>
-          <p className="text-lg text-slate-700 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto px-2">
             Ready to build something amazing? Share your vision and I'll respond within 24 hours with a detailed proposal.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Info */}
-          <div className="glass-card p-8">
+          <div className="glass-card p-6 sm:p-8 order-2 lg:order-1">
             <h3 className="text-2xl font-bold mb-8">
               Let's <span className="gradient-text">Connect</span>
             </h3>
@@ -161,15 +161,15 @@ export default function ContactSection() {
           </div>
 
           {/* Project Request Form */}
-          <div className="glass-card p-8">
-            <h3 className="text-2xl font-bold mb-6">
+          <div className="glass-card p-6 sm:p-8 order-1 lg:order-2">
+            <h3 className="text-xl sm:text-2xl font-bold mb-6">
               <span className="gradient-text">Project Details</span>
             </h3>
               
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-project-request">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6" data-testid="form-project-request">
                   {/* Basic Info */}
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FormField
                       control={form.control}
                       name="firstName"
@@ -254,7 +254,7 @@ export default function ContactSection() {
                   />
 
                   {/* Budget and Timeline */}
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FormField
                       control={form.control}
                       name="budget"
