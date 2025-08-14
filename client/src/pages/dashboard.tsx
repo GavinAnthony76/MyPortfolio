@@ -148,6 +148,81 @@ P.S. Feel free to check out some of my recent work at [your portfolio URL]`;
     }
   };
 
+  const followUpClient = (request: ProjectRequest) => {
+    const projectTypeLabels: Record<string, string> = {
+      'fullstack': 'Full-Stack Development',
+      'prototype': 'Rapid Prototype/POC',
+      'pwa': 'Progressive Web Applications',
+      'landing': 'Landing Pages',
+      'static': 'Static Web Page Development',
+      'integration': 'API Integration',
+      'other': 'Custom Development'
+    };
+
+    const subject = `Follow-up: ${projectTypeLabels[request.projectType]} Project`;
+    const body = `Hi ${request.firstName},
+
+I wanted to follow up on your ${projectTypeLabels[request.projectType]?.toLowerCase() || request.projectType} project inquiry. I hope you received my previous response and proposal.
+
+I'm still very interested in working with you on this project and wanted to check if you have any questions or need any clarification about:
+
+- The technical approach and implementation details
+- Timeline and project phases
+- Pricing and payment structure
+- Next steps to get started
+
+I understand you might be evaluating different options, and I'd be happy to discuss any concerns or additional requirements you might have.
+
+If you'd like to move forward, we could schedule a brief call to finalize the details and get your project started. I have availability this week and next.
+
+Looking forward to hearing from you soon!
+
+Best regards,
+Gavin Anthony
+Full-Stack Developer
+Email: guidato.llc@gmail.com
+Phone: (254) 300-8158
+Austin, TX
+
+P.S. I'm committed to delivering high-quality work and ensuring your complete satisfaction with the final product.`;
+
+    // Create mailto link
+    const mailtoLink = `mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    try {
+      // Try to open default email client
+      window.open(mailtoLink, '_blank');
+      
+      // Update status to "follow-up" after successfully opening email
+      updateStatusMutation.mutate({ id: request.id, status: 'follow-up' });
+    } catch (error) {
+      // Fallback: copy email content to clipboard
+      const emailContent = `To: ${request.email}\nSubject: ${subject}\n\n${body}`;
+      navigator.clipboard.writeText(emailContent).then(() => {
+        alert('Follow-up email content copied to clipboard! Please paste it into your email client.');
+      }).catch(() => {
+        // Final fallback: show email content in a new window
+        const newWindow = window.open('', '_blank');
+        if (newWindow) {
+          newWindow.document.write(`
+            <html>
+              <head><title>Follow-up Email</title></head>
+              <body style="font-family: Arial, sans-serif; padding: 20px;">
+                <h3>Copy this follow-up email content:</h3>
+                <p><strong>To:</strong> ${request.email}</p>
+                <p><strong>Subject:</strong> ${subject}</p>
+                <hr>
+                <pre style="white-space: pre-wrap; font-family: Arial, sans-serif;">${body}</pre>
+              </body>
+            </html>
+          `);
+        } else {
+          alert('Please enable popups or copy this email manually:\n\nTo: ' + request.email + '\nSubject: ' + subject + '\n\n' + body);
+        }
+      });
+    }
+  };
+
   const generateProposal = (request: ProjectRequest) => {
     const proposalContent = createProposalDocument(request);
     
@@ -545,10 +620,7 @@ Generated on ${new Date().toLocaleDateString()} for ${request.company || `${requ
                             <Button 
                               variant="outline" 
                               size="sm"
-                              onClick={() => updateStatusMutation.mutate({ 
-                                id: request.id, 
-                                status: 'follow-up'
-                              })}
+                              onClick={() => followUpClient(request)}
                               disabled={updateStatusMutation.isPending}
                               data-testid={`button-follow-up-${request.id}`}
                             >
@@ -557,7 +629,7 @@ Generated on ${new Date().toLocaleDateString()} for ${request.company || `${requ
                             </Button>
                           )}
                           
-                          {(request.status === 'proposal-sent' || request.status === 'follow-up') && (
+                          {request.status === 'proposal-sent' && (
                             <>
                               <Button 
                                 variant="outline" 
