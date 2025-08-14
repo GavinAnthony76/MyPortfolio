@@ -14,9 +14,9 @@ export default function Footer() {
   const services = [
     { label: 'Full-Stack Development' },
     { label: 'Rapid Prototyping' },
-    { label: 'Code Generation' },
-    { label: 'AI Debugging' },
-    { label: 'Tech Consulting' },
+    { label: 'Progressive Web Applications' },
+    { label: 'Landing Pages' },
+    { label: 'Static Web Page Development' },
   ];
 
   const handleLinkClick = (href: string) => {
@@ -39,8 +39,8 @@ export default function Footer() {
               <span className="text-xl font-bold">Gavin Anthony</span>
             </div>
             <p className="text-slate-300 mb-6 leading-relaxed max-w-md">
-              Professional development services for rapid prototyping, expert code generation, 
-              and modern web solutions that bring your ideas to life quickly.
+              Professional web development services specializing in full-stack applications, 
+              progressive web apps, and modern web solutions that bring your ideas to life.
             </p>
             <div className="flex space-x-4">
               <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white" data-testid="footer-link-github">
