@@ -197,27 +197,31 @@ export default function Dashboard() {
     const subject = `Re: ${projectTypeLabel} Project Request`;
     const body = `Hi ${request.firstName},
 
-Thank you for your interest in ${projectTypeLabel.toLowerCase()} services${companyInfo}. I've reviewed your project requirements and am excited about the opportunity to work with you.
+Thank you for your interest in ${projectTypeLabel.toLowerCase()} services${companyInfo}. I've reviewed your project requirements and am excited to work with you.
 
-Project Details:
-- Type: ${projectTypeLabel}
-- Timeline: ${request.timeline}
-- Requirements: ${request.description}
+PROJECT: ${projectTypeLabel}
+CLIENT: ${request.firstName} ${request.lastName}${companyInfo}
+TIMELINE: ${request.timeline}
 
-I would love to schedule a brief call to discuss your project in more detail and provide you with a customized proposal. 
+YOUR REQUIREMENTS:
+${request.description}
 
-Would you be available for a 15-20 minute call this week? I'm flexible with timing and can work around your schedule.
+I'll develop a comprehensive solution with modern design, clean code, performance optimization, security implementation, and full documentation.
 
-For your reference, I accept payments via PayPal (paypal.me/guidatollc) and bank transfer, with flexible payment terms available.
+NEXT STEPS:
+1. Schedule discovery call for detailed requirements
+2. Provide complete proposal with timeline and pricing
+3. Begin development work
 
-Looking forward to hearing from you!
+For your convenience, I accept payments via PayPal (paypal.me/guidatollc) with flexible terms.
+
+I'm excited to bring your vision to life! Would you be available for a call this week?
 
 Best regards,
 Gavin Anthony
 Full-Stack Developer
 guidato.llc@gmail.com
-(254) 300-8158
-`;
+(254) 300-8158`;
 
     // Update status to 'responded'
     updateStatusMutation.mutate({ id: request.id, status: 'responded' });
@@ -370,82 +374,21 @@ Proposal generated on ${new Date().toLocaleDateString()} for ${request.company |
     // Update status to 'proposal-sent'
     updateStatusMutation.mutate({ id: request.id, status: 'proposal-sent' });
 
-    // Create a shorter version for email client compatibility
-    const shortProposalBody = `Hi ${request.firstName},
+    // Create and download the proposal as a text file
+    const blob = new Blob([proposalBody], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `proposal-${request.firstName}-${request.lastName}-${new Date().toISOString().split('T')[0]}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
 
-Thank you for your interest in ${projectTypeLabel.toLowerCase()} services${companyInfo}. I've reviewed your project requirements and am excited to work with you.
-
-PROJECT: ${projectTypeLabel}
-CLIENT: ${request.firstName} ${request.lastName}${companyInfo}
-TIMELINE: ${request.timeline}
-
-YOUR REQUIREMENTS:
-${request.description}
-
-I'll develop a comprehensive solution with modern design, clean code, performance optimization, security implementation, and full documentation.
-
-NEXT STEPS:
-1. Schedule discovery call for detailed requirements
-2. Provide complete proposal with timeline and pricing
-3. Begin development work
-
-For your convenience, I accept payments via PayPal (paypal.me/guidatollc) with flexible terms.
-
-I'm excited to bring your vision to life! Would you be available for a call this week?
-
-Best regards,
-Gavin Anthony
-Full-Stack Developer
-guidato.llc@gmail.com
-(254) 300-8158`;
-
-    const mailtoLink = `mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(shortProposalBody)}`;
-    
-    // Check if URL is too long (most browsers limit around 2000 characters)
-    if (mailtoLink.length > 2000) {
-      console.log('mailto URL too long, using clipboard fallback');
-      // Direct fallback to clipboard
-      navigator.clipboard.writeText(`Subject: ${subject}\n\nTo: ${request.email}\n\n${proposalBody}`).then(() => {
-        toast({
-          title: "Proposal copied to clipboard",
-          description: "Email content copied - please paste into your email client",
-          duration: 8000,
-        });
-      }).catch(() => {
-        toast({
-          title: "Manual email needed",
-          description: `Please manually email ${request.email} with the proposal`,
-          duration: 8000,
-        });
-      });
-    } else {
-      try {
-        // Try to open email client with shorter content
-        window.open(mailtoLink, '_self');
-        
-        toast({
-          title: "Opening email client",
-          description: "Email client should open with proposal summary",
-        });
-      } catch (error) {
-        console.error('Error opening email client:', error);
-        
-        // Fallback: copy full content to clipboard
-        navigator.clipboard.writeText(`Subject: ${subject}\n\nTo: ${request.email}\n\n${proposalBody}`).then(() => {
-          toast({
-            title: "Email content copied",
-            description: "Full proposal copied to clipboard - please paste into your email client",
-            duration: 8000,
-          });
-        }).catch(() => {
-          toast({
-            title: "Manual email needed",
-            description: `Please manually email ${request.email} with the proposal content`,
-            duration: 8000,
-          });
-        });
-      }
-    }
+    toast({
+      title: "Proposal generated",
+      description: "Proposal has been downloaded and status updated",
+    });
   };
 
   function renderRequestsList(requestsToRender: ProjectRequest[], emptyMessage: string) {
