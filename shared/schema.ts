@@ -16,7 +16,7 @@ export const projectRequests = pgTable("project_requests", {
   email: text("email").notNull(),
   company: text("company").default(""),
   projectType: text("project_type").notNull(),
-  budget: text("budget").notNull(),
+  budget: text("budget").default(""),
   timeline: text("timeline").notNull(),
   description: text("description").notNull(),
   targetAudience: text("target_audience").default(""),

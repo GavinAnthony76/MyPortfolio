@@ -7,7 +7,7 @@ export function generateProjectPrompt(data: InsertProjectRequest): string {
     email,
     company,
     projectType,
-    budget,
+
     timeline,
     description,
     targetAudience,
@@ -31,7 +31,7 @@ export function generateProjectPrompt(data: InsertProjectRequest): string {
 
 ## Project Specifications
 - **Project Type:** ${getProjectTypeLabel(projectType)}
-- **Budget Range:** ${getBudgetLabel(budget)}
+
 - **Timeline:** ${getTimelineLabel(timeline)}`;
 
   if (targetAudience) {
@@ -67,12 +67,7 @@ ${techStack}`;
 ${phases}`;
   }
 
-  // Add budget considerations
-  const budgetConsiderations = getBudgetConsiderations(budget, projectType);
-  if (budgetConsiderations) {
-    prompt += `\n\n## Budget Considerations
-${budgetConsiderations}`;
-  }
+
 
   if (additionalInfo) {
     prompt += `\n\n## Additional Notes
@@ -104,17 +99,7 @@ function getProjectTypeLabel(type: string): string {
   return labels[type] || type;
 }
 
-function getBudgetLabel(budget: string): string {
-  const labels: Record<string, string> = {
-    'under-5k': 'Under $5,000',
-    '5k-10k': '$5,000 - $10,000',
-    '10k-25k': '$10,000 - $25,000',
-    '25k-50k': '$25,000 - $50,000',
-    '50k-plus': '$50,000+',
-    'discuss': 'To be discussed',
-  };
-  return labels[budget] || budget;
-}
+
 
 function getTimelineLabel(timeline: string): string {
   const labels: Record<string, string> = {
@@ -249,36 +234,4 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
   return phases[projectType] || null;
 }
 
-function getBudgetConsiderations(budget: string, projectType: string): string | null {
-  if (budget === 'under-5k') {
-    return `- **MVP Approach:** Focus on core functionality to stay within budget
-- **Template-Based:** Utilize existing templates and components where possible
-- **Simplified Features:** Prioritize essential features, plan for future enhancements
-- **Standard Hosting:** Use cost-effective hosting solutions`;
-  }
-  
-  if (budget === '5k-10k') {
-    return `- **Custom Development:** Moderate customization with some unique features
-- **Responsive Design:** Full mobile and desktop optimization
-- **Basic Integrations:** Essential third-party service integrations
-- **Professional Hosting:** Reliable hosting with good performance`;
-  }
 
-  if (budget === '10k-25k' || budget === '25k-50k') {
-    return `- **Full Custom Solution:** Completely custom design and functionality
-- **Advanced Features:** Complex integrations and advanced functionality
-- **Premium Tools:** Access to premium services and tools
-- **Scalable Architecture:** Built for growth and high performance
-- **Comprehensive Testing:** Extensive QA and performance testing`;
-  }
-
-  if (budget === '50k-plus') {
-    return `- **Enterprise Solution:** Full-scale enterprise application
-- **Advanced Architecture:** Microservices, scalable infrastructure
-- **Multiple Integrations:** Complex third-party system integrations
-- **Premium Support:** Ongoing support and maintenance included
-- **Performance Optimization:** High-performance, enterprise-grade solution`;
-  }
-
-  return null;
-}

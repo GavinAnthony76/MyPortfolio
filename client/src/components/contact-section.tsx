@@ -24,14 +24,7 @@ const projectTypes = [
   { value: 'other', label: 'Other' },
 ];
 
-const budgetRanges = [
-  { value: 'under-5k', label: 'Under $5,000' },
-  { value: '5k-10k', label: '$5,000 - $10,000' },
-  { value: '10k-25k', label: '$10,000 - $25,000' },
-  { value: '25k-50k', label: '$25,000 - $50,000' },
-  { value: '50k-plus', label: '$50,000+' },
-  { value: 'discuss', label: "Let's discuss" },
-];
+
 
 const timelines = [
   { value: 'asap', label: 'ASAP' },
@@ -53,7 +46,7 @@ export default function ContactSection() {
       email: "",
       company: "",
       projectType: "",
-      budget: "",
+
       timeline: "",
       description: "",
       targetAudience: "",
@@ -253,32 +246,8 @@ export default function ContactSection() {
                     )}
                   />
 
-                  {/* Budget and Timeline */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="budget"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Budget Range *</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-budget">
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select budget range" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {budgetRanges.map((budget) => (
-                                <SelectItem key={budget.value} value={budget.value}>
-                                  {budget.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                  {/* Timeline */}
+                  <div className="grid grid-cols-1 gap-4">
                     <FormField
                       control={form.control}
                       name="timeline"

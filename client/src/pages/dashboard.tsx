@@ -169,17 +169,10 @@ export default function Dashboard() {
       'other': 'Custom Development'
     };
 
-    const budgetLabels: Record<string, string> = {
-      'under-5k': 'Under $5,000',
-      '5k-10k': '$5,000 - $10,000',
-      '10k-25k': '$10,000 - $25,000',
-      '25k-50k': '$25,000 - $50,000',
-      '50k-plus': '$50,000+',
-      'discuss': "Let's discuss"
-    };
+
 
     const projectTypeLabel = projectTypeLabels[request.projectType] || request.projectType;
-    const budgetLabel = budgetLabels[request.budget] || request.budget;
+
     const companyInfo = request.company ? ` from ${request.company}` : '';
 
     const subject = `Re: ${projectTypeLabel} Project Request`;
@@ -189,7 +182,6 @@ Thank you for your interest in ${projectTypeLabel.toLowerCase()} services${compa
 
 Project Details:
 - Type: ${projectTypeLabel}
-- Budget: ${budgetLabel}
 - Timeline: ${request.timeline}
 - Requirements: ${request.description}
 
@@ -301,8 +293,8 @@ Target completion: ${request.timeline}
 (Actual timeline will be refined during the discovery phase)
 
 INVESTMENT
-Budget Range: ${request.budget.replace('-', ' - ').replace('k', 'K')}
-Final pricing will be provided after detailed requirements analysis.
+Pricing is based on the selected project type with transparent, fixed rates.
+Final pricing details will be provided during our initial consultation.
 
 NEXT STEPS
 1. Schedule a discovery call to discuss requirements in detail
@@ -381,10 +373,7 @@ Generated on ${new Date().toLocaleDateString()} for ${request.company || `${requ
                         <span className="truncate">{request.company}</span>
                       </div>
                     )}
-                    <div className="flex items-center" data-testid={`text-budget-${request.id}`}>
-                      <DollarSign className="w-4 h-4 mr-1 flex-shrink-0" />
-                      <span className="truncate">{request.budget.replace('-', ' - ').replace('k', 'K')}</span>
-                    </div>
+
                     <div className="flex items-center" data-testid={`text-timeline-${request.id}`}>
                       <Calendar className="w-4 h-4 mr-1 flex-shrink-0" />
                       <span className="truncate">{request.timeline.replace('-', ' ')}</span>
