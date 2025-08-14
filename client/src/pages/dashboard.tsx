@@ -11,6 +11,78 @@ import type { ProjectRequest } from "@shared/schema";
 export default function Dashboard() {
   const queryClient = useQueryClient();
 
+  const respondToClient = (request: ProjectRequest) => {
+    const projectTypeLabels: Record<string, string> = {
+      'fullstack': 'Full-Stack Development',
+      'prototype': 'Rapid Prototype/POC',
+      'pwa': 'Progressive Web Applications',
+      'landing': 'Landing Pages',
+      'static': 'Static Web Page Development',
+      'integration': 'API Integration',
+      'other': 'Custom Development'
+    };
+
+    const budgetLabels: Record<string, string> = {
+      'under-5k': 'Under $5,000',
+      '5k-10k': '$5,000 - $10,000',
+      '10k-25k': '$10,000 - $25,000',
+      '25k-50k': '$25,000 - $50,000',
+      '50k-plus': '$50,000+',
+      'discuss': "Let's discuss"
+    };
+
+    const timelineLabels: Record<string, string> = {
+      'asap': 'ASAP',
+      '1-month': 'Within 1 month',
+      '2-3-months': '2-3 months',
+      '3-6-months': '3-6 months',
+      '6-plus-months': '6+ months',
+      'flexible': 'Flexible'
+    };
+
+    const subject = `Re: ${projectTypeLabels[request.projectType]} Project Inquiry`;
+    const body = `Hi ${request.firstName},
+
+Thank you for reaching out about your ${projectTypeLabels[request.projectType]?.toLowerCase() || request.projectType} project. I've reviewed your requirements and I'm excited about the opportunity to work with you.
+
+Based on your description, I understand you're looking for:
+${request.description}
+
+Your project specifications:
+- Budget Range: ${budgetLabels[request.budget] || request.budget}
+- Timeline: ${timelineLabels[request.timeline] || request.timeline}
+${request.targetAudience ? `- Target Audience: ${request.targetAudience}` : ''}
+
+I have extensive experience developing similar projects and believe I can deliver exactly what you're looking for. I'd love to schedule a brief call to discuss your project in more detail and answer any questions you might have.
+
+My approach typically includes:
+1. Detailed project analysis and technical planning
+2. Modern, responsive development using React and Node.js
+3. Regular progress updates and client collaboration
+4. Comprehensive testing and deployment support
+
+I'll be sending you a detailed proposal document separately with technical specifications, timeline, and pricing breakdown.
+
+Would you be available for a 15-20 minute discovery call this week? I'm available most weekdays and can work around your schedule.
+
+Looking forward to potentially working together on this exciting project!
+
+Best regards,
+Gavin Anthony
+Full-Stack Developer
+Email: guidato.llc@gmail.com
+Phone: (254) 300-8158
+Austin, TX
+
+P.S. Feel free to check out some of my recent work at [your portfolio URL]`;
+
+    // Create mailto link
+    const mailtoLink = `mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open default email client
+    window.location.href = mailtoLink;
+  };
+
   const generateProposal = (request: ProjectRequest) => {
     const proposalContent = createProposalDocument(request);
     
@@ -348,6 +420,7 @@ Generated on ${new Date().toLocaleDateString()} for ${request.company || `${requ
                           <Button 
                             variant="default" 
                             size="sm"
+                            onClick={() => respondToClient(request)}
                             data-testid={`button-respond-${request.id}`}
                           >
                             <Reply className="w-4 h-4 mr-1" />
