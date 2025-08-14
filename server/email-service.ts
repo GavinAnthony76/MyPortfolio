@@ -154,8 +154,8 @@ Submitted: ${new Date(request.createdAt).toLocaleString()}
   `;
 
   return await sendEmail({
-    to: 'guidato.llc@gmail.com',
-    from: 'noreply@gavineanthony.com', // Use your domain
+    to: 'gavineanthony@outlook.com',
+    from: 'gavineanthony@outlook.com', // Use verified sender email
     subject: subject,
     text: textContent,
     html: htmlContent
