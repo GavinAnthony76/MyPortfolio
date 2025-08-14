@@ -1,5 +1,6 @@
 import { Github, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import developerImage from "@assets/generated_images/Developer_coding_at_desk_b7dd3426.png";
 
 export default function AboutSection() {
   const skills = {
@@ -30,7 +31,7 @@ export default function AboutSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="glass-card p-2">
             <img 
-              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+              src={developerImage} 
               alt="Developer working on code" 
               className="rounded-xl w-full h-auto"
               data-testid="img-developer"
