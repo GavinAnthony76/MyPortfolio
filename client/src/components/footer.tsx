@@ -101,10 +101,10 @@ export default function Footer() {
               © {currentYear} Gavin Anthony. All rights reserved.
             </p>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 text-center md:text-left">
-              <a href="#" className="text-slate-400 hover:text-white text-xs sm:text-sm transition-colors" data-testid="footer-link-privacy">
+              <a href="/privacy-policy" className="text-slate-400 hover:text-white text-xs sm:text-sm transition-colors" data-testid="footer-link-privacy">
                 Privacy Policy
               </a>
-              <a href="#" className="text-slate-400 hover:text-white text-xs sm:text-sm transition-colors" data-testid="footer-link-terms">
+              <a href="/terms-of-service" className="text-slate-400 hover:text-white text-xs sm:text-sm transition-colors" data-testid="footer-link-terms">
                 Terms of Service
               </a>
             </div>
