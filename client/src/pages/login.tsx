@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Shield, Lock } from "lucide-react";
+import { queryClient } from "@/lib/queryClient";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -28,11 +29,18 @@ export default function Login() {
       });
 
       if (response.ok) {
+        // Invalidate auth status query to refresh authentication state
+        await queryClient.invalidateQueries({ queryKey: ['/api/auth/status'] });
+        
         toast({
           title: "Login successful",
           description: "Welcome to your dashboard!",
         });
-        setLocation("/dashboard");
+        
+        // Small delay to ensure auth state updates before navigation
+        setTimeout(() => {
+          setLocation("/dashboard");
+        }, 100);
       } else {
         const error = await response.json();
         toast({
