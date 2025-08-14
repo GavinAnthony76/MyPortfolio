@@ -61,11 +61,12 @@ const getProjects = (images: any): Project[] => [
   },
   {
     id: '5',
-    title: 'DataViz - Analytics Dashboard',
-    description: 'Real-time analytics dashboard with interactive charts and customizable reports with advanced insights.',
-    image: aiDashboardImage,
+    title: 'Brain Discord Bot - Fighting Game Assistant',
+    description: 'Intelligent Discord bot inspired by Brain from Pinky and the Brain, designed to manage fighting game tournaments, player rankings, and community engagement with advanced command features.',
+    image: images?.brainBot || '/api/assets/brain-discord-bot.png',
     category: 'web',
-    technologies: ['React', 'D3.js', 'Python'],
+    technologies: ['Discord.js', 'Node.js', 'MongoDB'],
+    liveUrl: 'https://replit.com/t/phototheology/repls/DiscordBot',
   },
   {
     id: '6',

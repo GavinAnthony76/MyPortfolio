@@ -6,6 +6,7 @@ interface PortfolioImages {
   jamaicaRestaurant: string | null;
   faithMinistry: string | null;
   powerOfLamb: string | null;
+  brainBot: string | null;
 }
 
 export function usePortfolioImages() {
