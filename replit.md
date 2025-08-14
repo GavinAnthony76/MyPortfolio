@@ -9,8 +9,12 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - **Added storage management system** with automatic upload capabilities and URL generation
 - **Created dynamic image loading** using React Query to fetch images from storage API
 - **Enhanced image serving architecture** with proper error handling and development fallbacks
+- **Cleaned up portfolio projects** - removed all dummy/placeholder projects, keeping only 5 authentic client projects
+- **Updated project filtering system** - now supports filtering between Web Apps and E-commerce categories with functional filter buttons
+- **Replaced developer image** - added high-quality AI-generated image of developer coding at desk in about section
+- **Updated footer services** - removed outdated AI-related services, now displays correct web development offerings
 - Added Texas Showdown 2026 as featured project - a real fighting game tournament website (https://txshowdown.com/)
-- Updated project showcase to include actual completed work alongside portfolio examples
+- Updated project showcase to include actual completed work: Texas Showdown, Jamaica Restaurant, Faith Ministry, Power of the Lamb, Brain Discord Bot
 - Implemented functional Live Demo buttons that link to real projects
 - Removed all AI-related messaging and terminology throughout the application
 - Updated name from "Emperor Gavin" to "Gavin Anthony" across all components and documentation
