@@ -10,11 +10,11 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - Updated contact form project types to reflect accurate web development services
 - Enhanced prompt generation system to provide detailed technical briefs for web-focused projects
 - Updated developer identity: Changed name to Gavin Anthony, email to guidato.llc@gmail.com, phone to (254) 300-8158, location to Austin, TX
-- Redesigned services to reflect AI-powered development capabilities with pricing:
+- Redesigned services to reflect professional development capabilities with pricing:
   - Full-Stack Development: $5,000 - $15,000 (Complete web application development)
-  - Rapid Prototyping: $1,500 - $3,000 (AI-powered proof-of-concept development)
-  - Code Generation: $500 - $2,000 (Intelligent code creation with best practices)
-  - Code Review & Debugging: $100/hour (AI-assisted analysis and optimization)
+  - Rapid Prototyping: $1,500 - $3,000 (Modern proof-of-concept development)
+  - Code Generation: $500 - $2,000 (Expert code creation with best practices)
+  - Code Review & Debugging: $100/hour (Comprehensive analysis and optimization)
   - Technical Consulting: $150/hour (Architecture and technology recommendations)
   - API Integration: $750 - $1,500 (Seamless third-party service integration)
 - Removed Interactive Learning service to focus on core development capabilities

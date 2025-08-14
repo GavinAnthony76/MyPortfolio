@@ -22,7 +22,7 @@ const services = [
     id: 'prototyping',
     icon: Rocket,
     title: 'Rapid Prototyping',
-    description: 'AI-powered rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly.',
+    description: 'Rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly using modern frameworks.',
     price: '$1,500 - $3,000',
     color: 'from-green-50 to-emerald-50',
     iconBg: 'bg-green-600',
@@ -38,7 +38,7 @@ const services = [
     id: 'codegeneration',
     icon: Settings,
     title: 'Code Generation',
-    description: 'Intelligent code generation for React, Node.js, and modern web applications with best practices built-in.',
+    description: 'Expert code development for React, Node.js, and modern web applications with best practices built-in.',
     price: '$500 - $2,000',
     color: 'from-purple-50 to-pink-50',
     iconBg: 'bg-purple-600',
@@ -54,7 +54,7 @@ const services = [
     id: 'debugging',
     icon: TrendingUp,
     title: 'Code Review & Debugging',
-    description: 'AI-assisted code analysis, bug detection, and performance optimization suggestions for existing projects.',
+    description: 'Comprehensive code analysis, bug detection, and performance optimization recommendations for existing projects.',
     price: '$100/hour',
     color: 'from-orange-50 to-red-50',
     iconBg: 'bg-orange-600',
@@ -106,10 +106,10 @@ export default function ServicesSection() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="tech-title">AI-Powered</span> Development Services
+            <span className="tech-title">Professional</span> Development Services
           </h2>
           <p className="text-lg text-slate-700 max-w-2xl mx-auto">
-            Intelligent code generation, rapid prototyping, and development assistance powered by advanced AI technology
+            Expert code development, rapid prototyping, and comprehensive development services using modern technologies
           </p>
         </div>
 

@@ -23,7 +23,7 @@ export default function AboutSection() {
             About <span className="tech-title">Me</span>
           </h2>
           <p className="text-lg text-slate-700 max-w-2xl mx-auto">
-            AI-powered developer with expertise in cutting-edge web technologies and intelligent development solutions
+            Full-stack developer with expertise in cutting-edge web technologies and modern development solutions
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export default function AboutSection() {
               Hi, I'm <span className="gradient-text">Gavin Anthony</span>
             </h3>
             <p className="text-slate-700 mb-6 leading-relaxed">
-              I specialize in AI-powered development, creating intelligent web applications 
+              I specialize in modern web development, creating sophisticated web applications 
               that leverage modern technologies and best practices. From rapid prototyping 
               to full-scale applications, I deliver solutions that combine innovation with reliability.
             </p>

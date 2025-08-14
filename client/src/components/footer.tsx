@@ -39,7 +39,7 @@ export default function Footer() {
               <span className="text-xl font-bold">Gavin Anthony</span>
             </div>
             <p className="text-slate-300 mb-6 leading-relaxed max-w-md">
-              AI-powered development services for rapid prototyping, intelligent code generation, 
+              Professional development services for rapid prototyping, expert code generation, 
               and modern web solutions that bring your ideas to life quickly.
             </p>
             <div className="flex space-x-4">

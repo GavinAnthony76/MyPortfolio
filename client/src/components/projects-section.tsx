@@ -43,7 +43,7 @@ const projects: Project[] = [
   {
     id: '3',
     title: 'DataViz - Analytics Dashboard',
-    description: 'Real-time analytics dashboard with interactive charts and customizable reports powered by AI insights.',
+    description: 'Real-time analytics dashboard with interactive charts and customizable reports with advanced insights.',
     image: aiDashboardImage,
     category: 'web',
     technologies: ['React', 'D3.js', 'Python'],
@@ -59,7 +59,7 @@ const projects: Project[] = [
   {
     id: '5',
     title: 'TaskMaster - Project Management',
-    description: 'Collaborative project management tool with kanban boards, team communication, and AI-powered insights.',
+    description: 'Collaborative project management tool with kanban boards, team communication, and advanced analytics insights.',
     image: taskMgmtImage,
     category: 'web',
     technologies: ['React', 'GraphQL', 'PostgreSQL'],
@@ -96,7 +96,7 @@ export default function ProjectsSection() {
             Featured <span className="tech-title">Projects</span>
           </h2>
           <p className="text-lg text-slate-700 max-w-2xl mx-auto">
-            Showcasing AI-powered development solutions and cutting-edge web applications
+            Showcasing professional development solutions and cutting-edge web applications
           </p>
         </div>
 

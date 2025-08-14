@@ -20,13 +20,13 @@ export default function HeroSection() {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="tech-title">AI-Powered</span>{' '}
+            <span className="tech-title">Full-Stack</span>{' '}
             <span className="gradient-text">Developer</span>
           </h1>
           
           <p className="text-xl text-slate-700 mb-8 max-w-3xl mx-auto leading-relaxed">
-            I create cutting-edge web applications using AI-powered development. 
-            From rapid prototyping to full-stack solutions, I deliver intelligent code 
+            I create cutting-edge web applications using modern development practices. 
+            From rapid prototyping to full-stack solutions, I deliver high-quality code 
             that transforms your ideas into reality.
           </p>
           
