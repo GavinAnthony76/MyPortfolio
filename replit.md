@@ -21,7 +21,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - Modified project showcase to include web applications, landing pages, and e-commerce instead of mobile apps
 - Updated contact form project types to reflect accurate web development services
 - Enhanced prompt generation system to provide detailed technical briefs for web-focused projects
-- Updated developer identity: Changed name to Gavin Anthony, email to guidato.llc@gmail.com, phone to (254) 300-8158, location to Austin, TX
+- Updated developer identity: Changed name to Gavin Anthony, email to guidato.llc@gmail.com, phone to (254) 300-8158, location to Austin, TX, Twitter/X: https://x.com/gavineanthony
 - Redesigned services to reflect professional development capabilities with pricing:
   - Full-Stack Development: $5,000 - $15,000 (Complete web application development)
   - Rapid Prototyping: $1,500 - $3,000 (Modern proof-of-concept development)

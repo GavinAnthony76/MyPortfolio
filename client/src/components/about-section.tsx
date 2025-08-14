@@ -80,8 +80,10 @@ export default function AboutSection() {
               <Button variant="ghost" size="sm" data-testid="link-linkedin">
                 <Linkedin className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="sm" data-testid="link-twitter">
-                <Twitter className="h-5 w-5" />
+              <Button variant="ghost" size="sm" data-testid="link-twitter" asChild>
+                <a href="https://x.com/gavineanthony" target="_blank" rel="noopener noreferrer">
+                  <Twitter className="h-5 w-5" />
+                </a>
               </Button>
             </div>
           </div>

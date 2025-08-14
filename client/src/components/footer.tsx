@@ -49,8 +49,10 @@ export default function Footer() {
               <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white" data-testid="footer-link-linkedin">
                 <Linkedin className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white" data-testid="footer-link-twitter">
-                <Twitter className="h-5 w-5" />
+              <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white" data-testid="footer-link-twitter" asChild>
+                <a href="https://x.com/gavineanthony" target="_blank" rel="noopener noreferrer">
+                  <Twitter className="h-5 w-5" />
+                </a>
               </Button>
               <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white" data-testid="footer-link-dribbble">
                 <Dribbble className="h-5 w-5" />
