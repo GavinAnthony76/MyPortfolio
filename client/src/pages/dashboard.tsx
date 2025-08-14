@@ -370,41 +370,81 @@ Proposal generated on ${new Date().toLocaleDateString()} for ${request.company |
     // Update status to 'proposal-sent'
     updateStatusMutation.mutate({ id: request.id, status: 'proposal-sent' });
 
-    // Create mailto link - handle long content by truncating if necessary
-    const maxBodyLength = 1900; // Safe limit for most email clients
-    let emailBody = proposalBody;
-    
-    if (emailBody.length > maxBodyLength) {
-      emailBody = emailBody.substring(0, maxBodyLength) + "\n\n[Content truncated - full proposal will be sent as follow-up]";
-    }
+    // Create a shorter version for email client compatibility
+    const shortProposalBody = `Hi ${request.firstName},
 
-    const mailtoLink = `mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+Thank you for your interest in ${projectTypeLabel.toLowerCase()} services${companyInfo}. I've reviewed your project requirements and am excited to work with you.
+
+PROJECT: ${projectTypeLabel}
+CLIENT: ${request.firstName} ${request.lastName}${companyInfo}
+TIMELINE: ${request.timeline}
+
+YOUR REQUIREMENTS:
+${request.description}
+
+I'll develop a comprehensive solution with modern design, clean code, performance optimization, security implementation, and full documentation.
+
+NEXT STEPS:
+1. Schedule discovery call for detailed requirements
+2. Provide complete proposal with timeline and pricing
+3. Begin development work
+
+For your convenience, I accept payments via PayPal (paypal.me/guidatollc) with flexible terms.
+
+I'm excited to bring your vision to life! Would you be available for a call this week?
+
+Best regards,
+Gavin Anthony
+Full-Stack Developer
+guidato.llc@gmail.com
+(254) 300-8158`;
+
+    const mailtoLink = `mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(shortProposalBody)}`;
     
-    try {
-      // Try to open email client
-      window.open(mailtoLink, '_self');
-      
-      toast({
-        title: "Opening email client",
-        description: "Default email client should open with proposal content",
-      });
-    } catch (error) {
-      console.error('Error opening email client:', error);
-      
-      // Fallback: copy to clipboard and show instructions
+    // Check if URL is too long (most browsers limit around 2000 characters)
+    if (mailtoLink.length > 2000) {
+      console.log('mailto URL too long, using clipboard fallback');
+      // Direct fallback to clipboard
       navigator.clipboard.writeText(`Subject: ${subject}\n\nTo: ${request.email}\n\n${proposalBody}`).then(() => {
         toast({
-          title: "Email content copied",
-          description: "Proposal copied to clipboard - please paste into your email client",
+          title: "Proposal copied to clipboard",
+          description: "Email content copied - please paste into your email client",
           duration: 8000,
         });
       }).catch(() => {
         toast({
           title: "Manual email needed",
-          description: `Please manually email ${request.email} with the proposal content`,
+          description: `Please manually email ${request.email} with the proposal`,
           duration: 8000,
         });
       });
+    } else {
+      try {
+        // Try to open email client with shorter content
+        window.open(mailtoLink, '_self');
+        
+        toast({
+          title: "Opening email client",
+          description: "Email client should open with proposal summary",
+        });
+      } catch (error) {
+        console.error('Error opening email client:', error);
+        
+        // Fallback: copy full content to clipboard
+        navigator.clipboard.writeText(`Subject: ${subject}\n\nTo: ${request.email}\n\n${proposalBody}`).then(() => {
+          toast({
+            title: "Email content copied",
+            description: "Full proposal copied to clipboard - please paste into your email client",
+            duration: 8000,
+          });
+        }).catch(() => {
+          toast({
+            title: "Manual email needed",
+            description: `Please manually email ${request.email} with the proposal content`,
+            duration: 8000,
+          });
+        });
+      }
     }
   };
 
