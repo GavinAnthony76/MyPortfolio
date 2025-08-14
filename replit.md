@@ -5,6 +5,10 @@ This is a professional portfolio website for a full-stack developer named Gavin 
 The portfolio includes sections for personal introduction, featured projects (focused on web applications, landing pages, and e-commerce), service offerings (web development, responsive design, e-commerce, consulting, maintenance, and MVP development), and a comprehensive contact form. The contact form generates detailed project briefs that are stored in a database and can be managed through an administrative dashboard.
 
 ## Recent Changes (August 14, 2025)
+- **Implemented Replit Object Storage integration** for portfolio images with fallback to local API serving
+- **Added storage management system** with automatic upload capabilities and URL generation
+- **Created dynamic image loading** using React Query to fetch images from storage API
+- **Enhanced image serving architecture** with proper error handling and development fallbacks
 - Added Texas Showdown 2026 as featured project - a real fighting game tournament website (https://txshowdown.com/)
 - Updated project showcase to include actual completed work alongside portfolio examples
 - Implemented functional Live Demo buttons that link to real projects
@@ -54,6 +58,8 @@ Preferred communication style: Simple, everyday language.
 - **Schema Management**: Drizzle Kit for database migrations and schema management
 - **Development Storage**: In-memory storage implementation for development/testing
 - **Production Storage**: Neon Database (serverless PostgreSQL) for production deployment
+- **Object Storage**: Replit Object Storage for portfolio images with automatic fallback to local API serving
+- **Image Management**: Custom StorageManager class handling upload/download operations with error handling
 - **Data Validation**: Shared Zod schemas between frontend and backend for consistent validation
 
 ## External Dependencies

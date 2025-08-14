@@ -3,19 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
+import { usePortfolioImages } from "@/hooks/use-portfolio-images";
 
-// Import generated tech images
+// Import remaining non-portfolio tech images
 import aiDashboardImage from "@assets/generated_images/AI_Dashboard_Interface_dc1310fc.png";
 import ecommerceImage from "@assets/generated_images/E-commerce_Analytics_Interface_a340d8f8.png";
 import webArchImage from "@assets/generated_images/Web_Architecture_Visualization_1e476c99.png";
 import cryptoImage from "@assets/generated_images/Crypto_Trading_Platform_e3e8b01c.png";
 import realEstateImage from "@assets/generated_images/Real_Estate_Management_64385fdb.png";
 import taskMgmtImage from "@assets/generated_images/Task_Management_System_15136412.png";
-import fightingGameImage from "@assets/generated_images/Fighting_Game_Tournament_b38218ec.png";
-import caribbeanFoodImage from "@assets/generated_images/Caribbean_Food_Platform_720bc623.png";
-import jamaicaRestaurantImage from "@assets/9ba9ffab5f885fc3dac87838b3357014_1754763209553_1755130520942.webp";
-import ivorMyersAppImage from "@assets/generated_images/Spiritual_Church_Website_24ec815c.png";
-import powerOfLambImage from "@assets/generated_images/Power_of_Lamb_Ministry_db0032ce.png";
 
 interface Project {
   id: string;
@@ -28,12 +24,12 @@ interface Project {
   codeUrl?: string;
 }
 
-const projects: Project[] = [
+const getProjects = (images: any): Project[] => [
   {
     id: '1',
     title: 'Texas Showdown 2026',
     description: 'Official tournament website for one of the largest fighting game events in the US, featuring registration system, live countdown, and event management.',
-    image: fightingGameImage,
+    image: images?.fightingGame || '/api/assets/fighting-game-tournament.png',
     category: 'web',
     technologies: ['React', 'Node.js', 'ASP.NET'],
     liveUrl: 'https://txshowdown.com/',
@@ -42,7 +38,7 @@ const projects: Project[] = [
     id: '2',
     title: 'Jamaica Nyammingz - Jamaican Restaurant',
     description: 'Complete restaurant website featuring authentic Jamaican cuisine, online menu, ordering system, and cultural dining experiences.',
-    image: jamaicaRestaurantImage,
+    image: images?.jamaicaRestaurant || '/api/assets/jamaica-restaurant.webp',
     category: 'web',
     technologies: ['React', 'Node.js', 'MongoDB'],
   },
@@ -50,7 +46,7 @@ const projects: Project[] = [
     id: '3',
     title: 'Faith and Ministry Website',
     description: 'Spiritual community platform featuring live streaming services, ministry resources, community engagement, and faith-based content delivery.',
-    image: ivorMyersAppImage,
+    image: images?.faithMinistry || '/api/assets/faith-ministry-website.png',
     category: 'web',
     technologies: ['React', 'Node.js', 'MongoDB'],
   },
@@ -58,7 +54,7 @@ const projects: Project[] = [
     id: '4',
     title: 'Power of the Lamb Ministry',
     description: 'Biblical prophecy teaching platform featuring course registration, live streaming events, educational content delivery, and ministry resources with integrated payment processing.',
-    image: powerOfLambImage,
+    image: images?.powerOfLamb || '/api/assets/power-of-lamb-ministry.png',
     category: 'web',
     technologies: ['WordPress', 'PHP', 'Stripe'],
     liveUrl: 'https://powerofthelamb.com/',
@@ -90,10 +86,30 @@ const filterOptions = [
 
 export default function ProjectsSection() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'web' | 'landing' | 'ecommerce'>('all');
+  const { data: images, isLoading } = usePortfolioImages();
 
+  const projects = getProjects(images);
+  
   const filteredProjects = projects.filter(
     project => activeFilter === 'all' || project.category === activeFilter
   );
+
+  if (isLoading) {
+    return (
+      <section id="projects" className="py-20 relative">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Featured <span className="tech-title">Projects</span>
+            </h2>
+            <p className="text-lg text-slate-700 max-w-2xl mx-auto">
+              Loading portfolio projects...
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="projects" className="py-20 relative">
