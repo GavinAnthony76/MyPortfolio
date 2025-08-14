@@ -60,7 +60,6 @@ const getProjects = (images: any): Project[] => [
     image: images?.brainBot || '/api/assets/brain-discord-bot.png',
     category: 'web',
     technologies: ['Discord.js', 'Node.js', 'MongoDB'],
-    liveUrl: 'https://replit.com/t/phototheology/repls/DiscordBot',
   },
 
 ];
