@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Clock, Mail, Building, DollarSign, Calendar, FileText, Archive, Reply, File, LogOut, Home, Search, Filter, Inbox, CheckCircle, XCircle, Users, Trophy, Trash2, ChevronDown, ChevronUp, Play, CheckSquare } from "lucide-react";
+import { Clock, Mail, Building, DollarSign, Calendar, FileText, Archive, Reply, File, LogOut, Home, Search, Filter, Inbox, CheckCircle, XCircle, Users, Trophy, Trash2, ChevronDown, ChevronUp, Play, CheckSquare, User } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useMemo } from "react";
@@ -60,7 +60,7 @@ export default function Dashboard() {
 
   // Status update mutation
   const updateStatusMutation = useMutation({
-    mutationFn: async ({ id, status }: { id: number; status: string }) => {
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
       await apiRequest('PATCH', `/api/project-requests/${id}/status`, { status });
     },
     onSuccess: () => {
@@ -167,7 +167,7 @@ export default function Dashboard() {
 
     const Icon = config.icon;
     return (
-      <Badge variant={config.variant} className={config.className}>
+      <Badge variant={config.variant} className={config.className || ""}>
         <Icon className="w-3 h-3 mr-1" />
         {config.label}
       </Badge>
@@ -205,7 +205,8 @@ I would love to schedule a brief call to discuss your project in more detail and
 
 Would you be available for a 15-20 minute call this week? I'm flexible with timing and can work around your schedule.
 
-For your reference, I accept payments via PayPal (paypal.me/guidatollc) and bank transfer, with flexible payment terms available.
+For your reference, I accept payments via PayPal. Here's the invoice link for your convenience: https://www.paypal.com/invoice/p/#ERWXNMWFMSC3ZVF8
+Bank transfer is also available with flexible payment terms.
 
 Looking forward to hearing from you!
 
@@ -231,7 +232,7 @@ I wanted to follow up on the project request you submitted recently. I hope you 
 
 I'm still very interested in working with you on this project and would love to discuss how I can help bring your vision to life.
 
-If you have any questions or would like to schedule a call, please don't hesitate to reach out. For your convenience, I accept payments via PayPal (paypal.me/guidatollc) with flexible terms.
+If you have any questions or would like to schedule a call, please don't hesitate to reach out. For your convenience, I accept payments via PayPal with this invoice link: https://www.paypal.com/invoice/p/#ERWXNMWFMSC3ZVF8
 
 Looking forward to hearing from you!
 
@@ -316,7 +317,7 @@ Final pricing details will be provided during our initial consultation.
 
 PAYMENT OPTIONS
 For your convenience, I accept payments via:
-• PayPal: https://paypal.me/guidatollc
+• PayPal Invoice: https://www.paypal.com/invoice/p/#ERWXNMWFMSC3ZVF8
 • Bank transfer (details provided upon agreement)
 • Payment can be structured as 50% upfront, 50% upon completion
 

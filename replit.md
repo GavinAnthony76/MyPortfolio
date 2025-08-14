@@ -14,7 +14,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - **Added contextual action buttons** - status-specific buttons appear based on project state (In Progress, Complete, Won/Lost)
 - **Removed budget range field completely** - eliminated budget selection from contact form, database schema, and all related UI components
 - **Updated pricing approach** - pricing now based on project type rather than client budget ranges, with fixed transparent rates
-- **Added PayPal payment integration** - included PayPal.me links in all email templates (initial response, follow-up, and proposals)
+- **Added PayPal payment integration** - included actual PayPal invoice links in all email templates (initial response, follow-up, and proposals)
 - **Enhanced project request workflow** - streamlined form focuses on project type and timeline with simplified proposal generation
 - **Updated email templates** - all three email types now include PayPal payment information and flexible payment terms
 - **Cleaned up prompt generation** - removed budget-based considerations, focusing on project type requirements instead
