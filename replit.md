@@ -25,7 +25,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - **Enhanced image serving architecture** with proper error handling and development fallbacks
 - **Cleaned up portfolio projects** - removed all dummy/placeholder projects, keeping only 5 authentic client projects
 - **Updated project filtering system** - now supports filtering between Web Apps and E-commerce categories with functional filter buttons
-- **Replaced developer image** - added high-quality AI-generated image of developer coding at desk in about section
+- **Updated developer image** - replaced with professional photo of Black developer at coding workspace with natural, realistic appearance
 - **Updated footer services** - removed outdated AI-related services, now displays correct web development offerings
 - **Fixed contact form processing** - resolved TypeScript errors and ensured proper data submission to dashboard
 - **Enhanced project request system** - forms now correctly generate detailed project briefs and appear in dashboard
