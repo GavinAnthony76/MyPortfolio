@@ -97,7 +97,7 @@ export default function ContactSection() {
             Start Your <span className="tech-title">Project</span>
           </h2>
           <p className="text-lg text-slate-700 max-w-2xl mx-auto">
-            Ready to build something amazing with AI-powered development? Share your vision and I'll respond within 24 hours.
+            Ready to build something amazing? Share your vision and I'll respond within 24 hours with a detailed proposal.
           </p>
         </div>
 
@@ -219,7 +219,7 @@ export default function ContactSection() {
                         <FormItem>
                           <FormLabel>Company</FormLabel>
                           <FormControl>
-                            <Input placeholder="Acme Inc." {...field} data-testid="input-company" />
+                            <Input placeholder="Acme Inc." {...field} value={field.value || ""} data-testid="input-company" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -336,6 +336,7 @@ export default function ContactSection() {
                           <Input 
                             placeholder="Who will be using your application? (e.g., small businesses, consumers, enterprise)"
                             {...field}
+                            value={field.value || ""}
                             data-testid="input-targetAudience"
                           />
                         </FormControl>
@@ -356,6 +357,7 @@ export default function ContactSection() {
                             placeholder="List the main features you need (e.g., user authentication, payment processing, real-time chat)"
                             className="min-h-[80px]"
                             {...field}
+                            value={field.value || ""}
                             data-testid="textarea-keyFeatures"
                           />
                         </FormControl>
@@ -376,6 +378,7 @@ export default function ContactSection() {
                             placeholder="Any specific technologies, frameworks, or integrations you prefer?"
                             className="min-h-[60px]"
                             {...field}
+                            value={field.value || ""}
                             data-testid="textarea-techPreferences"
                           />
                         </FormControl>
@@ -395,6 +398,7 @@ export default function ContactSection() {
                           <Input 
                             placeholder="Any websites or apps you like the design of? (URLs or descriptions)"
                             {...field}
+                            value={field.value || ""}
                             data-testid="input-designReferences"
                           />
                         </FormControl>
@@ -415,6 +419,7 @@ export default function ContactSection() {
                             placeholder="Anything else you'd like me to know about your project?"
                             className="min-h-[80px]"
                             {...field}
+                            value={field.value || ""}
                             data-testid="textarea-additionalInfo"
                           />
                         </FormControl>
