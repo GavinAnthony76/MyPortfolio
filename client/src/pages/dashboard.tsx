@@ -155,9 +155,9 @@ export default function Dashboard() {
       'responded': { variant: 'secondary' as const, label: 'Responded', icon: Reply },
       'proposal-sent': { variant: 'default' as const, label: 'Proposal Sent', icon: File },
       'follow-up': { variant: 'outline' as const, label: 'Follow-up', icon: Clock },
-      'in-progress': { variant: 'default' as const, label: 'In Progress', icon: Play, className: 'bg-blue-600' },
-      'complete': { variant: 'default' as const, label: 'Complete', icon: CheckSquare, className: 'bg-green-600' },
-      'won': { variant: 'default' as const, label: 'Won', icon: CheckCircle, className: 'bg-green-600' },
+      'in-progress': { variant: 'default' as const, label: 'In Progress', icon: Play },
+      'complete': { variant: 'default' as const, label: 'Complete', icon: CheckSquare },
+      'won': { variant: 'default' as const, label: 'Won', icon: CheckCircle },
       'lost': { variant: 'secondary' as const, label: 'Lost', icon: XCircle },
       'archived': { variant: 'outline' as const, label: 'Archived', icon: Archive }
     };
@@ -166,8 +166,11 @@ export default function Dashboard() {
     if (!config) return <Badge variant="secondary">{status}</Badge>;
 
     const Icon = config.icon;
+    const className = status === 'in-progress' ? 'bg-blue-600 text-white' : 
+                     (status === 'complete' || status === 'won') ? 'bg-green-600 text-white' : '';
+    
     return (
-      <Badge variant={config.variant} className={config.className || ""}>
+      <Badge variant={config.variant} className={className}>
         <Icon className="w-3 h-3 mr-1" />
         {config.label}
       </Badge>
@@ -275,9 +278,11 @@ guidato.llc@gmail.com
     const companyInfo = request.company ? ` at ${request.company}` : '';
 
     const subject = `Proposal: ${projectTypeLabel} for ${request.firstName} ${request.lastName}`;
-    const proposalText = `
-DEVELOPMENT PROPOSAL
+    const proposalBody = `Hi ${request.firstName},
 
+Thank you for your interest in ${projectTypeLabel.toLowerCase()} services${companyInfo}. I've carefully reviewed your project requirements and am excited to present this comprehensive proposal.
+
+DEVELOPMENT PROPOSAL
 Client: ${request.firstName} ${request.lastName}${companyInfo}
 Project Type: ${projectTypeLabel}
 Date: ${new Date().toLocaleDateString()}
@@ -285,7 +290,7 @@ Date: ${new Date().toLocaleDateString()}
 PROJECT OVERVIEW
 ${serviceDescription}
 
-PROJECT REQUIREMENTS
+YOUR REQUIREMENTS
 ${request.description}
 
 PROPOSED SOLUTION
@@ -308,11 +313,11 @@ DEVELOPMENT APPROACH
 
 TIMELINE
 Target completion: ${request.timeline}
-(Actual timeline will be refined during the discovery phase)
+(Actual timeline will be refined during our discovery phase)
 
 INVESTMENT
 Pricing is based on the selected project type with transparent, fixed rates.
-Final pricing details will be provided during our initial consultation.
+Final pricing details will be provided during our initial consultation call.
 
 PAYMENT OPTIONS
 For your convenience, I accept payments via:
@@ -326,7 +331,7 @@ NEXT STEPS
 3. Sign development agreement
 4. Begin development work
 
-I'm excited about the opportunity to work with you on this project and help bring your vision to life.
+I'm excited about the opportunity to work with you on this project and help bring your vision to life. Would you be available for a brief call this week to discuss the details?
 
 Best regards,
 Gavin Anthony
@@ -335,26 +340,19 @@ guidato.llc@gmail.com
 (254) 300-8158
 Austin, TX
 
-Generated on ${new Date().toLocaleDateString()} for ${request.company || `${request.firstName} ${request.lastName}`}
-    `.trim();
+---
+Proposal generated on ${new Date().toLocaleDateString()} for ${request.company || `${request.firstName} ${request.lastName}`}`;
 
     // Update status to 'proposal-sent'
     updateStatusMutation.mutate({ id: request.id, status: 'proposal-sent' });
 
-    // Create and download the proposal as a text file
-    const blob = new Blob([proposalText], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `proposal-${request.firstName}-${request.lastName}-${new Date().toISOString().split('T')[0]}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+    // Open default email client with proposal
+    const mailtoLink = `mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(proposalBody)}`;
+    window.location.href = mailtoLink;
 
     toast({
-      title: "Proposal generated",
-      description: "Proposal has been downloaded and status updated",
+      title: "Proposal email opened",
+      description: "Default email client opened with proposal content and status updated",
     });
   };
 
