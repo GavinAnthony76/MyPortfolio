@@ -16,7 +16,7 @@ import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 const projectTypes = [
   { value: 'fullstack', label: 'Full-Stack Development' },
   { value: 'prototype', label: 'Rapid Prototype/POC' },
-  { value: 'code-generation', label: 'Code Generation' },
+  { value: 'pwa', label: 'Progressive Web Applications' },
   { value: 'debugging', label: 'Code Review & Debugging' },
   { value: 'consulting', label: 'Technical Consulting' },
   { value: 'integration', label: 'API Integration' },

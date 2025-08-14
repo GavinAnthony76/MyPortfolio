@@ -35,19 +35,19 @@ const services = [
     ]
   },
   {
-    id: 'codegeneration',
+    id: 'pwa',
     icon: Settings,
-    title: 'Code Generation',
-    description: 'Expert code development for React, Node.js, and modern web applications with best practices built-in.',
-    price: '$500 - $2,000',
+    title: 'Progressive Web Applications',
+    description: 'Modern PWAs with offline capabilities, push notifications, and app-like experiences that work seamlessly across all devices.',
+    price: '$2,000 - $5,000',
     color: 'from-purple-50 to-pink-50',
     iconBg: 'bg-purple-600',
     priceColor: 'text-purple-600',
     features: [
-      'TypeScript support',
-      'Component libraries',
-      'API endpoints',
-      'Database schemas'
+      'Offline functionality',
+      'Push notifications',
+      'App-like experience',
+      'Cross-platform compatibility'
     ]
   },
   {

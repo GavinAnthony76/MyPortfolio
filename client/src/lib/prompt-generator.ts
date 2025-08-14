@@ -95,7 +95,7 @@ function getProjectTypeLabel(type: string): string {
   const labels: Record<string, string> = {
     'fullstack': 'Full-Stack Development',
     'prototype': 'Rapid Prototype/POC',
-    'code-generation': 'Code Generation',
+    'pwa': 'Progressive Web Applications',
     'debugging': 'Code Review & Debugging',
     'consulting': 'Technical Consulting',
     'integration': 'API Integration',
@@ -132,7 +132,7 @@ function getRecommendedTechStack(projectType: string): string | null {
   const stacks: Record<string, string> = {
     'fullstack': '- **Frontend:** React with TypeScript, Tailwind CSS, Shadcn/ui\n- **Backend:** Node.js with Express.js, RESTful APIs\n- **Database:** PostgreSQL with Drizzle ORM\n- **Authentication:** JWT, OAuth, or NextAuth.js\n- **Deployment:** Vercel, Railway, or AWS\n- **Testing:** Jest, Vitest, Playwright for E2E',
     'prototype': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express\n- **Database:** In-memory or SQLite for speed\n- **Development:** Vite for fast iteration\n- **Hosting:** Replit, Vercel, or Netlify',
-    'code-generation': '- **AI Tools:** Advanced code generation algorithms\n- **Languages:** TypeScript, JavaScript, Python\n- **Frameworks:** React, Vue, Node.js, FastAPI\n- **Quality:** ESLint, Prettier, automated testing\n- **Documentation:** Auto-generated comments',
+    'pwa': '- **Frontend:** React/Vue with PWA capabilities\n- **Service Workers:** Offline functionality and caching\n- **Push Notifications:** Real-time user engagement\n- **Manifest:** App-like installation experience\n- **Performance:** Optimized loading and responsiveness',
     'debugging': '- **Analysis:** Static code analysis, performance profiling\n- **Tools:** TypeScript compiler, ESLint, testing frameworks\n- **Monitoring:** Error tracking, performance metrics\n- **Optimization:** Bundle analysis, code refactoring\n- **Documentation:** Technical debt analysis',
     'consulting': '- **Architecture:** Scalable system design patterns\n- **Technologies:** Modern frameworks and tools\n- **Performance:** Optimization strategies\n- **Security:** Best practices and auditing\n- **DevOps:** CI/CD and deployment strategies',
     'integration': '- **APIs:** RESTful and GraphQL integration\n- **Authentication:** OAuth, JWT, API keys\n- **Data:** JSON processing and validation\n- **Testing:** API testing and mocking\n- **Security:** Rate limiting and validation',
@@ -183,20 +183,20 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
 - Demo preparation and presentation
 - Feedback collection and refinements`,
 
-    'code-generation': `**Phase 1: Analysis & Setup (${isRush ? '1 day' : '2-3 days'})**
-- Code requirements analysis
-- Template and pattern identification
-- Development environment configuration
+    'pwa': `**Phase 1: PWA Setup & Architecture (${isRush ? '2-3 days' : '1 week'})**
+- Progressive enhancement strategy
+- Service worker implementation
+- Manifest configuration and icons
 
-**Phase 2: Generation & Customization (${isRush ? '2-3 days' : '1 week'})**
-- Automated code generation
-- Custom logic implementation
-- Code quality optimization
+**Phase 2: Core Features & Offline Support (${isRush ? '1 week' : '2 weeks'})**
+- Offline functionality development
+- Push notification system
+- Background sync capabilities
 
-**Phase 3: Review & Documentation (${isRush ? '1 day' : '2-3 days'})**
-- Code review and testing
-- Documentation generation
-- Best practices implementation`,
+**Phase 3: Testing & Optimization (${isRush ? '2-3 days' : '1 week'})**
+- PWA auditing and lighthouse testing
+- Performance optimization
+- Cross-platform compatibility testing`,
 
     'debugging': `**Phase 1: Analysis & Assessment (${isRush ? '1-2 days' : '3-5 days'})**
 - Codebase analysis and issue identification
