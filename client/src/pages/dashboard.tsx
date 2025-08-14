@@ -11,6 +11,197 @@ import type { ProjectRequest } from "@shared/schema";
 export default function Dashboard() {
   const queryClient = useQueryClient();
 
+  const generateProposal = (request: ProjectRequest) => {
+    const proposalContent = createProposalDocument(request);
+    
+    // Create and download the proposal as a text file
+    const blob = new Blob([proposalContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `proposal-${request.firstName}-${request.lastName}-${request.projectType}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const createProposalDocument = (request: ProjectRequest): string => {
+    const projectTypeLabels: Record<string, string> = {
+      'fullstack': 'Full-Stack Development',
+      'prototype': 'Rapid Prototype/POC',
+      'pwa': 'Progressive Web Applications',
+      'landing': 'Landing Pages',
+      'static': 'Static Web Page Development',
+      'integration': 'API Integration',
+      'other': 'Custom Development'
+    };
+
+    const budgetLabels: Record<string, string> = {
+      'under-5k': 'Under $5,000',
+      '5k-10k': '$5,000 - $10,000',
+      '10k-25k': '$10,000 - $25,000',
+      '25k-50k': '$25,000 - $50,000',
+      '50k-plus': '$50,000+',
+      'discuss': "Let's discuss"
+    };
+
+    const timelineLabels: Record<string, string> = {
+      'asap': 'ASAP',
+      '1-month': 'Within 1 month',
+      '2-3-months': '2-3 months',
+      '3-6-months': '3-6 months',
+      '6-plus-months': '6+ months',
+      'flexible': 'Flexible'
+    };
+
+    return `
+PROFESSIONAL DEVELOPMENT PROPOSAL
+${projectTypeLabels[request.projectType] || request.projectType}
+
+=====================================
+
+PROJECT OVERVIEW
+=====================================
+
+Client: ${request.firstName} ${request.lastName}
+${request.company ? `Company: ${request.company}` : ''}
+Email: ${request.email}
+Project Type: ${projectTypeLabels[request.projectType] || request.projectType}
+Budget Range: ${budgetLabels[request.budget] || request.budget}
+Timeline: ${timelineLabels[request.timeline] || request.timeline}
+Date: ${new Date().toLocaleDateString()}
+
+=====================================
+
+PROJECT DESCRIPTION
+=====================================
+
+${request.description}
+
+${request.targetAudience ? `Target Audience: ${request.targetAudience}` : ''}
+
+${request.keyFeatures ? `
+KEY FEATURES REQUIRED
+=====================================
+
+${request.keyFeatures}
+` : ''}
+
+${request.techPreferences ? `
+TECHNICAL PREFERENCES
+=====================================
+
+${request.techPreferences}
+` : ''}
+
+${request.designReferences ? `
+DESIGN REFERENCES
+=====================================
+
+${request.designReferences}
+` : ''}
+
+PROPOSED SOLUTION
+=====================================
+
+Based on your requirements, I propose developing a comprehensive ${projectTypeLabels[request.projectType]?.toLowerCase() || request.projectType} solution that addresses all your specified needs.
+
+TECHNICAL APPROACH
+=====================================
+
+Frontend Development:
+- React with TypeScript for type safety and maintainability
+- Modern UI components using Tailwind CSS and Shadcn/ui
+- Responsive design ensuring optimal experience across all devices
+- Performance optimization and accessibility compliance
+
+Backend Development:
+- Node.js with Express.js for robust API development
+- PostgreSQL database with Drizzle ORM for data management
+- RESTful API architecture with proper error handling
+- Secure authentication and authorization implementation
+
+DEVELOPMENT PHASES
+=====================================
+
+Phase 1: Planning & Architecture (Week 1)
+- Requirements analysis and technical specification
+- Database schema design and API planning
+- UI/UX wireframes and component architecture
+- Development environment setup
+
+Phase 2: Core Development (Weeks 2-4)
+- Backend API development and testing
+- Database implementation and migrations
+- Frontend component development
+- Integration and functionality testing
+
+Phase 3: Enhancement & Optimization (Week 5)
+- Performance optimization and security hardening
+- Cross-browser testing and responsive design verification
+- User experience refinement and accessibility improvements
+- Documentation and deployment preparation
+
+Phase 4: Deployment & Launch (Week 6)
+- Production deployment and configuration
+- Final testing and quality assurance
+- Client training and documentation handover
+- Post-launch support and monitoring setup
+
+DELIVERABLES
+=====================================
+
+✓ Fully functional web application
+✓ Responsive design for all device types
+✓ Complete source code with documentation
+✓ Production deployment and hosting setup
+✓ User documentation and training materials
+✓ 30-day post-launch support and bug fixes
+
+INVESTMENT
+=====================================
+
+Project Cost: ${budgetLabels[request.budget] || request.budget}
+Timeline: ${timelineLabels[request.timeline] || request.timeline}
+
+Payment Schedule:
+- 30% upfront to begin development
+- 40% at milestone completion (Phase 2)
+- 30% upon project completion and deployment
+
+NEXT STEPS
+=====================================
+
+1. Review this proposal and provide feedback
+2. Schedule a discovery call to discuss technical details
+3. Finalize project scope and timeline
+4. Sign development agreement and begin work
+
+${request.additionalInfo ? `
+ADDITIONAL NOTES
+=====================================
+
+${request.additionalInfo}
+` : ''}
+
+CONTACT INFORMATION
+=====================================
+
+Gavin Anthony
+Full-Stack Developer
+Email: guidato.llc@gmail.com
+Phone: (254) 300-8158
+Location: Austin, TX
+Portfolio: https://your-portfolio-url.com
+
+Thank you for considering my services for your ${projectTypeLabels[request.projectType]?.toLowerCase() || request.projectType} project. I look forward to discussing how we can bring your vision to life.
+
+---
+Generated on ${new Date().toLocaleDateString()} for ${request.company || `${request.firstName} ${request.lastName}`}
+    `.trim();
+  };
+
   const { data: requests = [], isLoading, error } = useQuery<ProjectRequest[]>({
     queryKey: ['/api/project-requests'],
   });
@@ -166,6 +357,7 @@ export default function Dashboard() {
                             variant="default" 
                             size="sm"
                             className="bg-green-600 hover:bg-green-700"
+                            onClick={() => generateProposal(request)}
                             data-testid={`button-proposal-${request.id}`}
                           >
                             <File className="w-4 h-4 mr-1" />
