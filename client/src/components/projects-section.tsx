@@ -12,6 +12,7 @@ import cryptoImage from "@assets/generated_images/Crypto_Trading_Platform_e3e8b0
 import realEstateImage from "@assets/generated_images/Real_Estate_Management_64385fdb.png";
 import taskMgmtImage from "@assets/generated_images/Task_Management_System_15136412.png";
 import fightingGameImage from "@assets/generated_images/Fighting_Game_Tournament_b38218ec.png";
+import caribbeanFoodImage from "@assets/generated_images/Caribbean_Food_Platform_720bc623.png";
 
 interface Project {
   id: string;
@@ -36,6 +37,14 @@ const projects: Project[] = [
   },
   {
     id: '2',
+    title: 'Jamaican Yamming - Caribbean Food Platform',
+    description: 'Interactive Caribbean culinary platform featuring authentic Jamaican recipes, cooking tutorials, and cultural food experiences.',
+    image: caribbeanFoodImage,
+    category: 'web',
+    technologies: ['React', 'Node.js', 'MongoDB'],
+  },
+  {
+    id: '3',
     title: 'ShopFlow - E-commerce Platform',
     description: 'A complete e-commerce solution with payment integration, inventory management, and admin dashboard.',
     image: ecommerceImage,
@@ -43,7 +52,7 @@ const projects: Project[] = [
     technologies: ['React', 'Node.js', 'Stripe'],
   },
   {
-    id: '3',
+    id: '4',
     title: 'CryptoTrader - Digital Asset Platform',
     description: 'Advanced cryptocurrency trading platform with real-time market data, portfolio tracking, and secure wallet integration.',
     image: cryptoImage,
@@ -51,20 +60,12 @@ const projects: Project[] = [
     technologies: ['Vue.js', 'Express.js', 'WebSocket'],
   },
   {
-    id: '4',
+    id: '5',
     title: 'DataViz - Analytics Dashboard',
     description: 'Real-time analytics dashboard with interactive charts and customizable reports with advanced insights.',
     image: aiDashboardImage,
     category: 'web',
     technologies: ['React', 'D3.js', 'Python'],
-  },
-  {
-    id: '5',
-    title: 'PropertyFlow - Real Estate Management',
-    description: 'Comprehensive property management system with virtual tours, tenant portals, and automated workflows.',
-    image: realEstateImage,
-    category: 'web',
-    technologies: ['Next.js', 'MongoDB', 'Socket.io'],
   },
   {
     id: '6',
