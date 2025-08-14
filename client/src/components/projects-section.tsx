@@ -62,7 +62,7 @@ const getProjects = (images: any): Project[] => [
   {
     id: '5',
     title: 'Brain Discord Bot - Fighting Game Assistant',
-    description: 'Intelligent Discord bot inspired by Brain from Pinky and the Brain, designed to manage fighting game tournaments, player rankings, and community engagement with advanced command features.',
+    description: 'Comprehensive Discord bot for fighting game communities featuring frame data lookup with SuperCombo API, combo database with rating system, interactive quiz system, personal collections with practice mode, and automated SuperCombo wiki import.',
     image: images?.brainBot || '/api/assets/brain-discord-bot.png',
     category: 'web',
     technologies: ['Discord.js', 'Node.js', 'MongoDB'],
