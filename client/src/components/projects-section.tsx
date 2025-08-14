@@ -47,7 +47,7 @@ const projects: Project[] = [
   },
   {
     id: '3',
-    title: 'Ivor Myers Ministry Website',
+    title: 'Faith and Ministry Website',
     description: 'Spiritual community platform featuring live streaming services, ministry resources, community engagement, and faith-based content delivery.',
     image: ivorMyersAppImage,
     category: 'web',
