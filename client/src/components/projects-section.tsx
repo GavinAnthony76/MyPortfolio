@@ -14,6 +14,7 @@ import taskMgmtImage from "@assets/generated_images/Task_Management_System_15136
 import fightingGameImage from "@assets/generated_images/Fighting_Game_Tournament_b38218ec.png";
 import caribbeanFoodImage from "@assets/generated_images/Caribbean_Food_Platform_720bc623.png";
 import jamaicaRestaurantImage from "@assets/9ba9ffab5f885fc3dac87838b3357014_1754763209553_1755130520942.webp";
+import ivorMyersAppImage from "@assets/generated_images/Personal_App_Interface_86e55c39.png";
 
 interface Project {
   id: string;
@@ -46,11 +47,11 @@ const projects: Project[] = [
   },
   {
     id: '3',
-    title: 'ShopFlow - E-commerce Platform',
-    description: 'A complete e-commerce solution with payment integration, inventory management, and admin dashboard.',
-    image: ecommerceImage,
-    category: 'ecommerce',
-    technologies: ['React', 'Node.js', 'Stripe'],
+    title: 'Ivor Myers APP',
+    description: 'Personal branding and content management application featuring user profiles, content delivery, and interactive engagement features.',
+    image: ivorMyersAppImage,
+    category: 'web',
+    technologies: ['React', 'Node.js', 'MongoDB'],
   },
   {
     id: '4',
