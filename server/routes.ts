@@ -13,15 +13,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const storageManager = new StorageManager();
 
   // Session configuration
+  const isProduction = process.env.NODE_ENV === 'production';
   app.use(session({
-    secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production',
+    secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production-12345',
     resave: false,
     saveUninitialized: false,
+    name: 'sessionId', // Custom session name
     cookie: {
-      secure: process.env.NODE_ENV === 'production', // Enable secure cookies in production
+      secure: false, // Set to false for now to debug production issues
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      sameSite: 'strict' // CSRF protection
+      sameSite: 'lax', // Better cross-origin compatibility
+      domain: isProduction ? '.gavineanthony.com' : undefined // Set domain for production
     }
   }));
 
@@ -57,19 +60,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/login', async (req, res) => {
     try {
       const { username, password } = req.body;
+      console.log('Login attempt for username:', username);
       
       const user = await storage.getUserByUsername(username);
       if (!user) {
+        console.log('User not found:', username);
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 
       const isValidPassword = await bcrypt.compare(password, user.password);
       if (!isValidPassword) {
+        console.log('Invalid password for user:', username);
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 
+      // Set session
       (req.session as any).userId = user.id;
-      res.json({ success: true, message: 'Login successful' });
+      
+      // Save session explicitly
+      req.session.save((err) => {
+        if (err) {
+          console.error('Session save error:', err);
+          return res.status(500).json({ message: 'Session error' });
+        }
+        console.log('Login successful for user:', username, 'Session ID:', req.session.id);
+        res.json({ success: true, message: 'Login successful' });
+      });
     } catch (error) {
       console.error('Login error:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -88,7 +104,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Check auth status
   app.get('/api/auth/status', (req, res) => {
-    if ((req.session as any).userId) {
+    const userId = (req.session as any).userId;
+    console.log('Auth status check - Session ID:', req.session.id, 'User ID:', userId);
+    
+    if (userId) {
       res.json({ authenticated: true });
     } else {
       res.json({ authenticated: false });

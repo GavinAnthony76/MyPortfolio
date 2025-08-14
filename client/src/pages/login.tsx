@@ -25,6 +25,7 @@ export default function Login() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // Important for cross-origin cookies
         body: JSON.stringify({ username, password }),
       });
 
@@ -37,10 +38,10 @@ export default function Login() {
           description: "Welcome to your dashboard!",
         });
         
-        // Small delay to ensure auth state updates before navigation
+        // Longer delay to ensure session propagation
         setTimeout(() => {
           setLocation("/dashboard");
-        }, 100);
+        }, 500);
       } else {
         const error = await response.json();
         toast({
