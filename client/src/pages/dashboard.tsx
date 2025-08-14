@@ -1,15 +1,50 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { useLocation } from "wouter";
 import Navigation from "@/components/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Mail, Building, DollarSign, Calendar, FileText, Archive, Reply, File } from "lucide-react";
+import { Clock, Mail, Building, DollarSign, Calendar, FileText, Archive, Reply, File, LogOut, Home } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import { useToast } from "@/hooks/use-toast";
 import type { ProjectRequest } from "@shared/schema";
 
 export default function Dashboard() {
   const queryClient = useQueryClient();
+  const [, setLocation] = useLocation();
+  const { toast } = useToast();
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest('/api/logout', { method: 'POST' });
+    },
+    onSuccess: () => {
+      // Invalidate auth status to update authentication state
+      queryClient.invalidateQueries({ queryKey: ['/api/auth/status'] });
+      toast({
+        title: "Logged out successfully",
+        description: "You have been securely logged out",
+      });
+      // Redirect to home page
+      setLocation('/');
+    },
+    onError: () => {
+      toast({
+        title: "Logout failed",
+        description: "There was an error logging out",
+        variant: "destructive",
+      });
+    }
+  });
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  };
+
+  const handleGoHome = () => {
+    setLocation('/');
+  };
 
   const respondToClient = (request: ProjectRequest) => {
     const projectTypeLabels: Record<string, string> = {
@@ -400,6 +435,25 @@ Generated on ${new Date().toLocaleDateString()} for ${request.company || `${requ
                 >
                   <Clock className="w-4 h-4 mr-2" />
                   Refresh
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={handleGoHome}
+                  data-testid="button-home"
+                >
+                  <Home className="w-4 h-4 mr-2" />
+                  Portfolio
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={handleLogout}
+                  disabled={logoutMutation.isPending}
+                  data-testid="button-logout"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  {logoutMutation.isPending ? 'Logging out...' : 'Logout'}
                 </Button>
               </div>
             </div>
