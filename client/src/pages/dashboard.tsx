@@ -510,7 +510,8 @@ Proposal generated on ${new Date().toLocaleDateString()} for ${request.company |
                         </Button>
                       )}
 
-                      {request.status === 'proposal-sent' && (
+                      {/* Won/Lost buttons - show for proposal-sent, follow-up, and in-progress until decision is made */}
+                      {['proposal-sent', 'follow-up', 'in-progress'].includes(request.status) && (
                         <>
                           <Button 
                             variant="outline" 

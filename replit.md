@@ -31,6 +31,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - **Redesigned card interface** - compact header view shows key info (client, status, timeline) with click-to-expand functionality
 - **Improved visual hierarchy** - streamlined status badges with color coding (blue for in-progress, green for complete)
 - **Added contextual action buttons** - status-specific buttons appear based on project state (In Progress, Complete, Won/Lost)
+- **Persistent Won/Lost buttons** - Won/Lost decision buttons remain available across proposal-sent, follow-up, and in-progress statuses until decision is made
 - **Email-based proposal system** - Create Proposal button now opens default email client with comprehensive proposal content instead of downloading text files
 - **Secure data handling** - All project data stored securely in PostgreSQL database with proper encryption and validation
 - **Removed budget range field completely** - eliminated budget selection from contact form, database schema, and all related UI components
