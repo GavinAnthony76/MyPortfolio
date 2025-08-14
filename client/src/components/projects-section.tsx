@@ -13,6 +13,7 @@ import realEstateImage from "@assets/generated_images/Real_Estate_Management_643
 import taskMgmtImage from "@assets/generated_images/Task_Management_System_15136412.png";
 import fightingGameImage from "@assets/generated_images/Fighting_Game_Tournament_b38218ec.png";
 import caribbeanFoodImage from "@assets/generated_images/Caribbean_Food_Platform_720bc623.png";
+import jamaicaRestaurantImage from "@assets/9ba9ffab5f885fc3dac87838b3357014_1754763209553_1755130520942.webp";
 
 interface Project {
   id: string;
@@ -39,7 +40,7 @@ const projects: Project[] = [
     id: '2',
     title: 'Jamaica Nyammingz - Jamaican Restaurant',
     description: 'Complete restaurant website featuring authentic Jamaican cuisine, online menu, ordering system, and cultural dining experiences.',
-    image: caribbeanFoodImage,
+    image: jamaicaRestaurantImage,
     category: 'web',
     technologies: ['React', 'Node.js', 'MongoDB'],
   },
