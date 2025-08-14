@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import waitingResponseImage from "@assets/generated_images/Personal_App_Interface_86e55c39.png";
 
 const projectTypes = [
   { value: 'fullstack', label: 'Full-Stack Development' },
@@ -151,10 +152,10 @@ export default function ContactSection() {
             
             <div className="mt-8">
               <img 
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400" 
-                alt="Modern office workspace" 
+                src={waitingResponseImage} 
+                alt="Client waiting for developer response" 
                 className="rounded-xl shadow-lg w-full h-auto"
-                data-testid="img-workspace"
+                data-testid="img-waiting-response"
               />
             </div>
           </div>
