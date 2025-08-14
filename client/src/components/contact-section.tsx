@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
-import waitingResponseImage from "@assets/OIP (3)_1755135032531.webp";
+import waitingResponseImage from "@assets/image_1755150211124.png";
 
 const projectTypes = [
   { value: 'fullstack', label: 'Full-Stack Development' },
