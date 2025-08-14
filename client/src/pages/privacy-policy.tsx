@@ -85,7 +85,7 @@ export default function PrivacyPolicyPage() {
                 <li><strong>Objection:</strong> Object to processing of your personal information</li>
               </ul>
               <p className="mt-4">
-                To exercise these rights, please contact us at <a href="mailto:guidato.llc@gmail.com" className="text-blue-600 hover:text-blue-800">guidato.llc@gmail.com</a>.
+                To exercise these rights, please contact us at <a href="mailto:gavineanthony@outlook.com" className="text-blue-600 hover:text-blue-800">gavineanthony@outlook.com</a>.
               </p>
             </section>
 
