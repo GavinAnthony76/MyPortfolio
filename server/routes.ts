@@ -26,7 +26,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       connectionString: process.env.DATABASE_URL,
       ssl: isProduction ? { rejectUnauthorized: false } : false
     },
-    tableName: 'user_sessions', // Store sessions in separate table
+    tableName: 'app_sessions', // Store sessions in separate table
     createTableIfMissing: true, // Auto-create session table
   });
 
