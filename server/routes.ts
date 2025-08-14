@@ -8,32 +8,71 @@ import { generateProjectPrompt } from "../client/src/lib/prompt-generator";
 import StorageManager from "./storage-manager";
 import bcrypt from "bcrypt";
 import session from "express-session";
+import pgSession from "connect-pg-simple";
+import { db } from "./db";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   const storageManager = new StorageManager();
 
-  // Session configuration
+  // Session configuration with persistent storage
   const isProduction = process.env.NODE_ENV === 'production';
+  const PostgresqlStore = pgSession(session);
+  
+  // Create session store with PostgreSQL
+  const sessionStore = new PostgresqlStore({
+    // Use the existing database connection
+    conObject: {
+      connectionString: process.env.DATABASE_URL,
+      ssl: isProduction ? { rejectUnauthorized: false } : false
+    },
+    tableName: 'user_sessions', // Store sessions in separate table
+    createTableIfMissing: true, // Auto-create session table
+  });
+
   app.use(session({
     secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production-12345',
     resave: false,
     saveUninitialized: false,
-    name: 'sessionId', // Custom session name
+    store: sessionStore, // Use PostgreSQL session store
+    name: 'auth_session', // Distinctive session name
     cookie: {
-      secure: false, // Set to false for now to debug production issues
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      sameSite: 'lax', // Better cross-origin compatibility
-      domain: isProduction ? '.gavineanthony.com' : undefined // Set domain for production
-    }
+      secure: isProduction, // Secure cookies in production
+      httpOnly: true, // Prevent XSS access to cookies
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days instead of 24 hours
+      sameSite: isProduction ? 'none' : 'lax', // Cross-site compatibility for production
+      domain: isProduction ? '.gavineanthony.com' : undefined, // Domain-wide cookies for production
+    },
+    rolling: true, // Extend session on activity
   }));
 
-  // Authentication middleware
-  const requireAuth = (req: any, res: any, next: any) => {
-    if (req.session.userId) {
+  // Enhanced authentication middleware
+  const requireAuth = async (req: any, res: any, next: any) => {
+    try {
+      const userId = req.session.userId;
+      
+      if (!userId) {
+        return res.status(401).json({ message: 'Unauthorized - No session' });
+      }
+      
+      // Verify user still exists in database
+      const user = await storage.getUser(userId);
+      if (!user) {
+        // User doesn't exist, destroy invalid session
+        req.session.destroy((err: any) => {
+          if (err) console.error('Session destroy error:', err);
+        });
+        return res.status(401).json({ message: 'Unauthorized - Invalid user' });
+      }
+      
+      // Extend session on activity
+      req.session.touch();
+      
+      // Add user info to request for use in handlers
+      req.user = user;
       next();
-    } else {
-      res.status(401).json({ message: 'Unauthorized' });
+    } catch (error) {
+      console.error('Auth middleware error:', error);
+      res.status(500).json({ message: 'Authentication error' });
     }
   };
 
@@ -82,17 +121,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 
-      // Set session
+      // Set session data
       (req.session as any).userId = user.id;
+      (req.session as any).username = user.username;
+      (req.session as any).loginTime = new Date().toISOString();
       
-      // Save session explicitly
-      req.session.save((err) => {
+      // Save session explicitly and regenerate session ID for security
+      req.session.regenerate((err) => {
         if (err) {
-          console.error('Session save error:', err);
+          console.error('Session regeneration error:', err);
           return res.status(500).json({ message: 'Session error' });
         }
-        console.log('Login successful for user:', username, 'Session ID:', req.session.id);
-        res.json({ success: true, message: 'Login successful' });
+        
+        // Re-set session data after regeneration
+        (req.session as any).userId = user.id;
+        (req.session as any).username = user.username;
+        (req.session as any).loginTime = new Date().toISOString();
+        
+        req.session.save((saveErr) => {
+          if (saveErr) {
+            console.error('Session save error:', saveErr);
+            return res.status(500).json({ message: 'Session error' });
+          }
+          console.log('Login successful for user:', username, 'Session ID:', req.session.id);
+          res.json({ 
+            success: true, 
+            message: 'Login successful',
+            sessionId: req.session.id 
+          });
+        });
       });
     } catch (error) {
       console.error('Login error:', error);
@@ -111,14 +168,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Check auth status
-  app.get('/api/auth/status', (req, res) => {
-    const userId = (req.session as any).userId;
-    console.log('Auth status check - Session ID:', req.session.id, 'User ID:', userId);
-    
-    if (userId) {
-      res.json({ authenticated: true });
-    } else {
-      res.json({ authenticated: false });
+  app.get('/api/auth/status', async (req, res) => {
+    try {
+      const userId = (req.session as any).userId;
+      const username = (req.session as any).username;
+      const loginTime = (req.session as any).loginTime;
+      
+      console.log('Auth status check - Session ID:', req.session.id, 'User ID:', userId);
+      
+      if (userId) {
+        // Verify user still exists in database
+        const user = await storage.getUser(userId);
+        if (user) {
+          // Touch session to extend expiration
+          req.session.touch();
+          res.json({ 
+            authenticated: true,
+            sessionId: req.session.id,
+            username: username,
+            loginTime: loginTime
+          });
+        } else {
+          // User doesn't exist anymore, destroy session
+          req.session.destroy((err) => {
+            if (err) console.error('Session destroy error:', err);
+          });
+          res.json({ authenticated: false, reason: 'user_not_found' });
+        }
+      } else {
+        res.json({ authenticated: false, reason: 'no_session' });
+      }
+    } catch (error) {
+      console.error('Auth status error:', error);
+      res.json({ authenticated: false, reason: 'server_error' });
     }
   });
   // Submit project request

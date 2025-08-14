@@ -19,7 +19,9 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - **Created SECURITY.md** - comprehensive security guidelines and best practices documentation
 - **Environment-based authentication** - admin credentials managed through secure environment variables
 - **Password encryption** - bcrypt hashing with 10 salt rounds for all stored passwords
-- **Session security** - HTTP-only cookies, domain-specific configuration, 24-hour expiration
+- **Session security** - HTTP-only cookies, domain-specific configuration, 7-day expiration with activity extension
+- **Persistent session storage** - PostgreSQL-based session store ensuring cross-device authentication persistence
+- **Enhanced session management** - Session regeneration on login, automatic extension on activity, database validation
 
 ### Dashboard and Features
 - **Implemented accordion-style project cards** - condensed dashboard UI with collapsible cards that expand to show full details
