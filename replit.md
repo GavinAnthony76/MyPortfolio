@@ -34,6 +34,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - **Persistent Won/Lost buttons** - Won/Lost decision buttons remain available across proposal-sent, follow-up, and in-progress statuses until decision is made
 - **Text file proposal system** - Create Proposal button generates and downloads comprehensive proposal as text file for detailed documentation
 - **Enhanced email reliability** - Improved mailto functionality with fallback clipboard support for email content when default client fails to open
+- **Automatic email notifications** - SendGrid integration sends instant email alerts to guidato.llc@gmail.com when new project requests are submitted
 - **Secure data handling** - All project data stored securely in PostgreSQL database with proper encryption and validation
 - **Removed budget range field completely** - eliminated budget selection from contact form, database schema, and all related UI components
 - **Updated pricing approach** - pricing now based on project type rather than client budget ranges, with fixed transparent rates

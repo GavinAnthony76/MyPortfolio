@@ -10,6 +10,7 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 import pgSession from "connect-pg-simple";
 import { db } from "./db";
+import { sendNewProjectRequestNotification } from "./email-service";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   const storageManager = new StorageManager();
@@ -214,6 +215,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const projectRequest = await storage.createProjectRequest({
         ...validatedData,
         generatedPrompt,
+      });
+      
+      // Send email notification (don't block response if email fails)
+      setImmediate(async () => {
+        try {
+          const emailSent = await sendNewProjectRequestNotification(projectRequest);
+          if (emailSent) {
+            console.log(`Email notification sent for project request ${projectRequest.id}`);
+          } else {
+            console.warn(`Failed to send email notification for project request ${projectRequest.id}`);
+          }
+        } catch (emailError) {
+          console.error('Email notification error:', emailError);
+        }
       });
       
       res.json({ success: true, id: projectRequest.id });
