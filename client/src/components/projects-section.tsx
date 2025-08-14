@@ -15,6 +15,7 @@ import fightingGameImage from "@assets/generated_images/Fighting_Game_Tournament
 import caribbeanFoodImage from "@assets/generated_images/Caribbean_Food_Platform_720bc623.png";
 import jamaicaRestaurantImage from "@assets/9ba9ffab5f885fc3dac87838b3357014_1754763209553_1755130520942.webp";
 import ivorMyersAppImage from "@assets/generated_images/Spiritual_Church_Website_24ec815c.png";
+import powerOfLambImage from "@assets/generated_images/Biblical_Prophecy_Ministry_a17fc338.png";
 
 interface Project {
   id: string;
@@ -55,11 +56,12 @@ const projects: Project[] = [
   },
   {
     id: '4',
-    title: 'CryptoTrader - Digital Asset Platform',
-    description: 'Advanced cryptocurrency trading platform with real-time market data, portfolio tracking, and secure wallet integration.',
-    image: cryptoImage,
+    title: 'Power of the Lamb Ministry',
+    description: 'Biblical prophecy teaching platform featuring course registration, live streaming events, educational content delivery, and ministry resources with integrated payment processing.',
+    image: powerOfLambImage,
     category: 'web',
-    technologies: ['Vue.js', 'Express.js', 'WebSocket'],
+    technologies: ['WordPress', 'PHP', 'Stripe'],
+    liveUrl: 'https://powerofthelamb.com/',
   },
   {
     id: '5',
