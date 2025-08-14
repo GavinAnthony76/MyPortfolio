@@ -5,20 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { usePortfolioImages } from "@/hooks/use-portfolio-images";
 
-// Import remaining non-portfolio tech images
-import aiDashboardImage from "@assets/generated_images/AI_Dashboard_Interface_dc1310fc.png";
-import ecommerceImage from "@assets/generated_images/E-commerce_Analytics_Interface_a340d8f8.png";
-import webArchImage from "@assets/generated_images/Web_Architecture_Visualization_1e476c99.png";
-import cryptoImage from "@assets/generated_images/Crypto_Trading_Platform_e3e8b01c.png";
-import realEstateImage from "@assets/generated_images/Real_Estate_Management_64385fdb.png";
-import taskMgmtImage from "@assets/generated_images/Task_Management_System_15136412.png";
+
 
 interface Project {
   id: string;
   title: string;
   description: string;
   image: string;
-  category: 'all' | 'web' | 'landing' | 'ecommerce';
+  category: 'all' | 'web' | 'ecommerce';
   technologies: string[];
   liveUrl?: string;
   codeUrl?: string;
@@ -68,49 +62,17 @@ const getProjects = (images: any): Project[] => [
     technologies: ['Discord.js', 'Node.js', 'MongoDB'],
     liveUrl: 'https://replit.com/t/phototheology/repls/DiscordBot',
   },
-  {
-    id: '6',
-    title: 'TaskMaster - Project Management',
-    description: 'Collaborative project management tool with kanban boards, team communication, and advanced analytics insights.',
-    image: taskMgmtImage,
-    category: 'web',
-    technologies: ['React', 'GraphQL', 'PostgreSQL'],
-  },
-  {
-    id: '7',
-    title: 'E-commerce Analytics Dashboard',
-    description: 'Advanced analytics platform for online retailers with real-time sales tracking, inventory management, and customer insights.',
-    image: ecommerceImage,
-    category: 'ecommerce',
-    technologies: ['React', 'D3.js', 'Node.js'],
-  },
-  {
-    id: '8',
-    title: 'Real Estate Landing Page',
-    description: 'High-converting landing page for luxury real estate with property showcase, contact forms, and lead generation.',
-    image: realEstateImage,
-    category: 'landing',
-    technologies: ['React', 'Tailwind CSS', 'Framer Motion'],
-  },
-  {
-    id: '9',
-    title: 'Crypto Trading Platform',
-    description: 'Complete cryptocurrency trading platform with real-time charts, portfolio tracking, and secure transaction processing.',
-    image: cryptoImage,
-    category: 'ecommerce',
-    technologies: ['React', 'WebSocket', 'Node.js'],
-  },
+
 ];
 
 const filterOptions = [
   { value: 'all', label: 'All' },
   { value: 'web', label: 'Web Apps' },
-  { value: 'landing', label: 'Landing Pages' },
   { value: 'ecommerce', label: 'E-commerce' },
 ];
 
 export default function ProjectsSection() {
-  const [activeFilter, setActiveFilter] = useState<'all' | 'web' | 'landing' | 'ecommerce'>('all');
+  const [activeFilter, setActiveFilter] = useState<'all' | 'web' | 'ecommerce'>('all');
   const { data: images, isLoading } = usePortfolioImages();
 
   const projects = getProjects(images);
