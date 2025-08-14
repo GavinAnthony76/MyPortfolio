@@ -96,7 +96,7 @@ function getProjectTypeLabel(type: string): string {
     'fullstack': 'Full-Stack Development',
     'prototype': 'Rapid Prototype/POC',
     'pwa': 'Progressive Web Applications',
-    'debugging': 'Code Review & Debugging',
+    'landing': 'Landing Pages',
     'consulting': 'Technical Consulting',
     'integration': 'API Integration',
     'other': 'Custom Solution',
@@ -133,7 +133,7 @@ function getRecommendedTechStack(projectType: string): string | null {
     'fullstack': '- **Frontend:** React with TypeScript, Tailwind CSS, Shadcn/ui\n- **Backend:** Node.js with Express.js, RESTful APIs\n- **Database:** PostgreSQL with Drizzle ORM\n- **Authentication:** JWT, OAuth, or NextAuth.js\n- **Deployment:** Vercel, Railway, or AWS\n- **Testing:** Jest, Vitest, Playwright for E2E',
     'prototype': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express\n- **Database:** In-memory or SQLite for speed\n- **Development:** Vite for fast iteration\n- **Hosting:** Replit, Vercel, or Netlify',
     'pwa': '- **Frontend:** React/Vue with PWA capabilities\n- **Service Workers:** Offline functionality and caching\n- **Push Notifications:** Real-time user engagement\n- **Manifest:** App-like installation experience\n- **Performance:** Optimized loading and responsiveness',
-    'debugging': '- **Analysis:** Static code analysis, performance profiling\n- **Tools:** TypeScript compiler, ESLint, testing frameworks\n- **Monitoring:** Error tracking, performance metrics\n- **Optimization:** Bundle analysis, code refactoring\n- **Documentation:** Technical debt analysis',
+    'landing': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Optimization:** Conversion rate optimization techniques\n- **SEO:** Meta tags, structured data, performance optimization\n- **Analytics:** Google Analytics, conversion tracking\n- **Hosting:** Fast CDN deployment with global reach',
     'consulting': '- **Architecture:** Scalable system design patterns\n- **Technologies:** Modern frameworks and tools\n- **Performance:** Optimization strategies\n- **Security:** Best practices and auditing\n- **DevOps:** CI/CD and deployment strategies',
     'integration': '- **APIs:** RESTful and GraphQL integration\n- **Authentication:** OAuth, JWT, API keys\n- **Data:** JSON processing and validation\n- **Testing:** API testing and mocking\n- **Security:** Rate limiting and validation',
   };
@@ -198,20 +198,20 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
 - Performance optimization
 - Cross-platform compatibility testing`,
 
-    'debugging': `**Phase 1: Analysis & Assessment (${isRush ? '1-2 days' : '3-5 days'})**
-- Codebase analysis and issue identification
-- Performance profiling and bottleneck detection
-- Technical debt assessment
+    'landing': `**Phase 1: Design & Strategy (${isRush ? '1-2 days' : '2-3 days'})**
+- Content strategy and copywriting
+- Visual design and layout
+- Conversion optimization planning
 
-**Phase 2: Optimization & Fixes (${isRush ? '3-5 days' : '1-2 weeks'})**
-- Bug fixes and error resolution
+**Phase 2: Development & Integration (${isRush ? '2-3 days' : '3-5 days'})**
+- Responsive frontend development
+- Analytics and tracking setup
+- SEO optimization implementation
+
+**Phase 3: Testing & Launch (${isRush ? '1 day' : '1-2 days'})**
+- Cross-browser testing
 - Performance optimization
-- Code refactoring and improvements
-
-**Phase 3: Testing & Documentation (${isRush ? '1-2 days' : '3-5 days'})**
-- Comprehensive testing
-- Documentation updates
-- Best practices recommendations`,
+- Deployment and go-live`,
 
     'consulting': `**Phase 1: Discovery & Assessment (${isRush ? '2-3 days' : '1 week'})**
 - Current system analysis

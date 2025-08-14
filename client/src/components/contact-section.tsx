@@ -17,7 +17,7 @@ const projectTypes = [
   { value: 'fullstack', label: 'Full-Stack Development' },
   { value: 'prototype', label: 'Rapid Prototype/POC' },
   { value: 'pwa', label: 'Progressive Web Applications' },
-  { value: 'debugging', label: 'Code Review & Debugging' },
+  { value: 'landing', label: 'Landing Pages' },
   { value: 'consulting', label: 'Technical Consulting' },
   { value: 'integration', label: 'API Integration' },
   { value: 'other', label: 'Other' },

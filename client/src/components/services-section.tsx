@@ -51,19 +51,19 @@ const services = [
     ]
   },
   {
-    id: 'debugging',
+    id: 'landing',
     icon: TrendingUp,
-    title: 'Code Review & Debugging',
-    description: 'Comprehensive code analysis, bug detection, and performance optimization recommendations for existing projects.',
-    price: '$100/hour',
+    title: 'Landing Pages',
+    description: 'High-converting landing pages designed to showcase your product, capture leads, and drive conversions with modern design.',
+    price: '$250 - $750',
     color: 'from-orange-50 to-red-50',
     iconBg: 'bg-orange-600',
     priceColor: 'text-orange-600',
     features: [
-      'Error analysis',
-      'Performance insights',
-      'Best practice recommendations',
-      'Refactoring suggestions'
+      'Conversion optimization',
+      'Responsive design',
+      'SEO optimization',
+      'Analytics integration'
     ]
   },
   {

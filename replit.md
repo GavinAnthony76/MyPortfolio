@@ -26,7 +26,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
   - Full-Stack Development: $5,000 - $15,000 (Complete web application development)
   - Rapid Prototyping: $1,500 - $3,000 (Modern proof-of-concept development)
   - Progressive Web Applications: $2,000 - $5,000 (Modern PWAs with offline capabilities and app-like experiences)
-  - Code Review & Debugging: $100/hour (Comprehensive analysis and optimization)
+  - Landing Pages: $250 - $750 (High-converting pages with modern design and optimization)
   - Technical Consulting: $150/hour (Architecture and technology recommendations)
   - API Integration: $750 - $1,500 (Seamless third-party service integration)
 - Removed Interactive Learning service to focus on core development capabilities
