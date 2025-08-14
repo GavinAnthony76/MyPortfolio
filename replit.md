@@ -4,7 +4,15 @@ This is a professional portfolio website for a full-stack developer named Gavin 
 
 The portfolio includes sections for personal introduction, featured projects (focused on web applications, landing pages, and e-commerce), service offerings (web development, responsive design, e-commerce, consulting, maintenance, and MVP development), and a comprehensive contact form. The contact form generates detailed project briefs that are stored in a database and can be managed through an administrative dashboard.
 
-## Recent Changes (August 12, 2025)
+## Recent Changes (August 14, 2025)
+- Added Texas Showdown 2026 as featured project - a real fighting game tournament website (https://txshowdown.com/)
+- Updated project showcase to include actual completed work alongside portfolio examples
+- Implemented functional Live Demo buttons that link to real projects
+- Removed all AI-related messaging and terminology throughout the application
+- Updated name from "Emperor Gavin" to "Gavin Anthony" across all components and documentation
+- Enhanced projects section with abstract tech imagery instead of people-focused visuals
+
+## Previous Changes (August 12, 2025)
 - Updated services section to focus on web development capabilities, removing mobile app development
 - Modified project showcase to include web applications, landing pages, and e-commerce instead of mobile apps
 - Updated contact form project types to reflect accurate web development services

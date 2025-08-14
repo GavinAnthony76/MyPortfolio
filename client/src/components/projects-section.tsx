@@ -11,6 +11,7 @@ import webArchImage from "@assets/generated_images/Web_Architecture_Visualizatio
 import cryptoImage from "@assets/generated_images/Crypto_Trading_Platform_e3e8b01c.png";
 import realEstateImage from "@assets/generated_images/Real_Estate_Management_64385fdb.png";
 import taskMgmtImage from "@assets/generated_images/Task_Management_System_15136412.png";
+import fightingGameImage from "@assets/generated_images/Fighting_Game_Tournament_b38218ec.png";
 
 interface Project {
   id: string;
@@ -26,6 +27,15 @@ interface Project {
 const projects: Project[] = [
   {
     id: '1',
+    title: 'Texas Showdown 2026',
+    description: 'Official tournament website for one of the largest fighting game events in the US, featuring registration system, live countdown, and event management.',
+    image: fightingGameImage,
+    category: 'web',
+    technologies: ['React', 'Node.js', 'ASP.NET'],
+    liveUrl: 'https://txshowdown.com/',
+  },
+  {
+    id: '2',
     title: 'ShopFlow - E-commerce Platform',
     description: 'A complete e-commerce solution with payment integration, inventory management, and admin dashboard.',
     image: ecommerceImage,
@@ -33,7 +43,7 @@ const projects: Project[] = [
     technologies: ['React', 'Node.js', 'Stripe'],
   },
   {
-    id: '2',
+    id: '3',
     title: 'CryptoTrader - Digital Asset Platform',
     description: 'Advanced cryptocurrency trading platform with real-time market data, portfolio tracking, and secure wallet integration.',
     image: cryptoImage,
@@ -41,7 +51,7 @@ const projects: Project[] = [
     technologies: ['Vue.js', 'Express.js', 'WebSocket'],
   },
   {
-    id: '3',
+    id: '4',
     title: 'DataViz - Analytics Dashboard',
     description: 'Real-time analytics dashboard with interactive charts and customizable reports with advanced insights.',
     image: aiDashboardImage,
@@ -49,7 +59,7 @@ const projects: Project[] = [
     technologies: ['React', 'D3.js', 'Python'],
   },
   {
-    id: '4',
+    id: '5',
     title: 'PropertyFlow - Real Estate Management',
     description: 'Comprehensive property management system with virtual tours, tenant portals, and automated workflows.',
     image: realEstateImage,
@@ -57,20 +67,12 @@ const projects: Project[] = [
     technologies: ['Next.js', 'MongoDB', 'Socket.io'],
   },
   {
-    id: '5',
+    id: '6',
     title: 'TaskMaster - Project Management',
     description: 'Collaborative project management tool with kanban boards, team communication, and advanced analytics insights.',
     image: taskMgmtImage,
     category: 'web',
     technologies: ['React', 'GraphQL', 'PostgreSQL'],
-  },
-  {
-    id: '6',
-    title: 'TechArch - System Architecture Visualizer',
-    description: 'Interactive web application for visualizing and designing complex system architectures with real-time collaboration.',
-    image: webArchImage,
-    category: 'web',
-    technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
   },
 ];
 
@@ -150,14 +152,38 @@ export default function ProjectsSection() {
                   ))}
                 </div>
                 <div className="flex justify-between items-center">
-                  <Button variant="outline" size="sm" data-testid={`button-demo-${project.id}`}>
-                    <ExternalLink className="w-4 h-4 mr-1" />
-                    Live Demo
-                  </Button>
-                  <Button variant="ghost" size="sm" data-testid={`button-code-${project.id}`}>
-                    <Github className="w-4 h-4 mr-1" />
-                    Code
-                  </Button>
+                  {project.liveUrl ? (
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => window.open(project.liveUrl, '_blank')}
+                      data-testid={`button-demo-${project.id}`}
+                    >
+                      <ExternalLink className="w-4 h-4 mr-1" />
+                      Live Demo
+                    </Button>
+                  ) : (
+                    <Button variant="outline" size="sm" disabled data-testid={`button-demo-${project.id}`}>
+                      <ExternalLink className="w-4 h-4 mr-1" />
+                      Demo Coming Soon
+                    </Button>
+                  )}
+                  {project.codeUrl ? (
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => window.open(project.codeUrl, '_blank')}
+                      data-testid={`button-code-${project.id}`}
+                    >
+                      <Github className="w-4 h-4 mr-1" />
+                      Code
+                    </Button>
+                  ) : (
+                    <Button variant="ghost" size="sm" disabled data-testid={`button-code-${project.id}`}>
+                      <Github className="w-4 h-4 mr-1" />
+                      Private
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
