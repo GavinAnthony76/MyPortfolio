@@ -37,8 +37,8 @@ const projects: Project[] = [
   },
   {
     id: '2',
-    title: 'Jamaican Yamming - Caribbean Food Platform',
-    description: 'Interactive Caribbean culinary platform featuring authentic Jamaican recipes, cooking tutorials, and cultural food experiences.',
+    title: 'Jamaica Nyammingz - Jamaican Restaurant',
+    description: 'Complete restaurant website featuring authentic Jamaican cuisine, online menu, ordering system, and cultural dining experiences.',
     image: caribbeanFoodImage,
     category: 'web',
     technologies: ['React', 'Node.js', 'MongoDB'],
