@@ -39,7 +39,7 @@ const getProjects = (images: any): Project[] => [
     title: 'Jamaica Nyammingz - Jamaican Restaurant',
     description: 'Complete restaurant website featuring authentic Jamaican cuisine, online menu, ordering system, and cultural dining experiences.',
     image: images?.jamaicaRestaurant || '/api/assets/jamaica-restaurant.webp',
-    category: 'web',
+    category: 'ecommerce',
     technologies: ['React', 'Node.js', 'MongoDB'],
   },
   {
@@ -75,6 +75,30 @@ const getProjects = (images: any): Project[] => [
     image: taskMgmtImage,
     category: 'web',
     technologies: ['React', 'GraphQL', 'PostgreSQL'],
+  },
+  {
+    id: '7',
+    title: 'E-commerce Analytics Dashboard',
+    description: 'Advanced analytics platform for online retailers with real-time sales tracking, inventory management, and customer insights.',
+    image: ecommerceImage,
+    category: 'ecommerce',
+    technologies: ['React', 'D3.js', 'Node.js'],
+  },
+  {
+    id: '8',
+    title: 'Real Estate Landing Page',
+    description: 'High-converting landing page for luxury real estate with property showcase, contact forms, and lead generation.',
+    image: realEstateImage,
+    category: 'landing',
+    technologies: ['React', 'Tailwind CSS', 'Framer Motion'],
+  },
+  {
+    id: '9',
+    title: 'Crypto Trading Platform',
+    description: 'Complete cryptocurrency trading platform with real-time charts, portfolio tracking, and secure transaction processing.',
+    image: cryptoImage,
+    category: 'ecommerce',
+    technologies: ['React', 'WebSocket', 'Node.js'],
   },
 ];
 
