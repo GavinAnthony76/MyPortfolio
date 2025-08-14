@@ -1,5 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import path from "path";
+import fs from "fs";
 import { storage } from "./storage";
 import { insertProjectRequestSchema } from "@shared/schema";
 import { generateProjectPrompt } from "../client/src/lib/prompt-generator";
@@ -16,9 +18,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // Set to true in production with HTTPS
+      secure: process.env.NODE_ENV === 'production', // Enable secure cookies in production
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      sameSite: 'strict' // CSRF protection
     }
   }));
 
@@ -134,7 +137,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { id } = req.params;
       const { status } = req.body;
       
-      if (!status || !['new', 'responded', 'proposal-sent', 'follow-up', 'won', 'lost', 'archived'].includes(status)) {
+      if (!status || !['new', 'responded', 'proposal-sent', 'follow-up', 'in-progress', 'complete', 'won', 'lost', 'archived'].includes(status)) {
         return res.status(400).json({ 
           success: false, 
           error: "Invalid status" 
@@ -224,10 +227,66 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     const filePath = assetMap[filename];
     if (filePath) {
+      // Set cache headers for better performance
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      res.setHeader('ETag', `"${filename}"`);
       res.sendFile(filePath, { root: process.cwd() });
     } else {
       res.status(404).json({ error: 'Asset not found' });
     }
+  });
+
+  // Serve robots.txt
+  app.get("/robots.txt", (req, res) => {
+    const robotsPath = path.join(process.cwd(), "robots.txt");
+    if (fs.existsSync(robotsPath)) {
+      res.type('text/plain');
+      res.sendFile(robotsPath);
+    } else {
+      res.type('text/plain').send(`User-agent: *
+Allow: /
+
+Sitemap: https://www.gavineanthony.com/sitemap.xml
+
+User-agent: *
+Disallow: /dashboard
+Disallow: /login
+Disallow: /api/`);
+    }
+  });
+
+  // Basic sitemap.xml
+  app.get("/sitemap.xml", (req, res) => {
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.gavineanthony.com</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.gavineanthony.com/#about</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.gavineanthony.com/#services</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.gavineanthony.com/#projects</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.gavineanthony.com/#contact</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <priority>0.9</priority>
+  </url>
+</urlset>`;
+    res.type('application/xml');
+    res.send(sitemap);
   });
 
   const httpServer = createServer(app);

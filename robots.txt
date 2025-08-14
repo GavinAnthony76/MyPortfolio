@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# SEO optimization
+Sitemap: https://www.gavineanthony.com/sitemap.xml
+
+# Block admin/dashboard from search engines
+User-agent: *
+Disallow: /dashboard
+Disallow: /login
+Disallow: /api/
