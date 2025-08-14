@@ -25,7 +25,7 @@ export const projectRequests = pgTable("project_requests", {
   designReferences: text("design_references").default(""),
   additionalInfo: text("additional_info").default(""),
   generatedPrompt: text("generated_prompt").notNull(),
-  status: text("status").notNull().default('new'), // new, responded, proposal-sent, follow-up, won, lost, archived
+  status: text("status").notNull().default('new'), // new, responded, proposal-sent, follow-up, in-progress, complete, won, lost, archived
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

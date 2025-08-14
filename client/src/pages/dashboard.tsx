@@ -6,9 +6,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Clock, Mail, Building, DollarSign, Calendar, FileText, Archive, Reply, File, LogOut, Home, Search, Filter, Inbox, CheckCircle, XCircle, Users, Trophy, Trash2 } from "lucide-react";
+import { Clock, Mail, Building, DollarSign, Calendar, FileText, Archive, Reply, File, LogOut, Home, Search, Filter, Inbox, CheckCircle, XCircle, Users, Trophy, Trash2, ChevronDown, ChevronUp, Play, CheckSquare } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useMemo } from "react";
@@ -22,6 +23,7 @@ export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [projectTypeFilter, setProjectTypeFilter] = useState('all');
+  const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
@@ -105,11 +107,11 @@ export default function Dashboard() {
 
     // Categorize requests
     const active = filtered.filter(request => 
-      !['archived', 'won', 'lost'].includes(request.status)
+      !['archived', 'won', 'lost', 'complete'].includes(request.status)
     );
     
     const completed = filtered.filter(request => 
-      ['won', 'lost'].includes(request.status)
+      ['won', 'lost', 'complete'].includes(request.status)
     );
     
     const archived = filtered.filter(request => 
@@ -123,6 +125,18 @@ export default function Dashboard() {
       archived
     };
   }, [requests, searchTerm, statusFilter, projectTypeFilter]);
+
+  const toggleCardExpanded = (requestId: string) => {
+    setExpandedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(requestId)) {
+        newSet.delete(requestId);
+      } else {
+        newSet.add(requestId);
+      }
+      return newSet;
+    });
+  };
 
   // Get counts for tabs
   const requestCounts = useMemo(() => ({
@@ -141,6 +155,8 @@ export default function Dashboard() {
       'responded': { variant: 'secondary' as const, label: 'Responded', icon: Reply },
       'proposal-sent': { variant: 'default' as const, label: 'Proposal Sent', icon: File },
       'follow-up': { variant: 'outline' as const, label: 'Follow-up', icon: Clock },
+      'in-progress': { variant: 'default' as const, label: 'In Progress', icon: Play, className: 'bg-blue-600' },
+      'complete': { variant: 'default' as const, label: 'Complete', icon: CheckSquare, className: 'bg-green-600' },
       'won': { variant: 'default' as const, label: 'Won', icon: CheckCircle, className: 'bg-green-600' },
       'lost': { variant: 'secondary' as const, label: 'Lost', icon: XCircle },
       'archived': { variant: 'outline' as const, label: 'Archived', icon: Archive }
@@ -359,138 +375,198 @@ Generated on ${new Date().toLocaleDateString()} for ${request.company || `${requ
     }
 
     return (
-      <div className="space-y-6">
-        {requestsToRender.map((request) => (
-          <Card key={request.id} className="border border-slate-200 hover:shadow-md transition-shadow" data-testid={`card-request-${request.id}`}>
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-4">
-                <div className="flex-1">
-                  <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-2" data-testid={`text-project-title-${request.id}`}>
-                    {request.projectType.split('-').map(word => 
-                      word.charAt(0).toUpperCase() + word.slice(1)
-                    ).join(' ')} Project
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-2 sm:gap-4 text-sm text-slate-600">
-                    <div className="flex items-center" data-testid={`text-client-${request.id}`}>
-                      <Mail className="w-4 h-4 mr-1 flex-shrink-0" />
-                      <span className="truncate">{request.firstName} {request.lastName}</span>
-                    </div>
-                    {request.company && (
-                      <div className="flex items-center" data-testid={`text-company-${request.id}`}>
-                        <Building className="w-4 h-4 mr-1 flex-shrink-0" />
-                        <span className="truncate">{request.company}</span>
+      <div className="space-y-3">
+        {requestsToRender.map((request) => {
+          const isExpanded = expandedCards.has(request.id);
+          return (
+            <Collapsible key={request.id} open={isExpanded} onOpenChange={() => toggleCardExpanded(request.id)}>
+              <Card className="border border-slate-200 hover:shadow-md transition-shadow" data-testid={`card-request-${request.id}`}>
+                <CollapsibleTrigger asChild>
+                  <CardContent className="p-4 cursor-pointer hover:bg-slate-50">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="text-lg font-bold text-slate-800" data-testid={`text-project-title-${request.id}`}>
+                            {request.projectType.split('-').map(word => 
+                              word.charAt(0).toUpperCase() + word.slice(1)
+                            ).join(' ')} Project
+                          </h3>
+                          {getStatusBadge(request.status)}
+                        </div>
+                        <div className="flex items-center gap-4 text-sm text-slate-600">
+                          <div className="flex items-center" data-testid={`text-client-${request.id}`}>
+                            <User className="w-4 h-4 mr-1" />
+                            <span>{request.firstName} {request.lastName}</span>
+                          </div>
+                          {request.company && (
+                            <div className="flex items-center" data-testid={`text-company-${request.id}`}>
+                              <Building className="w-4 h-4 mr-1" />
+                              <span>{request.company}</span>
+                            </div>
+                          )}
+                          <div className="flex items-center" data-testid={`text-timeline-${request.id}`}>
+                            <Calendar className="w-4 h-4 mr-1" />
+                            <span>{request.timeline.replace('-', ' ')}</span>
+                          </div>
+                          <div className="flex items-center text-slate-500" data-testid={`text-created-${request.id}`}>
+                            <Clock className="w-4 h-4 mr-1" />
+                            <span>{formatDistanceToNow(new Date(request.createdAt), { addSuffix: true })}</span>
+                          </div>
+                        </div>
                       </div>
-                    )}
-
-                    <div className="flex items-center" data-testid={`text-timeline-${request.id}`}>
-                      <Calendar className="w-4 h-4 mr-1 flex-shrink-0" />
-                      <span className="truncate">{request.timeline.replace('-', ' ')}</span>
+                      <div className="flex-shrink-0 ml-4">
+                        {isExpanded ? (
+                          <ChevronUp className="w-5 h-5 text-slate-400" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5 text-slate-400" />
+                        )}
+                      </div>
                     </div>
-                    <div className="col-span-full sm:col-span-1 lg:col-span-auto">
-                      {getStatusBadge(request.status)}
+                  </CardContent>
+                </CollapsibleTrigger>
+
+                <CollapsibleContent>
+                  <CardContent className="px-4 pb-4 pt-0 border-t border-slate-100">
+                    {/* Project Description */}
+                    <div className="mb-4">
+                      <h4 className="font-medium text-slate-800 mb-2">Project Description:</h4>
+                      <p className="text-sm text-slate-700">{request.description}</p>
                     </div>
-                  </div>
-                </div>
-                <div className="text-sm text-slate-500 flex-shrink-0 lg:text-right" data-testid={`text-created-${request.id}`}>
-                  {formatDistanceToNow(new Date(request.createdAt), { addSuffix: true })}
-                </div>
-              </div>
 
-              <div className="bg-slate-50 rounded-lg p-4 mb-4">
-                <h4 className="font-medium text-slate-800 mb-3">Generated Development Brief:</h4>
-                <div className="text-sm text-slate-700 whitespace-pre-wrap" data-testid={`text-prompt-${request.id}`}>
-                  {request.generatedPrompt}
-                </div>
-              </div>
+                    {/* Generated Brief */}
+                    <div className="bg-slate-50 rounded-lg p-4 mb-4">
+                      <h4 className="font-medium text-slate-800 mb-3">Generated Development Brief:</h4>
+                      <div className="text-sm text-slate-700 whitespace-pre-wrap" data-testid={`text-prompt-${request.id}`}>
+                        {request.generatedPrompt}
+                      </div>
+                    </div>
 
-              <div className="flex items-center justify-between">
-                <div className="flex space-x-2">
-                  <Button 
-                    variant="default" 
-                    size="sm"
-                    onClick={() => respondToClient(request)}
-                    data-testid={`button-respond-${request.id}`}
-                  >
-                    <Reply className="w-4 h-4 mr-1" />
-                    Respond
-                  </Button>
-                  <Button 
-                    variant="default" 
-                    size="sm"
-                    className="bg-green-600 hover:bg-green-700"
-                    onClick={() => generateProposal(request)}
-                    data-testid={`button-proposal-${request.id}`}
-                  >
-                    <File className="w-4 h-4 mr-1" />
-                    Create Proposal
-                  </Button>
-                </div>
-                
-                <div className="flex space-x-2">
-                  {request.status !== 'archived' && request.status !== 'won' && request.status !== 'lost' && (
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => followUpClient(request)}
-                      disabled={updateStatusMutation.isPending}
-                      data-testid={`button-follow-up-${request.id}`}
-                    >
-                      <Reply className="w-4 h-4 mr-1" />
-                      Follow-up
-                    </Button>
-                  )}
-                  
-                  {request.status === 'proposal-sent' && (
-                    <>
+                    {/* Action Buttons */}
+                    <div className="flex flex-wrap gap-2">
                       <Button 
-                        variant="outline" 
+                        variant="default" 
                         size="sm"
-                        className="border-green-500 text-green-600 hover:bg-green-50"
-                        onClick={() => updateStatusMutation.mutate({ 
-                          id: request.id, 
-                          status: 'won'
-                        })}
-                        disabled={updateStatusMutation.isPending}
-                        data-testid={`button-won-${request.id}`}
+                        onClick={() => respondToClient(request)}
+                        data-testid={`button-respond-${request.id}`}
                       >
-                        Won
+                        <Reply className="w-4 h-4 mr-1" />
+                        Respond
                       </Button>
+                      
                       <Button 
-                        variant="outline" 
+                        variant="default" 
                         size="sm"
-                        className="border-red-500 text-red-600 hover:bg-red-50"
-                        onClick={() => updateStatusMutation.mutate({ 
-                          id: request.id, 
-                          status: 'lost'
-                        })}
-                        disabled={updateStatusMutation.isPending}
-                        data-testid={`button-lost-${request.id}`}
+                        className="bg-green-600 hover:bg-green-700"
+                        onClick={() => generateProposal(request)}
+                        data-testid={`button-proposal-${request.id}`}
                       >
-                        Lost
+                        <File className="w-4 h-4 mr-1" />
+                        Create Proposal
                       </Button>
-                    </>
-                  )}
-                  
-                  {request.status !== 'archived' && (
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => updateStatusMutation.mutate({ 
-                        id: request.id, 
-                        status: 'archived'
-                      })}
-                      disabled={updateStatusMutation.isPending}
-                      data-testid={`button-archive-${request.id}`}
-                    >
-                      <Archive className="w-4 h-4 mr-1" />
-                      Archive
-                    </Button>
-                  )}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+
+                      {request.status !== 'archived' && request.status !== 'won' && request.status !== 'lost' && request.status !== 'complete' && (
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => followUpClient(request)}
+                          disabled={updateStatusMutation.isPending}
+                          data-testid={`button-follow-up-${request.id}`}
+                        >
+                          <Reply className="w-4 h-4 mr-1" />
+                          Follow-up
+                        </Button>
+                      )}
+
+                      {/* Status Update Buttons */}
+                      {request.status !== 'in-progress' && !['archived', 'won', 'lost', 'complete'].includes(request.status) && (
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          className="border-blue-500 text-blue-600 hover:bg-blue-50"
+                          onClick={() => updateStatusMutation.mutate({ 
+                            id: request.id, 
+                            status: 'in-progress'
+                          })}
+                          disabled={updateStatusMutation.isPending}
+                          data-testid={`button-in-progress-${request.id}`}
+                        >
+                          <Play className="w-4 h-4 mr-1" />
+                          In Progress
+                        </Button>
+                      )}
+
+                      {request.status === 'in-progress' && (
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          className="border-green-500 text-green-600 hover:bg-green-50"
+                          onClick={() => updateStatusMutation.mutate({ 
+                            id: request.id, 
+                            status: 'complete'
+                          })}
+                          disabled={updateStatusMutation.isPending}
+                          data-testid={`button-complete-${request.id}`}
+                        >
+                          <CheckSquare className="w-4 h-4 mr-1" />
+                          Complete
+                        </Button>
+                      )}
+
+                      {request.status === 'proposal-sent' && (
+                        <>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            className="border-green-500 text-green-600 hover:bg-green-50"
+                            onClick={() => updateStatusMutation.mutate({ 
+                              id: request.id, 
+                              status: 'won'
+                            })}
+                            disabled={updateStatusMutation.isPending}
+                            data-testid={`button-won-${request.id}`}
+                          >
+                            <CheckCircle className="w-4 h-4 mr-1" />
+                            Won
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            className="border-red-500 text-red-600 hover:bg-red-50"
+                            onClick={() => updateStatusMutation.mutate({ 
+                              id: request.id, 
+                              status: 'lost'
+                            })}
+                            disabled={updateStatusMutation.isPending}
+                            data-testid={`button-lost-${request.id}`}
+                          >
+                            <XCircle className="w-4 h-4 mr-1" />
+                            Lost
+                          </Button>
+                        </>
+                      )}
+                      
+                      {request.status !== 'archived' && (
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => updateStatusMutation.mutate({ 
+                            id: request.id, 
+                            status: 'archived'
+                          })}
+                          disabled={updateStatusMutation.isPending}
+                          data-testid={`button-archive-${request.id}`}
+                        >
+                          <Archive className="w-4 h-4 mr-1" />
+                          Archive
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </CollapsibleContent>
+              </Card>
+            </Collapsible>
+          );
+        })}
       </div>
     );
   }
