@@ -79,8 +79,35 @@ P.S. Feel free to check out some of my recent work at [your portfolio URL]`;
     // Create mailto link
     const mailtoLink = `mailto:${request.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     
-    // Open default email client
-    window.location.href = mailtoLink;
+    try {
+      // Try to open default email client
+      window.open(mailtoLink, '_blank');
+    } catch (error) {
+      // Fallback: copy email content to clipboard
+      const emailContent = `To: ${request.email}\nSubject: ${subject}\n\n${body}`;
+      navigator.clipboard.writeText(emailContent).then(() => {
+        alert('Email content copied to clipboard! Please paste it into your email client.');
+      }).catch(() => {
+        // Final fallback: show email content in a new window
+        const newWindow = window.open('', '_blank');
+        if (newWindow) {
+          newWindow.document.write(`
+            <html>
+              <head><title>Email Response</title></head>
+              <body style="font-family: Arial, sans-serif; padding: 20px;">
+                <h3>Copy this email content:</h3>
+                <p><strong>To:</strong> ${request.email}</p>
+                <p><strong>Subject:</strong> ${subject}</p>
+                <hr>
+                <pre style="white-space: pre-wrap; font-family: Arial, sans-serif;">${body}</pre>
+              </body>
+            </html>
+          `);
+        } else {
+          alert('Please enable popups or copy this email manually:\n\nTo: ' + request.email + '\nSubject: ' + subject + '\n\n' + body);
+        }
+      });
+    }
   };
 
   const generateProposal = (request: ProjectRequest) => {
