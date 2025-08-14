@@ -4,9 +4,93 @@ import { storage } from "./storage";
 import { insertProjectRequestSchema } from "@shared/schema";
 import { generateProjectPrompt } from "../client/src/lib/prompt-generator";
 import StorageManager from "./storage-manager";
+import bcrypt from "bcrypt";
+import session from "express-session";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   const storageManager = new StorageManager();
+
+  // Session configuration
+  app.use(session({
+    secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false, // Set to true in production with HTTPS
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    }
+  }));
+
+  // Authentication middleware
+  const requireAuth = (req: any, res: any, next: any) => {
+    if (req.session.userId) {
+      next();
+    } else {
+      res.status(401).json({ message: 'Unauthorized' });
+    }
+  };
+
+  // Create admin user if doesn't exist
+  const initializeAdmin = async () => {
+    try {
+      const existingAdmin = await storage.getUserByUsername('gavin');
+      if (!existingAdmin) {
+        const hashedPassword = await bcrypt.hash('DevPortfolio2025!', 10);
+        await storage.createUser({
+          username: 'gavin',
+          password: hashedPassword
+        });
+        console.log('Admin user created: username=gavin, password=DevPortfolio2025!');
+      }
+    } catch (error) {
+      console.error('Error initializing admin user:', error);
+    }
+  };
+
+  await initializeAdmin();
+
+  // Login endpoint
+  app.post('/api/login', async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      
+      const user = await storage.getUserByUsername(username);
+      if (!user) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
+
+      const isValidPassword = await bcrypt.compare(password, user.password);
+      if (!isValidPassword) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
+
+      (req.session as any).userId = user.id;
+      res.json({ success: true, message: 'Login successful' });
+    } catch (error) {
+      console.error('Login error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+  // Logout endpoint
+  app.post('/api/logout', (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: 'Could not log out' });
+      }
+      res.json({ success: true, message: 'Logged out successfully' });
+    });
+  });
+
+  // Check auth status
+  app.get('/api/auth/status', (req, res) => {
+    if ((req.session as any).userId) {
+      res.json({ authenticated: true });
+    } else {
+      res.json({ authenticated: false });
+    }
+  });
   // Submit project request
   app.post("/api/project-requests", async (req, res) => {
     try {
@@ -30,8 +114,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get all project requests (for developer dashboard)
-  app.get("/api/project-requests", async (req, res) => {
+  // Get all project requests (for developer dashboard) - Protected
+  app.get("/api/project-requests", requireAuth, async (req, res) => {
     try {
       const requests = await storage.getProjectRequests();
       res.json(requests);
@@ -44,8 +128,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Update project request status
-  app.patch("/api/project-requests/:id/status", async (req, res) => {
+  // Update project request status - Protected
+  app.patch("/api/project-requests/:id/status", requireAuth, async (req, res) => {
     try {
       const { id } = req.params;
       const { status } = req.body;
