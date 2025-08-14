@@ -67,19 +67,19 @@ const services = [
     ]
   },
   {
-    id: 'consulting',
+    id: 'static',
     icon: Smartphone,
-    title: 'Technical Consulting',
-    description: 'Architecture planning, technology stack recommendations, and development strategy for your projects.',
+    title: 'Static Web Page Development',
+    description: 'Professional static websites with modern design, fast loading times, and optimized performance for businesses and portfolios.',
     price: '$150/hour',
     color: 'from-indigo-50 to-blue-50',
     iconBg: 'bg-indigo-600',
     priceColor: 'text-indigo-600',
     features: [
-      'Architecture design',
-      'Tech stack selection',
-      'Scalability planning',
-      'Development roadmaps'
+      'Modern HTML/CSS/JS',
+      'Responsive design',
+      'Fast loading times',
+      'SEO optimization'
     ]
   },
   {

@@ -18,7 +18,7 @@ const projectTypes = [
   { value: 'prototype', label: 'Rapid Prototype/POC' },
   { value: 'pwa', label: 'Progressive Web Applications' },
   { value: 'landing', label: 'Landing Pages' },
-  { value: 'consulting', label: 'Technical Consulting' },
+  { value: 'static', label: 'Static Web Page Development' },
   { value: 'integration', label: 'API Integration' },
   { value: 'other', label: 'Other' },
 ];

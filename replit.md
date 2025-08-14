@@ -27,7 +27,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
   - Rapid Prototyping: $1,500 - $3,000 (Modern proof-of-concept development)
   - Progressive Web Applications: $2,000 - $5,000 (Modern PWAs with offline capabilities and app-like experiences)
   - Landing Pages: $250 - $500 (High-converting pages with modern design and optimization)
-  - Technical Consulting: $150/hour (Architecture and technology recommendations)
+  - Static Web Page Development: $150/hour (Professional static websites with modern design and optimization)
   - API Integration: $750 - $1,500 (Seamless third-party service integration)
 - Removed Interactive Learning service to focus on core development capabilities
 - Added Full-Stack Development as the primary service offering with comprehensive project phases

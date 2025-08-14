@@ -97,7 +97,7 @@ function getProjectTypeLabel(type: string): string {
     'prototype': 'Rapid Prototype/POC',
     'pwa': 'Progressive Web Applications',
     'landing': 'Landing Pages',
-    'consulting': 'Technical Consulting',
+    'static': 'Static Web Page Development',
     'integration': 'API Integration',
     'other': 'Custom Solution',
   };
@@ -134,7 +134,7 @@ function getRecommendedTechStack(projectType: string): string | null {
     'prototype': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express\n- **Database:** In-memory or SQLite for speed\n- **Development:** Vite for fast iteration\n- **Hosting:** Replit, Vercel, or Netlify',
     'pwa': '- **Frontend:** React/Vue with PWA capabilities\n- **Service Workers:** Offline functionality and caching\n- **Push Notifications:** Real-time user engagement\n- **Manifest:** App-like installation experience\n- **Performance:** Optimized loading and responsiveness',
     'landing': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Optimization:** Conversion rate optimization techniques\n- **SEO:** Meta tags, structured data, performance optimization\n- **Analytics:** Google Analytics, conversion tracking\n- **Hosting:** Fast CDN deployment with global reach',
-    'consulting': '- **Architecture:** Scalable system design patterns\n- **Technologies:** Modern frameworks and tools\n- **Performance:** Optimization strategies\n- **Security:** Best practices and auditing\n- **DevOps:** CI/CD and deployment strategies',
+    'static': '- **Frontend:** Modern HTML5, CSS3, vanilla JavaScript\n- **Styling:** Tailwind CSS or custom CSS with modern techniques\n- **Performance:** Optimized images, minified assets, fast loading\n- **SEO:** Meta tags, structured data, semantic HTML\n- **Hosting:** Static site hosting with CDN deployment',
     'integration': '- **APIs:** RESTful and GraphQL integration\n- **Authentication:** OAuth, JWT, API keys\n- **Data:** JSON processing and validation\n- **Testing:** API testing and mocking\n- **Security:** Rate limiting and validation',
   };
   return stacks[projectType] || null;
@@ -213,20 +213,20 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
 - Performance optimization
 - Deployment and go-live`,
 
-    'consulting': `**Phase 1: Discovery & Assessment (${isRush ? '2-3 days' : '1 week'})**
-- Current system analysis
-- Requirements gathering
-- Technology assessment
+    'static': `**Phase 1: Design & Content Planning (${isRush ? '1-2 days' : '2-3 days'})**
+- Content structure and organization
+- Visual design and layout planning
+- Asset preparation and optimization
 
-**Phase 2: Strategy Development (${isRush ? '3-5 days' : '1-2 weeks'})**
-- Architecture planning
-- Technology recommendations
-- Implementation roadmap creation
+**Phase 2: Development & Implementation (${isRush ? '2-3 days' : '3-5 days'})**
+- HTML/CSS/JavaScript development
+- Responsive design implementation
+- Performance optimization
 
-**Phase 3: Presentation & Handoff (${isRush ? '1-2 days' : '3-5 days'})**
-- Strategy presentation
-- Documentation delivery
-- Implementation guidance`,
+**Phase 3: Testing & Deployment (${isRush ? '1 day' : '1-2 days'})**
+- Cross-browser testing
+- Mobile responsiveness verification
+- Static site deployment and hosting setup`,
 
 
 
