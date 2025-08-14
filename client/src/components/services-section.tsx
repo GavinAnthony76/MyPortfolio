@@ -55,7 +55,7 @@ const services = [
     icon: TrendingUp,
     title: 'Landing Pages',
     description: 'High-converting landing pages designed to showcase your product, capture leads, and drive conversions with modern design.',
-    price: '$250 - $750',
+    price: '$250 - $500',
     color: 'from-orange-50 to-red-50',
     iconBg: 'bg-orange-600',
     priceColor: 'text-orange-600',
