@@ -428,6 +428,12 @@ Disallow: /api/`);
     res.send(sitemap);
   });
 
+  // Serve favicon
+  app.get("/favicon.png", (req, res) => {
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.sendFile('client/public/favicon.png', { root: process.cwd() });
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
