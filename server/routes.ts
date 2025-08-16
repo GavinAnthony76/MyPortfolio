@@ -47,7 +47,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     saveUninitialized: false,
     name: 'auth_session',
     cookie: {
-      secure: false, // Set to false to fix production login issues
+      secure: isProduction, // Secure cookies for HTTPS in production
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       sameSite: 'lax' as const, // Use lax instead of none for compatibility
