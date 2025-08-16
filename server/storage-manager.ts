@@ -108,7 +108,7 @@ class StorageManager {
         objectKey: 'site/developer-profile.png'
       },
       {
-        localPath: 'attached_assets/generated_images/Person_waiting_for_response_7825c513.png',
+        localPath: 'attached_assets/image_1755150211124.png',
         objectKey: 'site/contact-waiting.png'
       }
     ];

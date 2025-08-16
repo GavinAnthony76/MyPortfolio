@@ -153,16 +153,14 @@ export default function ContactSection() {
               </div>
             </div>
             
-            {images?.contactWaiting && (
-              <div className="mt-8">
-                <img 
-                  src={images.contactWaiting} 
-                  alt="Professional waiting for response" 
-                  className="rounded-xl shadow-lg w-full h-auto"
-                  data-testid="img-waiting-response"
-                />
-              </div>
-            )}
+            <div className="mt-8">
+              <img 
+                src={images?.contactWaiting} 
+                alt="Client waiting for developer response" 
+                className="rounded-xl shadow-lg w-full h-auto"
+                data-testid="img-waiting-response"
+              />
+            </div>
           </div>
 
           {/* Project Request Form */}
