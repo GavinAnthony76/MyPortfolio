@@ -43,7 +43,7 @@ export default function AboutSection() {
           <div className="glass-card p-2 order-2 lg:order-1">
             <img 
               src={images?.developerProfile || '/api/images'} 
-              alt="Developer working on code" 
+              alt="Professional Black developer coding" 
               className="rounded-xl w-full h-auto"
               data-testid="img-developer"
             />
