@@ -32,7 +32,7 @@ const getProjects = (images: any): Project[] => [
     id: '2',
     title: 'Jamaica Nyammingz - Jamaican Restaurant',
     description: 'Complete restaurant website featuring authentic Jamaican cuisine, online menu, ordering system, and cultural dining experiences.',
-    image: images?.faithMinistry || '',
+    image: images?.jamaicaRestaurant || '/api/assets/jamaica-restaurant.webp',
     category: 'ecommerce',
     technologies: ['React', 'Node.js', 'MongoDB'],
   },
