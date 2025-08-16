@@ -323,7 +323,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const images = {
         fightingGame: await storageManager.downloadImageUrl('portfolio/fighting-game-tournament.png'),
         caribbeanFood: await storageManager.downloadImageUrl('portfolio/caribbean-food-platform.png'),
-        jamaicaRestaurant: await storageManager.downloadImageUrl('portfolio/jamaica-restaurant.webp'),
+        jamaicanRestaurant: await storageManager.downloadImageUrl('portfolio/jamaica-restaurant.png'),
         faithMinistry: await storageManager.downloadImageUrl('portfolio/faith-ministry-website.png'),
         powerOfLamb: await storageManager.downloadImageUrl('portfolio/power-of-lamb-ministry.png'),
         brainBot: await storageManager.downloadImageUrl('portfolio/brain-discord-bot.png'),
@@ -358,7 +358,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const assetMap: Record<string, string> = {
       'fighting-game-tournament.png': 'attached_assets/generated_images/Fighting_Game_Tournament_b38218ec.png',
       'caribbean-food-platform.png': 'attached_assets/generated_images/Caribbean_Food_Platform_720bc623.png',
-      'jamaica-restaurant.webp': 'attached_assets/9ba9ffab5f885fc3dac87838b3357014_1754763209553_1755130520942.webp',
+      'jamaica-restaurant.png': 'attached_assets/jamaica-restaurant.png',
       'faith-ministry-website.png': 'attached_assets/generated_images/Spiritual_Church_Website_24ec815c.png',
       'power-of-lamb-ministry.png': 'attached_assets/generated_images/Power_of_Lamb_Ministry_db0032ce.png',
       'brain-discord-bot.png': 'attached_assets/generated_images/Brain_Discord_Bot_4745ca5a.png',

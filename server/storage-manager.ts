@@ -39,7 +39,8 @@ class StorageManager {
       const fallbackMap: Record<string, string> = {
         'portfolio/fighting-game-tournament.png': '/api/assets/fighting-game-tournament.png',
         'portfolio/caribbean-food-platform.png': '/api/assets/caribbean-food-platform.png',
-        'portfolio/jamaica-restaurant.webp': '/api/assets/jamaica-restaurant.webp',
+        'portfolio/jamaica-restaurant.webp': '/api/assets/jamaica-restaurant.png',
+        'portfolio/jamaica-restaurant.png': '/api/assets/jamaica-restaurant.png',
         'portfolio/faith-ministry-website.png': '/api/assets/faith-ministry-website.png',
         'portfolio/power-of-lamb-ministry.png': '/api/assets/power-of-lamb-ministry.png',
         'portfolio/brain-discord-bot.png': '/api/assets/brain-discord-bot.png',
