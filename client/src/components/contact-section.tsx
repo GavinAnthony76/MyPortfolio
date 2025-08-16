@@ -149,6 +149,7 @@ export default function ContactSection() {
                 alt="Client waiting for developer response" 
                 className="rounded-xl shadow-lg w-full h-auto"
                 data-testid="img-waiting-response"
+                key="contact-image"
               />
             </div>
           </div>
