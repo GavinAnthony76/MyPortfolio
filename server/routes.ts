@@ -321,12 +321,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/images", async (req, res) => {
     try {
       const images = {
+        // Portfolio project images - these will return null until object storage is fully configured
         fightingGame: await storageManager.downloadImageUrl('portfolio/fighting-game-tournament.png'),
         caribbeanFood: await storageManager.downloadImageUrl('portfolio/caribbean-food-platform.png'),
-        jamaicaRestaurant: await storageManager.downloadImageUrl('portfolio/jamaica-restaurant.webp'),
         faithMinistry: await storageManager.downloadImageUrl('portfolio/faith-ministry-website.png'),
         powerOfLamb: await storageManager.downloadImageUrl('portfolio/power-of-lamb-ministry.png'),
         brainBot: await storageManager.downloadImageUrl('portfolio/brain-discord-bot.png'),
+        // Site images - these will return null until object storage is fully configured
+        developerProfile: await storageManager.downloadImageUrl('site/developer-profile.png'),
+        contactWaiting: await storageManager.downloadImageUrl('site/contact-waiting.png'),
       };
       res.json(images);
     } catch (error) {
@@ -352,28 +355,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Serve local assets as fallback when object storage is not configured
-  app.get("/api/assets/:filename", (req, res) => {
-    const { filename } = req.params;
-    const assetMap: Record<string, string> = {
-      'fighting-game-tournament.png': 'attached_assets/generated_images/Fighting_Game_Tournament_b38218ec.png',
-      'caribbean-food-platform.png': 'attached_assets/generated_images/Caribbean_Food_Platform_720bc623.png',
-      'jamaica-restaurant.webp': 'attached_assets/9ba9ffab5f885fc3dac87838b3357014_1754763209553_1755130520942.webp',
-      'faith-ministry-website.png': 'attached_assets/generated_images/Spiritual_Church_Website_24ec815c.png',
-      'power-of-lamb-ministry.png': 'attached_assets/generated_images/Power_of_Lamb_Ministry_db0032ce.png',
-      'brain-discord-bot.png': 'attached_assets/generated_images/Brain_Discord_Bot_4745ca5a.png',
-    };
-
-    const filePath = assetMap[filename];
-    if (filePath) {
-      // Set cache headers for better performance
-      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-      res.setHeader('ETag', `"${filename}"`);
-      res.sendFile(filePath, { root: process.cwd() });
-    } else {
-      res.status(404).json({ error: 'Asset not found' });
-    }
-  });
+  // All images now served from object storage only
+  // Fallback route removed - object storage is required
 
   // Serve robots.txt
   app.get("/robots.txt", (req, res) => {

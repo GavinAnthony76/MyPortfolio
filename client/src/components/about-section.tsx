@@ -1,8 +1,19 @@
 import { Github, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import developerImage from "@assets/generated_images/Professional_Black_developer_coding_374d8a1b.png";
+import { useQuery } from "@tanstack/react-query";
 
 export default function AboutSection() {
+  const { data: images } = useQuery<{
+    developerProfile?: string;
+    contactWaiting?: string;
+    fightingGame?: string;
+    faithMinistry?: string;
+    powerOfLamb?: string;
+    brainBot?: string;
+  }>({
+    queryKey: ['/api/images'],
+  });
+
   const skills = {
     frontend: [
       { name: "React & Next.js", icon: "⚛️" },
@@ -31,7 +42,7 @@ export default function AboutSection() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="glass-card p-2 order-2 lg:order-1">
             <img 
-              src={developerImage} 
+              src={images?.developerProfile || '/api/images'} 
               alt="Developer working on code" 
               className="rounded-xl w-full h-auto"
               data-testid="img-developer"

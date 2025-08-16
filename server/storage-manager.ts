@@ -7,12 +7,27 @@ class StorageManager {
   private isAvailable: boolean = false;
 
   constructor() {
+    // Object storage initialization disabled for now due to configuration issues
+    // Will be enabled when deployed to production environment
+    this.isAvailable = false;
+    this.client = null;
+    console.log('Object storage temporarily disabled - images will be uploaded on deployment');
+  }
+
+  async initializeClient(): Promise<void> {
     try {
-      // Don't instantiate client immediately - wait for proper bucket configuration
-      this.isAvailable = false;
-      console.log('Object storage not configured, using local asset serving');
+      // Check if environment variables are available
+      const bucketId = process.env.DEFAULT_OBJECT_STORAGE_BUCKET_ID;
+      const publicPaths = process.env.PUBLIC_OBJECT_SEARCH_PATHS;
+      const privatePath = process.env.PRIVATE_OBJECT_DIR;
+      
+      if (bucketId && publicPaths && privatePath) {
+        this.client = new Client();
+        this.isAvailable = true;
+        console.log('Object storage initialized successfully');
+      }
     } catch (error) {
-      console.warn('Replit Object Storage not configured. Using local fallback.');
+      console.warn('Object storage initialization failed:', error);
       this.isAvailable = false;
     }
   }
@@ -26,7 +41,7 @@ class StorageManager {
       if (!this.client) {
         return { ok: false, error: 'Client not initialized' };
       }
-      const { ok, error } = await this.client.uploadFromFilename(objectKey, localPath);
+      const { ok, error } = await this.client.uploadFromFilename(`public/${objectKey}`, localPath);
       return { ok, error };
     } catch (error) {
       return { ok: false, error };
@@ -34,23 +49,20 @@ class StorageManager {
   }
 
   async downloadImageUrl(objectKey: string): Promise<string | null> {
-    if (!this.isAvailable) {
-      // Return fallback to local assets for development
-      const fallbackMap: Record<string, string> = {
-        'portfolio/fighting-game-tournament.png': '/api/assets/fighting-game-tournament.png',
-        'portfolio/caribbean-food-platform.png': '/api/assets/caribbean-food-platform.png',
-        'portfolio/jamaica-restaurant.webp': '/api/assets/jamaica-restaurant.webp',
-        'portfolio/faith-ministry-website.png': '/api/assets/faith-ministry-website.png',
-        'portfolio/power-of-lamb-ministry.png': '/api/assets/power-of-lamb-ministry.png',
-        'portfolio/brain-discord-bot.png': '/api/assets/brain-discord-bot.png',
-      };
-      return fallbackMap[objectKey] || null;
+    if (!this.isAvailable || !this.client) {
+      // Object storage not available - no fallback since we removed local assets
+      return null;
     }
     
     try {
-      // For Replit Object Storage, we can construct a public URL
-      // The actual URL structure will depend on your bucket configuration
-      return `https://storage.replit.com/${objectKey}`;
+      // For public objects, construct the public URL using the bucket name from env vars
+      const publicSearchPaths = process.env.PUBLIC_OBJECT_SEARCH_PATHS;
+      if (publicSearchPaths) {
+        // Extract bucket name from the public search path
+        const bucketName = publicSearchPaths.split('/')[1];
+        return `https://storage.googleapis.com/${bucketName}/public/${objectKey}`;
+      }
+      return null;
     } catch (error) {
       console.error('Error constructing image URL:', error);
       return null;
@@ -58,12 +70,18 @@ class StorageManager {
   }
 
   async uploadAllPortfolioImages(): Promise<void> {
+    // Try to initialize client if not already done
     if (!this.isAvailable) {
-      console.log('Object storage not available, serving from local assets');
+      await this.initializeClient();
+    }
+    
+    if (!this.isAvailable || !this.client) {
+      console.log('Object storage not available - images will be uploaded on deployment');
       return;
     }
 
     const imagesToUpload = [
+      // Portfolio project images
       {
         localPath: 'attached_assets/generated_images/Fighting_Game_Tournament_b38218ec.png',
         objectKey: 'portfolio/fighting-game-tournament.png'
@@ -71,10 +89,6 @@ class StorageManager {
       {
         localPath: 'attached_assets/generated_images/Caribbean_Food_Platform_720bc623.png',
         objectKey: 'portfolio/caribbean-food-platform.png'
-      },
-      {
-        localPath: 'attached_assets/9ba9ffab5f885fc3dac87838b3357014_1754763209553_1755130520942.webp',
-        objectKey: 'portfolio/jamaica-restaurant.webp'
       },
       {
         localPath: 'attached_assets/generated_images/Spiritual_Church_Website_24ec815c.png',
@@ -87,6 +101,15 @@ class StorageManager {
       {
         localPath: 'attached_assets/generated_images/Brain_Discord_Bot_4745ca5a.png',
         objectKey: 'portfolio/brain-discord-bot.png'
+      },
+      // Developer profile and site images
+      {
+        localPath: 'attached_assets/generated_images/Professional_Black_developer_coding_374d8a1b.png',
+        objectKey: 'site/developer-profile.png'
+      },
+      {
+        localPath: 'attached_assets/image_1755150211124.png',
+        objectKey: 'site/contact-waiting.png'
       }
     ];
 

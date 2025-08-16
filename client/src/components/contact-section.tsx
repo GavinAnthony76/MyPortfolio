@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
-import waitingResponseImage from "@assets/image_1755150211124.png";
+import { useQuery } from "@tanstack/react-query";
 
 const projectTypes = [
   { value: 'fullstack', label: 'Full-Stack Development' },
@@ -37,6 +37,16 @@ const timelines = [
 
 export default function ContactSection() {
   const { toast } = useToast();
+  const { data: images } = useQuery<{
+    developerProfile?: string;
+    contactWaiting?: string;
+    fightingGame?: string;
+    faithMinistry?: string;
+    powerOfLamb?: string;
+    brainBot?: string;
+  }>({
+    queryKey: ['/api/images'],
+  });
   
   const form = useForm<InsertProjectRequest>({
     resolver: zodResolver(insertProjectRequestSchema),
@@ -145,7 +155,7 @@ export default function ContactSection() {
             
             <div className="mt-8">
               <img 
-                src={waitingResponseImage} 
+                src={images?.contactWaiting} 
                 alt="Client waiting for developer response" 
                 className="rounded-xl shadow-lg w-full h-auto"
                 data-testid="img-waiting-response"
