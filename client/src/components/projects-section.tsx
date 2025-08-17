@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { usePortfolioImages } from "@/hooks/use-portfolio-images";
+import texasImage from "@/assets/texas-showdown.jpg";
+import brainBotImage from "@/assets/brain-bot.png";
 
 interface Project {
   id: string;
@@ -22,7 +24,7 @@ const getProjects = (images: any): Project[] => [
     title: "Texas Showdown 2026",
     description:
       "Official tournament website for one of the largest fighting game events in the US, featuring registration system, live countdown, and event management.",
-    image: images?.fightingGame || "/api/assets/fighting-game-tournament.png",
+    image: images?.fightingGame || texasImage,
     category: "web",
     technologies: ["React", "Node.js", "ASP.NET"],
     liveUrl: "https://txshowdown.com/",
@@ -61,7 +63,7 @@ const getProjects = (images: any): Project[] => [
     title: "Brain Discord Bot - Fighting Game Assistant",
     description:
       "Comprehensive Discord bot for fighting game communities featuring frame data lookup with SuperCombo API, combo database with rating system, interactive quiz system, personal collections with practice mode, and automated SuperCombo wiki import.",
-    image: images?.brainBot || "/api/assets/brain-discord-bot.png",
+    image: images?.brainBot || brainBotImage,
     category: "web",
     technologies: ["Discord.js", "Node.js", "MongoDB"],
   },

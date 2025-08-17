@@ -26,7 +26,13 @@ class StorageManager {
       if (!this.client) {
         return { ok: false, error: 'Client not initialized' };
       }
-      const { ok, error } = await this.client.uploadFromFilename(objectKey, localPath);
+      console.log(`Uploading file: ${localPath} (${fs.existsSync(localPath) ? 'exists' : 'NOT FOUND'}) to ${objectKey}`);
+      
+      // Read file as buffer first to ensure it's properly read
+      const fileBuffer = fs.readFileSync(localPath);
+      console.log(`File size: ${fileBuffer.length} bytes`);
+      
+      const { ok, error } = await this.client.uploadFromBytes(objectKey, fileBuffer);
       return { ok, error };
     } catch (error) {
       return { ok: false, error };
