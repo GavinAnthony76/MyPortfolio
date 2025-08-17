@@ -82,7 +82,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       sameSite: 'lax' as const, // Lax for better compatibility
-      domain: isProduction ? '.replit.app' : undefined, // Set domain for Replit production
+      // No explicit domain: host-only cookie, safest & least surprise
       path: '/'
     },
     rolling: true,
