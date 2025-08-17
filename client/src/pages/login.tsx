@@ -30,18 +30,17 @@ export default function Login() {
       });
 
       if (response.ok) {
-        // Invalidate auth status query to refresh authentication state
+        // Invalidate and refetch auth status to refresh authentication state
         await queryClient.invalidateQueries({ queryKey: ['/api/auth/status'] });
+        await queryClient.refetchQueries({ queryKey: ['/api/auth/status'] });
         
         toast({
           title: "Login successful",
           description: "Welcome to your dashboard!",
         });
         
-        // Longer delay to ensure session propagation
-        setTimeout(() => {
-          setLocation("/dashboard");
-        }, 500);
+        // Navigate immediately since we've already refreshed auth state
+        setLocation("/dashboard");
       } else {
         const error = await response.json();
         toast({
