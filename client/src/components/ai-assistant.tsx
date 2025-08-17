@@ -163,7 +163,7 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
   };
 
   return (
-    <div className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 z-50 w-[calc(100vw-16px)] sm:w-auto max-w-sm sm:max-w-md" data-testid="ai-assistant-container">
+    <div className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 z-50 w-[calc(100vw-16px)] sm:w-auto max-w-xs sm:max-w-sm" data-testid="ai-assistant-container">
       <AnimatePresence>
         {isOpen && (
           <motion.div
