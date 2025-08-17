@@ -163,7 +163,7 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50" data-testid="ai-assistant-container">
+    <div className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 z-50 w-[calc(100vw-16px)] sm:w-auto max-w-sm sm:max-w-md" data-testid="ai-assistant-container">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -172,31 +172,38 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
           >
-            <Card className="w-80 sm:w-96 shadow-xl border-0 bg-white dark:bg-gray-900">
+            <Card className="w-full shadow-2xl border-0 bg-white dark:bg-gray-900 overflow-hidden">
               {/* Header */}
-              <div className="flex items-center justify-between p-4 border-b bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-lg">
-                <div className="flex items-center space-x-2">
-                  <Bot className="w-5 h-5" />
-                  <span className="font-semibold">Edasi</span>
+              <div className="flex items-center justify-between p-3 sm:p-4 border-b bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 text-white rounded-t-lg relative overflow-hidden">
+                {/* Background sparkle effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-800/20 animate-pulse"></div>
+                <div className="flex items-center space-x-2 relative z-10">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                  </div>
+                  <div>
+                    <span className="font-bold text-sm sm:text-base bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">Edasi</span>
+                    <div className="text-xs text-blue-100 opacity-90 hidden sm:block">AI Assistant</div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-1">
+                <div className="flex items-center space-x-1 relative z-10">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={toggleChat}
-                    className="text-white hover:bg-blue-500 h-8 w-8 p-0"
+                    className="text-white hover:bg-white/20 hover:backdrop-blur-sm transition-all duration-200 h-7 w-7 sm:h-8 sm:w-8 p-0 rounded-full"
                     data-testid="button-minimize-chat"
                   >
-                    <Minimize2 className="w-4 h-4" />
+                    <Minimize2 className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={closeChat}
-                    className="text-white hover:bg-blue-500 h-8 w-8 p-0"
+                    className="text-white hover:bg-white/20 hover:backdrop-blur-sm transition-all duration-200 h-7 w-7 sm:h-8 sm:w-8 p-0 rounded-full"
                     data-testid="button-close-chat"
                   >
-                    <X className="w-4 h-4" />
+                    <X className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Button>
                 </div>
               </div>
@@ -204,7 +211,7 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
               {/* Chat Messages */}
               {!isMinimized && (
                 <CardContent className="p-0">
-                  <div className="h-80 overflow-y-auto p-4 space-y-4" data-testid="chat-messages">
+                  <div className="h-60 sm:h-80 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-gradient-to-b from-gray-50/50 to-white dark:from-gray-900/50 dark:to-gray-900" data-testid="chat-messages">
                     {messages.map((message, index) => (
                       <div
                         key={index}
@@ -213,18 +220,18 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
                         }`}
                       >
                         {message.role === 'assistant' && (
-                          <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center flex-shrink-0">
-                            <Bot className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                            <Bot className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                           </div>
                         )}
                         <div
-                          className={`max-w-[75%] rounded-lg p-3 ${
+                          className={`max-w-[80%] sm:max-w-[75%] rounded-2xl p-2.5 sm:p-3 shadow-lg ${
                             message.role === 'user'
-                              ? 'bg-blue-600 text-white ml-auto'
-                              : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
+                              ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white ml-auto'
+                              : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700'
                           }`}
                         >
-                          <div className="text-sm">
+                          <div className="text-xs sm:text-sm leading-relaxed">
                             {message.role === 'assistant' 
                               ? formatMessage(message.content)
                               : message.content
@@ -232,22 +239,22 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
                           </div>
                         </div>
                         {message.role === 'user' && (
-                          <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center flex-shrink-0">
-                            <User className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-gray-400 to-gray-600 dark:from-gray-600 dark:to-gray-800 flex items-center justify-center flex-shrink-0 shadow-lg">
+                            <User className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                           </div>
                         )}
                       </div>
                     ))}
                     {isLoading && (
                       <div className="flex items-start space-x-2">
-                        <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
-                          <Bot className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                        <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+                          <Bot className="w-3 h-3 sm:w-4 sm:h-4 text-white animate-pulse" />
                         </div>
-                        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-2.5 sm:p-3 shadow-lg border border-gray-200 dark:border-gray-700">
                           <div className="flex space-x-1">
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                            <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-bounce"></div>
+                            <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                            <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                           </div>
                         </div>
                       </div>
@@ -256,7 +263,7 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
                   </div>
 
                   {/* Input Area */}
-                  <div className="p-4 border-t bg-gray-50 dark:bg-gray-800 rounded-b-lg">
+                  <div className="p-3 sm:p-4 border-t bg-gradient-to-r from-gray-50 to-blue-50/30 dark:from-gray-800 dark:to-gray-900 rounded-b-lg">
                     <div className="flex items-center space-x-2">
                       <Input
                         ref={inputRef}
@@ -266,7 +273,7 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
                         onChange={(e) => setCurrentMessage(e.target.value)}
                         onKeyPress={handleKeyPress}
                         disabled={isLoading}
-                        className="flex-1"
+                        className="flex-1 rounded-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 bg-white dark:bg-gray-700 text-sm sm:text-base px-4 py-2"
                         autoComplete="off"
                         autoCorrect="off"
                         autoCapitalize="off"
@@ -277,7 +284,7 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
                         onClick={sendMessage}
                         disabled={!currentMessage.trim() || isLoading}
                         size="sm"
-                        className="px-3"
+                        className="px-3 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                         data-testid="button-send-message"
                       >
                         <Send className="w-4 h-4" />
@@ -301,10 +308,12 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
           <Button
             onClick={toggleChat}
             size="lg"
-            className="rounded-full w-14 h-14 bg-blue-600 hover:bg-blue-700 shadow-lg text-white border-0"
+            className="rounded-full w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 hover:from-blue-700 hover:via-purple-700 hover:to-blue-900 shadow-xl hover:shadow-2xl text-white border-0 transition-all duration-300 transform hover:scale-110 relative overflow-hidden group"
             data-testid="button-open-chat"
           >
-            <MessageSquare className="w-6 h-6" />
+            {/* Shimmer effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 relative z-10" />
           </Button>
         </motion.div>
       )}
