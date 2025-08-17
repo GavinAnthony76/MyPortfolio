@@ -3,14 +3,14 @@ import fs from 'fs';
 import path from 'path';
 
 class StorageManager {
-  private client: Client | null = null;
+  public client: Client | null = null;
   private isAvailable: boolean = false;
 
   constructor() {
     try {
-      // Don't instantiate client immediately - wait for proper bucket configuration
-      this.isAvailable = false;
-      console.log('Object storage not configured, using local asset serving');
+      this.client = new Client();
+      this.isAvailable = true;
+      console.log('Object storage configured successfully');
     } catch (error) {
       console.warn('Replit Object Storage not configured. Using local fallback.');
       this.isAvailable = false;
@@ -35,58 +35,56 @@ class StorageManager {
 
   async downloadImageUrl(objectKey: string): Promise<string | null> {
     if (!this.isAvailable) {
-      // Return fallback to local assets for development
-      const fallbackMap: Record<string, string> = {
-        'portfolio/fighting-game-tournament.png': '/api/assets/fighting-game-tournament.png',
-        'portfolio/caribbean-food-platform.png': '/api/assets/jamaica-restaurant.png',
-        'portfolio/jamaica-restaurant.webp': '/api/assets/jamaica-restaurant.png',
-        'portfolio/jamaica-restaurant.png': '/api/assets/jamaica-restaurant.png',
-        'portfolio/faith-ministry-website.png': '/api/assets/faith-ministry-website.png',
-        'portfolio/power-of-lamb-ministry.png': '/api/assets/power-of-lamb-ministry.png',
-        'portfolio/brain-discord-bot.png': '/api/assets/brain-discord-bot.png',
-      };
-      return fallbackMap[objectKey] || null;
+      console.warn(`Object storage not available for ${objectKey}`);
+      return null;
     }
     
     try {
-      // For Replit Object Storage, we can construct a public URL
-      // The actual URL structure will depend on your bucket configuration
-      return `https://storage.replit.com/${objectKey}`;
+      if (!this.client) {
+        return null;
+      }
+      // Get download URL from object storage
+      const downloadResult = await this.client.downloadAsBytes(objectKey);
+      if (downloadResult.ok) {
+        // Return the object key path that can be served through our API
+        return `/api/storage/${objectKey}`;
+      }
+      return null;
     } catch (error) {
-      console.error('Error constructing image URL:', error);
+      console.error('Error getting image URL:', error);
       return null;
     }
   }
 
   async uploadAllPortfolioImages(): Promise<void> {
     if (!this.isAvailable) {
-      console.log('Object storage not available, serving from local assets');
+      console.log('Object storage not configured. Images must be uploaded via Replit Object Storage interface.');
       return;
     }
 
     const imagesToUpload = [
       {
-        localPath: 'attached_assets/generated_images/Fighting_Game_Tournament_b38218ec.png',
+        localPath: 'server/assets/fighting-game-tournament.png',
         objectKey: 'portfolio/fighting-game-tournament.png'
       },
       {
-        localPath: 'attached_assets/generated_images/Caribbean_Food_Platform_720bc623.png',
+        localPath: 'server/assets/jamaica-restaurant.png',
         objectKey: 'portfolio/caribbean-food-platform.png'
       },
       {
-        localPath: 'attached_assets/9ba9ffab5f885fc3dac87838b3357014_1754763209553_1755130520942.webp',
+        localPath: 'server/assets/jamaica-restaurant.png',
         objectKey: 'portfolio/jamaica-restaurant.webp'
       },
       {
-        localPath: 'attached_assets/generated_images/Spiritual_Church_Website_24ec815c.png',
+        localPath: 'server/assets/faith-ministry-website.png',
         objectKey: 'portfolio/faith-ministry-website.png'
       },
       {
-        localPath: 'attached_assets/generated_images/Power_of_Lamb_Ministry_db0032ce.png',
+        localPath: 'server/assets/power-of-lamb-ministry.png',
         objectKey: 'portfolio/power-of-lamb-ministry.png'
       },
       {
-        localPath: 'attached_assets/generated_images/Brain_Discord_Bot_4745ca5a.png',
+        localPath: 'server/assets/brain-discord-bot.png',
         objectKey: 'portfolio/brain-discord-bot.png'
       }
     ];

@@ -399,26 +399,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Serve local assets as fallback when object storage is not configured
-  app.get("/api/assets/:filename", (req, res) => {
-    const { filename } = req.params;
-    const assetMap: Record<string, string> = {
-      'fighting-game-tournament.png': 'server/assets/fighting-game-tournament.png',
-      'caribbean-food-platform.png': 'server/assets/jamaica-restaurant.png',
-      'jamaica-restaurant.png': 'server/assets/jamaica-restaurant.png',
-      'faith-ministry-website.png': 'server/assets/faith-ministry-website.png',
-      'power-of-lamb-ministry.png': 'server/assets/power-of-lamb-ministry.png',
-      'brain-discord-bot.png': 'server/assets/brain-discord-bot.png',
-    };
-
-    const filePath = assetMap[filename];
-    if (filePath) {
-      // Set cache headers for better performance
-      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-      res.setHeader('ETag', `"${filename}"`);
-      res.sendFile(filePath, { root: process.cwd() });
-    } else {
-      res.status(404).json({ error: 'Asset not found' });
+  // Serve assets from object storage
+  app.get("/api/storage/*", async (req, res) => {
+    try {
+      const objectKey = req.params[0]; // Get everything after /api/storage/
+      const downloadResult = await storageManager.client?.downloadAsBytes(objectKey);
+      
+      if (downloadResult?.ok && downloadResult.value) {
+        // Set cache headers for better performance
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        res.setHeader('ETag', `"${objectKey}"`);
+        
+        // Determine content type based on file extension
+        const ext = objectKey.split('.').pop()?.toLowerCase();
+        const contentType = ext === 'png' ? 'image/png' : 
+                           ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' :
+                           ext === 'webp' ? 'image/webp' : 'application/octet-stream';
+        
+        res.setHeader('Content-Type', contentType);
+        res.send(Buffer.from(downloadResult.value));
+      } else {
+        res.status(404).json({ error: 'Asset not found in storage' });
+      }
+    } catch (error) {
+      console.error('Error serving asset from storage:', error);
+      res.status(500).json({ error: 'Error retrieving asset' });
     }
   });
 
