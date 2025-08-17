@@ -370,7 +370,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const images = {
         fightingGame: await storageManager.downloadImageUrl('portfolio/fighting-game-tournament.png'),
         caribbeanFood: await storageManager.downloadImageUrl('portfolio/caribbean-food-platform.png'),
-        jamaicanRestaurant: await storageManager.downloadImageUrl('portfolio/jamaica-restaurant.png'),
+        jamaicanRestaurant: await storageManager.downloadImageUrl('portfolio/jamaica-restaurant.webp'),
         faithMinistry: await storageManager.downloadImageUrl('portfolio/faith-ministry-website.png'),
         powerOfLamb: await storageManager.downloadImageUrl('portfolio/power-of-lamb-ministry.png'),
         brainBot: await storageManager.downloadImageUrl('portfolio/brain-discord-bot.png'),
@@ -403,9 +403,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/storage/*", async (req, res) => {
     try {
       const objectKey = req.params[0]; // Get everything after /api/storage/
-      const downloadResult = await storageManager.client?.downloadAsBytes(objectKey);
+      console.log(`Serving from storage: ${objectKey}`);
       
-      if (downloadResult?.ok && downloadResult.value) {
+      if (!storageManager.client) {
+        return res.status(500).json({ error: 'Storage client not initialized' });
+      }
+      
+      const downloadResult = await storageManager.client.downloadAsBytes(objectKey);
+      console.log(`Download result: ok=${downloadResult?.ok}, size=${downloadResult?.value?.length || 0}`);
+      
+      if (downloadResult?.ok && downloadResult.value && downloadResult.value.length > 1) {
         // Set cache headers for better performance
         res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
         res.setHeader('ETag', `"${objectKey}"`);
@@ -419,7 +426,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         res.setHeader('Content-Type', contentType);
         res.send(Buffer.from(downloadResult.value));
       } else {
-        res.status(404).json({ error: 'Asset not found in storage' });
+        console.error(`Asset not found or empty: ${objectKey}, size: ${downloadResult?.value?.length || 0}`);
+        res.status(404).json({ error: 'Asset not found or corrupted in storage' });
       }
     } catch (error) {
       console.error('Error serving asset from storage:', error);

@@ -76,6 +76,22 @@ class StorageManager {
       {
         localPath: 'attached_assets/brainbot_1755456022650.png',
         objectKey: 'portfolio/brain-discord-bot.png'
+      },
+      {
+        localPath: 'attached_assets/brainbot_1755456022650.png', // Using as placeholder
+        objectKey: 'portfolio/jamaica-restaurant.webp'
+      },
+      {
+        localPath: 'attached_assets/08_texas_1755456022650.jpg', // Using as placeholder
+        objectKey: 'portfolio/faith-ministry-website.png'
+      },
+      {
+        localPath: 'attached_assets/brainbot_1755456022650.png', // Using as placeholder
+        objectKey: 'portfolio/power-of-lamb-ministry.png'
+      },
+      {
+        localPath: 'attached_assets/08_texas_1755456022650.jpg', // Using as placeholder
+        objectKey: 'portfolio/caribbean-food-platform.png'
       }
     ];
 
