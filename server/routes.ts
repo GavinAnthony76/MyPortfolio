@@ -32,6 +32,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     message: { error: "Too many contact requests, please try again later" },
     standardHeaders: true,
     legacyHeaders: false,
+    keyGenerator: (req) => {
+      // Use X-Forwarded-For header if available, otherwise fall back to connection IP
+      return (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || 
+             req.socket.remoteAddress || 
+             'unknown';
+    }
   });
 
   // Session configuration with persistent storage
