@@ -72,6 +72,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     app.set('trust proxy', 1);
   }
 
+  // Canonical host redirection for production
+  app.use((req, res, next) => {
+    if (process.env.NODE_ENV === 'production') {
+      const host = req.headers.host || '';
+      // choose one canonical host; here I use "www"
+      if (host === 'gavineanthony.com') {
+        return res.redirect(301, `https://www.gavineanthony.com${req.originalUrl}`);
+      }
+    }
+    next();
+  });
+
   const sessionConfig = {
     secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production-12345',
     resave: false,

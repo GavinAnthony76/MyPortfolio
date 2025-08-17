@@ -28,6 +28,7 @@ This project is a professional portfolio website for a full-stack developer, Gav
 - **Fixed production session configuration** - updated cookie settings for Replit deployment environment
 - **Enhanced session security** - proper proxy settings and host-only cookies for production deployment
 - **Resolved authentication caching issue** - implemented no-cache headers on auth endpoints to prevent stale responses
+- **Added canonical host redirection** - ensures consistent www.gavineanthony.com usage to prevent cookie conflicts
 
 # User Preferences
 
