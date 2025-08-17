@@ -184,7 +184,7 @@ export default function Dashboard() {
       'redesign': 'Website Redesign',
       'landing': 'Landing Pages',
       'static': 'Static Web Page Development',
-      'integration': 'API Integration',
+      'consulting': 'Technical Consulting',
       'other': 'Custom Development'
     };
 
@@ -285,7 +285,7 @@ projects@gavineanthony.com
       'redesign': 'Website Redesign',
       'landing': 'Landing Pages',
       'static': 'Static Web Page Development',
-      'integration': 'API Integration',
+      'consulting': 'Technical Consulting',
       'other': 'Custom Development'
     };
 

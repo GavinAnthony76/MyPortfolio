@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Code, Smartphone, ShoppingCart, TrendingUp, Settings, Rocket, Check } from "lucide-react";
+import { Code, Smartphone, MessageSquare, TrendingUp, Settings, Rocket, Check } from "lucide-react";
 
 const services = [
   {
@@ -51,19 +51,19 @@ const services = [
     ]
   },
   {
-    id: 'integration',
-    icon: ShoppingCart,
-    title: 'API Integration',
-    description: 'Seamless integration of third-party APIs, payment systems, and external services into your applications.',
-    price: '$1,800 - $2,400',
+    id: 'consulting',
+    icon: MessageSquare,
+    title: 'Technical Consulting',
+    description: 'Expert technical guidance, code reviews, architecture planning, and project consultation on an hourly basis.',
+    price: '$125/hour',
     color: 'from-teal-50 to-cyan-50',
     iconBg: 'bg-teal-600',
     priceColor: 'text-teal-600',
     features: [
-      'Payment gateways',
-      'Social authentication',
-      'External APIs',
-      'Webhook handling'
+      'Architecture planning',
+      'Code reviews & optimization',
+      'Technical strategy',
+      'Problem solving sessions'
     ]
   },
   {
@@ -86,7 +86,7 @@ const services = [
     id: 'fullstack',
     icon: Code,
     title: 'Full-Stack Development',
-    description: 'Complete web application development from frontend to backend, including database design and deployment.',
+    description: 'Complete web application development from frontend to backend, including database design, API integration, and deployment.',
     price: '$4,000 - $4,800',
     color: 'from-blue-50 to-cyan-50',
     iconBg: 'bg-blue-600',
@@ -95,6 +95,7 @@ const services = [
       'React/TypeScript frontend',
       'Node.js/Express backend',
       'Database design & integration',
+      'API integration & development',
       'Authentication & security'
     ]
   }

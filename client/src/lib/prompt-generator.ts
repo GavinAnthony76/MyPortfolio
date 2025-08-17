@@ -93,7 +93,7 @@ function getProjectTypeLabel(type: string): string {
     'redesign': 'Website Redesign',
     'landing': 'Landing Pages',
     'static': 'Static Web Page Development',
-    'integration': 'API Integration',
+    'consulting': 'Technical Consulting',
     'other': 'Custom Solution',
   };
   return labels[type] || type;
@@ -115,12 +115,12 @@ function getTimelineLabel(timeline: string): string {
 
 function getRecommendedTechStack(projectType: string): string | null {
   const stacks: Record<string, string> = {
-    'fullstack': '- **Frontend:** React with TypeScript, Tailwind CSS, Shadcn/ui\n- **Backend:** Node.js with Express.js, RESTful APIs\n- **Database:** PostgreSQL with Drizzle ORM\n- **Authentication:** JWT, OAuth, or NextAuth.js\n- **Deployment:** Vercel, Railway, or AWS\n- **Testing:** Jest, Vitest, Playwright for E2E',
+    'fullstack': '- **Frontend:** React with TypeScript, Tailwind CSS, Shadcn/ui\n- **Backend:** Node.js with Express.js, RESTful APIs\n- **Database:** PostgreSQL with Drizzle ORM\n- **API Integration:** Third-party services, payment gateways, webhooks\n- **Authentication:** JWT, OAuth, or NextAuth.js\n- **Deployment:** Vercel, Railway, or AWS\n- **Testing:** Jest, Vitest, Playwright for E2E',
     'prototype': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express\n- **Database:** In-memory or SQLite for speed\n- **Development:** Vite for fast iteration\n- **Hosting:** Replit, Vercel, or Netlify',
     'redesign': '- **Design:** Modern UI/UX design principles\n- **Performance:** Speed optimization and Core Web Vitals\n- **Responsive:** Mobile-first responsive design\n- **SEO:** Preservation of existing search rankings\n- **Accessibility:** WCAG compliance improvements',
     'landing': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Optimization:** Conversion rate optimization techniques\n- **SEO:** Meta tags, structured data, performance optimization\n- **Analytics:** Google Analytics, conversion tracking\n- **Hosting:** Fast CDN deployment with global reach',
     'static': '- **Frontend:** Modern HTML5, CSS3, vanilla JavaScript\n- **Styling:** Tailwind CSS or custom CSS with modern techniques\n- **Performance:** Optimized images, minified assets, fast loading\n- **SEO:** Meta tags, structured data, semantic HTML\n- **Hosting:** Static site hosting with CDN deployment',
-    'integration': '- **APIs:** RESTful and GraphQL integration\n- **Authentication:** OAuth, JWT, API keys\n- **Data:** JSON processing and validation\n- **Testing:** API testing and mocking\n- **Security:** Rate limiting and validation',
+    'consulting': '- **Architecture:** System design and technical planning\n- **Code Review:** Performance optimization and best practices\n- **Problem Solving:** Debugging and technical troubleshooting\n- **Strategy:** Technology selection and implementation guidance\n- **Documentation:** Technical specifications and recommendations',
   };
   return stacks[projectType] || null;
 }
@@ -215,20 +215,20 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
 
 
 
-    'integration': `**Phase 1: API Analysis (${isRush ? '1 day' : '2-3 days'})**
-- API documentation review
-- Integration requirements analysis
-- Authentication setup planning
+    'consulting': `**Phase 1: Discovery & Analysis (${isRush ? '2-4 hours' : '4-6 hours'})**
+- Problem assessment and scope definition
+- Current system analysis and review
+- Technical requirements gathering
 
-**Phase 2: Development & Testing (${isRush ? '3-5 days' : '1 week'})**
-- API integration implementation
-- Error handling and validation
-- Comprehensive testing
+**Phase 2: Strategy & Recommendations (${isRush ? '3-4 hours' : '6-8 hours'})**
+- Solution architecture planning
+- Technology recommendations and evaluation
+- Implementation roadmap creation
 
-**Phase 3: Deployment & Monitoring (${isRush ? '1-2 days' : '2-3 days'})**
-- Production deployment
-- Monitoring setup
-- Documentation and maintenance guide`,
+**Phase 3: Documentation & Handover (${isRush ? '1-2 hours' : '2-3 hours'})**
+- Technical documentation delivery
+- Implementation guidance and best practices
+- Follow-up consultation sessions as needed`,
   };
 
   return phases[projectType] || null;

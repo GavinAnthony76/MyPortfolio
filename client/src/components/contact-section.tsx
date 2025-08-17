@@ -34,7 +34,7 @@ const projectTypes = [
   { value: "redesign", label: "Website Redesign" },
   { value: "landing", label: "Landing Pages" },
   { value: "static", label: "Static Web Page Development" },
-  { value: "integration", label: "API Integration" },
+  { value: "consulting", label: "Technical Consulting" },
   { value: "prototype", label: "Rapid Prototype/POC" },
   { value: "fullstack", label: "Full-Stack Development" },
   { value: "other", label: "Other" },
