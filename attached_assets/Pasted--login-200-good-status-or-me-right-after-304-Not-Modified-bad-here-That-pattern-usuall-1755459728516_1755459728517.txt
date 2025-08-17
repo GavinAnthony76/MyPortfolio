@@ -1,0 +1,77 @@
+/login → 200 (good)
+
+/status (or /me) right after → 304 Not Modified (bad here)
+
+That pattern usually means: after the login succeeds, your app calls a status endpoint to confirm auth, but the browser (or CDN) serves a cached pre-login response (304 uses the old cached body), so your app never sees “authenticated” and never redirects.
+
+Fix it in 3 small changes
+1) Don’t let auth endpoints be cached
+
+Add no-cache headers on /login, /logout, /me, /status:
+
+// apply to auth routes or a small middleware:
+const noCache = (_req, res, next) => {
+  res.set({
+    "Cache-Control": "no-store, no-cache, must-revalidate",
+    "Pragma": "no-cache",
+    "Expires": "0",
+    "Vary": "Cookie"  // important when auth uses cookies
+  });
+  next();
+};
+
+app.post("/login", noCache, async (req, res) => { /* set cookie, res.json({ok:true}) */ });
+app.get("/status", noCache, (req, res) => { /* return auth state */ });
+app.post("/logout", noCache, (req, res) => { /* clear cookie */ });
+
+
+If you’re on a framework with route handlers (Next/Express/etc.), set these headers on those handlers.
+
+2) Make sure the cookie actually lands (prod)
+
+Before you rely on /status, verify Set-Cookie comes back on /login and is accepted:
+
+Server:
+
+app.set("trust proxy", 1); // critical if behind HTTPS proxy
+res.cookie("session", token, {
+  httpOnly: true,
+  secure: true,          // prod only
+  sameSite: "None",      // if frontend and API can be on different hosts
+  domain: ".gavineanthony.com", // if you serve both apex and www
+  path: "/"
+});
+res.json({ ok: true });
+
+
+Client:
+
+await fetch("/login", {
+  method: "POST",
+  headers: {"Content-Type":"application/json"},
+  credentials: "include"    // REQUIRED for cookies
+});
+
+3) Revalidate the status call properly (no cache)
+
+On the client, when you call /status immediately after login, force a network fetch:
+
+const r = await fetch("/status", {
+  credentials: "include",
+  cache: "no-store"              // or "reload"
+});
+const me = await r.json();
+if (me.authenticated) {
+  window.location.assign("/dashboard"); // or router.push("/dashboard")
+}
+
+Extra things that also cause this (check quickly)
+
+Different hostnames (e.g., logging in on www. then hitting /status on apex): pick one canonical host and 301 redirect the other; or set the cookie domain to .gavineanthony.com.
+
+CORS with credentials if API and site are separate origins:
+
+app.use(cors({
+  origin: ["https://gavineanthony.com","https://www.gavineanthony.com"],
+  credentials: true
+}));
