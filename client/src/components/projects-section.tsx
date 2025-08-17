@@ -6,6 +6,9 @@ import { ExternalLink, Github } from "lucide-react";
 import { usePortfolioImages } from "@/hooks/use-portfolio-images";
 import texasImage from "@/assets/texas-showdown.jpg";
 import brainBotImage from "@/assets/brain-bot.png";
+import jamaicaImage from "@/assets/jamaica-restaurant.png";
+import faithImage from "@/assets/faith-ministry.png";
+import powerImage from "@/assets/power-of-lamb.png";
 
 interface Project {
   id: string;
@@ -34,7 +37,7 @@ const getProjects = (images: any): Project[] => [
     title: "Jamaica Nyammingz - Jamaican Restaurant",
     description:
       "Complete restaurant website featuring authentic Jamaican cuisine, online menu, ordering system, and cultural dining experiences.",
-    image: images?.jamaicanRestaurant || "/api/assets/jamaica-restaurant.png",
+    image: images?.jamaicanRestaurant || jamaicaImage,
     category: "ecommerce",
     technologies: ["React", "Node.js", "MongoDB"],
     liveUrl: "https://jamaicanyammingz.com/",
@@ -44,7 +47,7 @@ const getProjects = (images: any): Project[] => [
     title: "Faith and Ministry Website",
     description:
       "Spiritual community platform featuring live streaming services, ministry resources, community engagement, and faith-based content delivery.",
-    image: images?.faithMinistry || "/api/assets/faith-ministry-website.png",
+    image: images?.faithMinistry || faithImage,
     category: "web",
     technologies: ["React", "Node.js", "MongoDB"],
   },
@@ -53,7 +56,7 @@ const getProjects = (images: any): Project[] => [
     title: "Power of the Lamb Ministry",
     description:
       "Biblical prophecy teaching platform featuring course registration, live streaming events, educational content delivery, and ministry resources with integrated payment processing.",
-    image: images?.powerOfLamb || "/api/assets/power-of-lamb-ministry.png",
+    image: images?.powerOfLamb || powerImage,
     category: "web",
     technologies: ["WordPress", "PHP", "Stripe"],
     liveUrl: "https://powerofthelamb.com/",
