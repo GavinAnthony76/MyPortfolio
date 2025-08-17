@@ -1,6 +1,15 @@
 # Overview
 
-This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. It aims to market web development services and streamline the intake and management of client inquiries through a robust project request system. The application features sections for personal introduction, featured web projects, service offerings (web development, responsive design, e-commerce, consulting, maintenance, MVP development), and a comprehensive contact form that generates detailed project briefs. These briefs are stored in a database and managed via an administrative dashboard. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
+This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. It aims to market web development services and streamline the intake and management of client inquiries through a robust project request system. The application features sections for personal introduction, featured web projects, service offerings (technical consulting, website redesign, landing pages, static web development, rapid prototyping, full-stack development - arranged by price), and a comprehensive contact form that generates detailed project briefs. These briefs are stored in a database and managed via an administrative dashboard. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
+
+## Recent Changes (August 17, 2025)
+### Service Restructuring and Price Ordering (COMPLETED ✅)
+- **Services reordered by price** - arranged from cheapest to most expensive
+- **Technical Consulting positioned first** - $125/hour as the most accessible entry point
+- **Full-Stack Development enhanced** - includes API integration as core feature  
+- **Service hierarchy optimized** - Technical Consulting → Website Redesign → Landing Pages → Static Development → Rapid Prototyping → Full-Stack Development
+- **Contact form updated** - project types match new service order
+- **All components synchronized** - services section, contact forms, and documentation aligned
 
 # User Preferences
 

@@ -3,6 +3,22 @@ import { Code, Smartphone, MessageSquare, TrendingUp, Settings, Rocket, Check } 
 
 const services = [
   {
+    id: 'consulting',
+    icon: MessageSquare,
+    title: 'Technical Consulting',
+    description: 'Expert technical guidance, code reviews, architecture planning, and project consultation on an hourly basis.',
+    price: '$125/hour',
+    color: 'from-teal-50 to-cyan-50',
+    iconBg: 'bg-teal-600',
+    priceColor: 'text-teal-600',
+    features: [
+      'Architecture planning',
+      'Code reviews & optimization',
+      'Technical strategy',
+      'Problem solving sessions'
+    ]
+  },
+  {
     id: 'redesign',
     icon: Settings,
     title: 'Website Redesign',
@@ -48,22 +64,6 @@ const services = [
       'Responsive design',
       'Fast loading times',
       'SEO optimization'
-    ]
-  },
-  {
-    id: 'consulting',
-    icon: MessageSquare,
-    title: 'Technical Consulting',
-    description: 'Expert technical guidance, code reviews, architecture planning, and project consultation on an hourly basis.',
-    price: '$125/hour',
-    color: 'from-teal-50 to-cyan-50',
-    iconBg: 'bg-teal-600',
-    priceColor: 'text-teal-600',
-    features: [
-      'Architecture planning',
-      'Code reviews & optimization',
-      'Technical strategy',
-      'Problem solving sessions'
     ]
   },
   {
