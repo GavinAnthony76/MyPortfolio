@@ -64,27 +64,11 @@ class StorageManager {
 
     const imagesToUpload = [
       {
-        localPath: 'attached_assets/generated_images/Fighting_game_tournament_interface_75b551f6.png',
+        localPath: 'attached_assets/08_texas_1755456022650.jpg',
         objectKey: 'portfolio/fighting-game-tournament.png'
       },
       {
-        localPath: 'attached_assets/generated_images/Caribbean_restaurant_platform_0f22437a.png',
-        objectKey: 'portfolio/caribbean-food-platform.png'
-      },
-      {
-        localPath: 'attached_assets/generated_images/Caribbean_restaurant_platform_0f22437a.png',
-        objectKey: 'portfolio/jamaica-restaurant.png'
-      },
-      {
-        localPath: 'attached_assets/generated_images/Church_ministry_website_ce445453.png',
-        objectKey: 'portfolio/faith-ministry-website.png'
-      },
-      {
-        localPath: 'attached_assets/generated_images/Church_ministry_website_ce445453.png',
-        objectKey: 'portfolio/power-of-lamb-ministry.png'
-      },
-      {
-        localPath: 'attached_assets/generated_images/Discord_bot_dashboard_99437552.png',
+        localPath: 'attached_assets/brainbot_1755456022650.png',
         objectKey: 'portfolio/brain-discord-bot.png'
       }
     ];
