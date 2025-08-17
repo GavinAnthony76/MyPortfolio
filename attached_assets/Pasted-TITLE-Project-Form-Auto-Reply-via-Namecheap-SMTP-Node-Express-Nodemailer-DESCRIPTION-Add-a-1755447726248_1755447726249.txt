@@ -1,0 +1,261 @@
+TITLE: Project Form Auto-Reply via Namecheap SMTP (Node/Express + Nodemailer)
+
+DESCRIPTION:
+Add a secure API endpoint that:
+1) Receives project request form data from the website.
+2) Sends an internal notification email with all details to your chosen inbox (e.g., Outlook).
+3) Sends an automatic confirmation email FROM projects@gavineanthony.com to the user ("Thanks, we received your request…").
+Uses Namecheap Private Email SMTP (mail.privateemail.com) with TLS. Includes validation, rate limiting, CORS, and no secrets in client code.
+
+REQUIREMENTS:
+- Node + TypeScript + Express
+- Nodemailer for SMTP
+- Zod for payload validation
+- express-rate-limit, helmet, cors
+- Environment variables for SMTP auth (stored in Replit Secrets)
+- Example curl and README for quick testing
+
+FILE TREE:
+/ (project root)
+  package.json
+  tsconfig.json
+  .replit
+  replco.toml
+  README.md
+  /src
+    server.ts
+    mailer.ts
+    schema.ts
+    types.ts
+
+PACKAGE.JSON (generate exactly):
+{
+  "name": "project-form-autoreply",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "helmet": "^7.1.0",
+    "nodemailer": "^6.9.13",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4"
+  }
+}
+
+TSCONFIG.JSON:
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ES2020",
+    "moduleResolution": "Bundler",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src"]
+}
+
+.REPLIT:
+run = "npm run dev"
+
+replco.toml:
+onRun = "npm run dev"
+
+README.MD:
+# Project Form Auto-Reply (Namecheap SMTP)
+This API receives project requests and:
+- Sends confirmation FROM projects@gavineanthony.com to the requester.
+- Sends a full notification email to your internal inbox.
+
+## Env (set in Replit Secrets)
+SMTP_HOST=mail.privateemail.com
+SMTP_PORT=587            # or 465 for SSL
+SMTP_SECURE=false        # true if using 465
+SMTP_USER=projects@gavineanthony.com
+SMTP_PASS=***            # mailbox password
+FROM_EMAIL=projects@gavineanthony.com
+INTERNAL_TO=support@gavineanthony.com   # or your Outlook address
+REPLY_TO=support@gavineanthony.com      # optional
+
+## Test
+curl -X POST https://<your-repl-url>/api/project-request \
+ -H "Content-Type: application/json" \
+ -d '{
+   "name":"Jane Client",
+   "email":"jane@example.com",
+   "company":"Acme",
+   "goals":"New site",
+   "budget":"$3k-$5k",
+   "message":"Let’s start next month"
+ }'
+
+## Notes
+- Keep DMARC at p=none initially, then move to quarantine/reject once stable.
+- Never commit secrets; use the Secrets panel.
+
+SRC/TYPES.TS:
+export type ProjectRequest = {
+  name: string;
+  email: string;
+  company?: string;
+  goals?: string;
+  budget?: string;
+  message?: string;
+};
+
+SRC/SCHEMA.TS:
+import { z } from "zod";
+export const projectRequestSchema = z.object({
+  name: z.string().min(1),
+  email: z.string().email(),
+  company: z.string().optional().or(z.literal("")),
+  goals: z.string().optional().or(z.literal("")),
+  budget: z.string().optional().or(z.literal("")),
+  message: z.string().optional().or(z.literal(""))
+});
+export type ProjectRequestInput = z.infer<typeof projectRequestSchema>;
+
+SRC/Mailer.TS:
+import nodemailer from "nodemailer";
+
+export function makeTransport(){
+  const host = process.env.SMTP_HOST || "mail.privateemail.com";
+  const port = Number(process.env.SMTP_PORT || 587);
+  const secure = String(process.env.SMTP_SECURE || "false") === "true"; // true for 465
+  const user = process.env.SMTP_USER!;
+  const pass = process.env.SMTP_PASS!;
+  return nodemailer.createTransport({
+    host, port, secure,
+    auth: { user, pass }
+  });
+}
+
+export async function sendInternal(to:string, from:string, payload:Record<string,string|undefined>){
+  const transport = makeTransport();
+  const lines = Object.entries(payload).map(([k,v]) => `${k}: ${v ?? ""}`).join("\n");
+  await transport.sendMail({
+    from,
+    to,
+    subject: "New Project Request",
+    text: `A new request arrived:\n\n${lines}`,
+  });
+}
+
+export async function sendAutoreply(to:string, from:string, replyTo?:string){
+  const transport = makeTransport();
+  await transport.sendMail({
+    from,
+    to,
+    replyTo,
+    subject: "Thanks — we received your project request",
+    text: [
+      "Hi there,",
+      "",
+      "Thanks for reaching out to Gavin Anthony. We received your project request and will contact you shortly.",
+      "",
+      "Typical response time: 1 business day.",
+      "",
+      "If this is urgent, email support@gavineanthony.com.",
+      "",
+      "— Gavin Anthony"
+    ].join("\n")
+  });
+}
+
+SRC/SERVER.TS:
+import "dotenv/config";
+import express from "express";
+import helmet from "helmet";
+import cors from "cors";
+import rateLimit from "express-rate-limit";
+import { projectRequestSchema } from "./schema";
+import { sendInternal, sendAutoreply } from "./mailer";
+
+const app = express();
+app.set("trust proxy", 1);
+app.use(express.json({ limit: "1mb" }));
+app.use(cors({ origin: true, credentials: true }));
+app.use(helmet({
+  referrerPolicy: { policy: "strict-origin-when-cross-origin" }
+}));
+
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false
+});
+app.use("/api/", limiter);
+
+app.get("/healthz", (_req,res)=>res.json({ok:true,time:new Date().toISOString()}));
+
+app.post("/api/project-request", async (req, res) => {
+  const parse = projectRequestSchema.safeParse(req.body);
+  if(!parse.success){
+    return res.status(400).json({ error: "Invalid payload", issues: parse.error.flatten() });
+  }
+  const data = parse.data;
+  try {
+    const FROM = process.env.FROM_EMAIL!;
+    const TO_INTERNAL = process.env.INTERNAL_TO!;
+    const REPLY_TO = process.env.REPLY_TO || FROM;
+
+    // 1) Notify you (internal)
+    await sendInternal(TO_INTERNAL, FROM, {
+      name: data.name,
+      email: data.email,
+      company: data.company,
+      goals: data.goals,
+      budget: data.budget,
+      message: data.message
+    });
+
+    // 2) Auto-reply to requester
+    await sendAutoreply(data.email, FROM, REPLY_TO);
+
+    res.json({ ok: true });
+  } catch (e:any) {
+    console.error(e);
+    res.status(500).json({ ok:false, error: "Mail send failed" });
+  }
+});
+
+const PORT = Number(process.env.PORT) || 3000;
+app.listen(PORT, ()=>console.log(`API listening on :${PORT}`));
+What you’ll do next
+
+Paste this prompt into Replit → Create from Prompt.
+
+In Replit Secrets, add:
+
+SMTP_HOST=mail.privateemail.com
+
+SMTP_PORT=587 (or 465 with SMTP_SECURE=true)
+
+SMTP_SECURE=false
+
+SMTP_USER=projects@gavineanthony.com
+
+SMTP_PASS=<mailbox password>
+
+FROM_EMAIL=projects@gavineanthony.com
+
+INTERNAL_TO=support@gavineanthony.com (or your Outlook)
+
+REPLY_TO=support@gavineanthony.com (optional)
+
+Point your form to POST /api/project-request with name, email, and any optional fields.

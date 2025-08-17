@@ -49,8 +49,19 @@
 - `SESSION_SECRET` - Session security
 - `DATABASE_URL` - PostgreSQL connection (auto-configured in Replit)
 
-### Recent Critical Fixes (August 16, 2025)
-- **SendGrid Removal:** Removed SendGrid email service and all related dependencies for simplified deployment
+### Optional Email Configuration (Recommended)
+- `SMTP_HOST` - mail.privateemail.com
+- `SMTP_PORT` - 587  
+- `SMTP_SECURE` - false
+- `SMTP_USER` - projects@gavineanthony.com
+- `SMTP_PASS` - Email password
+- `FROM_EMAIL` - projects@gavineanthony.com
+- `INTERNAL_TO` - support@gavineanthony.com
+- `REPLY_TO` - support@gavineanthony.com
+
+### Recent Critical Fixes (August 17, 2025)
+- **SMTP Email System:** Integrated Namecheap Private Email SMTP with Nodemailer for professional email notifications
+- **SendGrid Removal:** Removed SendGrid email service and all related dependencies for simplified deployment  
 - **Email Address Migration:** Updated all email references from gavineanthony@outlook.com to projects@gavineanthony.com across application
 - **Favicon Implementation:** Added Guidato LLC logo as website favicon with proper browser support
 - **Secure Cookie Configuration:** Fixed production HTTPS cookie security (secure: isProduction)

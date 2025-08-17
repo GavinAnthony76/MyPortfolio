@@ -10,10 +10,27 @@ import bcrypt from "bcrypt";
 import session from "express-session";
 import pgSession from "connect-pg-simple";
 import { db } from "./db";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import { sendInternalNotification, sendAutoReply } from "./mailer";
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
   const storageManager = new StorageManager();
+
+  // Add security middleware
+  app.use(helmet({
+    referrerPolicy: { policy: "strict-origin-when-cross-origin" }
+  }));
+
+  // Rate limiting for contact form
+  const contactLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 minutes
+    max: 5, // Limit each IP to 5 requests per windowMs for contact form
+    message: { error: "Too many contact requests, please try again later" },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
 
   // Session configuration with persistent storage
   const isProduction = process.env.NODE_ENV === 'production';
@@ -219,8 +236,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ authenticated: false, reason: 'server_error' });
     }
   });
-  // Submit project request
-  app.post("/api/project-requests", async (req, res) => {
+  // Submit project request with email notifications
+  app.post("/api/project-requests", contactLimiter, async (req, res) => {
     try {
       const validatedData = insertProjectRequestSchema.parse(req.body);
       
@@ -232,8 +249,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
         generatedPrompt,
       });
       
-      // Project request created successfully
-      console.log(`Project request created successfully: ${projectRequest.id}`);
+      // Send email notifications if SMTP is configured
+      try {
+        const FROM_EMAIL = process.env.FROM_EMAIL || process.env.SMTP_USER;
+        const INTERNAL_TO = process.env.INTERNAL_TO;
+        const REPLY_TO = process.env.REPLY_TO || FROM_EMAIL;
+
+        if (FROM_EMAIL && INTERNAL_TO && process.env.SMTP_USER && process.env.SMTP_PASS) {
+          // Send internal notification
+          await sendInternalNotification(INTERNAL_TO, FROM_EMAIL, {
+            name: `${validatedData.firstName} ${validatedData.lastName}`,
+            email: validatedData.email,
+            company: validatedData.company || "",
+            projectType: validatedData.projectType,
+            timeline: validatedData.timeline,
+            description: validatedData.description,
+            generatedPrompt: generatedPrompt
+          });
+
+          // Send auto-reply to client
+          await sendAutoReply(
+            validatedData.email,
+            FROM_EMAIL,
+            validatedData.firstName,
+            REPLY_TO
+          );
+
+          console.log(`Project request created with email notifications: ${projectRequest.id}`);
+        } else {
+          console.log(`Project request created (no email configuration): ${projectRequest.id}`);
+        }
+      } catch (emailError) {
+        console.error("Email notification failed (request still saved):", emailError);
+        // Continue - don't fail the request if email fails
+      }
       
       res.json({ success: true, id: projectRequest.id });
     } catch (error) {
