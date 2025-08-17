@@ -132,18 +132,7 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              <div
-                className="flex items-start space-x-4"
-                data-testid="contact-phone"
-              >
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Phone className="text-green-600 text-xl" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-slate-800 mb-1">Phone</h4>
-                  <p className="text-slate-600">+1 (254) 300-8158</p>
-                </div>
-              </div>
+
 
               <div
                 className="flex items-start space-x-4"

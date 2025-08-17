@@ -220,8 +220,7 @@ I'm excited to bring your vision to life! Would you be available for a call this
 Best regards,
 Gavin Anthony
 Full-Stack Developer
-projects@gavineanthony.com
-(254) 300-8158`;
+projects@gavineanthony.com`;
 
     // Update status to 'responded'
     updateStatusMutation.mutate({ id: request.id, status: 'responded' });
@@ -258,7 +257,6 @@ Best regards,
 Gavin Anthony
 Full-Stack Developer
 projects@gavineanthony.com
-(254) 300-8158
 `;
 
     // Update status to 'follow-up'
@@ -365,7 +363,6 @@ Best regards,
 Gavin Anthony
 Full-Stack Developer
 projects@gavineanthony.com
-(254) 300-8158
 Austin, TX
 
 ---

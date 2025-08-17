@@ -144,5 +144,5 @@ PORT=5000
 ## Contact Information
 - Developer: Gavin Anthony
 - Email: guidato.llc@gmail.com
-- Phone: (254) 300-8158
+- Phone: 
 - Twitter: @gavineanthony

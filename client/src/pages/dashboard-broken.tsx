@@ -114,7 +114,7 @@ Best regards,
 Gavin Anthony
 Full-Stack Developer
 Email: guidato.llc@gmail.com
-Phone: (254) 300-8158
+
 Austin, TX
 
 P.S. Feel free to check out some of my recent work at [your portfolio URL]`;
@@ -189,7 +189,7 @@ Best regards,
 Gavin Anthony
 Full-Stack Developer
 Email: guidato.llc@gmail.com
-Phone: (254) 300-8158
+
 Austin, TX
 
 P.S. I'm committed to delivering high-quality work and ensuring your complete satisfaction with the final product.`;
@@ -414,7 +414,7 @@ CONTACT INFORMATION
 Gavin Anthony
 Full-Stack Developer
 Email: guidato.llc@gmail.com
-Phone: (254) 300-8158
+
 Location: Austin, TX
 Portfolio: https://your-portfolio-url.com
 

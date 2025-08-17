@@ -130,7 +130,7 @@ export default function PrivacyPolicyPage() {
               <div className="bg-slate-50 p-4 rounded-lg mt-4">
                 <p><strong>Gavin Anthony - Guidato LLC</strong></p>
                 <p>Email: <a href="mailto:projects@gavineanthony.com" className="text-blue-600 hover:text-blue-800">projects@gavineanthony.com</a></p>
-                <p>Phone: <a href="tel:+12543008158" className="text-blue-600 hover:text-blue-800">(254) 300-8158</a></p>
+
                 <p>Location: Austin, Texas, United States</p>
               </div>
             </section>
