@@ -67,17 +67,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     console.log('Falling back to default session store');
   }
 
+  // Trust proxy for proper IP/cookie handling in production
+  if (isProduction) {
+    app.set('trust proxy', 1);
+  }
+
   const sessionConfig = {
     secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production-12345',
     resave: false,
     saveUninitialized: false,
     name: 'auth_session',
     cookie: {
-      secure: isProduction && process.env.HTTPS === 'true', // Only secure if explicitly HTTPS
+      secure: isProduction, // Use secure cookies in production (Replit handles HTTPS)
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      sameSite: isProduction ? 'strict' as const : 'lax' as const, // Strict for production
+      sameSite: 'lax' as const, // Lax for better compatibility
       domain: isProduction ? '.replit.app' : undefined, // Set domain for Replit production
+      path: '/'
     },
     rolling: true,
     proxy: isProduction, // Trust proxy in production
@@ -147,8 +153,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   await initializeAdmin();
 
+  // No-cache middleware for auth endpoints
+  const noCache = (_req: any, res: any, next: any) => {
+    res.set({
+      "Cache-Control": "no-store, no-cache, must-revalidate",
+      "Pragma": "no-cache", 
+      "Expires": "0",
+      "Vary": "Cookie"
+    });
+    next();
+  };
+
   // Login endpoint
-  app.post('/api/login', async (req, res) => {
+  app.post('/api/login', noCache, async (req, res) => {
     try {
       const { username, password } = req.body;
       console.log('Login attempt for username:', username);
@@ -202,7 +219,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Logout endpoint
-  app.post('/api/logout', (req, res) => {
+  app.post('/api/logout', noCache, (req, res) => {
     req.session.destroy((err) => {
       if (err) {
         return res.status(500).json({ message: 'Could not log out' });
@@ -212,7 +229,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Check auth status
-  app.get('/api/auth/status', async (req, res) => {
+  app.get('/api/auth/status', noCache, async (req, res) => {
     try {
       const userId = (req.session as any).userId;
       const username = (req.session as any).username;

@@ -26,6 +26,7 @@ export default function Login() {
           'Content-Type': 'application/json',
         },
         credentials: 'include', // Important for cross-origin cookies
+        cache: 'no-store', // Prevent caching of auth requests
         body: JSON.stringify({ username, password }),
       });
 

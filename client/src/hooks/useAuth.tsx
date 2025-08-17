@@ -8,8 +8,10 @@ export function useAuth() {
   const { data: authStatus, isLoading, error } = useQuery<AuthStatus>({
     queryKey: ['/api/auth/status'],
     retry: false,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    gcTime: 10 * 60 * 1000, // 10 minutes
+    staleTime: 0, // Always fresh for auth checks
+    gcTime: 0, // Don't cache auth status
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
   });
 
   return {
