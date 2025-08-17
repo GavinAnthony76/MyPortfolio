@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
+import { useAuth } from "@/hooks/useAuth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +15,14 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const { isAuthenticated, isLoading: authLoading } = useAuth();
+
+  // If already authenticated, redirect to dashboard
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      setLocation("/dashboard");
+    }
+  }, [isAuthenticated, authLoading, setLocation]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,17 +39,19 @@ export default function Login() {
       });
 
       if (response.ok) {
-        // Invalidate and refetch auth status to refresh authentication state
-        await queryClient.invalidateQueries({ queryKey: ['/api/auth/status'] });
-        await queryClient.refetchQueries({ queryKey: ['/api/auth/status'] });
-        
         toast({
           title: "Login successful",
           description: "Welcome to your dashboard!",
         });
         
-        // Navigate immediately since we've already refreshed auth state
-        setLocation("/dashboard");
+        // Invalidate and refetch auth status to refresh authentication state
+        await queryClient.invalidateQueries({ queryKey: ['/api/auth/status'] });
+        await queryClient.refetchQueries({ queryKey: ['/api/auth/status'] });
+        
+        // Force a small delay to ensure auth state is updated
+        setTimeout(() => {
+          setLocation("/dashboard");
+        }, 100);
       } else {
         const error = await response.json();
         toast({

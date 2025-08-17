@@ -7,11 +7,12 @@ interface AuthStatus {
 export function useAuth() {
   const { data: authStatus, isLoading, error } = useQuery<AuthStatus>({
     queryKey: ['/api/auth/status'],
-    retry: false,
+    retry: 1,
     staleTime: 0, // Always fresh for auth checks
     gcTime: 10 * 60 * 1000, // 10 minutes
     refetchOnWindowFocus: true,
     refetchOnMount: true,
+    refetchInterval: false, // Don't auto-refetch
   });
 
   // Debug logging for authentication
@@ -20,7 +21,7 @@ export function useAuth() {
   }
 
   return {
-    isAuthenticated: authStatus?.authenticated || false,
+    isAuthenticated: Boolean(authStatus?.authenticated),
     isLoading,
     error,
   };
