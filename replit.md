@@ -17,6 +17,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - **Environment variable configuration** - all email settings configured in Replit Secrets
 - **Testing verified** - multiple successful project requests with email delivery confirmed
 - **Phone number removed** - removed phone number from all project files and updated contact section accordingly
+- **Services updated** - replaced PWA service with Website Redesign ($850-$1,200) as the most affordable option
 
 ## Previous Recent Changes (August 14, 2025)
 
@@ -104,7 +105,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - Redesigned services to reflect professional development capabilities with pricing:
   - Full-Stack Development: $4,000 - $4,800 (Complete web application development)
   - Rapid Prototyping: $2,450 - $3,150 (Modern proof-of-concept development)
-  - Progressive Web Applications: $3,375 - $4,125 (Modern PWAs with offline capabilities and app-like experiences)
+  - Website Redesign: $850 - $1,200 (Transform existing websites with modern design and enhanced functionality)
   - Landing Pages: $1,375 - $1,925 (High-converting pages with modern design and optimization)
   - Static Web Page Development: $1,500 - $2,000 (Professional static websites with modern design and optimization)
   - API Integration: $1,800 - $2,400 (Seamless third-party service integration)

@@ -90,7 +90,7 @@ function getProjectTypeLabel(type: string): string {
   const labels: Record<string, string> = {
     'fullstack': 'Full-Stack Development',
     'prototype': 'Rapid Prototype/POC',
-    'pwa': 'Progressive Web Applications',
+    'redesign': 'Website Redesign',
     'landing': 'Landing Pages',
     'static': 'Static Web Page Development',
     'integration': 'API Integration',
@@ -117,7 +117,7 @@ function getRecommendedTechStack(projectType: string): string | null {
   const stacks: Record<string, string> = {
     'fullstack': '- **Frontend:** React with TypeScript, Tailwind CSS, Shadcn/ui\n- **Backend:** Node.js with Express.js, RESTful APIs\n- **Database:** PostgreSQL with Drizzle ORM\n- **Authentication:** JWT, OAuth, or NextAuth.js\n- **Deployment:** Vercel, Railway, or AWS\n- **Testing:** Jest, Vitest, Playwright for E2E',
     'prototype': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express\n- **Database:** In-memory or SQLite for speed\n- **Development:** Vite for fast iteration\n- **Hosting:** Replit, Vercel, or Netlify',
-    'pwa': '- **Frontend:** React/Vue with PWA capabilities\n- **Service Workers:** Offline functionality and caching\n- **Push Notifications:** Real-time user engagement\n- **Manifest:** App-like installation experience\n- **Performance:** Optimized loading and responsiveness',
+    'redesign': '- **Design:** Modern UI/UX design principles\n- **Performance:** Speed optimization and Core Web Vitals\n- **Responsive:** Mobile-first responsive design\n- **SEO:** Preservation of existing search rankings\n- **Accessibility:** WCAG compliance improvements',
     'landing': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Optimization:** Conversion rate optimization techniques\n- **SEO:** Meta tags, structured data, performance optimization\n- **Analytics:** Google Analytics, conversion tracking\n- **Hosting:** Fast CDN deployment with global reach',
     'static': '- **Frontend:** Modern HTML5, CSS3, vanilla JavaScript\n- **Styling:** Tailwind CSS or custom CSS with modern techniques\n- **Performance:** Optimized images, minified assets, fast loading\n- **SEO:** Meta tags, structured data, semantic HTML\n- **Hosting:** Static site hosting with CDN deployment',
     'integration': '- **APIs:** RESTful and GraphQL integration\n- **Authentication:** OAuth, JWT, API keys\n- **Data:** JSON processing and validation\n- **Testing:** API testing and mocking\n- **Security:** Rate limiting and validation',
@@ -168,20 +168,20 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
 - Demo preparation and presentation
 - Feedback collection and refinements`,
 
-    'pwa': `**Phase 1: PWA Setup & Architecture (${isRush ? '2-3 days' : '1 week'})**
-- Progressive enhancement strategy
-- Service worker implementation
-- Manifest configuration and icons
+    'redesign': `**Phase 1: Analysis & Design Planning (${isRush ? '2-3 days' : '1 week'})**
+- Current website analysis and audit
+- Modern design system planning
+- User experience improvements mapping
 
-**Phase 2: Core Features & Offline Support (${isRush ? '1 week' : '2 weeks'})**
-- Offline functionality development
-- Push notification system
-- Background sync capabilities
+**Phase 2: Design Implementation & Development (${isRush ? '1 week' : '2 weeks'})**
+- Modern UI/UX implementation
+- Responsive design development
+- Performance optimization implementation
 
 **Phase 3: Testing & Optimization (${isRush ? '2-3 days' : '1 week'})**
-- PWA auditing and lighthouse testing
-- Performance optimization
-- Cross-platform compatibility testing`,
+- Website redesign evaluation and testing
+- Cross-browser compatibility testing
+- SEO preservation validation`,
 
     'landing': `**Phase 1: Design & Strategy (${isRush ? '1-2 days' : '2-3 days'})**
 - Content strategy and copywriting

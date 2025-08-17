@@ -58,7 +58,7 @@ export default function Dashboard() {
     const projectTypeLabels: Record<string, string> = {
       'fullstack': 'Full-Stack Development',
       'prototype': 'Rapid Prototype/POC',
-      'pwa': 'Progressive Web Applications',
+      'redesign': 'Website Redesign',
       'landing': 'Landing Pages',
       'static': 'Static Web Page Development',
       'integration': 'API Integration',
@@ -160,7 +160,7 @@ P.S. Feel free to check out some of my recent work at [your portfolio URL]`;
     const projectTypeLabels: Record<string, string> = {
       'fullstack': 'Full-Stack Development',
       'prototype': 'Rapid Prototype/POC',
-      'pwa': 'Progressive Web Applications',
+      'redesign': 'Website Redesign',
       'landing': 'Landing Pages',
       'static': 'Static Web Page Development',
       'integration': 'API Integration',
@@ -253,7 +253,7 @@ P.S. I'm committed to delivering high-quality work and ensuring your complete sa
     const projectTypeLabels: Record<string, string> = {
       'fullstack': 'Full-Stack Development',
       'prototype': 'Rapid Prototype/POC',
-      'pwa': 'Progressive Web Applications',
+      'redesign': 'Website Redesign',
       'landing': 'Landing Pages',
       'static': 'Static Web Page Development',
       'integration': 'API Integration',

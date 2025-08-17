@@ -3,51 +3,19 @@ import { Code, Smartphone, ShoppingCart, TrendingUp, Settings, Rocket, Check } f
 
 const services = [
   {
-    id: 'fullstack',
-    icon: Code,
-    title: 'Full-Stack Development',
-    description: 'Complete web application development from frontend to backend, including database design and deployment.',
-    price: '$4,000 - $4,800',
-    color: 'from-blue-50 to-cyan-50',
-    iconBg: 'bg-blue-600',
-    priceColor: 'text-blue-600',
-    features: [
-      'React/TypeScript frontend',
-      'Node.js/Express backend',
-      'Database design & integration',
-      'Authentication & security'
-    ]
-  },
-  {
-    id: 'prototyping',
-    icon: Rocket,
-    title: 'Rapid Prototyping',
-    description: 'Rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly using modern frameworks.',
-    price: '$2,450 - $3,150',
-    color: 'from-green-50 to-emerald-50',
-    iconBg: 'bg-green-600',
-    priceColor: 'text-green-600',
-    features: [
-      'Full-stack prototypes',
-      'Modern tech stacks',
-      'Database integration',
-      'Real-time development'
-    ]
-  },
-  {
-    id: 'pwa',
+    id: 'redesign',
     icon: Settings,
-    title: 'Progressive Web Applications',
-    description: 'Modern PWAs with offline capabilities, push notifications, and app-like experiences that work seamlessly across all devices.',
-    price: '$3,375 - $4,125',
+    title: 'Website Redesign',
+    description: 'Transform your existing website with modern design, improved user experience, and enhanced functionality while maintaining your content and SEO.',
+    price: '$850 - $1,200',
     color: 'from-purple-50 to-pink-50',
     iconBg: 'bg-purple-600',
     priceColor: 'text-purple-600',
     features: [
-      'Offline functionality',
-      'Push notifications',
-      'App-like experience',
-      'Cross-platform compatibility'
+      'Modern design refresh',
+      'Mobile responsiveness',
+      'Performance optimization',
+      'SEO preservation'
     ]
   },
   {
@@ -96,6 +64,38 @@ const services = [
       'Social authentication',
       'External APIs',
       'Webhook handling'
+    ]
+  },
+  {
+    id: 'prototyping',
+    icon: Rocket,
+    title: 'Rapid Prototyping',
+    description: 'Rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly using modern frameworks.',
+    price: '$2,450 - $3,150',
+    color: 'from-green-50 to-emerald-50',
+    iconBg: 'bg-green-600',
+    priceColor: 'text-green-600',
+    features: [
+      'Full-stack prototypes',
+      'Modern tech stacks',
+      'Database integration',
+      'Real-time development'
+    ]
+  },
+  {
+    id: 'fullstack',
+    icon: Code,
+    title: 'Full-Stack Development',
+    description: 'Complete web application development from frontend to backend, including database design and deployment.',
+    price: '$4,000 - $4,800',
+    color: 'from-blue-50 to-cyan-50',
+    iconBg: 'bg-blue-600',
+    priceColor: 'text-blue-600',
+    features: [
+      'React/TypeScript frontend',
+      'Node.js/Express backend',
+      'Database design & integration',
+      'Authentication & security'
     ]
   }
 ];

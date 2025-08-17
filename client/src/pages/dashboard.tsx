@@ -181,7 +181,7 @@ export default function Dashboard() {
     const projectTypeLabels: Record<string, string> = {
       'fullstack': 'Full-Stack Development',
       'prototype': 'Rapid Prototype/POC',
-      'pwa': 'Progressive Web Applications',
+      'redesign': 'Website Redesign',
       'landing': 'Landing Pages',
       'static': 'Static Web Page Development',
       'integration': 'API Integration',
@@ -282,7 +282,7 @@ projects@gavineanthony.com
     const projectTypeLabels: Record<string, string> = {
       'fullstack': 'Full-Stack Development',
       'prototype': 'Rapid Prototype/POC',
-      'pwa': 'Progressive Web Applications',
+      'redesign': 'Website Redesign',
       'landing': 'Landing Pages',
       'static': 'Static Web Page Development',
       'integration': 'API Integration',
