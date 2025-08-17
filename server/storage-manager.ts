@@ -3,14 +3,14 @@ import fs from 'fs';
 import path from 'path';
 
 class StorageManager {
-  public client: Client | null = null;
+  private client: Client | null = null;
   private isAvailable: boolean = false;
 
   constructor() {
     try {
-      this.client = new Client();
-      this.isAvailable = true;
-      console.log('Object storage configured successfully');
+      // Don't instantiate client immediately - wait for proper bucket configuration
+      this.isAvailable = false;
+      console.log('Object storage not configured, using local asset serving');
     } catch (error) {
       console.warn('Replit Object Storage not configured. Using local fallback.');
       this.isAvailable = false;
@@ -26,21 +26,7 @@ class StorageManager {
       if (!this.client) {
         return { ok: false, error: 'Client not initialized' };
       }
-      console.log(`Uploading file: ${localPath} (${fs.existsSync(localPath) ? 'exists' : 'NOT FOUND'}) to ${objectKey}`);
-      
-      // Read file as buffer first to ensure it's properly read
-      const fileBuffer = fs.readFileSync(localPath);
-      console.log(`File size: ${fileBuffer.length} bytes`);
-      
-      // Determine content type from file extension
-      const ext = objectKey.split('.').pop()?.toLowerCase();
-      const contentType = ext === 'png' ? 'image/png' : 
-                         ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' :
-                         ext === 'webp' ? 'image/webp' : 'application/octet-stream';
-      
-      // Upload with proper metadata - Note: Replit Object Storage may not support metadata
-      const { ok, error } = await this.client.uploadFromBytes(objectKey, fileBuffer);
-      console.log(`Upload metadata attempted: contentType=${contentType}, contentLength=${fileBuffer.length}`);
+      const { ok, error } = await this.client.uploadFromFilename(objectKey, localPath);
       return { ok, error };
     } catch (error) {
       return { ok: false, error };
@@ -49,57 +35,59 @@ class StorageManager {
 
   async downloadImageUrl(objectKey: string): Promise<string | null> {
     if (!this.isAvailable) {
-      console.warn(`Object storage not available for ${objectKey}`);
-      return null;
+      // Return fallback to local assets for development
+      const fallbackMap: Record<string, string> = {
+        'portfolio/fighting-game-tournament.png': '/api/assets/fighting-game-tournament.png',
+        'portfolio/caribbean-food-platform.png': '/api/assets/caribbean-food-platform.png',
+        'portfolio/jamaica-restaurant.webp': '/api/assets/jamaica-restaurant.png',
+        'portfolio/jamaica-restaurant.png': '/api/assets/jamaica-restaurant.png',
+        'portfolio/faith-ministry-website.png': '/api/assets/faith-ministry-website.png',
+        'portfolio/power-of-lamb-ministry.png': '/api/assets/power-of-lamb-ministry.png',
+        'portfolio/brain-discord-bot.png': '/api/assets/brain-discord-bot.png',
+      };
+      return fallbackMap[objectKey] || null;
     }
     
     try {
-      if (!this.client) {
-        return null;
-      }
-      // Get download URL from object storage
-      const downloadResult = await this.client.downloadAsBytes(objectKey);
-      if (downloadResult.ok) {
-        // Return the object key path that can be served through our API
-        return `/api/storage/${objectKey}`;
-      }
-      return null;
+      // For Replit Object Storage, we can construct a public URL
+      // The actual URL structure will depend on your bucket configuration
+      return `https://storage.replit.com/${objectKey}`;
     } catch (error) {
-      console.error('Error getting image URL:', error);
+      console.error('Error constructing image URL:', error);
       return null;
     }
   }
 
   async uploadAllPortfolioImages(): Promise<void> {
     if (!this.isAvailable) {
-      console.log('Object storage not configured. Images must be uploaded via Replit Object Storage interface.');
+      console.log('Object storage not available, serving from local assets');
       return;
     }
 
     const imagesToUpload = [
       {
-        localPath: 'attached_assets/08_texas_1755456022650.jpg',
+        localPath: 'attached_assets/generated_images/Fighting_Game_Tournament_b38218ec.png',
         objectKey: 'portfolio/fighting-game-tournament.png'
       },
       {
-        localPath: 'attached_assets/brainbot_1755456022650.png',
-        objectKey: 'portfolio/brain-discord-bot.png'
+        localPath: 'attached_assets/generated_images/Caribbean_Food_Platform_720bc623.png',
+        objectKey: 'portfolio/caribbean-food-platform.png'
       },
       {
-        localPath: 'attached_assets/brainbot_1755456022650.png', // Using as placeholder
+        localPath: 'attached_assets/9ba9ffab5f885fc3dac87838b3357014_1754763209553_1755130520942.webp',
         objectKey: 'portfolio/jamaica-restaurant.webp'
       },
       {
-        localPath: 'attached_assets/08_texas_1755456022650.jpg', // Using as placeholder
+        localPath: 'attached_assets/generated_images/Spiritual_Church_Website_24ec815c.png',
         objectKey: 'portfolio/faith-ministry-website.png'
       },
       {
-        localPath: 'attached_assets/brainbot_1755456022650.png', // Using as placeholder
+        localPath: 'attached_assets/generated_images/Power_of_Lamb_Ministry_db0032ce.png',
         objectKey: 'portfolio/power-of-lamb-ministry.png'
       },
       {
-        localPath: 'attached_assets/08_texas_1755456022650.jpg', // Using as placeholder
-        objectKey: 'portfolio/caribbean-food-platform.png'
+        localPath: 'attached_assets/generated_images/Brain_Discord_Bot_4745ca5a.png',
+        objectKey: 'portfolio/brain-discord-bot.png'
       }
     ];
 

@@ -48,14 +48,10 @@ export default function Login() {
         await queryClient.invalidateQueries({ queryKey: ['/api/auth/status'] });
         await queryClient.refetchQueries({ queryKey: ['/api/auth/status'] });
         
-        // Use window.location for more reliable redirect in production
-        if (typeof window !== 'undefined') {
-          window.location.href = '/dashboard';
-        } else {
-          setTimeout(() => {
-            setLocation("/dashboard");
-          }, 200);
-        }
+        // Force a small delay to ensure auth state is updated
+        setTimeout(() => {
+          setLocation("/dashboard");
+        }, 100);
       } else {
         const error = await response.json();
         toast({

@@ -370,7 +370,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const images = {
         fightingGame: await storageManager.downloadImageUrl('portfolio/fighting-game-tournament.png'),
         caribbeanFood: await storageManager.downloadImageUrl('portfolio/caribbean-food-platform.png'),
-        jamaicanRestaurant: await storageManager.downloadImageUrl('portfolio/jamaica-restaurant.webp'),
+        jamaicanRestaurant: await storageManager.downloadImageUrl('portfolio/jamaica-restaurant.png'),
         faithMinistry: await storageManager.downloadImageUrl('portfolio/faith-ministry-website.png'),
         powerOfLamb: await storageManager.downloadImageUrl('portfolio/power-of-lamb-ministry.png'),
         brainBot: await storageManager.downloadImageUrl('portfolio/brain-discord-bot.png'),
@@ -399,155 +399,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Serve assets from object storage with streaming support
-  app.get("/api/storage/*", async (req, res) => {
-    try {
-      const objectKey = req.params['0']; // Get everything after /api/storage/
-      console.log(`Serving from storage: ${objectKey}`);
-      
-      if (!storageManager.client) {
-        return res.status(500).json({ error: 'Storage client not initialized' });
-      }
-      
-      // Support Range headers for partial content
-      const range = req.headers.range;
-      
-      // Try to get the file - since Replit Object Storage has issues, fall back to local assets
-      const downloadResult = await storageManager.client.downloadAsBytes(objectKey);
-      console.log(`Download result: ok=${downloadResult?.ok}, size=${downloadResult?.value?.length || 0}`);
-      
-      // Check if this is the known bug where only 1 byte is returned
-      if (downloadResult?.ok && downloadResult.value && downloadResult.value.length <= 1) {
-        console.log(`Replit Object Storage bug detected for ${objectKey} - serving fallback`);
-        
-        // Serve from local assets as fallback
-        const fallbackMap: Record<string, string> = {
-          'portfolio/fighting-game-tournament.png': 'client/src/assets/texas-showdown.jpg',
-          'portfolio/brain-discord-bot.png': 'client/src/assets/brain-bot.png',
-          'portfolio/jamaica-restaurant.webp': 'client/src/assets/jamaica-restaurant.png',
-          'portfolio/faith-ministry-website.png': 'client/src/assets/faith-ministry.png',
-          'portfolio/power-of-lamb-ministry.png': 'client/src/assets/power-of-lamb.png'
-        };
-        
-        const fallbackPath = fallbackMap[objectKey];
-        if (fallbackPath && fs.existsSync(fallbackPath)) {
-          console.log(`Serving fallback asset: ${fallbackPath}`);
-          
-          const stats = fs.statSync(fallbackPath);
-          const ext = fallbackPath.split('.').pop()?.toLowerCase();
-          const contentType = ext === 'png' ? 'image/png' : 
-                             ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' :
-                             ext === 'webp' ? 'image/webp' : 'application/octet-stream';
-          
-          res.setHeader('Content-Type', contentType);
-          res.setHeader('Content-Length', stats.size.toString());
-          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-          res.setHeader('ETag', `"${objectKey}"`);
-          
-          // Handle range requests
-          if (range) {
-            const parts = range.replace(/bytes=/, "").split("-");
-            const start = parseInt(parts[0], 10);
-            const end = parts[1] ? parseInt(parts[1], 10) : stats.size - 1;
-            const chunkSize = (end - start) + 1;
-            
-            res.status(206);
-            res.setHeader('Content-Range', `bytes ${start}-${end}/${stats.size}`);
-            res.setHeader('Accept-Ranges', 'bytes');
-            res.setHeader('Content-Length', chunkSize.toString());
-            
-            const stream = fs.createReadStream(fallbackPath, { start, end });
-            stream.pipe(res);
-          } else {
-            const stream = fs.createReadStream(fallbackPath);
-            stream.pipe(res);
-          }
-          
-          return;
-        }
-      }
-      
-      if (downloadResult?.ok && downloadResult.value && downloadResult.value.length > 1) {
-        // Determine content type based on file extension
-        const ext = objectKey.split('.').pop()?.toLowerCase();
-        const contentType = ext === 'png' ? 'image/png' : 
-                           ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' :
-                           ext === 'webp' ? 'image/webp' : 'application/octet-stream';
-        
-        res.setHeader('Content-Type', contentType);
-        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-        res.setHeader('ETag', `"${objectKey}"`);
-        
-        const buffer = Buffer.from(downloadResult.value);
-        
-        // Handle range requests
-        if (range) {
-          const parts = range.replace(/bytes=/, "").split("-");
-          const start = parseInt(parts[0], 10);
-          const end = parts[1] ? parseInt(parts[1], 10) : buffer.length - 1;
-          const chunkSize = (end - start) + 1;
-          
-          res.status(206);
-          res.setHeader('Content-Range', `bytes ${start}-${end}/${buffer.length}`);
-          res.setHeader('Accept-Ranges', 'bytes');
-          res.setHeader('Content-Length', chunkSize.toString());
-          res.end(buffer.slice(start, end + 1));
-        } else {
-          res.setHeader('Content-Length', buffer.length.toString());
-          res.end(buffer);
-        }
-      } else {
-        console.error(`Asset not found or empty: ${objectKey}, size: ${downloadResult?.value?.length || 0}`);
-        res.status(404).json({ error: 'Asset not found or corrupted in storage' });
-      }
-    } catch (error) {
-      console.error('Error serving asset from storage:', error);
-      res.status(500).json({ error: 'Error retrieving asset' });
-    }
-  });
+  // Serve local assets as fallback when object storage is not configured
+  app.get("/api/assets/:filename", (req, res) => {
+    const { filename } = req.params;
+    const assetMap: Record<string, string> = {
+      'fighting-game-tournament.png': 'attached_assets/generated_images/Fighting_Game_Tournament_b38218ec.png',
+      'caribbean-food-platform.png': 'attached_assets/generated_images/Caribbean_Food_Platform_720bc623.png',
+      'jamaica-restaurant.png': 'attached_assets/jamaica-restaurant.png',
+      'faith-ministry-website.png': 'attached_assets/generated_images/Spiritual_Church_Website_24ec815c.png',
+      'power-of-lamb-ministry.png': 'attached_assets/generated_images/Power_of_Lamb_Ministry_db0032ce.png',
+      'brain-discord-bot.png': 'attached_assets/generated_images/Brain_Discord_Bot_4745ca5a.png',
+    };
 
-  // Smoke test route for object storage (dev only)
-  app.get("/__object-smoke", async (req, res) => {
-    if (process.env.NODE_ENV === "production") {
-      return res.status(404).json({ error: "Not found" });
-    }
-
-    try {
-      const testObjectKey = 'portfolio/jamaica-restaurant.webp';
-      console.log(`Smoke test: checking ${testObjectKey}`);
-      
-      if (!storageManager.client) {
-        return res.json({
-          status: "error",
-          message: "Storage client not initialized",
-          upstreamStatus: null,
-          contentLength: null,
-          bytesRead: 0
-        });
-      }
-      
-      const downloadResult = await storageManager.client.downloadAsBytes(testObjectKey);
-      const upstreamStatus = downloadResult?.ok ? 200 : 404;
-      const contentLength = downloadResult?.value?.length || 0;
-      const bytesRead = Math.min(1024, contentLength);
-      
-      res.json({
-        status: "success",
-        objectKey: testObjectKey,
-        upstreamStatus,
-        contentLength,
-        bytesRead,
-        hasReplitBug: contentLength <= 1,
-        fallbackAvailable: fs.existsSync('client/src/assets/jamaica-restaurant.png')
-      });
-    } catch (error) {
-      res.json({
-        status: "error",
-        message: error instanceof Error ? error.message : "Unknown error",
-        upstreamStatus: null,
-        contentLength: null,
-        bytesRead: 0
-      });
+    const filePath = assetMap[filename];
+    if (filePath) {
+      // Set cache headers for better performance
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      res.setHeader('ETag', `"${filename}"`);
+      res.sendFile(filePath, { root: process.cwd() });
+    } else {
+      res.status(404).json({ error: 'Asset not found' });
     }
   });
 

@@ -4,11 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { usePortfolioImages } from "@/hooks/use-portfolio-images";
-import texasImage from "@/assets/texas-showdown.jpg";
-import brainBotImage from "@/assets/brain-bot.png";
-import jamaicaImage from "@/assets/jamaica-restaurant.png";
-import faithImage from "@/assets/faith-ministry.png";
-import powerImage from "@/assets/power-of-lamb.png";
 
 interface Project {
   id: string;
@@ -27,7 +22,7 @@ const getProjects = (images: any): Project[] => [
     title: "Texas Showdown 2026",
     description:
       "Official tournament website for one of the largest fighting game events in the US, featuring registration system, live countdown, and event management.",
-    image: images?.fightingGame || texasImage,
+    image: images?.fightingGame || "/api/assets/fighting-game-tournament.png",
     category: "web",
     technologies: ["React", "Node.js", "ASP.NET"],
     liveUrl: "https://txshowdown.com/",
@@ -37,7 +32,7 @@ const getProjects = (images: any): Project[] => [
     title: "Jamaica Nyammingz - Jamaican Restaurant",
     description:
       "Complete restaurant website featuring authentic Jamaican cuisine, online menu, ordering system, and cultural dining experiences.",
-    image: images?.jamaicanRestaurant || jamaicaImage,
+    image: images?.jamaicanRestaurant || "/api/assets/jamaica-restaurant.png",
     category: "ecommerce",
     technologies: ["React", "Node.js", "MongoDB"],
     liveUrl: "https://jamaicanyammingz.com/",
@@ -47,7 +42,7 @@ const getProjects = (images: any): Project[] => [
     title: "Faith and Ministry Website",
     description:
       "Spiritual community platform featuring live streaming services, ministry resources, community engagement, and faith-based content delivery.",
-    image: images?.faithMinistry || faithImage,
+    image: images?.faithMinistry || "/api/assets/faith-ministry-website.png",
     category: "web",
     technologies: ["React", "Node.js", "MongoDB"],
   },
@@ -56,7 +51,7 @@ const getProjects = (images: any): Project[] => [
     title: "Power of the Lamb Ministry",
     description:
       "Biblical prophecy teaching platform featuring course registration, live streaming events, educational content delivery, and ministry resources with integrated payment processing.",
-    image: images?.powerOfLamb || powerImage,
+    image: images?.powerOfLamb || "/api/assets/power-of-lamb-ministry.png",
     category: "web",
     technologies: ["WordPress", "PHP", "Stripe"],
     liveUrl: "https://powerofthelamb.com/",
@@ -66,7 +61,7 @@ const getProjects = (images: any): Project[] => [
     title: "Brain Discord Bot - Fighting Game Assistant",
     description:
       "Comprehensive Discord bot for fighting game communities featuring frame data lookup with SuperCombo API, combo database with rating system, interactive quiz system, personal collections with practice mode, and automated SuperCombo wiki import.",
-    image: images?.brainBot || brainBotImage,
+    image: images?.brainBot || "/api/assets/brain-discord-bot.png",
     category: "web",
     technologies: ["Discord.js", "Node.js", "MongoDB"],
   },
