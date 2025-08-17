@@ -112,7 +112,7 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
       console.error('Chat error:', error);
       const errorMessage: Message = {
         role: 'assistant',
-        content: "I'm having technical difficulties. Please contact projects@gavineanthony.com directly for assistance.",
+        content: "I'm having technical difficulties. Please contact support@gavineanthony.com for technical assistance.",
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage]);

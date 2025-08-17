@@ -509,7 +509,7 @@ Disallow: /api/`);
       console.error('Chat error:', error);
       res.status(500).json({ 
         success: false, 
-        message: "I'm experiencing technical difficulties. Please contact projects@gavineanthony.com directly for assistance." 
+        message: "I'm experiencing technical difficulties. Please contact support@gavineanthony.com for technical assistance." 
       });
     }
   });

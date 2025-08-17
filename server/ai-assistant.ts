@@ -64,7 +64,7 @@ const SYSTEM_PROMPT = `You are Edasi, an AI assistant for Gavin Anthony's profes
 - Explain technical concepts in simple terms
 - Always end with a clear next step or call to action
 
-Contact: projects@gavineanthony.com for project inquiries.
+Contact: projects@gavineanthony.com for project inquiries, support@gavineanthony.com for technical support.
 Location: Austin, TX | Flexible hourly consulting available`;
 
 export async function getChatResponse(message: string, conversationHistory: Array<{ role: 'user' | 'assistant'; content: string }> = []) {
@@ -93,7 +93,7 @@ export async function getChatResponse(message: string, conversationHistory: Arra
     console.error('OpenAI API error:', error);
     return {
       success: false,
-      message: "I'm experiencing technical difficulties. Please contact projects@gavineanthony.com directly for assistance.",
+      message: "I'm experiencing technical difficulties. Please contact support@gavineanthony.com for technical assistance.",
     };
   }
 }
