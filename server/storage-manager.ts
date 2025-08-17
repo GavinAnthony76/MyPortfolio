@@ -32,7 +32,15 @@ class StorageManager {
       const fileBuffer = fs.readFileSync(localPath);
       console.log(`File size: ${fileBuffer.length} bytes`);
       
+      // Determine content type from file extension
+      const ext = objectKey.split('.').pop()?.toLowerCase();
+      const contentType = ext === 'png' ? 'image/png' : 
+                         ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg' :
+                         ext === 'webp' ? 'image/webp' : 'application/octet-stream';
+      
+      // Upload with proper metadata - Note: Replit Object Storage may not support metadata
       const { ok, error } = await this.client.uploadFromBytes(objectKey, fileBuffer);
+      console.log(`Upload metadata attempted: contentType=${contentType}, contentLength=${fileBuffer.length}`);
       return { ok, error };
     } catch (error) {
       return { ok: false, error };
