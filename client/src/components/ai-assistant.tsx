@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -153,10 +153,10 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
       .map((paragraph, index) => (
         <p key={index} className="mb-2 last:mb-0">
           {paragraph.split('\n').map((line, lineIndex) => (
-            <React.Fragment key={lineIndex}>
+            <span key={lineIndex}>
               {lineIndex > 0 && <br />}
               {line}
-            </React.Fragment>
+            </span>
           ))}
         </p>
       ));
