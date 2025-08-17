@@ -14,10 +14,10 @@
 - ✅ **Updated .env.example**: Added SENDGRID_API_KEY documentation
 
 ### Email Configuration
-- ✅ **Notification emails**: Set to gavineanthony@outlook.com
-- ✅ **Email templates**: All use gavineanthony@outlook.com as sender
-- ✅ **Contact forms**: Display gavineanthony@outlook.com
-- ⚠️  **SendGrid sender verification**: Needs gavineanthony@outlook.com verified in SendGrid dashboard
+- ✅ **Notification emails**: Set to projects@gavineanthony.com
+- ✅ **Email templates**: All use projects@gavineanthony.com as sender
+- ✅ **Contact forms**: Display projects@gavineanthony.com
+- ⚠️  **SendGrid sender verification**: Needs projects@gavineanthony.com verified in SendGrid dashboard
 
 ### Code Quality
 - ✅ **Authentication system**: Secure with bcrypt hashing
@@ -31,7 +31,7 @@
 ### SendGrid Configuration (Critical)
 1. Login to SendGrid dashboard
 2. Go to Settings → Sender Authentication
-3. Add gavineanthony@outlook.com as verified sender
+3. Add projects@gavineanthony.com as verified sender
 4. Check Outlook inbox for verification email
 5. Click verification link
 6. Test notification system after verification

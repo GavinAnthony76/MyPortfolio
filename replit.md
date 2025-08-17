@@ -10,7 +10,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - **Security enhancement** - implemented secure cookie configuration for production HTTPS (secure: isProduction)
 - **Jamaica restaurant project updated** - replaced placeholder with authentic Jamaica Nyammingz logo and branding
 - **Asset management improved** - updated image serving system with proper PNG format and correct file references
-- **SEO metadata corrected** - updated structured data email to gavineanthony@outlook.com for consistency
+- **SEO metadata corrected** - updated structured data email to projects@gavineanthony.com for consistency
 - **Application backup updated** - comprehensive BACKUP_INFO.md with latest deployment status and security fixes
 - **Authentication system fixed** - resolved production login issues with session configuration
 - **File cleanup completed** - removed broken/unnecessary files including build logs, cookies.txt, and old asset files
@@ -18,8 +18,8 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - **Database cleanup completed** - removed all development/test data (6 test entries purged)
 - **Production database ready** - contains only legitimate project requests from real clients
 - **Secret management verified** - all required secrets (SENDGRID_API_KEY, ADMIN_PASSWORD, DATABASE_URL) properly configured in Replit Secrets
-- **Email system fully updated** - all templates and notifications use gavineanthony@outlook.com consistently
-- **SendGrid integration ready** - requires sender verification for gavineanthony@outlook.com in SendGrid dashboard
+- **Email system fully updated** - all templates and notifications use projects@gavineanthony.com consistently
+- **SendGrid integration ready** - requires sender verification for projects@gavineanthony.com in SendGrid dashboard
 - **Enhanced .env.example documentation** - added SENDGRID_API_KEY configuration for future deployments
 - **Deployment checklist created** - comprehensive pre/post-deployment validation guide
 
@@ -53,7 +53,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - **Persistent Won/Lost buttons** - Won/Lost decision buttons remain available across proposal-sent, follow-up, and in-progress statuses until decision is made
 - **Text file proposal system** - Create Proposal button generates and downloads comprehensive proposal as text file for detailed documentation
 - **Enhanced email reliability** - Improved mailto functionality with fallback clipboard support for email content when default client fails to open
-- **Automatic email notifications** - SendGrid integration sends instant email alerts to gavineanthony@outlook.com when new project requests are submitted
+- **Automatic email notifications** - SendGrid integration sends instant email alerts to projects@gavineanthony.com when new project requests are submitted
 - **Secure data handling** - All project data stored securely in PostgreSQL database with proper encryption and validation
 - **Removed budget range field completely** - eliminated budget selection from contact form, database schema, and all related UI components
 - **Updated pricing approach** - pricing now based on project type rather than client budget ranges, with fixed transparent rates
@@ -88,7 +88,7 @@ The portfolio includes sections for personal introduction, featured projects (fo
 - Modified project showcase to include web applications, landing pages, and e-commerce instead of mobile apps
 - Updated contact form project types to reflect accurate web development services
 - Enhanced prompt generation system to provide detailed technical briefs for web-focused projects
-- Updated developer identity: Changed name to Gavin Anthony, email to gavineanthony@outlook.com, phone to (254) 300-8158, location to Austin, TX, Twitter/X: https://x.com/gavineanthony
+- Updated developer identity: Changed name to Gavin Anthony, email to projects@gavineanthony.com, phone to (254) 300-8158, location to Austin, TX, Twitter/X: https://x.com/gavineanthony
 - Redesigned services to reflect professional development capabilities with pricing:
   - Full-Stack Development: $4,000 - $4,800 (Complete web application development)
   - Rapid Prototyping: $2,450 - $3,150 (Modern proof-of-concept development)

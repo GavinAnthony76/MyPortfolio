@@ -85,7 +85,7 @@ export default function PrivacyPolicyPage() {
                 <li><strong>Objection:</strong> Object to processing of your personal information</li>
               </ul>
               <p className="mt-4">
-                To exercise these rights, please contact us at <a href="mailto:gavineanthony@outlook.com" className="text-blue-600 hover:text-blue-800">gavineanthony@outlook.com</a>.
+                To exercise these rights, please contact us at <a href="mailto:projects@gavineanthony.com" className="text-blue-600 hover:text-blue-800">projects@gavineanthony.com</a>.
               </p>
             </section>
 
@@ -129,7 +129,7 @@ export default function PrivacyPolicyPage() {
               </p>
               <div className="bg-slate-50 p-4 rounded-lg mt-4">
                 <p><strong>Gavin Anthony - Guidato LLC</strong></p>
-                <p>Email: <a href="mailto:gavineanthony@outlook.com" className="text-blue-600 hover:text-blue-800">gavineanthony@outlook.com</a></p>
+                <p>Email: <a href="mailto:projects@gavineanthony.com" className="text-blue-600 hover:text-blue-800">projects@gavineanthony.com</a></p>
                 <p>Phone: <a href="tel:+12543008158" className="text-blue-600 hover:text-blue-800">(254) 300-8158</a></p>
                 <p>Location: Austin, Texas, United States</p>
               </div>

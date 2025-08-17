@@ -154,8 +154,8 @@ Submitted: ${new Date(request.createdAt).toLocaleString()}
   `;
 
   return await sendEmail({
-    to: 'gavineanthony@outlook.com',
-    from: 'gavineanthony@outlook.com', // Use verified sender email
+    to: 'projects@gavineanthony.com',
+    from: 'projects@gavineanthony.com', // Use verified sender email
     subject: subject,
     text: textContent,
     html: htmlContent

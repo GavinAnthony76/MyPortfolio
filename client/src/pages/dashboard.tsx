@@ -220,7 +220,7 @@ I'm excited to bring your vision to life! Would you be available for a call this
 Best regards,
 Gavin Anthony
 Full-Stack Developer
-gavineanthony@outlook.com
+projects@gavineanthony.com
 (254) 300-8158`;
 
     // Update status to 'responded'
@@ -257,7 +257,7 @@ Looking forward to hearing from you!
 Best regards,
 Gavin Anthony
 Full-Stack Developer
-gavineanthony@outlook.com
+projects@gavineanthony.com
 (254) 300-8158
 `;
 
@@ -364,7 +364,7 @@ I'm excited about the opportunity to work with you on this project and help brin
 Best regards,
 Gavin Anthony
 Full-Stack Developer
-gavineanthony@outlook.com
+projects@gavineanthony.com
 (254) 300-8158
 Austin, TX
 
