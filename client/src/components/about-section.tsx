@@ -1,6 +1,6 @@
 import { Github, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import developerImage from "@assets/generated_images/Professional_Black_developer_coding_374d8a1b.png";
+import developerImage from "@/assets/Professional_developer_coding_workspace_dceb2e25.png";
 
 export default function AboutSection() {
   const skills = {

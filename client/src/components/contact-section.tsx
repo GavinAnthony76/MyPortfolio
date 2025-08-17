@@ -28,7 +28,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
-import waitingResponseImage from "@assets/image_1755150211124.png";
 
 const projectTypes = [
   { value: "consulting", label: "Technical Consulting" },
