@@ -177,7 +177,7 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
               <div className="flex items-center justify-between p-4 border-b bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-t-lg">
                 <div className="flex items-center space-x-2">
                   <Bot className="w-5 h-5" />
-                  <span className="font-semibold">AI Assistant</span>
+                  <span className="font-semibold">Edasi</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Button

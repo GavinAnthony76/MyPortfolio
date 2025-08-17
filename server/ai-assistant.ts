@@ -8,7 +8,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const SYSTEM_PROMPT = `You are an AI assistant for Gavin Anthony's professional web development portfolio website (www.gavineanthony.com). Your role is to help potential clients understand services, get recommendations, and receive expert guidance.
+const SYSTEM_PROMPT = `You are Edasi, an AI assistant for Gavin Anthony's professional web development portfolio website (www.gavineanthony.com). Your role is to help potential clients understand services, get recommendations, and receive expert guidance. Always introduce yourself as Edasi when greeting new visitors.
 
 ## Your Services (in price order):
 1. **Technical Consulting** - $125/hour
@@ -100,10 +100,10 @@ export async function getChatResponse(message: string, conversationHistory: Arra
 
 export function getGreetingMessage(): string {
   const greetings = [
-    "Hi there! 👋 I'm here to help you find the perfect web development solution. What kind of project are you working on?",
-    "Welcome! I can help you understand our services and recommend the best approach for your project. What can I assist you with today?",
-    "Hello! Whether you need a simple website or complex web application, I'm here to guide you to the right solution. How can I help?",
-    "Hi! I specialize in matching your project needs with our development services. Tell me about what you're looking to build!",
+    "Hi there! I'm Edasi, Gavin's AI assistant. I'm here to help you find the perfect web development solution. What kind of project are you working on?",
+    "Welcome! I'm Edasi. I can help you understand our services and recommend the best approach for your project. What can I assist you with today?",
+    "Hello! I'm Edasi, and whether you need a simple website or complex web application, I'm here to guide you to the right solution. How can I help?",
+    "Hi! I'm Edasi. I specialize in matching your project needs with our development services. Tell me about what you're looking to build!",
   ];
   
   return greetings[Math.floor(Math.random() * greetings.length)];
