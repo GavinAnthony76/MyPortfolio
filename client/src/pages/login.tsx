@@ -31,16 +31,26 @@ export default function Login() {
       });
 
       if (response.ok) {
-        // Invalidate auth status query to refresh authentication state
-        await queryClient.invalidateQueries({ queryKey: ['/api/auth/status'] });
-        
         toast({
           title: "Login successful",
           description: "Welcome to your dashboard!",
         });
         
-        // Use React Router navigation
-        setLocation("/dashboard");
+        // Force fresh status check with no cache
+        const statusResponse = await fetch("/api/auth/status", {
+          credentials: "include",
+          cache: "no-store"
+        });
+        const authData = await statusResponse.json();
+        
+        if (authData.authenticated) {
+          // Clear all queries and navigate
+          await queryClient.invalidateQueries({ queryKey: ['/api/auth/status'] });
+          setLocation("/dashboard");
+        } else {
+          // Fallback if status check fails
+          setTimeout(() => setLocation("/dashboard"), 100);
+        }
       } else {
         const error = await response.json();
         toast({
