@@ -403,12 +403,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/assets/:filename", (req, res) => {
     const { filename } = req.params;
     const assetMap: Record<string, string> = {
-      'fighting-game-tournament.png': 'attached_assets/generated_images/Fighting_Game_Tournament_b38218ec.png',
-      'caribbean-food-platform.png': 'attached_assets/generated_images/Caribbean_Food_Platform_720bc623.png',
-      'jamaica-restaurant.png': 'attached_assets/jamaica-restaurant.png',
-      'faith-ministry-website.png': 'attached_assets/generated_images/Spiritual_Church_Website_24ec815c.png',
-      'power-of-lamb-ministry.png': 'attached_assets/generated_images/Power_of_Lamb_Ministry_db0032ce.png',
-      'brain-discord-bot.png': 'attached_assets/generated_images/Brain_Discord_Bot_4745ca5a.png',
+      'fighting-game-tournament.png': 'server/assets/fighting-game-tournament.png',
+      'caribbean-food-platform.png': 'server/assets/jamaica-restaurant.png',
+      'jamaica-restaurant.png': 'server/assets/jamaica-restaurant.png',
+      'faith-ministry-website.png': 'server/assets/faith-ministry-website.png',
+      'power-of-lamb-ministry.png': 'server/assets/power-of-lamb-ministry.png',
+      'brain-discord-bot.png': 'server/assets/brain-discord-bot.png',
     };
 
     const filePath = assetMap[filename];

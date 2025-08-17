@@ -38,7 +38,7 @@ class StorageManager {
       // Return fallback to local assets for development
       const fallbackMap: Record<string, string> = {
         'portfolio/fighting-game-tournament.png': '/api/assets/fighting-game-tournament.png',
-        'portfolio/caribbean-food-platform.png': '/api/assets/caribbean-food-platform.png',
+        'portfolio/caribbean-food-platform.png': '/api/assets/jamaica-restaurant.png',
         'portfolio/jamaica-restaurant.webp': '/api/assets/jamaica-restaurant.png',
         'portfolio/jamaica-restaurant.png': '/api/assets/jamaica-restaurant.png',
         'portfolio/faith-ministry-website.png': '/api/assets/faith-ministry-website.png',
