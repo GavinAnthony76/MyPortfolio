@@ -13,6 +13,7 @@ import { db } from "./db";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import { sendInternalNotification, sendAutoReply } from "./mailer";
+import { getChatResponse, getGreetingMessage } from "./ai-assistant";
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -478,6 +479,39 @@ Disallow: /api/`);
   app.get("/favicon.png", (req, res) => {
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     res.sendFile('client/public/favicon.png', { root: process.cwd() });
+  });
+
+  // AI Assistant endpoints
+  app.get('/api/ai/greeting', (req, res) => {
+    try {
+      const greeting = getGreetingMessage();
+      res.json({ message: greeting });
+    } catch (error) {
+      console.error('Greeting error:', error);
+      res.status(500).json({ error: 'Failed to generate greeting' });
+    }
+  });
+
+  app.post('/api/ai/chat', async (req, res) => {
+    try {
+      const { message, conversationHistory = [] } = req.body;
+      
+      if (!message || typeof message !== 'string') {
+        return res.status(400).json({ error: 'Message is required' });
+      }
+
+      // Limit conversation history to last 10 messages to manage token usage
+      const limitedHistory = conversationHistory.slice(-10);
+      
+      const response = await getChatResponse(message, limitedHistory);
+      res.json(response);
+    } catch (error) {
+      console.error('Chat error:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: "I'm experiencing technical difficulties. Please contact projects@gavineanthony.com directly for assistance." 
+      });
+    }
   });
 
   const httpServer = createServer(app);
