@@ -267,6 +267,10 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
                         onKeyPress={handleKeyPress}
                         disabled={isLoading}
                         className="flex-1"
+                        autoComplete="off"
+                        autoCorrect="off"
+                        autoCapitalize="off"
+                        spellCheck="false"
                         data-testid="input-chat-message"
                       />
                       <Button
