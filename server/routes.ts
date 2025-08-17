@@ -18,9 +18,11 @@ import { sendInternalNotification, sendAutoReply } from "./mailer";
 export async function registerRoutes(app: Express): Promise<Server> {
   const storageManager = new StorageManager();
 
-  // Add security middleware
+  // Add security middleware with development-friendly CSP
   app.use(helmet({
-    referrerPolicy: { policy: "strict-origin-when-cross-origin" }
+    referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+    contentSecurityPolicy: process.env.NODE_ENV === 'development' ? false : undefined,
+    crossOriginEmbedderPolicy: false
   }));
 
   // Rate limiting for contact form
