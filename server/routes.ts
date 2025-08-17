@@ -73,12 +73,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     saveUninitialized: false,
     name: 'auth_session',
     cookie: {
-      secure: isProduction, // Secure cookies for HTTPS in production
+      secure: isProduction && process.env.HTTPS === 'true', // Only secure if explicitly HTTPS
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      sameSite: 'lax' as const, // Use lax instead of none for compatibility
+      sameSite: isProduction ? 'strict' as const : 'lax' as const, // Strict for production
+      domain: isProduction ? '.replit.app' : undefined, // Set domain for Replit production
     },
     rolling: true,
+    proxy: isProduction, // Trust proxy in production
   };
 
   if (sessionStore) {
