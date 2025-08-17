@@ -29,6 +29,12 @@ export const projectRequests = pgTable("project_requests", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const userSessions = pgTable("user_sessions", {
+  sid: varchar("sid").primaryKey(),
+  sess: jsonb("sess").notNull(),
+  expire: timestamp("expire").notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
