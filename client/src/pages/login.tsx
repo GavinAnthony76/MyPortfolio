@@ -44,14 +44,12 @@ export default function Login() {
           description: "Welcome to your dashboard!",
         });
         
-        // Invalidate and refetch auth status to refresh authentication state
+        // Clear all queries and refresh auth state
+        await queryClient.clear();
         await queryClient.invalidateQueries({ queryKey: ['/api/auth/status'] });
-        await queryClient.refetchQueries({ queryKey: ['/api/auth/status'] });
         
-        // Force a small delay to ensure auth state is updated
-        setTimeout(() => {
-          setLocation("/dashboard");
-        }, 100);
+        // Force a page reload to ensure clean state
+        window.location.href = "/dashboard";
       } else {
         const error = await response.json();
         toast({
