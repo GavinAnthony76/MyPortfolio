@@ -90,12 +90,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     saveUninitialized: false,
     name: 'auth_session',
     cookie: {
-      secure: isProduction, // Use secure cookies in production (Replit handles HTTPS)
+      secure: isProduction,          // requires HTTPS
       httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      sameSite: 'lax' as const, // Lax for better compatibility
-      // No explicit domain: host-only cookie, safest & least surprise
-      path: '/'
+      sameSite: 'none' as const,     // cross-site safe
+      domain: isProduction ? '.gavineanthony.com' : undefined,
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000
     },
     rolling: true,
     proxy: isProduction, // Trust proxy in production
