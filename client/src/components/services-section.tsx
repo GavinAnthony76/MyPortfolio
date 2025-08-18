@@ -1,21 +1,5 @@
-import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Code, Smartphone, MessageSquare, TrendingUp, Settings, Rocket, Check } from "lucide-react";
-
-// Declare global JSX elements for Stripe buy buttons
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'stripe-buy-button': React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement> & {
-          'buy-button-id': string;
-          'publishable-key': string;
-        },
-        HTMLElement
-      >;
-    }
-  }
-}
 
 const services = [
   {
@@ -24,7 +8,6 @@ const services = [
     title: 'Technical Consulting',
     description: 'Expert technical guidance, code reviews, architecture planning, and project consultation on an hourly basis.',
     price: '$125/hour',
-    buyButtonId: 'buy_btn_1RxMHMJc1EWYOrCtQUi8lgX1', // You'll need to create different buttons for each service
     color: 'from-teal-50 to-cyan-50',
     iconBg: 'bg-teal-600',
     priceColor: 'text-teal-600',
@@ -41,7 +24,6 @@ const services = [
     title: 'Website Redesign',
     description: 'Transform your existing website with modern design, improved user experience, and enhanced functionality while maintaining your content and SEO.',
     price: '$850 - $1,200',
-    buyButtonId: 'buy_btn_1RxMHMJc1EWYOrCtQUi8lgX1', // Same button for now, you'll create separate ones
     color: 'from-purple-50 to-pink-50',
     iconBg: 'bg-purple-600',
     priceColor: 'text-purple-600',
@@ -58,7 +40,6 @@ const services = [
     title: 'Landing Pages',
     description: 'High-converting landing pages designed to showcase your product, capture leads, and drive conversions with modern design.',
     price: '$1,375 - $1,925',
-    buyButtonId: 'buy_btn_1RxMHMJc1EWYOrCtQUi8lgX1',
     color: 'from-orange-50 to-red-50',
     iconBg: 'bg-orange-600',
     priceColor: 'text-orange-600',
@@ -75,7 +56,6 @@ const services = [
     title: 'Static Web Page Development',
     description: 'Professional static websites with modern design, fast loading times, and optimized performance for businesses and portfolios.',
     price: '$1,500 - $2,000',
-    buyButtonId: 'buy_btn_1RxMHMJc1EWYOrCtQUi8lgX1',
     color: 'from-indigo-50 to-blue-50',
     iconBg: 'bg-indigo-600',
     priceColor: 'text-indigo-600',
@@ -92,7 +72,6 @@ const services = [
     title: 'Rapid Prototyping',
     description: 'Rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly using modern frameworks.',
     price: '$2,450 - $3,150',
-    buyButtonId: 'buy_btn_1RxMHMJc1EWYOrCtQUi8lgX1',
     color: 'from-green-50 to-emerald-50',
     iconBg: 'bg-green-600',
     priceColor: 'text-green-600',
@@ -109,7 +88,6 @@ const services = [
     title: 'Full-Stack Development',
     description: 'Complete web application development from frontend to backend, including database design, API integration, and deployment.',
     price: '$4,000 - $4,800',
-    buyButtonId: 'buy_btn_1RxMHMJc1EWYOrCtQUi8lgX1',
     color: 'from-blue-50 to-cyan-50',
     iconBg: 'bg-blue-600',
     priceColor: 'text-blue-600',
@@ -157,7 +135,7 @@ export default function ServicesSection() {
                 <div className={`text-xl sm:text-2xl font-bold ${service.priceColor} mb-4 gradient-text`} data-testid={`text-price-${service.id}`}>
                   {service.price}
                 </div>
-                <ul className="space-y-2 text-slate-700 mb-6">
+                <ul className="space-y-2 text-slate-700">
                   {service.features.map((feature, index) => (
                     <li 
                       key={index} 
@@ -169,12 +147,6 @@ export default function ServicesSection() {
                     </li>
                   ))}
                 </ul>
-                <div className="w-full" data-testid={`stripe-button-${service.id}`}>
-                  <stripe-buy-button
-                    buy-button-id={service.buyButtonId}
-                    publishable-key="pk_live_51Rn7ddJc1EWYOrCt9hvn26rFAJdj9tE9wIkrhiHh0T48E98PQBU2NBw3CsdmeGIZSyqpF1sktgRikOuaDFTSSTdI00bV1nnj1s"
-                  />
-                </div>
               </div>
             );
           })}
