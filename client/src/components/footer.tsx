@@ -1,21 +1,6 @@
 import { Github, Linkedin, Twitter, Dribbble } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Declare global JSX elements for Stripe buy buttons
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'stripe-buy-button': React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement> & {
-          'buy-button-id': string;
-          'publishable-key': string;
-        },
-        HTMLElement
-      >;
-    }
-  }
-}
-
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
