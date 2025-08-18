@@ -167,17 +167,27 @@ export default function ServicesSection() {
                     </li>
                   ))}
                 </ul>
-                <Button 
-                  onClick={() => setCheckoutService({
-                    id: service.id,
-                    title: service.title,
-                    baseAmount: service.baseAmount
-                  })}
-                  className={`w-full ${service.iconBg} hover:opacity-90 transition-opacity text-sm sm:text-base py-2 sm:py-3`}
-                  data-testid={`button-pay-${service.id}`}
-                >
-                  <span className="hidden sm:inline">Get Started - </span>${service.baseAmount}
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <Button 
+                    onClick={() => setCheckoutService({
+                      id: service.id,
+                      title: service.title,
+                      baseAmount: service.baseAmount
+                    })}
+                    className={`flex-1 ${service.iconBg} hover:opacity-90 transition-opacity text-sm sm:text-base py-2 sm:py-3`}
+                    data-testid={`button-pay-${service.id}`}
+                  >
+                    <span className="hidden sm:inline">Pay Now - </span>${service.baseAmount}
+                  </Button>
+                  <Button 
+                    onClick={() => window.location.href = `mailto:projects@gavineanthony.com?subject=Request: ${service.title}&body=Hi Gavin,%0A%0AI'm interested in ${service.title} for $${service.baseAmount}.%0A%0AProject details:%0A%0A%0A%0ATimeline:%0A%0A%0A%0APlease contact me to discuss payment options and next steps.`}
+                    variant="outline"
+                    className="flex-1 sm:flex-none text-xs sm:text-sm py-2 sm:py-3 px-2 sm:px-4"
+                    data-testid={`button-contact-${service.id}`}
+                  >
+                    Contact
+                  </Button>
+                </div>
               </div>
             );
           })}

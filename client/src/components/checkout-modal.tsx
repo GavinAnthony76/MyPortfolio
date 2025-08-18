@@ -8,10 +8,21 @@ import { apiRequest } from '@/lib/queryClient';
 
 // Make sure to call `loadStripe` outside of a component's render to avoid
 // recreating the `Stripe` object on every render.
-if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
-  throw new Error('Missing required Stripe key: VITE_STRIPE_PUBLIC_KEY');
-}
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+const getStripePromise = () => {
+  if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
+    console.error('Missing required Stripe key: VITE_STRIPE_PUBLIC_KEY');
+    return null;
+  }
+  
+  try {
+    return loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+  } catch (error) {
+    console.error('Failed to load Stripe:', error);
+    return null;
+  }
+};
+
+const stripePromise = getStripePromise();
 
 interface CheckoutFormProps {
   amount: number;
@@ -122,10 +133,20 @@ export default function CheckoutModal({
   onSuccess 
 }: CheckoutModalProps) {
   const [clientSecret, setClientSecret] = useState<string>("");
+  const [stripeError, setStripeError] = useState<string>("");
   const { toast } = useToast();
 
   useEffect(() => {
     if (isOpen && amount > 0) {
+      setStripeError("");
+      setClientSecret("");
+      
+      // Check if Stripe can load
+      if (!stripePromise) {
+        setStripeError("Payment system unavailable. This may be due to browser security settings or ad blockers. Please try disabling browser extensions or using a different browser.");
+        return;
+      }
+      
       // Create PaymentIntent when modal opens
       apiRequest("POST", "/api/create-payment-intent", { 
         amount: amount,
@@ -141,9 +162,10 @@ export default function CheckoutModal({
         })
         .catch((error) => {
           console.error('Payment setup error:', error);
+          setStripeError("Failed to initialize payment. Please contact support at support@gavineanthony.com");
           toast({
             title: "Payment Setup Error",
-            description: "Failed to initialize payment. Please try again.",
+            description: "Failed to initialize payment. Please try again or contact support.",
             variant: "destructive",
           });
         });
@@ -152,14 +174,42 @@ export default function CheckoutModal({
 
   const handleSuccess = () => {
     setClientSecret("");
+    setStripeError("");
     onSuccess?.();
     onClose();
   };
 
   const handleCancel = () => {
     setClientSecret("");
+    setStripeError("");
     onClose();
   };
+
+  // Show error state if Stripe failed to load
+  if (stripeError) {
+    return (
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="w-[95vw] max-w-lg mx-auto p-4 sm:p-6">
+          <DialogHeader>
+            <DialogTitle className="text-center text-red-600">Payment Unavailable</DialogTitle>
+          </DialogHeader>
+          <div className="py-4 text-center">
+            <p className="text-sm text-gray-600 mb-4">{stripeError}</p>
+            <div className="space-y-2">
+              <p className="text-xs text-gray-500">Alternative payment options:</p>
+              <Button 
+                onClick={() => window.location.href = 'mailto:projects@gavineanthony.com?subject=Payment for ' + service + '&body=I would like to purchase ' + service + ' for $' + amount + '. Please send me payment instructions.'}
+                className="w-full"
+                variant="outline"
+              >
+                Contact for Alternative Payment
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
   if (!clientSecret) {
     return (
