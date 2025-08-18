@@ -20,54 +20,44 @@ import Stripe from "stripe";
 export async function registerRoutes(app: Express): Promise<Server> {
   const storageManager = new StorageManager();
 
-  // Add security middleware with Google Tag Manager support
+  // Add security middleware with optimized CSP for Stripe and GTM
   app.use(helmet({
     referrerPolicy: { policy: "strict-origin-when-cross-origin" },
     contentSecurityPolicy: process.env.NODE_ENV === 'development' ? false : {
+      useDefaults: true,
       directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: [
+        "script-src": [
           "'self'", 
-          "'unsafe-inline'", 
-          "https://fonts.googleapis.com",
-          "https://www.googletagmanager.com",
-          "https://ssl.google-analytics.com",
           "https://js.stripe.com",
-          "https://r.stripe.com"
+          "https://www.googletagmanager.com",
+          "https://ssl.google-analytics.com"
         ],
-        styleSrc: [
+        "frame-src": [
           "'self'", 
-          "'unsafe-inline'", 
-          "https://fonts.googleapis.com",
-          "https://fonts.gstatic.com"
+          "https://js.stripe.com", 
+          "https://hooks.stripe.com",
+          "https://www.googletagmanager.com"
         ],
-        fontSrc: [
+        "connect-src": [
           "'self'", 
-          "https://fonts.gstatic.com"
+          "https://api.stripe.com", 
+          "https://r.stripe.com", 
+          "https://m.stripe.network",
+          "https://www.google-analytics.com",
+          "https://ssl.google-analytics.com",
+          "https://stats.g.doubleclick.net"
         ],
-        imgSrc: [
+        "img-src": [
           "'self'", 
           "data:", 
-          "https:",
+          "https://q.stripe.com", 
+          "https://r.stripe.com",
           "https://www.google-analytics.com",
           "https://ssl.google-analytics.com"
         ],
-        connectSrc: [
-          "'self'",
-          "https://www.google-analytics.com",
-          "https://ssl.google-analytics.com",
-          "https://stats.g.doubleclick.net",
-          "https://api.stripe.com",
-          "https://r.stripe.com"
-        ],
-        frameSrc: [
-          "https://www.googletagmanager.com",
-          "https://js.stripe.com",
-          "https://hooks.stripe.com"
-        ],
-        formAction: [
-          "'self'",
-          "https://api.stripe.com"
+        "style-src": [
+          "'self'", 
+          "'unsafe-inline'"
         ]
       }
     },
