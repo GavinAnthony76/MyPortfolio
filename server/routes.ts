@@ -33,7 +33,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           "https://www.googletagmanager.com",
           "https://ssl.google-analytics.com",
           "https://js.stripe.com",
-          "https://r.stripe.com"
+          "https://r.stripe.com",
+          "https://m.stripe.com",
+          "https://q.stripe.com"
         ],
         styleSrc: [
           "'self'", 
@@ -58,7 +60,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           "https://ssl.google-analytics.com",
           "https://stats.g.doubleclick.net",
           "https://api.stripe.com",
-          "https://r.stripe.com"
+          "https://r.stripe.com",
+          "https://m.stripe.com",
+          "https://q.stripe.com"
         ],
         frameSrc: [
           "https://www.googletagmanager.com",

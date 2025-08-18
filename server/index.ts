@@ -13,10 +13,9 @@ app.use((req, res, next) => {
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   
-  // Production security headers
+  // Production security headers (CSP handled by helmet in routes.ts)
   if (process.env.NODE_ENV === 'production') {
     res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
-    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.googletagmanager.com https://ssl.google-analytics.com https://js.stripe.com https://r.stripe.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: https://www.google-analytics.com https://ssl.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com https://stats.g.doubleclick.net https://api.stripe.com https://r.stripe.com; frame-src https://www.googletagmanager.com https://js.stripe.com https://hooks.stripe.com; form-action 'self' https://api.stripe.com");
   }
   
   next();
