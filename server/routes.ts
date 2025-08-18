@@ -20,10 +20,47 @@ import Stripe from "stripe";
 export async function registerRoutes(app: Express): Promise<Server> {
   const storageManager = new StorageManager();
 
-  // Add security middleware with development-friendly CSP
+  // Add security middleware with Google Tag Manager support
   app.use(helmet({
     referrerPolicy: { policy: "strict-origin-when-cross-origin" },
-    contentSecurityPolicy: process.env.NODE_ENV === 'development' ? false : undefined,
+    contentSecurityPolicy: process.env.NODE_ENV === 'development' ? false : {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'", 
+          "'unsafe-inline'", 
+          "https://fonts.googleapis.com",
+          "https://www.googletagmanager.com",
+          "https://ssl.google-analytics.com"
+        ],
+        styleSrc: [
+          "'self'", 
+          "'unsafe-inline'", 
+          "https://fonts.googleapis.com",
+          "https://fonts.gstatic.com"
+        ],
+        fontSrc: [
+          "'self'", 
+          "https://fonts.gstatic.com"
+        ],
+        imgSrc: [
+          "'self'", 
+          "data:", 
+          "https:",
+          "https://www.google-analytics.com",
+          "https://ssl.google-analytics.com"
+        ],
+        connectSrc: [
+          "'self'",
+          "https://www.google-analytics.com",
+          "https://ssl.google-analytics.com",
+          "https://stats.g.doubleclick.net"
+        ],
+        frameSrc: [
+          "https://www.googletagmanager.com"
+        ]
+      }
+    },
     crossOriginEmbedderPolicy: false
   }));
 
