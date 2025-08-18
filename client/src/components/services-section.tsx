@@ -173,10 +173,10 @@ export default function ServicesSection() {
                     title: service.title,
                     baseAmount: service.baseAmount
                   })}
-                  className={`w-full ${service.iconBg} hover:opacity-90 transition-opacity`}
+                  className={`w-full ${service.iconBg} hover:opacity-90 transition-opacity text-sm sm:text-base py-2 sm:py-3`}
                   data-testid={`button-pay-${service.id}`}
                 >
-                  Get Started - ${service.baseAmount}
+                  <span className="hidden sm:inline">Get Started - </span>${service.baseAmount}
                 </Button>
               </div>
             );

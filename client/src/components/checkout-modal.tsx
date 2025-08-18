@@ -68,20 +68,27 @@ const CheckoutForm = ({ amount, service, onSuccess, onCancel }: CheckoutFormProp
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
       <div className="text-center">
-        <h3 className="font-semibold text-lg">{service}</h3>
-        <p className="text-2xl font-bold text-blue-600">${amount}</p>
+        <h3 className="font-semibold text-base sm:text-lg">{service}</h3>
+        <p className="text-xl sm:text-2xl font-bold text-blue-600">${amount}</p>
       </div>
       
-      <PaymentElement />
+      <div className="min-h-[200px]">
+        <PaymentElement 
+          options={{
+            layout: 'tabs'
+          }}
+        />
+      </div>
       
-      <div className="flex gap-3 justify-end">
+      <div className="flex flex-col sm:flex-row gap-3 justify-end">
         <Button 
           type="button" 
           variant="outline" 
           onClick={onCancel}
           disabled={isProcessing}
+          className="w-full sm:w-auto"
           data-testid="button-cancel-payment"
         >
           Cancel
@@ -89,6 +96,7 @@ const CheckoutForm = ({ amount, service, onSuccess, onCancel }: CheckoutFormProp
         <Button 
           type="submit" 
           disabled={!stripe || isProcessing}
+          className="w-full sm:w-auto"
           data-testid="button-confirm-payment"
         >
           {isProcessing ? 'Processing...' : `Pay $${amount}`}
@@ -156,9 +164,9 @@ export default function CheckoutModal({
   if (!clientSecret) {
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="w-[95vw] max-w-lg mx-auto p-4 sm:p-6">
           <DialogHeader>
-            <DialogTitle>Setting up payment...</DialogTitle>
+            <DialogTitle className="text-center">Setting up payment...</DialogTitle>
           </DialogHeader>
           <div className="flex justify-center py-8">
             <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" aria-label="Loading"/>
@@ -171,16 +179,20 @@ export default function CheckoutModal({
   // Make SURE to wrap the form in <Elements> which provides the stripe context.
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="w-[95vw] max-w-lg mx-auto p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Complete Payment</DialogTitle>
+          <DialogTitle className="text-center">Complete Payment</DialogTitle>
         </DialogHeader>
         <Elements 
           stripe={stripePromise} 
           options={{ 
             clientSecret,
             appearance: {
-              theme: 'stripe'
+              theme: 'stripe',
+              variables: {
+                fontFamily: 'system-ui, sans-serif',
+                fontSizeBase: '16px'
+              }
             }
           }}
         >
