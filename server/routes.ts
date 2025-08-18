@@ -14,6 +14,7 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import { sendInternalNotification, sendAutoReply } from "./mailer";
 import { getChatResponse, getGreetingMessage } from "./ai-assistant";
+import Stripe from "stripe";
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -164,6 +165,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   };
 
   await initializeAdmin();
+
+  // Initialize Stripe
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error('Missing required Stripe secret: STRIPE_SECRET_KEY');
+  }
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: "2025-07-30.basil",
+  });
 
   // No-cache middleware for auth endpoints
   const noCache = (_req: any, res: any, next: any) => {
@@ -541,6 +550,34 @@ Disallow: /api/`);
       res.status(500).json({ 
         success: false, 
         message: "I'm experiencing technical difficulties. Please contact support@gavineanthony.com for technical assistance." 
+      });
+    }
+  });
+
+  // Stripe payment routes
+  app.post("/api/create-payment-intent", async (req, res) => {
+    try {
+      const { amount, currency = "usd", service } = req.body;
+      
+      if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
+        return res.status(400).json({ 
+          error: "Invalid amount. Amount must be a positive number." 
+        });
+      }
+
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: Math.round(amount * 100), // Convert to cents
+        currency: currency,
+        metadata: {
+          service: service || 'Unknown Service'
+        }
+      });
+      
+      res.json({ clientSecret: paymentIntent.client_secret });
+    } catch (error: any) {
+      console.error('Stripe payment intent error:', error);
+      res.status(500).json({ 
+        message: "Error creating payment intent: " + error.message 
       });
     }
   });
