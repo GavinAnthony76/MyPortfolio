@@ -1,0 +1,513 @@
+hCaptcha
+
+hCaptcha
+
+Afrikaans
+
+Albanian
+
+Amharic
+
+Arabic
+
+Armenian
+
+Azerbaijani
+
+Basque
+
+Belarusian
+
+Bengali
+
+Bulgarian
+
+Bosnian
+
+Burmese
+
+Catalan
+
+Cebuano
+
+Chinese
+
+Chinese Simplified
+
+Chinese Traditional
+
+Corsican
+
+Croatian
+
+Czech
+
+Danish
+
+Dutch
+
+English
+
+Esperanto
+
+Estonian
+
+Finnish
+
+French
+
+Frisian
+
+Gaelic
+
+Galacian
+
+Georgian
+
+German
+
+Greek
+
+Gujurati
+
+Haitian
+
+Hausa
+
+Hawaiian
+
+Hebrew
+
+Hindi
+
+Hmong
+
+Hungarian
+
+Icelandic
+
+Igbo
+
+Indonesian
+
+Irish
+
+Italian
+
+Japanese
+
+Javanese
+
+Kannada
+
+Kazakh
+
+Khmer
+
+Kinyarwanda
+
+Kirghiz
+
+Korean
+
+Kurdish
+
+Lao
+
+Latin
+
+Latvian
+
+Lithuanian
+
+Luxembourgish
+
+Macedonian
+
+Malagasy
+
+Malay
+
+Malayalam
+
+Maltese
+
+Maori
+
+Marathi
+
+Mongolian
+
+Nepali
+
+Norwegian
+
+Nyanja
+
+Oriya
+
+Persian
+
+Polish
+
+Portuguese (Brazil)
+
+Portuguese (Portugal)
+
+Pashto
+
+Punjabi
+
+Romanian
+
+Russian
+
+Samoan
+
+Shona
+
+Sindhi
+
+Sinhalese
+
+Serbian
+
+Slovak
+
+Slovenian
+
+Somali
+
+Southern Sotho
+
+Spanish
+
+Sundanese
+
+Swahili
+
+Swedish
+
+Tagalog
+
+Tajik
+
+Tamil
+
+Tatar
+
+Teluga
+
+Thai
+
+Turkish
+
+Turkmen
+
+Uyghur
+
+Ukrainian
+
+Urdu
+
+Uzbek
+
+Vietnamese
+
+Welsh
+
+Xhosa
+
+Yiddish
+
+Yoruba
+
+Zulu
+
+EN
+
+[Visit hcaptcha.com to learn more about the service and its accessibility options.](https://www.hcaptcha.com/what-is-hcaptcha-about?ref=b.stripecdn.com&utm_campaign=5034f7f0-a742-48aa-89e2-062ece60f0d6&utm_medium=challenge&hl=en "Visit hcaptcha.com to learn more about the service and its accessibility options.")
+
+Please try again. ⚠️
+
+Verify
+
+[Skip to content](https://docs.stripe.com/development#main-content)
+
+Developer resources
+
+[Create account](https://dashboard.stripe.com/register) or [Sign in](https://dashboard.stripe.com/login?redirect=https%3A%2F%2Fdocs.stripe.com%2Fdevelopment)
+
+[The Stripe Docs logo](https://docs.stripe.com/)
+
+Search
+
+`/`Ask AI
+
+[Create account](https://dashboard.stripe.com/register)
+
+[Sign in](https://dashboard.stripe.com/login?redirect=https%3A%2F%2Fdocs.stripe.com%2Fdevelopment)
+
+[Get started](https://docs.stripe.com/get-started)
+
+[Payments](https://docs.stripe.com/payments)
+
+[Revenue](https://docs.stripe.com/revenue)
+
+[Platforms and marketplaces](https://docs.stripe.com/connect)
+
+[Money management](https://docs.stripe.com/money-management)
+
+[Developer resources](https://docs.stripe.com/development)
+
+APIs & SDKs
+
+Help
+
+Overview
+
+Versioning
+
+Changelog
+
+[Upgrade your API version](https://docs.stripe.com/upgrades)
+
+Upgrade your SDK version
+
+Essentials
+
+SDKs
+
+API
+
+Testing
+
+Stripe CLI
+
+Sample projects
+
+Tools
+
+Workbench
+
+Developers Dashboard
+
+Stripe Shell
+
+[Stripe for Visual Studio Code](https://docs.stripe.com/stripe-vscode)
+
+Features
+
+Workflows
+
+Event destinations
+
+[Stripe health alerts](https://docs.stripe.com/health-alerts) [File uploads](https://docs.stripe.com/file-upload)
+
+AI solutions
+
+Agent toolkit
+
+[Model Context Protocol](https://docs.stripe.com/mcp)
+
+Security and privacy
+
+Security
+
+[Stripebot web crawler](https://docs.stripe.com/stripebot-crawler)
+
+Privacy
+
+Extend Stripe
+
+Build Stripe apps
+
+Use apps from Stripe
+
+Partners
+
+Partner ecosystem
+
+[Partner certification](https://docs.stripe.com/partners/training-and-certification)
+
+United States
+
+English (United States)
+
+# Developerresources
+
+## Get up and running with SDKs, API keys, and integration tools.
+
+Before you begin, set up your [development environment](https://docs.stripe.com/get-started/development-environment).
+
+Get started
+
+Use Stripe’s libraries and tools to build and manage your integration.
+
+[Install an SDK](https://docs.stripe.com/sdks)
+
+![](https://b.stripecdn.com/docs-statics-srv/assets/stripe-cli.dfdd7710717be8cb82486c38d77d4572.png)
+
+## Versioning ![](https://b.stripecdn.com/docs-statics-srv/assets/fcc3a1c24df6fcffface6110ca4963de.svg)
+
+[Changelog\\
+\\
+Review breaking changes and new features.](https://docs.stripe.com/changelog "Changelog")
+
+[API upgrades\\
+\\
+Keep track of changes and upgrades to the Stripe API.](https://docs.stripe.com/upgrades "API upgrades")
+
+[SDK versioning\\
+\\
+Learn how Stripe versions its APIs and SDKs.](https://docs.stripe.com/sdks/versioning "SDK versioning")
+
+## Essentials ![](https://b.stripecdn.com/docs-statics-srv/assets/fcc3a1c24df6fcffface6110ca4963de.svg)
+
+[SDKs\\
+\\
+Use client, server, and UI SDKs to integrate with Stripe.](https://docs.stripe.com/sdks "SDKs")
+
+[API management and error handling\\
+\\
+Use the API to authenticate requests and respond to errors.](https://docs.stripe.com/keys "API management and error handling")
+
+[Testing\\
+\\
+Test your integration by simulating payments.](https://docs.stripe.com/testing "Testing")
+
+## Tools ![](https://b.stripecdn.com/docs-statics-srv/assets/fcc3a1c24df6fcffface6110ca4963de.svg)
+
+[Workbench\\
+\\
+Debug, manage, and grow your Stripe integration.](https://docs.stripe.com/workbench "Workbench")
+
+[Developers Dashboard\\
+\\
+View API request and event activity.](https://docs.stripe.com/development/dashboard "Developers Dashboard")
+
+[Stripe for Visual Code\\
+\\
+Build, test, and use Stripe inside Visual Studio Code.](https://docs.stripe.com/stripe-vscode "Stripe for Visual Code")
+
+## Features ![](https://b.stripecdn.com/docs-statics-srv/assets/fcc3a1c24df6fcffface6110ca4963de.svg)
+
+[Workflows\\
+\\
+Learn how to automate workflows without code in the Dashboard.](https://docs.stripe.com/workflows "Workflows")
+
+[Event destinations\\
+\\
+Send events from Stripe to webhook endpoints and cloud services.](https://docs.stripe.com/event-destinations "Event destinations")
+
+[Stripe health alerts\\
+\\
+Monitor the health of your API integrations through automated alerts.](https://docs.stripe.com/health-alerts "Stripe health alerts")
+
+## AI solutions ![](https://b.stripecdn.com/docs-statics-srv/assets/fcc3a1c24df6fcffface6110ca4963de.svg)
+
+[Agent toolkit\\
+\\
+Use Stripe to run your agent business and enhance your agents’ functionality.](https://docs.stripe.com/agents "Agent toolkit")
+
+[Build with an LLM\\
+\\
+Use a large language model (LLM) to help you build and manage a Stripe integration.](https://docs.stripe.com/building-with-llms "Build with an LLM")
+
+[Model Context Protocol\\
+\\
+Use our MCP server to let your AI agents interact with Stripe.](https://docs.stripe.com/mcp "Model Context Protocol")
+
+## Security and privacy ![](https://b.stripecdn.com/docs-statics-srv/assets/fcc3a1c24df6fcffface6110ca4963de.svg)
+
+[Security\\
+\\
+Learn how Stripe handles security.](https://docs.stripe.com/security "Security")
+
+[Privacy\\
+\\
+Remove data from your Dashboard and API.](https://docs.stripe.com/privacy/deletion-requests "Privacy")
+
+## Extend Stripe ![](https://b.stripecdn.com/docs-statics-srv/assets/fcc3a1c24df6fcffface6110ca4963de.svg)
+
+[Stripe Apps\\
+\\
+Extend Stripe with third-party services or embed custom user experiences in the Stripe Dashboard.](https://docs.stripe.com/stripe-apps "Stripe Apps")
+
+[Stripe Apps\\
+\\
+Use apps to integrate with Stripe.](https://docs.stripe.com/use-stripe-apps "Stripe Apps")
+
+## Partners ![](https://b.stripecdn.com/docs-statics-srv/assets/fcc3a1c24df6fcffface6110ca4963de.svg)
+
+[Stripe Partner Ecosystem\\
+\\
+Join the community of Stripe partners that helps businesses with payments and financial infrastructure.](https://docs.stripe.com/partners "Stripe Partner Ecosystem")
+
+[Stripe certification for partners\\
+\\
+Become a Stripe-certified architect or developer.](https://docs.stripe.com/partners/training-and-certification "Stripe certification for partners")
+
+## Developer community ![](https://b.stripecdn.com/docs-statics-srv/assets/fcc3a1c24df6fcffface6110ca4963de.svg)
+
+[YouTube tutorials](https://www.youtube.com/stripedevelopers)Watch developer tutorials on our YouTube channel. [![](https://b.stripecdn.com/docs-statics-srv/assets/stripe-developers-youtube.9ea4c6da87382179e1248f9df851ff66.png)](https://www.youtube.com/stripedevelopers)
+
+- [Developer tools](https://stripe.dev/#developer-digest)
+Sign up for the developer newsletter to get highlights and updates.
+
+- [X updates](https://x.com/stripe)
+Follow us on X (formerly Twitter) to get updates and join our community.
+
+- [Developer chat on Discord](https://stripe.com/go/developer-chat)
+Chat live with other developers on the official Stripe Discord.
+
+
+Was this page helpful?
+
+YesNo
+
+- Need help? [Contact Support](https://support.stripe.com/).
+- Join our [early access program](https://insiders.stripe.dev/).
+- Check out our [changelog](https://docs.stripe.com/changelog).
+- Questions? [Contact Sales](https://stripe.com/contact/sales).
+- LLM? [Read llms.txt](https://docs.stripe.com/llms.txt).
+- Powered by [Markdoc](https://markdoc.dev/)
+
+Sign up for developer updates:
+
+Sign upYou can unsubscribe at any time. Read our [privacy policy](https://stripe.com/privacy).
+
+Stripe Shell
+
+Test mode
+
+API Explorer
+
+```CodeBlock
+
+Welcome to the Stripe Shell!
+
+Stripe Shell is a browser-based shell with the Stripe CLI pre-installed. Log in to your
+Stripe account and press Control + Backtick (`) on your keyboard to start managing your Stripe
+resources in test mode.
+
+- View supported Stripe commands:
+
+stripe help ▶️
+- Find webhook events:
+
+stripe trigger ▶️ [event]
+- Listen for webhook events:
+
+stripe listen ▶
+- Call Stripe APIs: stripe [api resource] [operation] (e.g.,
+
+stripe customers list ▶️)
+
+```
+
+The Stripe Shell is best experienced on desktop.
+
+```
+$
+```
