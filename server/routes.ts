@@ -610,26 +610,78 @@ Disallow: /api/`);
     try {
       const { amount, currency = "usd", service } = req.body;
       
+      // Validate amount
       if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
         return res.status(400).json({ 
           error: "Invalid amount. Amount must be a positive number." 
         });
       }
 
+      // Validate currency
+      const supportedCurrencies = ['usd', 'eur', 'gbp', 'cad', 'aud'];
+      if (!supportedCurrencies.includes(currency.toLowerCase())) {
+        return res.status(400).json({ 
+          error: "Unsupported currency. Supported currencies: " + supportedCurrencies.join(', ')
+        });
+      }
+
+      // Validate service
+      if (!service || typeof service !== 'string') {
+        return res.status(400).json({ 
+          error: "Service name is required." 
+        });
+      }
+
       const paymentIntent = await stripe.paymentIntents.create({
         amount: Math.round(amount * 100), // Convert to cents
-        currency: currency,
+        currency: currency.toLowerCase(),
+        automatic_payment_methods: {
+          enabled: true,
+        },
         metadata: {
-          service: service || 'Unknown Service'
+          service: service,
+          created_at: new Date().toISOString(),
+          integration: 'gavineanthony_portfolio'
         }
       });
       
-      res.json({ clientSecret: paymentIntent.client_secret });
+      res.json({ 
+        clientSecret: paymentIntent.client_secret,
+        id: paymentIntent.id 
+      });
     } catch (error: any) {
       console.error('Stripe payment intent error:', error);
-      res.status(500).json({ 
-        message: "Error creating payment intent: " + error.message 
-      });
+      
+      // Handle specific Stripe errors
+      if (error.type === 'StripeCardError') {
+        res.status(400).json({ 
+          error: "Your card was declined: " + error.message 
+        });
+      } else if (error.type === 'StripeRateLimitError') {
+        res.status(429).json({ 
+          error: "Too many requests. Please try again later." 
+        });
+      } else if (error.type === 'StripeInvalidRequestError') {
+        res.status(400).json({ 
+          error: "Invalid request: " + error.message 
+        });
+      } else if (error.type === 'StripeAPIError') {
+        res.status(500).json({ 
+          error: "API error. Please try again." 
+        });
+      } else if (error.type === 'StripeConnectionError') {
+        res.status(500).json({ 
+          error: "Network error. Please check your connection." 
+        });
+      } else if (error.type === 'StripeAuthenticationError') {
+        res.status(500).json({ 
+          error: "Authentication error. Please contact support." 
+        });
+      } else {
+        res.status(500).json({ 
+          error: "An unexpected error occurred. Please try again." 
+        });
+      }
     }
   });
 
