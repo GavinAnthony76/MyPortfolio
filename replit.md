@@ -41,7 +41,9 @@ This project is a professional portfolio website for a full-stack developer, Gav
 - **Local Starter Package** - $897 for small businesses (hair salons, pet stores, lawn care)
 - **Local Professional Package** - $1,797 for established businesses (restaurants, service companies)
 - **Local Premium Package** - $2,997 for growing businesses with e-commerce needs
-- **Maintained existing services** - Kept Technical Consulting, Rapid Prototyping, and Full-Stack Development
+- **Maintained existing services** - Kept Technical Consulting and Rapid Prototyping
+- **Updated Rapid Prototyping** - Changed to hourly rate of $125/hour
+- **Removed Full-Stack Development** - Simplified service offerings for local business focus
 - **Replit-optimized pricing** - Accounts for hosting costs and local business market constraints
 
 # User Preferences

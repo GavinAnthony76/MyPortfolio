@@ -81,8 +81,8 @@ const services = [
     icon: Rocket,
     title: 'Rapid Prototyping',
     description: 'Rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly using modern frameworks.',
-    price: '$2,450 - $3,150',
-    baseAmount: 2800, // Mid-range for quick payment
+    price: '$125/hour',
+    baseAmount: 125, // Hourly rate for quick payment
     color: 'from-orange-50 to-red-50',
     iconBg: 'bg-orange-600',
     priceColor: 'text-orange-600',
@@ -91,24 +91,6 @@ const services = [
       'Modern tech stacks',
       'Database integration',
       'Real-time development'
-    ]
-  },
-  {
-    id: 'fullstack',
-    icon: Code,
-    title: 'Full-Stack Development',
-    description: 'Complete web application development from frontend to backend, including database design, API integration, and deployment.',
-    price: '$4,000 - $4,800',
-    baseAmount: 4400, // Mid-range for quick payment
-    color: 'from-slate-50 to-gray-50',
-    iconBg: 'bg-slate-600',
-    priceColor: 'text-slate-600',
-    features: [
-      'React/TypeScript frontend',
-      'Node.js/Express backend',
-      'Database design & integration',
-      'API integration & development',
-      'Authentication & security'
     ]
   }
 ];
