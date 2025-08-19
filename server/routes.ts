@@ -440,6 +440,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Delete project request - Protected
+  app.delete("/api/project-requests/:id", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const deleted = await storage.deleteProjectRequest(id);
+      
+      if (!deleted) {
+        return res.status(404).json({ 
+          success: false, 
+          error: "Project request not found" 
+        });
+      }
+      
+      res.json({ success: true, message: "Project request deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting project request:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Failed to delete project request" 
+      });
+    }
+  });
+
   // Upload portfolio images to object storage
   app.post("/api/upload-images", async (req, res) => {
     try {

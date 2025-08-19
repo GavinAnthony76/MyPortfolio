@@ -10,6 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Clock, Mail, Building, DollarSign, Calendar, FileText, Archive, Reply, File, LogOut, Home, Search, Filter, Inbox, CheckCircle, XCircle, Users, Trophy, Trash2, ChevronDown, ChevronUp, Play, CheckSquare, User } from "lucide-react";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { formatDistanceToNow } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useMemo } from "react";
@@ -74,6 +75,27 @@ export default function Dashboard() {
       toast({
         title: "Update failed", 
         description: error.message || "Failed to update status",
+        variant: "destructive",
+      });
+    }
+  });
+
+  // Delete project mutation
+  const deleteProjectMutation = useMutation({
+    mutationFn: async (id: string) => {
+      await apiRequest('DELETE', `/api/project-requests/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/project-requests'] });
+      toast({
+        title: "Project deleted",
+        description: "Project request has been permanently deleted",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Delete failed", 
+        description: error.message || "Failed to delete project",
         variant: "destructive",
       });
     }
@@ -591,6 +613,46 @@ Proposal generated on ${new Date().toLocaleDateString()} for ${request.company |
                           Archive
                         </Button>
                       )}
+
+                      {/* Delete Button with Confirmation */}
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            className="border-red-500 text-red-600 hover:bg-red-50"
+                            data-testid={`button-delete-trigger-${request.id}`}
+                          >
+                            <Trash2 className="w-4 h-4 mr-1" />
+                            Delete
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete Project Request</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to permanently delete this project request from{' '}
+                              <strong>{request.firstName} {request.lastName}</strong>
+                              {request.company && ` at ${request.company}`}?
+                              <br /><br />
+                              <strong>This action cannot be undone.</strong> All project data, including the generated brief and communication history, will be permanently removed.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel data-testid={`button-delete-cancel-${request.id}`}>
+                              Cancel
+                            </AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => deleteProjectMutation.mutate(request.id)}
+                              disabled={deleteProjectMutation.isPending}
+                              className="bg-red-600 hover:bg-red-700"
+                              data-testid={`button-delete-confirm-${request.id}`}
+                            >
+                              {deleteProjectMutation.isPending ? 'Deleting...' : 'Delete Permanently'}
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </CardContent>
                 </CollapsibleContent>

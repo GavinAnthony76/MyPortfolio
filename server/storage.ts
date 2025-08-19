@@ -9,6 +9,7 @@ export interface IStorage {
   createProjectRequest(request: InsertProjectRequest & { generatedPrompt: string }): Promise<ProjectRequest>;
   getProjectRequests(): Promise<ProjectRequest[]>;
   updateProjectRequestStatus(id: string, status: string): Promise<ProjectRequest | undefined>;
+  deleteProjectRequest(id: string): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -66,6 +67,13 @@ export class DatabaseStorage implements IStorage {
       .where(eq(projectRequests.id, id))
       .returning();
     return updatedRequest || undefined;
+  }
+
+  async deleteProjectRequest(id: string): Promise<boolean> {
+    const result = await db
+      .delete(projectRequests)
+      .where(eq(projectRequests.id, id));
+    return (result.rowCount || 0) > 0;
   }
 }
 

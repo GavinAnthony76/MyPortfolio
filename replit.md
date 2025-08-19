@@ -2,7 +2,15 @@
 
 This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. It aims to market web development services and streamline the intake and management of client inquiries through a robust project request system. The application features sections for personal introduction, featured web projects, service offerings (technical consulting, website redesign, landing pages, static web development, rapid prototyping, full-stack development - arranged by price), and a comprehensive contact form that generates detailed project briefs. These briefs are stored in a database and managed via an administrative dashboard. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
 
-## Recent Changes (August 17, 2025)
+## Recent Changes (August 19, 2025)
+### Project Deletion Functionality (COMPLETED ✅)
+- **Delete button added to all project cards** - destructive action with confirmation dialog
+- **Confirmation dialog implemented** - shows client details and warns action cannot be undone
+- **API endpoint created** - DELETE `/api/project-requests/:id` with authentication protection
+- **Database method added** - permanent project removal from storage interface
+- **Error handling implemented** - proper validation and user feedback throughout deletion flow
+- **Accessible across all dashboard tabs** - delete functionality available regardless of project status
+
 ### Service Restructuring and Price Ordering (COMPLETED ✅)
 - **Services reordered by price** - arranged from cheapest to most expensive
 - **Technical Consulting positioned first** - $125/hour as the most accessible entry point
