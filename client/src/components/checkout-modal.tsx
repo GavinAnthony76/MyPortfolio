@@ -15,7 +15,7 @@ const getStripePromise = () => {
   }
   
   try {
-    console.log('Attempting to load Stripe with public key:', import.meta.env.VITE_STRIPE_PUBLIC_KEY?.substring(0, 10) + '...');
+
     const promise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
     
     // Add error handling for promise resolution

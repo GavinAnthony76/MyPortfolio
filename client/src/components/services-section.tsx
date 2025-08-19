@@ -104,7 +104,7 @@ export default function ServicesSection() {
 
   const handlePaymentSuccess = () => {
     // Could add analytics tracking here
-    console.log('Payment completed successfully');
+
   };
 
   return (

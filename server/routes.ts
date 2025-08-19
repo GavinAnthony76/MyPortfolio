@@ -110,13 +110,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         tableName: 'user_sessions',
         createTableIfMissing: true,
       });
-      console.log('Using PostgreSQL session store for production');
+
     } else {
-      console.log('Using default session store for development');
+
     }
   } catch (error) {
     console.error('Failed to create PostgreSQL session store:', error);
-    console.log('Falling back to default session store');
+
   }
 
   // Trust proxy for proper IP/cookie handling in production
@@ -208,7 +208,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           username: adminUsername,
           password: hashedPassword
         });
-        console.log('Admin user created successfully');
+
       }
     } catch (error) {
       console.error('Error initializing admin user:', error);
@@ -240,17 +240,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post('/api/login', noCache, async (req, res) => {
     try {
       const { username, password } = req.body;
-      console.log('Login attempt for username:', username);
+
       
       const user = await storage.getUserByUsername(username);
       if (!user) {
-        console.log('User not found:', username);
+
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 
       const isValidPassword = await bcrypt.compare(password, user.password);
       if (!isValidPassword) {
-        console.log('Invalid password for user:', username);
+
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 
@@ -276,7 +276,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             console.error('Session save error:', saveErr);
             return res.status(500).json({ message: 'Session error' });
           }
-          console.log('Login successful for user:', username, 'Session ID:', req.session.id);
+
           res.json({ 
             success: true, 
             message: 'Login successful',
@@ -307,7 +307,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const username = (req.session as any).username;
       const loginTime = (req.session as any).loginTime;
       
-      console.log('Auth status check - Session ID:', req.session.id, 'User ID:', userId);
+
       
       if (userId) {
         // Verify user still exists in database
@@ -375,9 +375,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             REPLY_TO
           );
 
-          console.log(`Project request created with email notifications: ${projectRequest.id}`);
+
         } else {
-          console.log(`Project request created (no email configuration): ${projectRequest.id}`);
+
         }
       } catch (emailError) {
         console.error("Email notification failed (request still saved):", emailError);
@@ -467,7 +467,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Upload portfolio images to object storage
   app.post("/api/upload-images", async (req, res) => {
     try {
-      console.log("Starting portfolio images upload...");
+
       await storageManager.uploadAllPortfolioImages();
       res.json({ success: true, message: "All portfolio images uploaded successfully" });
     } catch (error) {

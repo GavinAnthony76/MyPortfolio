@@ -10,9 +10,9 @@ class StorageManager {
     try {
       // Don't instantiate client immediately - wait for proper bucket configuration
       this.isAvailable = false;
-      console.log('Object storage not configured, using local asset serving');
+
     } catch (error) {
-      console.warn('Replit Object Storage not configured. Using local fallback.');
+
       this.isAvailable = false;
     }
   }
@@ -60,7 +60,7 @@ class StorageManager {
 
   async uploadAllPortfolioImages(): Promise<void> {
     if (!this.isAvailable) {
-      console.log('Object storage not available, serving from local assets');
+
       return;
     }
 
@@ -93,15 +93,15 @@ class StorageManager {
 
     for (const image of imagesToUpload) {
       if (fs.existsSync(image.localPath)) {
-        console.log(`Uploading ${image.localPath} to ${image.objectKey}...`);
+
         const result = await this.uploadImage(image.localPath, image.objectKey);
         if (result.ok) {
-          console.log(`✓ Successfully uploaded ${image.objectKey}`);
+
         } else {
           console.error(`✗ Failed to upload ${image.objectKey}:`, result.error);
         }
       } else {
-        console.warn(`⚠ File not found: ${image.localPath}`);
+
       }
     }
   }
