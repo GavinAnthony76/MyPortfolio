@@ -23,54 +23,57 @@ const services = [
     ]
   },
   {
-    id: 'redesign',
+    id: 'starter',
+    icon: Smartphone,
+    title: 'Local Starter Package',
+    description: 'Perfect for small local businesses like hair salons, pet stores, and lawn care companies. Professional 3-5 page website with mobile design.',
+    price: '$897',
+    baseAmount: 897,
+    color: 'from-emerald-50 to-green-50',
+    iconBg: 'bg-emerald-600',
+    priceColor: 'text-emerald-600',
+    features: [
+      'Professional 3-5 page website',
+      'Mobile-friendly design',
+      'Contact forms & business info',
+      'Google My Business integration',
+      '12 months hosting included'
+    ]
+  },
+  {
+    id: 'professional',
     icon: Settings,
-    title: 'Website Redesign',
-    description: 'Transform your existing website with modern design, improved user experience, and enhanced functionality while maintaining your content and SEO.',
-    price: '$850 - $1,200',
-    baseAmount: 1025, // Mid-range for quick payment
+    title: 'Local Professional Package',
+    description: 'Ideal for established local businesses like restaurants and service companies. Custom website with booking/ordering systems.',
+    price: '$1,797',
+    baseAmount: 1797,
+    color: 'from-blue-50 to-indigo-50',
+    iconBg: 'bg-blue-600',
+    priceColor: 'text-blue-600',
+    features: [
+      'Custom 5-8 page website',
+      'Online ordering/booking system',
+      'Photo galleries',
+      'Advanced local SEO',
+      '12 months hosting & updates'
+    ]
+  },
+  {
+    id: 'premium',
+    icon: TrendingUp,
+    title: 'Local Premium Package',
+    description: 'Complete solution for growing local businesses. Full custom website with e-commerce, customer portals, and advanced integrations.',
+    price: '$2,997',
+    baseAmount: 2997,
     color: 'from-purple-50 to-pink-50',
     iconBg: 'bg-purple-600',
     priceColor: 'text-purple-600',
     features: [
-      'Modern design refresh',
-      'Mobile responsiveness',
-      'Performance optimization',
-      'SEO preservation'
-    ]
-  },
-  {
-    id: 'landing',
-    icon: TrendingUp,
-    title: 'Landing Pages',
-    description: 'High-converting landing pages designed to showcase your product, capture leads, and drive conversions with modern design.',
-    price: '$1,375 - $1,925',
-    baseAmount: 1650, // Mid-range for quick payment
-    color: 'from-orange-50 to-red-50',
-    iconBg: 'bg-orange-600',
-    priceColor: 'text-orange-600',
-    features: [
-      'Conversion optimization',
-      'Responsive design',
-      'SEO optimization',
-      'Analytics integration'
-    ]
-  },
-  {
-    id: 'static',
-    icon: Smartphone,
-    title: 'Static Web Page Development',
-    description: 'Professional static websites with modern design, fast loading times, and optimized performance for businesses and portfolios.',
-    price: '$1,500 - $2,000',
-    baseAmount: 1750, // Mid-range for quick payment
-    color: 'from-indigo-50 to-blue-50',
-    iconBg: 'bg-indigo-600',
-    priceColor: 'text-indigo-600',
-    features: [
-      'Modern HTML/CSS/JS',
-      'Responsive design',
-      'Fast loading times',
-      'SEO optimization'
+      'Full custom website (10+ pages)',
+      'E-commerce or advanced booking',
+      'Customer portal/login areas',
+      'Advanced integrations',
+      '24 months hosting & support'
     ]
   },
   {
@@ -80,9 +83,9 @@ const services = [
     description: 'Rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly using modern frameworks.',
     price: '$2,450 - $3,150',
     baseAmount: 2800, // Mid-range for quick payment
-    color: 'from-green-50 to-emerald-50',
-    iconBg: 'bg-green-600',
-    priceColor: 'text-green-600',
+    color: 'from-orange-50 to-red-50',
+    iconBg: 'bg-orange-600',
+    priceColor: 'text-orange-600',
     features: [
       'Full-stack prototypes',
       'Modern tech stacks',
@@ -97,9 +100,9 @@ const services = [
     description: 'Complete web application development from frontend to backend, including database design, API integration, and deployment.',
     price: '$4,000 - $4,800',
     baseAmount: 4400, // Mid-range for quick payment
-    color: 'from-blue-50 to-cyan-50',
-    iconBg: 'bg-blue-600',
-    priceColor: 'text-blue-600',
+    color: 'from-slate-50 to-gray-50',
+    iconBg: 'bg-slate-600',
+    priceColor: 'text-slate-600',
     features: [
       'React/TypeScript frontend',
       'Node.js/Express backend',
