@@ -32,11 +32,10 @@ import waitingResponseImage from "@assets/image_1755150211124.png";
 
 const projectTypes = [
   { value: "consulting", label: "Technical Consulting" },
-  { value: "redesign", label: "Website Redesign" },
-  { value: "landing", label: "Landing Pages" },
-  { value: "static", label: "Static Web Page Development" },
-  { value: "prototype", label: "Rapid Prototype/POC" },
-  { value: "fullstack", label: "Full-Stack Development" },
+  { value: "starter", label: "Starter Package" },
+  { value: "professional", label: "Professional Package" },
+  { value: "premium", label: "Premium Package" },
+  { value: "prototype", label: "Rapid Prototyping" },
   { value: "other", label: "Other" },
 ];
 
