@@ -25,7 +25,7 @@ const services = [
   {
     id: 'starter',
     icon: Smartphone,
-    title: 'Local Starter Package',
+    title: 'Starter Package',
     description: 'Perfect for small local businesses like hair salons, pet stores, and lawn care companies. Professional 3-5 page website with mobile design.',
     price: '$897',
     baseAmount: 897,
@@ -43,7 +43,7 @@ const services = [
   {
     id: 'professional',
     icon: Settings,
-    title: 'Local Professional Package',
+    title: 'Professional Package',
     description: 'Ideal for established local businesses like restaurants and service companies. Custom website with booking/ordering systems.',
     price: '$1,797',
     baseAmount: 1797,
@@ -61,7 +61,7 @@ const services = [
   {
     id: 'premium',
     icon: TrendingUp,
-    title: 'Local Premium Package',
+    title: 'Premium Package',
     description: 'Complete solution for growing local businesses. Full custom website with e-commerce, customer portals, and advanced integrations.',
     price: '$2,997',
     baseAmount: 2997,
