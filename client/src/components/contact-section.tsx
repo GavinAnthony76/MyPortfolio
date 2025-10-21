@@ -31,10 +31,9 @@ import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 import waitingResponseImage from "@assets/image_1755150211124.png";
 
 const projectTypes = [
-  { value: "consulting", label: "Technical Consulting" },
-  { value: "starter", label: "Starter Package" },
-  { value: "professional", label: "Professional Package" },
+  { value: "basic", label: "Basic" },
   { value: "premium", label: "Premium Package" },
+  { value: "custom", label: "Custom Package" },
   { value: "prototype", label: "Rapid Prototyping" },
   { value: "other", label: "Other" },
 ];
