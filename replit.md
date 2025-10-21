@@ -1,6 +1,17 @@
 # Overview
 
-This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. It aims to market web development services and streamline the intake and management of client inquiries through a robust project request system. The application features sections for personal introduction, featured web projects, service offerings (technical consulting, website redesign, landing pages, static web development, rapid prototyping, full-stack development - arranged by price), and a comprehensive contact form that generates detailed project briefs. These briefs are stored in a database and managed via an administrative dashboard. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
+This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. It aims to market web development services and streamline the intake and management of client inquiries through a robust project request system. The application features sections for personal introduction, featured web projects, service offerings (Basic, Premium Package, Custom Package, Rapid Prototyping - arranged by price), and a comprehensive contact form that generates detailed project briefs. These briefs are stored in a database and managed via an administrative dashboard. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
+
+## Recent Changes (October 21, 2025)
+### Service Restructuring to Simple Tiered Model (COMPLETED ✅)
+- **Basic Package introduced** - $250 for single page sites (landing pages, portfolios)
+- **Premium Package repriced** - $750 for small local businesses (3-5 pages with hosting)
+- **Custom Package created** - Custom pricing dependent on project scope for complex needs
+- **Technical Consulting removed** - Streamlined service offerings for clarity
+- **Rapid Prototyping adjusted** - New hourly rate of $45/hour for faster development cycles
+- **AI Assistant updated** - Edasi now recommends new service tiers based on client needs
+- **Contact form synchronized** - Project type options match new service structure
+- **Documentation updated** - All references aligned with new 4-tier service model
 
 ## Recent Changes (August 19, 2025)
 ### Production Deployment Ready (COMPLETED ✅)
@@ -52,15 +63,10 @@ This project is a professional portfolio website for a full-stack developer, Gav
 - **Noscript fallback** - Iframe implementation for users with JavaScript disabled
 - **Analytics ready** - Website now ready for comprehensive visitor tracking and conversion monitoring
 
-### Local Business Pricing Model Update (COMPLETED ✅)
-- **3-tier local business packages** - Restructured services for small local businesses
-- **Local Starter Package** - $897 for small businesses (hair salons, pet stores, lawn care)
-- **Local Professional Package** - $1,797 for established businesses (restaurants, service companies)
-- **Local Premium Package** - $2,997 for growing businesses with e-commerce needs
-- **Maintained existing services** - Kept Technical Consulting and Rapid Prototyping
-- **Updated Rapid Prototyping** - Changed to hourly rate of $125/hour
-- **Removed Full-Stack Development** - Simplified service offerings for local business focus
-- **Replit-optimized pricing** - Accounts for hosting costs and local business market constraints
+### Local Business Pricing Model Update (SUPERSEDED by October 2025 restructuring)
+- **Previous 3-tier model** - Originally $897, $1,797, $2,997 for local business packages
+- **Replaced by simpler structure** - Now Basic ($250), Premium ($750), Custom (variable pricing)
+- **See October 2025 changes above** - Current service structure documented in latest update
 
 # User Preferences
 
