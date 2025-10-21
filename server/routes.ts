@@ -14,7 +14,6 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import { sendInternalNotification, sendAutoReply } from "./mailer";
 import { getChatResponse, getGreetingMessage } from "./ai-assistant";
-import Stripe from "stripe";
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -31,11 +30,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           "'unsafe-inline'", 
           "https://fonts.googleapis.com",
           "https://www.googletagmanager.com",
-          "https://ssl.google-analytics.com",
-          "https://js.stripe.com",
-          "https://r.stripe.com",
-          "https://m.stripe.com",
-          "https://q.stripe.com"
+          "https://ssl.google-analytics.com"
         ],
         styleSrc: [
           "'self'", 
@@ -58,20 +53,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
           "'self'",
           "https://www.google-analytics.com",
           "https://ssl.google-analytics.com",
-          "https://stats.g.doubleclick.net",
-          "https://api.stripe.com",
-          "https://r.stripe.com",
-          "https://m.stripe.com",
-          "https://q.stripe.com"
+          "https://stats.g.doubleclick.net"
         ],
         frameSrc: [
-          "https://www.googletagmanager.com",
-          "https://js.stripe.com",
-          "https://hooks.stripe.com"
+          "https://www.googletagmanager.com"
         ],
         formAction: [
-          "'self'",
-          "https://api.stripe.com"
+          "'self'"
         ]
       }
     },
@@ -216,14 +204,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   };
 
   await initializeAdmin();
-
-  // Initialize Stripe
-  if (!process.env.STRIPE_SECRET_KEY) {
-    throw new Error('Missing required Stripe secret: STRIPE_SECRET_KEY');
-  }
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: "2025-07-30.basil",
-  });
 
   // No-cache middleware for auth endpoints
   const noCache = (_req: any, res: any, next: any) => {
@@ -626,86 +606,6 @@ Disallow: /api/`);
         success: false, 
         message: "I'm experiencing technical difficulties. Please contact support@gavineanthony.com for technical assistance." 
       });
-    }
-  });
-
-  // Stripe payment routes
-  app.post("/api/create-payment-intent", async (req, res) => {
-    try {
-      const { amount, currency = "usd", service } = req.body;
-      
-      // Validate amount
-      if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
-        return res.status(400).json({ 
-          error: "Invalid amount. Amount must be a positive number." 
-        });
-      }
-
-      // Validate currency
-      const supportedCurrencies = ['usd', 'eur', 'gbp', 'cad', 'aud'];
-      if (!supportedCurrencies.includes(currency.toLowerCase())) {
-        return res.status(400).json({ 
-          error: "Unsupported currency. Supported currencies: " + supportedCurrencies.join(', ')
-        });
-      }
-
-      // Validate service
-      if (!service || typeof service !== 'string') {
-        return res.status(400).json({ 
-          error: "Service name is required." 
-        });
-      }
-
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: Math.round(amount * 100), // Convert to cents
-        currency: currency.toLowerCase(),
-        automatic_payment_methods: {
-          enabled: true,
-        },
-        metadata: {
-          service: service,
-          created_at: new Date().toISOString(),
-          integration: 'gavineanthony_portfolio'
-        }
-      });
-      
-      res.json({ 
-        clientSecret: paymentIntent.client_secret,
-        id: paymentIntent.id 
-      });
-    } catch (error: any) {
-      console.error('Stripe payment intent error:', error);
-      
-      // Handle specific Stripe errors
-      if (error.type === 'StripeCardError') {
-        res.status(400).json({ 
-          error: "Your card was declined: " + error.message 
-        });
-      } else if (error.type === 'StripeRateLimitError') {
-        res.status(429).json({ 
-          error: "Too many requests. Please try again later." 
-        });
-      } else if (error.type === 'StripeInvalidRequestError') {
-        res.status(400).json({ 
-          error: "Invalid request: " + error.message 
-        });
-      } else if (error.type === 'StripeAPIError') {
-        res.status(500).json({ 
-          error: "API error. Please try again." 
-        });
-      } else if (error.type === 'StripeConnectionError') {
-        res.status(500).json({ 
-          error: "Network error. Please check your connection." 
-        });
-      } else if (error.type === 'StripeAuthenticationError') {
-        res.status(500).json({ 
-          error: "Authentication error. Please contact support." 
-        });
-      } else {
-        res.status(500).json({ 
-          error: "An unexpected error occurred. Please try again." 
-        });
-      }
     }
   });
 

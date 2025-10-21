@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Code, Smartphone, MessageSquare, TrendingUp, Settings, Rocket, Check } from "lucide-react";
-import CheckoutModal from "./checkout-modal";
 
 const services = [
   {
@@ -10,11 +8,8 @@ const services = [
     icon: Smartphone,
     title: 'Basic',
     description: 'Perfect for single page sites. Clean, professional design that gets your message across effectively.',
-    price: '$250',
-    baseAmount: 250,
     color: 'from-emerald-50 to-green-50',
     iconBg: 'bg-emerald-600',
-    priceColor: 'text-emerald-600',
     features: [
       'Single page website',
       'Mobile-friendly design',
@@ -28,11 +23,8 @@ const services = [
     icon: Settings,
     title: 'Premium Package',
     description: 'Perfect for small local businesses like hair salons, pet stores, and lawn care companies. Professional 3-5 page website with mobile design.',
-    price: '$750',
-    baseAmount: 750,
     color: 'from-blue-50 to-indigo-50',
     iconBg: 'bg-blue-600',
-    priceColor: 'text-blue-600',
     features: [
       'Professional 3-5 page website',
       'Mobile-friendly design',
@@ -46,11 +38,8 @@ const services = [
     icon: TrendingUp,
     title: 'Custom Package',
     description: 'Complete solution for growing local businesses. Full custom website with e-commerce, customer portals, and advanced integrations.',
-    price: 'Custom Pricing',
-    baseAmount: 0,
     color: 'from-purple-50 to-pink-50',
     iconBg: 'bg-purple-600',
-    priceColor: 'text-purple-600',
     features: [
       'Full custom website (10+ pages)',
       'E-commerce or advanced booking',
@@ -64,11 +53,8 @@ const services = [
     icon: Rocket,
     title: 'Rapid Prototyping',
     description: 'Rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly using modern frameworks.',
-    price: '$45/hour',
-    baseAmount: 45,
     color: 'from-orange-50 to-red-50',
     iconBg: 'bg-orange-600',
-    priceColor: 'text-orange-600',
     features: [
       'Full-stack prototypes',
       'Modern tech stacks',
@@ -79,15 +65,11 @@ const services = [
 ];
 
 export default function ServicesSection() {
-  const [checkoutService, setCheckoutService] = useState<{
-    id: string;
-    title: string;
-    baseAmount: number;
-  } | null>(null);
-
-  const handlePaymentSuccess = () => {
-    // Could add analytics tracking here
-
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -120,9 +102,6 @@ export default function ServicesSection() {
                 <p className="text-sm sm:text-base text-slate-700 mb-4 sm:mb-6 leading-relaxed" data-testid={`text-description-${service.id}`}>
                   {service.description}
                 </p>
-                <div className={`text-xl sm:text-2xl font-bold ${service.priceColor} mb-4 gradient-text`} data-testid={`text-price-${service.id}`}>
-                  {service.price}
-                </div>
                 <ul className="space-y-2 text-slate-700 mb-6">
                   {service.features.map((feature, index) => (
                     <li 
@@ -136,33 +115,17 @@ export default function ServicesSection() {
                   ))}
                 </ul>
                 <Button 
-                  onClick={() => setCheckoutService({
-                    id: service.id,
-                    title: service.title,
-                    baseAmount: service.baseAmount
-                  })}
+                  onClick={scrollToContact}
                   className={`w-full ${service.iconBg} hover:opacity-90 transition-opacity text-sm sm:text-base py-2 sm:py-3`}
-                  data-testid={`button-pay-${service.id}`}
+                  data-testid={`button-contact-${service.id}`}
                 >
-                  {service.baseAmount === 0 ? (
-                    'Get Quote'
-                  ) : (
-                    <><span className="hidden sm:inline">Get Started - </span>${service.baseAmount}</>
-                  )}
+                  Get Started
                 </Button>
               </div>
             );
           })}
         </div>
       </div>
-
-      <CheckoutModal
-        isOpen={checkoutService !== null}
-        onClose={() => setCheckoutService(null)}
-        amount={checkoutService?.baseAmount || 0}
-        service={checkoutService?.title || ''}
-        onSuccess={handlePaymentSuccess}
-      />
     </section>
   );
 }
