@@ -58,12 +58,13 @@ const getProjects = (images: any): Project[] => [
   },
   {
     id: "5",
-    title: "Brain Discord Bot - Fighting Game Assistant",
+    title: "Shape Tap Deluxe",
     description:
-      "Comprehensive Discord bot for fighting game communities featuring frame data lookup with SuperCombo API, combo database with rating system, interactive quiz system, personal collections with practice mode, and automated SuperCombo wiki import.",
-    image: images?.brainBot || "/api/assets/brain-discord-bot.png",
+      "Engaging shape-morphing puzzle game featuring multiple game modes (Classic, Endless, Zen, Speed Run, Campaign), difficulty levels, combo system for faster gameplay, daily challenges, stats tracking, and in-game shop. Tap shapes to morph them and earn points with strategic combos.",
+    image: images?.shapeTapDeluxe || "/api/assets/shape-tap-deluxe.png",
     category: "web",
-    technologies: ["Discord.js", "Node.js", "MongoDB"],
+    technologies: ["JavaScript", "HTML5", "CSS3"],
+    liveUrl: "https://gavinanthony76.github.io/shape-tap-deluxe/",
   },
 ];
 

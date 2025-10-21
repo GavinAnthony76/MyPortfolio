@@ -468,7 +468,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         jamaicanRestaurant: await storageManager.downloadImageUrl('portfolio/jamaica-restaurant.png'),
         faithMinistry: await storageManager.downloadImageUrl('portfolio/faith-ministry-website.png'),
         powerOfLamb: await storageManager.downloadImageUrl('portfolio/power-of-lamb-ministry.png'),
-        brainBot: await storageManager.downloadImageUrl('portfolio/brain-discord-bot.png'),
+        shapeTapDeluxe: await storageManager.downloadImageUrl('portfolio/shape-tap-deluxe.png'),
       };
       res.json(images);
     } catch (error) {
@@ -503,7 +503,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       'jamaica-restaurant.png': 'attached_assets/jamaica-restaurant.png',
       'faith-ministry-website.png': 'attached_assets/generated_images/Spiritual_Church_Website_24ec815c.png',
       'power-of-lamb-ministry.png': 'attached_assets/generated_images/Power_of_Lamb_Ministry_db0032ce.png',
-      'brain-discord-bot.png': 'attached_assets/generated_images/Brain_Discord_Bot_4745ca5a.png',
+      'shape-tap-deluxe.png': 'attached_assets/shape-tap-deluxe.png',
     };
 
     const filePath = assetMap[filename];

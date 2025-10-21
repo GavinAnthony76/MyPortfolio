@@ -43,7 +43,7 @@ class StorageManager {
         'portfolio/jamaica-restaurant.png': '/api/assets/jamaica-restaurant.png',
         'portfolio/faith-ministry-website.png': '/api/assets/faith-ministry-website.png',
         'portfolio/power-of-lamb-ministry.png': '/api/assets/power-of-lamb-ministry.png',
-        'portfolio/brain-discord-bot.png': '/api/assets/brain-discord-bot.png',
+        'portfolio/shape-tap-deluxe.png': '/api/assets/shape-tap-deluxe.png',
       };
       return fallbackMap[objectKey] || null;
     }
@@ -86,8 +86,8 @@ class StorageManager {
         objectKey: 'portfolio/power-of-lamb-ministry.png'
       },
       {
-        localPath: 'attached_assets/generated_images/Brain_Discord_Bot_4745ca5a.png',
-        objectKey: 'portfolio/brain-discord-bot.png'
+        localPath: 'attached_assets/shape-tap-deluxe.png',
+        objectKey: 'portfolio/shape-tap-deluxe.png'
       }
     ];
 
