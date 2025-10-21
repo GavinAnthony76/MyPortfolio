@@ -201,12 +201,10 @@ export default function Dashboard() {
 
   const respondToClient = (request: ProjectRequest) => {
     const projectTypeLabels: Record<string, string> = {
-      'fullstack': 'Full-Stack Development',
-      'prototype': 'Rapid Prototype/POC',
-      'redesign': 'Website Redesign',
-      'landing': 'Landing Pages',
-      'static': 'Static Web Page Development',
-      'consulting': 'Technical Consulting',
+      'basic': 'Basic',
+      'premium': 'Premium Package',
+      'custom': 'Custom Package',
+      'prototyping': 'Rapid Prototyping',
       'other': 'Custom Development'
     };
 
@@ -302,22 +300,18 @@ projects@gavineanthony.com
 
   const generateProposal = (request: ProjectRequest) => {
     const projectTypeLabels: Record<string, string> = {
-      'fullstack': 'Full-Stack Development',
-      'prototype': 'Rapid Prototype/POC',
-      'redesign': 'Website Redesign',
-      'landing': 'Landing Pages',
-      'static': 'Static Web Page Development',
-      'consulting': 'Technical Consulting',
+      'basic': 'Basic',
+      'premium': 'Premium Package',
+      'custom': 'Custom Package',
+      'prototyping': 'Rapid Prototyping',
       'other': 'Custom Development'
     };
 
     const serviceDescriptions: Record<string, string> = {
-      'fullstack': 'Complete web application development with modern frontend, robust backend, database integration, user authentication, and comprehensive testing.',
-      'prototype': 'Rapid development of proof-of-concept applications to validate ideas and demonstrate core functionality quickly.',
-      'pwa': 'Modern Progressive Web Applications with offline capabilities, push notifications, and app-like user experiences.',
-      'landing': 'High-converting landing pages with modern design, performance optimization, and lead generation features.',
-      'static': 'Professional static websites with modern design, performance optimization, and content management capabilities.',
-      'integration': 'Seamless integration with third-party APIs, payment processors, analytics tools, and external services.',
+      'basic': 'Professional single page website with modern design, fast loading, SEO optimization, and contact form integration.',
+      'premium': 'Professional 3-5 page website for small local businesses with mobile-friendly design, Google My Business integration, contact forms, and 12 months hosting included.',
+      'custom': 'Complete custom solution for growing businesses with full-featured website (10+ pages), e-commerce or advanced booking systems, customer portals, advanced integrations, and 24 months hosting and support.',
+      'prototyping': 'Rapid development of proof-of-concept applications to validate ideas and demonstrate core functionality quickly using modern tech stacks.',
       'other': 'Custom development solutions tailored to your specific business needs and technical requirements.'
     };
 
@@ -791,12 +785,10 @@ Proposal generated on ${new Date().toLocaleDateString()} for ${request.company |
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="fullstack">Full-Stack</SelectItem>
-                      <SelectItem value="prototype">Prototype</SelectItem>
-                      <SelectItem value="pwa">PWA</SelectItem>
-                      <SelectItem value="landing">Landing Page</SelectItem>
-                      <SelectItem value="static">Static Site</SelectItem>
-                      <SelectItem value="integration">API Integration</SelectItem>
+                      <SelectItem value="basic">Basic</SelectItem>
+                      <SelectItem value="premium">Premium Package</SelectItem>
+                      <SelectItem value="custom">Custom Package</SelectItem>
+                      <SelectItem value="prototyping">Rapid Prototyping</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>

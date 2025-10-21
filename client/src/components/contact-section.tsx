@@ -34,7 +34,7 @@ const projectTypes = [
   { value: "basic", label: "Basic" },
   { value: "premium", label: "Premium Package" },
   { value: "custom", label: "Custom Package" },
-  { value: "prototype", label: "Rapid Prototyping" },
+  { value: "prototyping", label: "Rapid Prototyping" },
   { value: "other", label: "Other" },
 ];
 

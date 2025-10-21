@@ -88,12 +88,10 @@ ${additionalInfo}`;
 
 function getProjectTypeLabel(type: string): string {
   const labels: Record<string, string> = {
-    'fullstack': 'Full-Stack Development',
-    'prototype': 'Rapid Prototype/POC',
-    'redesign': 'Website Redesign',
-    'landing': 'Landing Pages',
-    'static': 'Static Web Page Development',
-    'consulting': 'Technical Consulting',
+    'basic': 'Basic',
+    'premium': 'Premium Package',
+    'custom': 'Custom Package',
+    'prototyping': 'Rapid Prototyping',
     'other': 'Custom Solution',
   };
   return labels[type] || type;
@@ -115,12 +113,10 @@ function getTimelineLabel(timeline: string): string {
 
 function getRecommendedTechStack(projectType: string): string | null {
   const stacks: Record<string, string> = {
-    'fullstack': '- **Frontend:** React with TypeScript, Tailwind CSS, Shadcn/ui\n- **Backend:** Node.js with Express.js, RESTful APIs\n- **Database:** PostgreSQL with Drizzle ORM\n- **API Integration:** Third-party services, payment gateways, webhooks\n- **Authentication:** JWT, OAuth, or NextAuth.js\n- **Deployment:** Vercel, Railway, or AWS\n- **Testing:** Jest, Vitest, Playwright for E2E',
-    'prototype': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express\n- **Database:** In-memory or SQLite for speed\n- **Development:** Vite for fast iteration\n- **Hosting:** Replit, Vercel, or Netlify',
-    'redesign': '- **Design:** Modern UI/UX design principles\n- **Performance:** Speed optimization and Core Web Vitals\n- **Responsive:** Mobile-first responsive design\n- **SEO:** Preservation of existing search rankings\n- **Accessibility:** WCAG compliance improvements',
-    'landing': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Optimization:** Conversion rate optimization techniques\n- **SEO:** Meta tags, structured data, performance optimization\n- **Analytics:** Google Analytics, conversion tracking\n- **Hosting:** Fast CDN deployment with global reach',
-    'static': '- **Frontend:** Modern HTML5, CSS3, vanilla JavaScript\n- **Styling:** Tailwind CSS or custom CSS with modern techniques\n- **Performance:** Optimized images, minified assets, fast loading\n- **SEO:** Meta tags, structured data, semantic HTML\n- **Hosting:** Static site hosting with CDN deployment',
-    'consulting': '- **Architecture:** System design and technical planning\n- **Code Review:** Performance optimization and best practices\n- **Problem Solving:** Debugging and technical troubleshooting\n- **Strategy:** Technology selection and implementation guidance\n- **Documentation:** Technical specifications and recommendations',
+    'basic': '- **Frontend:** Modern HTML5, CSS3, vanilla JavaScript\n- **Styling:** Tailwind CSS or custom CSS with modern techniques\n- **Performance:** Optimized images, minified assets, fast loading\n- **SEO:** Meta tags, structured data, semantic HTML\n- **Hosting:** Static site hosting with CDN deployment',
+    'premium': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express (if needed)\n- **Features:** Contact forms, booking systems, photo galleries\n- **SEO:** Advanced local SEO optimization\n- **Hosting:** 12 months hosting included\n- **Analytics:** Google Analytics, Google My Business integration',
+    'custom': '- **Frontend:** React with TypeScript, Tailwind CSS, Shadcn/ui\n- **Backend:** Node.js with Express.js, RESTful APIs\n- **Database:** PostgreSQL with Drizzle ORM\n- **Features:** E-commerce, customer portals, advanced integrations\n- **Authentication:** JWT, OAuth, or custom authentication\n- **Deployment:** Production-ready deployment with 24 months support\n- **Testing:** Jest, Vitest, Playwright for E2E',
+    'prototyping': '- **Frontend:** React with TypeScript, Tailwind CSS\n- **Backend:** Node.js with Express\n- **Database:** PostgreSQL or in-memory for speed\n- **Development:** Vite for fast iteration\n- **Hosting:** Replit, Vercel, or Netlify',
   };
   return stacks[projectType] || null;
 }
@@ -129,7 +125,39 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
   const isRush = timeline === 'asap';
   
   const phases: Record<string, string> = {
-    'fullstack': `**Phase 1: Planning & Architecture (${isRush ? '3-5 days' : '1-2 weeks'})**
+    'basic': `**Phase 1: Design & Content Planning (${isRush ? '1-2 days' : '2-3 days'})**
+- Content structure and organization
+- Visual design and layout planning
+- Asset preparation and optimization
+
+**Phase 2: Development & Implementation (${isRush ? '2-3 days' : '3-5 days'})**
+- Single page HTML/CSS/JavaScript development
+- Responsive design implementation
+- Contact form integration
+- Performance optimization
+
+**Phase 3: Testing & Deployment (${isRush ? '1 day' : '1-2 days'})**
+- Cross-browser testing
+- Mobile responsiveness verification
+- SEO optimization and deployment`,
+
+    'premium': `**Phase 1: Planning & Design (${isRush ? '2-3 days' : '1 week'})**
+- Requirements analysis and content planning
+- UI/UX design and layout
+- Google My Business setup planning
+
+**Phase 2: Development (${isRush ? '1 week' : '2 weeks'})**
+- Multi-page website development (3-5 pages)
+- Contact forms and business info integration
+- Mobile-friendly responsive design
+- Photo galleries (if needed)
+
+**Phase 3: Testing & Launch (${isRush ? '2-3 days' : '3-5 days'})**
+- Cross-browser and mobile testing
+- Local SEO optimization
+- Deployment with 12 months hosting setup`,
+
+    'custom': `**Phase 1: Planning & Architecture (${isRush ? '3-5 days' : '1-2 weeks'})**
 - Requirements analysis and user story mapping
 - Database schema and API design
 - UI/UX wireframes and component planning
@@ -139,21 +167,21 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
 - Database setup and migration scripts
 - RESTful API development and testing
 - Authentication and authorization implementation
-- Core business logic development
+- E-commerce or booking system integration
 
 **Phase 3: Frontend Development (${isRush ? '1-2 weeks' : '3-4 weeks'})**
 - Component library setup and styling
 - User interface implementation
 - API integration and state management
-- Responsive design and accessibility
+- Customer portal and advanced features
 
 **Phase 4: Integration & Deployment (${isRush ? '3-5 days' : '1 week'})**
 - End-to-end testing and bug fixes
 - Performance optimization
-- Production deployment and monitoring
+- Production deployment with 24 months support
 - Documentation and handover`,
 
-    'prototype': `**Phase 1: Discovery & Planning (${isRush ? '1-2 days' : '3-5 days'})**
+    'prototyping': `**Phase 1: Discovery & Planning (${isRush ? '1-2 days' : '3-5 days'})**
 - Requirements analysis and scope definition
 - Technology stack selection
 - Architecture and data flow design
@@ -161,74 +189,13 @@ function getProjectPhases(projectType: string, timeline: string): string | null 
 **Phase 2: Rapid Development (${isRush ? '3-5 days' : '1-2 weeks'})**
 - Core feature implementation
 - Basic UI/UX development
-- Essential functionality integration
+- Database integration
+- Essential functionality
 
 **Phase 3: Demo & Iteration (${isRush ? '1-2 days' : '3-5 days'})**
 - Testing and bug fixes
 - Demo preparation and presentation
 - Feedback collection and refinements`,
-
-    'redesign': `**Phase 1: Analysis & Design Planning (${isRush ? '2-3 days' : '1 week'})**
-- Current website analysis and audit
-- Modern design system planning
-- User experience improvements mapping
-
-**Phase 2: Design Implementation & Development (${isRush ? '1 week' : '2 weeks'})**
-- Modern UI/UX implementation
-- Responsive design development
-- Performance optimization implementation
-
-**Phase 3: Testing & Optimization (${isRush ? '2-3 days' : '1 week'})**
-- Website redesign evaluation and testing
-- Cross-browser compatibility testing
-- SEO preservation validation`,
-
-    'landing': `**Phase 1: Design & Strategy (${isRush ? '1-2 days' : '2-3 days'})**
-- Content strategy and copywriting
-- Visual design and layout
-- Conversion optimization planning
-
-**Phase 2: Development & Integration (${isRush ? '2-3 days' : '3-5 days'})**
-- Responsive frontend development
-- Analytics and tracking setup
-- SEO optimization implementation
-
-**Phase 3: Testing & Launch (${isRush ? '1 day' : '1-2 days'})**
-- Cross-browser testing
-- Performance optimization
-- Deployment and go-live`,
-
-    'static': `**Phase 1: Design & Content Planning (${isRush ? '1-2 days' : '2-3 days'})**
-- Content structure and organization
-- Visual design and layout planning
-- Asset preparation and optimization
-
-**Phase 2: Development & Implementation (${isRush ? '2-3 days' : '3-5 days'})**
-- HTML/CSS/JavaScript development
-- Responsive design implementation
-- Performance optimization
-
-**Phase 3: Testing & Deployment (${isRush ? '1 day' : '1-2 days'})**
-- Cross-browser testing
-- Mobile responsiveness verification
-- Static site deployment and hosting setup`,
-
-
-
-    'consulting': `**Phase 1: Discovery & Analysis (${isRush ? '2-4 hours' : '4-6 hours'})**
-- Problem assessment and scope definition
-- Current system analysis and review
-- Technical requirements gathering
-
-**Phase 2: Strategy & Recommendations (${isRush ? '3-4 hours' : '6-8 hours'})**
-- Solution architecture planning
-- Technology recommendations and evaluation
-- Implementation roadmap creation
-
-**Phase 3: Documentation & Handover (${isRush ? '1-2 hours' : '2-3 hours'})**
-- Technical documentation delivery
-- Implementation guidance and best practices
-- Follow-up consultation sessions as needed`,
   };
 
   return phases[projectType] || null;
