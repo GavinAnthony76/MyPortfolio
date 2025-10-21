@@ -6,32 +6,33 @@ import CheckoutModal from "./checkout-modal";
 
 const services = [
   {
-    id: 'consulting',
-    icon: MessageSquare,
-    title: 'Technical Consulting',
-    description: 'Expert technical guidance, code reviews, architecture planning, and project consultation on an hourly basis.',
-    price: '$125/hour',
-    baseAmount: 125, // Hourly rate for quick payment
-    color: 'from-teal-50 to-cyan-50',
-    iconBg: 'bg-teal-600',
-    priceColor: 'text-teal-600',
-    features: [
-      'Architecture planning',
-      'Code reviews & optimization',
-      'Technical strategy',
-      'Problem solving sessions'
-    ]
-  },
-  {
-    id: 'starter',
+    id: 'basic',
     icon: Smartphone,
-    title: 'Starter Package',
-    description: 'Perfect for small local businesses like hair salons, pet stores, and lawn care companies. Professional 3-5 page website with mobile design.',
-    price: '$897',
-    baseAmount: 897,
+    title: 'Basic',
+    description: 'Perfect for single page sites. Clean, professional design that gets your message across effectively.',
+    price: '$250',
+    baseAmount: 250,
     color: 'from-emerald-50 to-green-50',
     iconBg: 'bg-emerald-600',
     priceColor: 'text-emerald-600',
+    features: [
+      'Single page website',
+      'Mobile-friendly design',
+      'Contact form',
+      'Fast loading',
+      'SEO optimized'
+    ]
+  },
+  {
+    id: 'premium',
+    icon: Settings,
+    title: 'Premium Package',
+    description: 'Perfect for small local businesses like hair salons, pet stores, and lawn care companies. Professional 3-5 page website with mobile design.',
+    price: '$750',
+    baseAmount: 750,
+    color: 'from-blue-50 to-indigo-50',
+    iconBg: 'bg-blue-600',
+    priceColor: 'text-blue-600',
     features: [
       'Professional 3-5 page website',
       'Mobile-friendly design',
@@ -41,30 +42,12 @@ const services = [
     ]
   },
   {
-    id: 'professional',
-    icon: Settings,
-    title: 'Professional Package',
-    description: 'Ideal for established local businesses like restaurants and service companies. Custom website with booking/ordering systems.',
-    price: '$1,797',
-    baseAmount: 1797,
-    color: 'from-blue-50 to-indigo-50',
-    iconBg: 'bg-blue-600',
-    priceColor: 'text-blue-600',
-    features: [
-      'Custom 5-8 page website',
-      'Online ordering/booking system',
-      'Photo galleries',
-      'Advanced local SEO',
-      '12 months hosting & updates'
-    ]
-  },
-  {
-    id: 'premium',
+    id: 'custom',
     icon: TrendingUp,
-    title: 'Premium Package',
+    title: 'Custom Package',
     description: 'Complete solution for growing local businesses. Full custom website with e-commerce, customer portals, and advanced integrations.',
-    price: '$2,997',
-    baseAmount: 2997,
+    price: 'Custom Pricing',
+    baseAmount: 0,
     color: 'from-purple-50 to-pink-50',
     iconBg: 'bg-purple-600',
     priceColor: 'text-purple-600',
@@ -81,8 +64,8 @@ const services = [
     icon: Rocket,
     title: 'Rapid Prototyping',
     description: 'Rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly using modern frameworks.',
-    price: '$125/hour',
-    baseAmount: 125, // Hourly rate for quick payment
+    price: '$45/hour',
+    baseAmount: 45,
     color: 'from-orange-50 to-red-50',
     iconBg: 'bg-orange-600',
     priceColor: 'text-orange-600',
@@ -161,7 +144,11 @@ export default function ServicesSection() {
                   className={`w-full ${service.iconBg} hover:opacity-90 transition-opacity text-sm sm:text-base py-2 sm:py-3`}
                   data-testid={`button-pay-${service.id}`}
                 >
-                  <span className="hidden sm:inline">Get Started - </span>${service.baseAmount}
+                  {service.baseAmount === 0 ? (
+                    'Get Quote'
+                  ) : (
+                    <><span className="hidden sm:inline">Get Started - </span>${service.baseAmount}</>
+                  )}
                 </Button>
               </div>
             );
