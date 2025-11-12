@@ -1,4 +1,5 @@
 import { Github, Linkedin, Twitter, Dribbble } from "lucide-react";
+import { SiAmazon } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 
 export default function Footer() {
@@ -56,6 +57,11 @@ export default function Footer() {
               </Button>
               <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white" data-testid="footer-link-dribbble">
                 <Dribbble className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white" data-testid="footer-link-amazon" asChild>
+                <a href="https://amzn.to/49MnhQq" target="_blank" rel="noopener noreferrer">
+                  <SiAmazon className="h-5 w-5" />
+                </a>
               </Button>
             </div>
           </div>
