@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -118,70 +118,70 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-16 sm:py-20 md:py-28 section-accent relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
+    <section id="contact" className="py-12 sm:py-16 section-accent relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-slate-800">
             Start Your <span className="tech-title">Project</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto px-2">
+          <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto px-2">
             Share your vision and I'll respond within 24 hours with a detailed proposal.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          <div className="space-y-6 order-2 lg:order-1">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
+          <div className="space-y-5 order-2 lg:order-1">
             <div className="glass-card p-6 sm:p-8">
-              <h3 className="text-2xl font-bold mb-6 text-white">
+              <h3 className="text-2xl font-bold mb-5 text-slate-800">
                 Let's <span className="gradient-text">Connect</span>
               </h3>
 
-              <div className="space-y-5">
+              <div className="space-y-4">
                 <div className="flex items-start space-x-4">
-                  <div className="w-11 h-11 bg-cyan-500/10 rounded-lg flex items-center justify-center flex-shrink-0 border border-cyan-500/20">
-                    <Mail className="text-cyan-400 w-5 h-5" />
+                  <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0 border border-blue-100">
+                    <Mail className="text-blue-600 w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white text-sm mb-0.5">Email</h4>
-                    <p className="text-slate-400 text-sm">gavin@gavineanthony.com</p>
+                    <h4 className="font-semibold text-slate-800 text-sm mb-0.5">Email</h4>
+                    <p className="text-slate-500 text-sm">gavin@gavineanthony.com</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-11 h-11 bg-purple-500/10 rounded-lg flex items-center justify-center flex-shrink-0 border border-purple-500/20">
-                    <MapPin className="text-purple-400 w-5 h-5" />
+                  <div className="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center flex-shrink-0 border border-indigo-100">
+                    <MapPin className="text-indigo-600 w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white text-sm mb-0.5">Location</h4>
-                    <p className="text-slate-400 text-sm">Austin, TX</p>
+                    <h4 className="font-semibold text-slate-800 text-sm mb-0.5">Location</h4>
+                    <p className="text-slate-500 text-sm">Austin, TX</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-11 h-11 bg-amber-500/10 rounded-lg flex items-center justify-center flex-shrink-0 border border-amber-500/20">
-                    <Clock className="text-amber-400 w-5 h-5" />
+                  <div className="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center flex-shrink-0 border border-amber-100">
+                    <Clock className="text-amber-600 w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white text-sm mb-0.5">Response Time</h4>
-                    <p className="text-slate-400 text-sm">Within 24 hours</p>
+                    <h4 className="font-semibold text-slate-800 text-sm mb-0.5">Response Time</h4>
+                    <p className="text-slate-500 text-sm">Within 24 hours</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {ticketNumber && (
-              <div className="glass-card p-6 sm:p-8 border-green-500/30">
-                <h4 className="font-bold text-green-400 mb-2">Request Submitted!</h4>
-                <p className="text-slate-400 text-sm mb-3">
+              <div className="glass-card p-6 sm:p-8 border-emerald-200">
+                <h4 className="font-bold text-emerald-600 mb-2">Request Submitted!</h4>
+                <p className="text-slate-500 text-sm mb-3">
                   Save this ticket number to check your project status anytime:
                 </p>
-                <div className="flex items-center gap-2 p-3 bg-slate-800/60 rounded-lg border border-slate-700">
-                  <code className="text-cyan-400 text-sm font-mono flex-1 break-all">{ticketNumber}</code>
-                  <Button variant="ghost" size="sm" onClick={copyTicket} className="text-slate-400 hover:text-white flex-shrink-0">
-                    {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                <div className="flex items-center gap-2 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <code className="text-blue-600 text-sm font-mono flex-1 break-all">{ticketNumber}</code>
+                  <Button variant="ghost" size="sm" onClick={copyTicket} className="text-slate-400 hover:text-slate-700 flex-shrink-0">
+                    {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
                   </Button>
                 </div>
-                <p className="text-xs text-slate-500 mt-2">
+                <p className="text-xs text-slate-400 mt-2">
                   You can check your status in the "Check Project Status" section above.
                 </p>
               </div>
@@ -189,7 +189,7 @@ export default function ContactSection() {
           </div>
 
           <div className="glass-card p-6 sm:p-8 order-1 lg:order-2">
-            <h3 className="text-xl sm:text-2xl font-bold mb-6 text-white">
+            <h3 className="text-xl sm:text-2xl font-bold mb-5 text-slate-800">
               <span className="gradient-text">Project Details</span>
             </h3>
 
@@ -201,9 +201,9 @@ export default function ContactSection() {
                     name="firstName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-slate-300 text-sm">First Name *</FormLabel>
+                        <FormLabel className="text-slate-600 text-sm">First Name *</FormLabel>
                         <FormControl>
-                          <Input placeholder="John" {...field} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" />
+                          <Input placeholder="John" {...field} className="bg-white border-slate-200 text-slate-800 placeholder:text-slate-400" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -214,9 +214,9 @@ export default function ContactSection() {
                     name="lastName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-slate-300 text-sm">Last Name *</FormLabel>
+                        <FormLabel className="text-slate-600 text-sm">Last Name *</FormLabel>
                         <FormControl>
-                          <Input placeholder="Doe" {...field} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" />
+                          <Input placeholder="Doe" {...field} className="bg-white border-slate-200 text-slate-800 placeholder:text-slate-400" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -230,9 +230,9 @@ export default function ContactSection() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-slate-300 text-sm">Email *</FormLabel>
+                        <FormLabel className="text-slate-600 text-sm">Email *</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="john@example.com" {...field} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" />
+                          <Input type="email" placeholder="john@example.com" {...field} className="bg-white border-slate-200 text-slate-800 placeholder:text-slate-400" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -243,9 +243,9 @@ export default function ContactSection() {
                     name="company"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-slate-300 text-sm">Company</FormLabel>
+                        <FormLabel className="text-slate-600 text-sm">Company</FormLabel>
                         <FormControl>
-                          <Input placeholder="Acme Inc." {...field} value={field.value || ""} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" />
+                          <Input placeholder="Acme Inc." {...field} value={field.value || ""} className="bg-white border-slate-200 text-slate-800 placeholder:text-slate-400" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -258,10 +258,10 @@ export default function ContactSection() {
                   name="projectType"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300 text-sm">Project Type *</FormLabel>
+                      <FormLabel className="text-slate-600 text-sm">Project Type *</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                          <SelectTrigger className="bg-white border-slate-200 text-slate-800">
                             <SelectValue placeholder="Select project type" />
                           </SelectTrigger>
                         </FormControl>
@@ -282,10 +282,10 @@ export default function ContactSection() {
                     name="budgetRange"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-slate-300 text-sm">Budget Range</FormLabel>
+                        <FormLabel className="text-slate-600 text-sm">Budget Range</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value || ""}>
                           <FormControl>
-                            <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                            <SelectTrigger className="bg-white border-slate-200 text-slate-800">
                               <SelectValue placeholder="Select budget range" />
                             </SelectTrigger>
                           </FormControl>
@@ -304,10 +304,10 @@ export default function ContactSection() {
                     name="timeline"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-slate-300 text-sm">Timeline *</FormLabel>
+                        <FormLabel className="text-slate-600 text-sm">Timeline *</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                            <SelectTrigger className="bg-white border-slate-200 text-slate-800">
                               <SelectValue placeholder="Select timeline" />
                             </SelectTrigger>
                           </FormControl>
@@ -328,9 +328,9 @@ export default function ContactSection() {
                   name="description"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300 text-sm">Project Description *</FormLabel>
+                      <FormLabel className="text-slate-600 text-sm">Project Description *</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Describe your project..." className="min-h-[100px] bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" {...field} />
+                        <Textarea placeholder="Describe your project..." className="min-h-[100px] bg-white border-slate-200 text-slate-800 placeholder:text-slate-400" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -342,9 +342,9 @@ export default function ContactSection() {
                   name="referenceUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300 text-sm">Existing Site or Reference URL</FormLabel>
+                      <FormLabel className="text-slate-600 text-sm">Existing Site or Reference URL</FormLabel>
                       <FormControl>
-                        <Input placeholder="https://..." {...field} value={field.value || ""} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" />
+                        <Input placeholder="https://..." {...field} value={field.value || ""} className="bg-white border-slate-200 text-slate-800 placeholder:text-slate-400" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -360,7 +360,7 @@ export default function ContactSection() {
                   {submitMutation.isPending ? "Sending..." : "Submit Project Request"}
                 </Button>
 
-                <p className="text-sm text-slate-500 text-center">
+                <p className="text-sm text-slate-400 text-center">
                   You'll receive a ticket number to track your project status.
                 </p>
               </form>

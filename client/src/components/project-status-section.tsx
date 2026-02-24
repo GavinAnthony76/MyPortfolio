@@ -22,14 +22,14 @@ const statusIcons: Record<string, typeof CheckCircle2> = {
 };
 
 const statusColors: Record<string, string> = {
-  'Received': 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20',
-  'In Review': 'text-amber-400 bg-amber-500/10 border-amber-500/20',
-  'Proposal Sent': 'text-purple-400 bg-purple-500/10 border-purple-500/20',
-  'Follow Up': 'text-amber-400 bg-amber-500/10 border-amber-500/20',
-  'In Development': 'text-blue-400 bg-blue-500/10 border-blue-500/20',
-  'Completed': 'text-green-400 bg-green-500/10 border-green-500/20',
-  'Closed': 'text-slate-400 bg-slate-500/10 border-slate-500/20',
-  'Archived': 'text-slate-400 bg-slate-500/10 border-slate-500/20',
+  'Received': 'text-blue-600 bg-blue-50 border-blue-200',
+  'In Review': 'text-amber-600 bg-amber-50 border-amber-200',
+  'Proposal Sent': 'text-indigo-600 bg-indigo-50 border-indigo-200',
+  'Follow Up': 'text-amber-600 bg-amber-50 border-amber-200',
+  'In Development': 'text-blue-600 bg-blue-50 border-blue-200',
+  'Completed': 'text-emerald-600 bg-emerald-50 border-emerald-200',
+  'Closed': 'text-slate-500 bg-slate-50 border-slate-200',
+  'Archived': 'text-slate-500 bg-slate-50 border-slate-200',
 };
 
 const projectTypeLabels: Record<string, string> = {
@@ -76,13 +76,13 @@ export default function ProjectStatusSection() {
   const StatusIcon = result ? (statusIcons[result.status] || Clock) : Clock;
 
   return (
-    <section id="project-status" className="py-16 sm:py-20 md:py-28 section-darker relative">
+    <section id="project-status" className="py-12 sm:py-16 section-light relative">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-slate-800">
             Project <span className="tech-title">Status</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-400 max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto">
             Enter the ticket number you received when you submitted your project request.
           </p>
         </div>
@@ -95,7 +95,7 @@ export default function ProjectStatusSection() {
               value={ticketNumber}
               onChange={(e) => setTicketNumber(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleLookup()}
-              className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600 text-base"
+              className="bg-white border-slate-200 text-slate-800 placeholder:text-slate-400 text-base"
               data-testid="input-ticket-number"
             />
             <Button
@@ -110,7 +110,7 @@ export default function ProjectStatusSection() {
           </div>
 
           {error && (
-            <div className="flex items-center gap-3 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400">
+            <div className="flex items-center gap-3 p-4 rounded-lg bg-red-50 border border-red-200 text-red-600">
               <AlertCircle className="w-5 h-5 flex-shrink-0" />
               <p className="text-sm">{error}</p>
             </div>
@@ -118,25 +118,25 @@ export default function ProjectStatusSection() {
 
           {result && (
             <div className="space-y-4">
-              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border ${statusColors[result.status] || 'text-slate-400 bg-slate-500/10 border-slate-500/20'}`}>
+              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border ${statusColors[result.status] || 'text-slate-500 bg-slate-50 border-slate-200'}`}>
                 <StatusIcon className="w-4 h-4" />
                 <span className="font-semibold text-sm">{result.status}</span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-lg bg-slate-800/30 border border-slate-700/50">
-                  <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider">Project Type</p>
-                  <p className="text-white font-medium">{projectTypeLabels[result.projectType] || result.projectType}</p>
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                  <p className="text-xs text-slate-400 mb-1 uppercase tracking-wider">Project Type</p>
+                  <p className="text-slate-800 font-medium">{projectTypeLabels[result.projectType] || result.projectType}</p>
                 </div>
-                <div className="p-4 rounded-lg bg-slate-800/30 border border-slate-700/50">
-                  <p className="text-xs text-slate-500 mb-1 uppercase tracking-wider">Submitted</p>
-                  <p className="text-white font-medium">{new Date(result.submittedAt).toLocaleDateString()}</p>
+                <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
+                  <p className="text-xs text-slate-400 mb-1 uppercase tracking-wider">Submitted</p>
+                  <p className="text-slate-800 font-medium">{new Date(result.submittedAt).toLocaleDateString()}</p>
                 </div>
               </div>
 
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-slate-400">
                 Questions about your project? Contact us at{" "}
-                <a href="mailto:gavin@gavineanthony.com" className="text-cyan-400 hover:text-cyan-300 transition-colors">
+                <a href="mailto:gavin@gavineanthony.com" className="text-blue-600 hover:text-blue-700 transition-colors">
                   gavin@gavineanthony.com
                 </a>
               </p>

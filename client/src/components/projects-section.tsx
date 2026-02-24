@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { ExternalLink, Github, X, ArrowRight } from "lucide-react";
+import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { usePortfolioImages } from "@/hooks/use-portfolio-images";
 
 interface Project {
@@ -173,13 +173,13 @@ export default function ProjectsSection() {
 
   if (isLoading) {
     return (
-      <section id="projects" className="py-20 section-darker relative">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+      <section id="projects" className="py-16 section-darker relative">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-slate-800">
               Featured <span className="tech-title">Projects</span>
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">Loading portfolio projects...</p>
+            <p className="text-base text-slate-500 max-w-2xl mx-auto">Loading portfolio projects...</p>
           </div>
         </div>
       </section>
@@ -188,26 +188,26 @@ export default function ProjectsSection() {
 
   return (
     <>
-      <section id="projects" className="py-16 sm:py-20 md:py-28 section-darker relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
+      <section id="projects" className="py-12 sm:py-16 section-darker relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-slate-800">
               Featured <span className="tech-title">Projects</span>
             </h2>
-            <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto px-2">
+            <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto px-2">
               Real projects, real results. Click any project to see the full case study.
             </p>
           </div>
 
-          <div className="flex justify-center mb-10 sm:mb-14">
-            <div className="inline-flex gap-1 p-1 rounded-lg bg-slate-800/60 border border-slate-700/50">
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex gap-1 p-1 rounded-lg bg-white/60 border border-slate-200">
               {filterOptions.map((option) => (
                 <Button
                   key={option.value}
                   variant={activeFilter === option.value ? "default" : "ghost"}
                   size="sm"
                   onClick={() => setActiveFilter(option.value as typeof activeFilter)}
-                  className={`${activeFilter === option.value ? "bg-cyan-600 hover:bg-cyan-700 text-white" : "text-slate-400 hover:text-white hover:bg-slate-700/50"} text-xs sm:text-sm px-3 sm:px-4`}
+                  className={`${activeFilter === option.value ? "bg-blue-600 hover:bg-blue-700 text-white" : "text-slate-500 hover:text-slate-700 hover:bg-slate-100"} text-xs sm:text-sm px-3 sm:px-4`}
                   data-testid={`filter-${option.value}`}
                 >
                   {option.label}
@@ -216,7 +216,7 @@ export default function ProjectsSection() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
@@ -228,25 +228,25 @@ export default function ProjectsSection() {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-36 sm:h-40 object-cover transition-transform duration-500 group-hover:scale-105"
                     data-testid={`img-project-${project.id}`}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
-                  <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="text-xs text-cyan-400 bg-slate-900/80 px-3 py-1 rounded-full backdrop-blur-sm border border-cyan-500/30">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-xs text-white bg-blue-600/90 px-2.5 py-1 rounded-full backdrop-blur-sm">
                       View Case Study
                     </span>
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-                  <p className="text-slate-400 mb-4 text-sm leading-relaxed">{project.shortDescription}</p>
-                  <div className="flex flex-wrap gap-2 mb-5">
+                <div className="p-4">
+                  <h3 className="text-base font-bold text-slate-800 mb-1.5">{project.title}</h3>
+                  <p className="text-slate-500 mb-3 text-xs leading-relaxed line-clamp-2">{project.shortDescription}</p>
+                  <div className="flex flex-wrap gap-1.5 mb-3">
                     {project.technologies.map((tech) => (
                       <Badge
                         key={tech}
                         variant="secondary"
-                        className="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs"
+                        className="bg-blue-50 text-blue-600 border border-blue-100 text-[10px] px-2 py-0"
                       >
                         {tech}
                       </Badge>
@@ -258,14 +258,14 @@ export default function ProjectsSection() {
                         variant="outline"
                         size="sm"
                         onClick={(e) => { e.stopPropagation(); window.open(project.liveUrl, "_blank"); }}
-                        className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 text-xs"
+                        className="border-blue-200 text-blue-600 hover:bg-blue-50 text-xs h-7 px-2.5"
                       >
-                        <ExternalLink className="w-4 h-4 mr-1" />
+                        <ExternalLink className="w-3 h-3 mr-1" />
                         Live Demo
                       </Button>
                     ) : (
-                      <Button variant="outline" size="sm" disabled className="border-slate-700 text-slate-500 text-xs">
-                        <ExternalLink className="w-4 h-4 mr-1" />
+                      <Button variant="outline" size="sm" disabled className="border-slate-200 text-slate-400 text-xs h-7 px-2.5">
+                        <ExternalLink className="w-3 h-3 mr-1" />
                         Coming Soon
                       </Button>
                     )}
@@ -274,14 +274,14 @@ export default function ProjectsSection() {
                         variant="ghost"
                         size="sm"
                         onClick={(e) => { e.stopPropagation(); window.open(project.codeUrl, "_blank"); }}
-                        className="text-slate-400 hover:text-white text-xs"
+                        className="text-slate-400 hover:text-slate-700 text-xs h-7"
                       >
-                        <Github className="w-4 h-4 mr-1" />
+                        <Github className="w-3 h-3 mr-1" />
                         Code
                       </Button>
                     ) : (
-                      <Button variant="ghost" size="sm" disabled className="text-slate-600 text-xs">
-                        <Github className="w-4 h-4 mr-1" />
+                      <Button variant="ghost" size="sm" disabled className="text-slate-300 text-xs h-7">
+                        <Github className="w-3 h-3 mr-1" />
                         Private
                       </Button>
                     )}
@@ -294,14 +294,14 @@ export default function ProjectsSection() {
       </section>
 
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto bg-slate-900 border-slate-700 text-white">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto bg-white border-slate-200 text-slate-800">
           {selectedProject && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-white pr-8">{selectedProject.title}</DialogTitle>
+                <DialogTitle className="text-2xl font-bold text-slate-800 pr-8">{selectedProject.title}</DialogTitle>
               </DialogHeader>
 
-              <div className="space-y-6 mt-4">
+              <div className="space-y-5 mt-4">
                 <img
                   src={selectedProject.image}
                   alt={selectedProject.title}
@@ -310,28 +310,28 @@ export default function ProjectsSection() {
 
                 <div className="flex flex-wrap gap-2">
                   {selectedProject.technologies.map((tech) => (
-                    <Badge key={tech} variant="secondary" className="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs">
+                    <Badge key={tech} variant="secondary" className="bg-blue-50 text-blue-600 border border-blue-100 text-xs">
                       {tech}
                     </Badge>
                   ))}
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-cyan-400 uppercase tracking-wider mb-2">The Challenge</h4>
-                  <p className="text-slate-300 text-sm leading-relaxed">{selectedProject.problem}</p>
+                  <h4 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">The Challenge</h4>
+                  <p className="text-slate-600 text-sm leading-relaxed">{selectedProject.problem}</p>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-cyan-400 uppercase tracking-wider mb-2">The Solution</h4>
-                  <p className="text-slate-300 text-sm leading-relaxed">{selectedProject.solution}</p>
+                  <h4 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">The Solution</h4>
+                  <p className="text-slate-600 text-sm leading-relaxed">{selectedProject.solution}</p>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-cyan-400 uppercase tracking-wider mb-2">Key Features</h4>
+                  <h4 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">Key Features</h4>
                   <ul className="space-y-1">
                     {selectedProject.features.map((feature, i) => (
-                      <li key={i} className="text-slate-300 text-sm flex items-start gap-2">
-                        <span className="text-cyan-400 mt-1">&#8226;</span>
+                      <li key={i} className="text-slate-600 text-sm flex items-start gap-2">
+                        <span className="text-blue-500 mt-1">&#8226;</span>
                         {feature}
                       </li>
                     ))}
@@ -339,11 +339,11 @@ export default function ProjectsSection() {
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-green-400 uppercase tracking-wider mb-2">Results</h4>
+                  <h4 className="text-sm font-semibold text-emerald-600 uppercase tracking-wider mb-2">Results</h4>
                   <ul className="space-y-1">
                     {selectedProject.outcomes.map((outcome, i) => (
-                      <li key={i} className="text-slate-300 text-sm flex items-start gap-2">
-                        <span className="text-green-400 mt-1">&#10003;</span>
+                      <li key={i} className="text-slate-600 text-sm flex items-start gap-2">
+                        <span className="text-emerald-500 mt-1">&#10003;</span>
                         {outcome}
                       </li>
                     ))}
@@ -360,7 +360,7 @@ export default function ProjectsSection() {
                       View Live Site
                     </Button>
                   )}
-                  <Button onClick={handleScrollToContact} variant="outline" className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10">
+                  <Button onClick={handleScrollToContact} variant="outline" className="border-blue-200 text-blue-600 hover:bg-blue-50">
                     <ArrowRight className="w-4 h-4 mr-2" />
                     Start a Similar Project
                   </Button>

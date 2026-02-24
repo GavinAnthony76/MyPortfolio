@@ -12,20 +12,20 @@ export default function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen flex items-center hero-gradient overflow-hidden">
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/15 rounded-full blur-[128px] animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/10 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-400/5 rounded-full blur-[200px]" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-[128px] animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-400/8 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-300/5 rounded-full blur-[200px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 py-20">
         <div className="text-center max-w-4xl mx-auto">
           <div className="glass-hero-card p-8 sm:p-12 md:p-16 mb-12">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              <span className="text-white">Full-Stack </span>
+              <span className="text-slate-800">Full-Stack </span>
               <span className="tech-title">Developer</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed">
               React. Node.js. TypeScript. I build high-performance web applications,
               e-commerce platforms, and custom solutions for businesses ready to grow.
             </p>

@@ -107,56 +107,56 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section id="testimonials" className="py-16 sm:py-20 md:py-28 section-darker relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
+    <section id="testimonials" className="py-12 sm:py-16 section-light relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-slate-800">
             Client <span className="tech-title">Testimonials</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto px-2">
+          <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto px-2">
             Hear from the businesses and organizations I've helped bring their digital vision to life
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
           {allTestimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className="glass-card p-6 sm:p-8 relative"
+              className="glass-card p-5 sm:p-6 relative"
               data-testid={`testimonial-${testimonial.id}`}
             >
-              <Quote className="absolute top-6 right-6 w-8 h-8 text-cyan-500/15" />
+              <Quote className="absolute top-5 right-5 w-7 h-7 text-blue-200" />
               
-              <div className="flex gap-1 mb-4">
+              <div className="flex gap-1 mb-3">
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                 ))}
               </div>
 
-              <p className="text-slate-300 mb-6 leading-relaxed text-sm sm:text-base italic">
+              <p className="text-slate-600 mb-4 leading-relaxed text-sm italic">
                 "{testimonial.content}"
               </p>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-bold text-sm">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0">
+                  <span className="text-white font-bold text-xs">
                     {testimonial.name.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-sm">{testimonial.name}</p>
-                  <p className="text-slate-500 text-xs">{testimonial.role}{testimonial.company ? `, ${testimonial.company}` : ''}</p>
+                  <p className="text-slate-800 font-semibold text-sm">{testimonial.name}</p>
+                  <p className="text-slate-400 text-xs">{testimonial.role}{testimonial.company ? `, ${testimonial.company}` : ''}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-10 text-center">
           {!showForm ? (
             <Button
               onClick={() => setShowForm(true)}
-              className="glass-button text-cyan-300 border-cyan-500/30 hover:bg-cyan-500/10"
+              className="glass-button text-blue-600 border-blue-200 hover:bg-blue-50"
               variant="outline"
               data-testid="button-leave-testimonial"
             >
@@ -165,44 +165,44 @@ export default function TestimonialsSection() {
             </Button>
           ) : (
             <div className="max-w-xl mx-auto glass-card p-6 sm:p-8 text-left">
-              <h3 className="text-xl font-bold text-white mb-6">Share Your Experience</h3>
+              <h3 className="text-xl font-bold text-slate-800 mb-6">Share Your Experience</h3>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm text-slate-400 mb-1 block">Your Name *</label>
+                    <label className="text-sm text-slate-500 mb-1 block">Your Name *</label>
                     <Input
                       value={formData.name}
                       onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                       placeholder="John Doe"
-                      className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
+                      className="bg-white border-slate-200 text-slate-800 placeholder:text-slate-400"
                       data-testid="input-testimonial-name"
                     />
                   </div>
                   <div>
-                    <label className="text-sm text-slate-400 mb-1 block">Your Role *</label>
+                    <label className="text-sm text-slate-500 mb-1 block">Your Role *</label>
                     <Input
                       value={formData.role}
                       onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
                       placeholder="Business Owner"
-                      className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
+                      className="bg-white border-slate-200 text-slate-800 placeholder:text-slate-400"
                       data-testid="input-testimonial-role"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">Company (optional)</label>
+                  <label className="text-sm text-slate-500 mb-1 block">Company (optional)</label>
                   <Input
                     value={formData.company}
                     onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
                     placeholder="Your Company"
-                    className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
+                    className="bg-white border-slate-200 text-slate-800 placeholder:text-slate-400"
                     data-testid="input-testimonial-company"
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">Rating *</label>
+                  <label className="text-sm text-slate-500 mb-1 block">Rating *</label>
                   <Select value={formData.rating} onValueChange={(val) => setFormData(prev => ({ ...prev, rating: val }))}>
-                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white" data-testid="select-testimonial-rating">
+                    <SelectTrigger className="bg-white border-slate-200 text-slate-800" data-testid="select-testimonial-rating">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -215,13 +215,13 @@ export default function TestimonialsSection() {
                   </Select>
                 </div>
                 <div>
-                  <label className="text-sm text-slate-400 mb-1 block">Your Testimonial *</label>
+                  <label className="text-sm text-slate-500 mb-1 block">Your Testimonial *</label>
                   <Textarea
                     value={formData.content}
                     onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
                     placeholder="Share your experience working with Gavin..."
                     rows={4}
-                    className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 resize-none"
+                    className="bg-white border-slate-200 text-slate-800 placeholder:text-slate-400 resize-none"
                     data-testid="input-testimonial-content"
                   />
                 </div>
@@ -229,7 +229,7 @@ export default function TestimonialsSection() {
                   <Button
                     type="submit"
                     disabled={submitMutation.isPending}
-                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white"
+                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
                     data-testid="button-submit-testimonial"
                   >
                     {submitMutation.isPending ? "Submitting..." : "Submit Testimonial"}
@@ -238,7 +238,7 @@ export default function TestimonialsSection() {
                     type="button"
                     variant="outline"
                     onClick={() => setShowForm(false)}
-                    className="border-slate-600 text-slate-400 hover:bg-slate-800"
+                    className="border-slate-200 text-slate-500 hover:bg-slate-50"
                     data-testid="button-cancel-testimonial"
                   >
                     Cancel
