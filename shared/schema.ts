@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, jsonb } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, jsonb, integer } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -37,6 +37,17 @@ export const userSessions = pgTable("user_sessions", {
   expire: timestamp("expire").notNull(),
 });
 
+export const testimonials = pgTable("testimonials", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  role: text("role").notNull(),
+  company: text("company").default(""),
+  content: text("content").notNull(),
+  rating: integer("rating").notNull().default(5),
+  status: text("status").notNull().default('pending'),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
@@ -49,7 +60,15 @@ export const insertProjectRequestSchema = createInsertSchema(projectRequests).om
   createdAt: true,
 });
 
+export const insertTestimonialSchema = createInsertSchema(testimonials).omit({
+  id: true,
+  status: true,
+  createdAt: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 export type InsertProjectRequest = z.infer<typeof insertProjectRequestSchema>;
 export type ProjectRequest = typeof projectRequests.$inferSelect;
+export type InsertTestimonial = z.infer<typeof insertTestimonialSchema>;
+export type Testimonial = typeof testimonials.$inferSelect;

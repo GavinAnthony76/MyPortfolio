@@ -61,7 +61,7 @@ export async function sendAutoReply(
       "",
       "Typical response time: 1 business day.",
       "",
-      "If this is urgent, feel free to email projects@gavineanthony.com directly.",
+      "If this is urgent, feel free to email gavin@gavineanthony.com directly.",
       "",
       "Best regards,",
       "Gavin Anthony",
@@ -78,7 +78,7 @@ export async function sendAutoReply(
         
         <p><strong>Typical response time:</strong> 1 business day.</p>
         
-        <p>If this is urgent, feel free to email <a href="mailto:projects@gavineanthony.com">projects@gavineanthony.com</a> directly.</p>
+        <p>If this is urgent, feel free to email <a href="mailto:gavin@gavineanthony.com">gavin@gavineanthony.com</a> directly.</p>
         
         <br>
         <p>Best regards,<br>

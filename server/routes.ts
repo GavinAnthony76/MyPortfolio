@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import path from "path";
 import fs from "fs";
 import { storage } from "./storage";
-import { insertProjectRequestSchema } from "@shared/schema";
+import { insertProjectRequestSchema, insertTestimonialSchema } from "@shared/schema";
 import { generateProjectPrompt } from "../client/src/lib/prompt-generator";
 import StorageManager from "./storage-manager";
 import bcrypt from "bcrypt";
@@ -490,6 +490,99 @@ export async function registerRoutes(app: Express): Promise<Server> {
         success: false, 
         error: "Failed to look up project status" 
       });
+    }
+  });
+
+  // === TESTIMONIAL ROUTES ===
+
+  const testimonialLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 3,
+    message: { success: false, error: "Too many submissions. Please try again later." }
+  });
+
+  app.get("/api/testimonials", async (_req, res) => {
+    try {
+      const approved = await storage.getApprovedTestimonials();
+      res.json(approved);
+    } catch (error) {
+      console.error("Error fetching testimonials:", error);
+      res.status(500).json({ success: false, error: "Failed to fetch testimonials" });
+    }
+  });
+
+  app.post("/api/testimonials", testimonialLimiter, async (req, res) => {
+    try {
+      const parsed = insertTestimonialSchema.parse(req.body);
+      const testimonial = await storage.createTestimonial(parsed);
+
+      const FROM_EMAIL = process.env.FROM_EMAIL || process.env.SMTP_USER;
+      const INTERNAL_TO = process.env.INTERNAL_TO;
+      if (FROM_EMAIL && INTERNAL_TO && process.env.SMTP_USER && process.env.SMTP_PASS) {
+        try {
+          await sendInternalNotification(INTERNAL_TO, FROM_EMAIL, {
+            Type: "New Testimonial Submission",
+            Name: parsed.name,
+            Role: parsed.role,
+            Company: parsed.company || "N/A",
+            Rating: String(parsed.rating ?? 5),
+            Content: parsed.content,
+            Note: "Log in to the dashboard to approve or reject this testimonial.",
+          });
+        } catch (emailError) {
+          console.error("Failed to send testimonial notification email:", emailError);
+        }
+      }
+
+      res.status(201).json({ success: true, message: "Thank you! Your testimonial has been submitted for review." });
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ success: false, error: "Invalid testimonial data", details: error.errors });
+      }
+      console.error("Error creating testimonial:", error);
+      res.status(500).json({ success: false, error: "Failed to submit testimonial" });
+    }
+  });
+
+  app.get("/api/admin/testimonials", requireAuth, async (_req, res) => {
+    try {
+      const all = await storage.getAllTestimonials();
+      res.json(all);
+    } catch (error) {
+      console.error("Error fetching all testimonials:", error);
+      res.status(500).json({ success: false, error: "Failed to fetch testimonials" });
+    }
+  });
+
+  app.patch("/api/admin/testimonials/:id/status", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+      if (!['approved', 'rejected', 'pending'].includes(status)) {
+        return res.status(400).json({ success: false, error: "Invalid status" });
+      }
+      const updated = await storage.updateTestimonialStatus(id, status);
+      if (!updated) {
+        return res.status(404).json({ success: false, error: "Testimonial not found" });
+      }
+      res.json(updated);
+    } catch (error) {
+      console.error("Error updating testimonial status:", error);
+      res.status(500).json({ success: false, error: "Failed to update testimonial" });
+    }
+  });
+
+  app.delete("/api/admin/testimonials/:id", requireAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deleted = await storage.deleteTestimonial(id);
+      if (!deleted) {
+        return res.status(404).json({ success: false, error: "Testimonial not found" });
+      }
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting testimonial:", error);
+      res.status(500).json({ success: false, error: "Failed to delete testimonial" });
     }
   });
 

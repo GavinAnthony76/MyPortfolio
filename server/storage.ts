@@ -1,4 +1,4 @@
-import { users, projectRequests, type User, type InsertUser, type ProjectRequest, type InsertProjectRequest } from "@shared/schema";
+import { users, projectRequests, testimonials, type User, type InsertUser, type ProjectRequest, type InsertProjectRequest, type Testimonial, type InsertTestimonial } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
 
@@ -11,6 +11,11 @@ export interface IStorage {
   getProjectRequestById(id: string): Promise<ProjectRequest | undefined>;
   updateProjectRequestStatus(id: string, status: string): Promise<ProjectRequest | undefined>;
   deleteProjectRequest(id: string): Promise<boolean>;
+  createTestimonial(testimonial: InsertTestimonial): Promise<Testimonial>;
+  getApprovedTestimonials(): Promise<Testimonial[]>;
+  getAllTestimonials(): Promise<Testimonial[]>;
+  updateTestimonialStatus(id: string, status: string): Promise<Testimonial | undefined>;
+  deleteTestimonial(id: string): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -81,6 +86,48 @@ export class DatabaseStorage implements IStorage {
     const result = await db
       .delete(projectRequests)
       .where(eq(projectRequests.id, id));
+    return (result.rowCount || 0) > 0;
+  }
+
+  async createTestimonial(data: InsertTestimonial): Promise<Testimonial> {
+    const [testimonial] = await db
+      .insert(testimonials)
+      .values({
+        name: data.name,
+        role: data.role,
+        company: data.company || "",
+        content: data.content,
+        rating: data.rating ?? 5,
+        status: 'pending',
+      })
+      .returning();
+    return testimonial;
+  }
+
+  async getApprovedTestimonials(): Promise<Testimonial[]> {
+    return await db.select().from(testimonials)
+      .where(eq(testimonials.status, 'approved'))
+      .orderBy(desc(testimonials.createdAt));
+  }
+
+  async getAllTestimonials(): Promise<Testimonial[]> {
+    return await db.select().from(testimonials)
+      .orderBy(desc(testimonials.createdAt));
+  }
+
+  async updateTestimonialStatus(id: string, status: string): Promise<Testimonial | undefined> {
+    const [updated] = await db
+      .update(testimonials)
+      .set({ status })
+      .where(eq(testimonials.id, id))
+      .returning();
+    return updated || undefined;
+  }
+
+  async deleteTestimonial(id: string): Promise<boolean> {
+    const result = await db
+      .delete(testimonials)
+      .where(eq(testimonials.id, id));
     return (result.rowCount || 0) > 0;
   }
 }

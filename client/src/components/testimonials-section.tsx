@@ -1,8 +1,17 @@
-import { Star, Quote } from "lucide-react";
+import { type FormEvent, useState } from "react";
+import { Star, Quote, Send } from "lucide-react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import type { Testimonial } from "@shared/schema";
 
-const testimonials = [
+const hardcodedTestimonials = [
   {
-    id: "1",
+    id: "hc-1",
     name: "Marcus Johnson",
     role: "Business Owner",
     company: "Johnson's Auto Care",
@@ -10,7 +19,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    id: "2",
+    id: "hc-2",
     name: "Sarah Mitchell",
     role: "Event Coordinator",
     company: "Texas Showdown",
@@ -18,7 +27,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    id: "3",
+    id: "hc-3",
     name: "David Williams",
     role: "Restaurant Owner",
     company: "Jamaica Nyammingz",
@@ -26,7 +35,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    id: "4",
+    id: "hc-4",
     name: "Pastor Robert Chen",
     role: "Ministry Leader",
     company: "Power of the Lamb",
@@ -36,6 +45,67 @@ const testimonials = [
 ];
 
 export default function TestimonialsSection() {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    role: "",
+    company: "",
+    content: "",
+    rating: "5",
+  });
+
+  const { data: dbTestimonials = [] } = useQuery<Testimonial[]>({
+    queryKey: ['/api/testimonials'],
+  });
+
+  const submitMutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      await apiRequest('POST', '/api/testimonials', {
+        ...data,
+        rating: parseInt(data.rating),
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Thank you!",
+        description: "Your testimonial has been submitted and will appear after review.",
+      });
+      setFormData({ name: "", role: "", company: "", content: "", rating: "5" });
+      setShowForm(false);
+      queryClient.invalidateQueries({ queryKey: ['/api/testimonials'] });
+    },
+    onError: () => {
+      toast({
+        title: "Submission failed",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.role.trim() || !formData.content.trim()) {
+      toast({ title: "Missing fields", description: "Please fill in your name, role, and testimonial.", variant: "destructive" });
+      return;
+    }
+    submitMutation.mutate(formData);
+  };
+
+  const allTestimonials = [
+    ...hardcodedTestimonials,
+    ...dbTestimonials.map(t => ({
+      id: t.id,
+      name: t.name,
+      role: t.role,
+      company: t.company || "",
+      content: t.content,
+      rating: t.rating,
+    })),
+  ];
+
   return (
     <section id="testimonials" className="py-16 sm:py-20 md:py-28 section-darker relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -49,7 +119,7 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {testimonials.map((testimonial) => (
+          {allTestimonials.map((testimonial) => (
             <div
               key={testimonial.id}
               className="glass-card p-6 sm:p-8 relative"
@@ -75,11 +145,108 @@ export default function TestimonialsSection() {
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm">{testimonial.name}</p>
-                  <p className="text-slate-500 text-xs">{testimonial.role}, {testimonial.company}</p>
+                  <p className="text-slate-500 text-xs">{testimonial.role}{testimonial.company ? `, ${testimonial.company}` : ''}</p>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          {!showForm ? (
+            <Button
+              onClick={() => setShowForm(true)}
+              className="glass-button text-cyan-300 border-cyan-500/30 hover:bg-cyan-500/10"
+              variant="outline"
+              data-testid="button-leave-testimonial"
+            >
+              <Send className="w-4 h-4 mr-2" />
+              Leave a Testimonial
+            </Button>
+          ) : (
+            <div className="max-w-xl mx-auto glass-card p-6 sm:p-8 text-left">
+              <h3 className="text-xl font-bold text-white mb-6">Share Your Experience</h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm text-slate-400 mb-1 block">Your Name *</label>
+                    <Input
+                      value={formData.name}
+                      onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                      placeholder="John Doe"
+                      className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
+                      data-testid="input-testimonial-name"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm text-slate-400 mb-1 block">Your Role *</label>
+                    <Input
+                      value={formData.role}
+                      onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
+                      placeholder="Business Owner"
+                      className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
+                      data-testid="input-testimonial-role"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="text-sm text-slate-400 mb-1 block">Company (optional)</label>
+                  <Input
+                    value={formData.company}
+                    onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
+                    placeholder="Your Company"
+                    className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
+                    data-testid="input-testimonial-company"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-slate-400 mb-1 block">Rating *</label>
+                  <Select value={formData.rating} onValueChange={(val) => setFormData(prev => ({ ...prev, rating: val }))}>
+                    <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white" data-testid="select-testimonial-rating">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="5">5 Stars - Excellent</SelectItem>
+                      <SelectItem value="4">4 Stars - Great</SelectItem>
+                      <SelectItem value="3">3 Stars - Good</SelectItem>
+                      <SelectItem value="2">2 Stars - Fair</SelectItem>
+                      <SelectItem value="1">1 Star - Poor</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="text-sm text-slate-400 mb-1 block">Your Testimonial *</label>
+                  <Textarea
+                    value={formData.content}
+                    onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                    placeholder="Share your experience working with Gavin..."
+                    rows={4}
+                    className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 resize-none"
+                    data-testid="input-testimonial-content"
+                  />
+                </div>
+                <div className="flex gap-3 pt-2">
+                  <Button
+                    type="submit"
+                    disabled={submitMutation.isPending}
+                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white"
+                    data-testid="button-submit-testimonial"
+                  >
+                    {submitMutation.isPending ? "Submitting..." : "Submit Testimonial"}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setShowForm(false)}
+                    className="border-slate-600 text-slate-400 hover:bg-slate-800"
+                    data-testid="button-cancel-testimonial"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </form>
+            </div>
+          )}
         </div>
       </div>
     </section>

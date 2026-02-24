@@ -136,8 +136,8 @@ export default function ProjectStatusSection() {
 
               <p className="text-sm text-slate-500">
                 Questions about your project? Contact us at{" "}
-                <a href="mailto:projects@gavineanthony.com" className="text-cyan-400 hover:text-cyan-300 transition-colors">
-                  projects@gavineanthony.com
+                <a href="mailto:gavin@gavineanthony.com" className="text-cyan-400 hover:text-cyan-300 transition-colors">
+                  gavin@gavineanthony.com
                 </a>
               </p>
             </div>

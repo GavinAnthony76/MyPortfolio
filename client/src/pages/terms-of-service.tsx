@@ -195,7 +195,7 @@ export default function TermsOfServicePage() {
               </p>
               <div className="bg-slate-50 p-4 rounded-lg mt-4">
                 <p><strong>Gavin Anthony - Guidato LLC</strong></p>
-                <p>Email: <a href="mailto:projects@gavineanthony.com" className="text-blue-600 hover:text-blue-800">projects@gavineanthony.com</a></p>
+                <p>Email: <a href="mailto:gavin@gavineanthony.com" className="text-blue-600 hover:text-blue-800">gavin@gavineanthony.com</a></p>
 
                 <p>Location: Austin, Texas, United States</p>
               </div>

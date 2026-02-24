@@ -9,18 +9,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Clock, Mail, Building, DollarSign, Calendar, FileText, Archive, Reply, File, LogOut, Home, Search, Filter, Inbox, CheckCircle, XCircle, Users, Trophy, Trash2, ChevronDown, ChevronUp, Play, CheckSquare, User } from "lucide-react";
+import { Clock, Mail, Building, DollarSign, Calendar, FileText, Archive, Reply, File, LogOut, Home, Search, Filter, Inbox, CheckCircle, XCircle, Users, Trophy, Trash2, ChevronDown, ChevronUp, Play, CheckSquare, User, Star, MessageSquare } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { formatDistanceToNow } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useMemo } from "react";
-import type { ProjectRequest } from "@shared/schema";
+import type { ProjectRequest, Testimonial } from "@shared/schema";
 
 export default function Dashboard() {
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('active');
+  const [dashboardView, setDashboardView] = useState<'projects' | 'testimonials'>('projects');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [projectTypeFilter, setProjectTypeFilter] = useState('all');
@@ -100,6 +101,48 @@ export default function Dashboard() {
       });
     }
   });
+
+  const { data: adminTestimonials = [] } = useQuery<Testimonial[]>({
+    queryKey: ['/api/admin/testimonials'],
+  });
+
+  const updateTestimonialMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      await apiRequest('PATCH', `/api/admin/testimonials/${id}/status`, { status });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/testimonials'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/testimonials'] });
+      toast({
+        title: "Testimonial updated",
+        description: "Testimonial status has been updated",
+      });
+    },
+    onError: () => {
+      toast({ title: "Update failed", variant: "destructive" });
+    },
+  });
+
+  const deleteTestimonialMutation = useMutation({
+    mutationFn: async (id: string) => {
+      await apiRequest('DELETE', `/api/admin/testimonials/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/testimonials'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/testimonials'] });
+      toast({ title: "Testimonial deleted" });
+    },
+    onError: () => {
+      toast({ title: "Delete failed", variant: "destructive" });
+    },
+  });
+
+  const testimonialCounts = useMemo(() => ({
+    pending: adminTestimonials.filter(t => t.status === 'pending').length,
+    approved: adminTestimonials.filter(t => t.status === 'approved').length,
+    rejected: adminTestimonials.filter(t => t.status === 'rejected').length,
+    total: adminTestimonials.length,
+  }), [adminTestimonials]);
 
   // Filter and categorize requests
   const filteredAndCategorizedRequests = useMemo(() => {
@@ -240,7 +283,7 @@ I'm excited to bring your vision to life! Would you be available for a call this
 Best regards,
 Gavin Anthony
 Full-Stack Developer
-projects@gavineanthony.com`;
+gavin@gavineanthony.com`;
 
     // Update status to 'responded'
     updateStatusMutation.mutate({ id: request.id, status: 'responded' });
@@ -276,7 +319,7 @@ Looking forward to hearing from you!
 Best regards,
 Gavin Anthony
 Full-Stack Developer
-projects@gavineanthony.com
+gavin@gavineanthony.com
 `;
 
     // Update status to 'follow-up'
@@ -378,7 +421,7 @@ I'm excited about the opportunity to work with you on this project and help brin
 Best regards,
 Gavin Anthony
 Full-Stack Developer
-projects@gavineanthony.com
+gavin@gavineanthony.com
 Austin, TX
 
 ---
@@ -709,19 +752,30 @@ Proposal generated on ${new Date().toLocaleDateString()} for ${request.company |
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
               <h1 className="text-2xl sm:text-3xl font-bold text-slate-800" data-testid="dashboard-title">Developer Dashboard</h1>
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-                <span className="text-sm text-slate-600 order-last sm:order-first">
-                  {requests.length} total request{requests.length !== 1 ? 's' : ''}
-                </span>
                 <div className="flex flex-wrap gap-2">
                   <Button 
-                    variant="outline" 
+                    variant={dashboardView === 'projects' ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => queryClient.invalidateQueries({ queryKey: ['/api/project-requests'] })}
-                    data-testid="button-refresh"
+                    onClick={() => setDashboardView('projects')}
+                    data-testid="button-view-projects"
                     className="flex-shrink-0"
                   >
-                    <Clock className="w-4 h-4 sm:mr-2" />
-                    <span className="hidden sm:inline">Refresh</span>
+                    <Inbox className="w-4 h-4 sm:mr-2" />
+                    <span className="hidden sm:inline">Projects</span>
+                    <Badge variant="secondary" className="ml-1 text-xs">{requests.length}</Badge>
+                  </Button>
+                  <Button 
+                    variant={dashboardView === 'testimonials' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setDashboardView('testimonials')}
+                    data-testid="button-view-testimonials"
+                    className="flex-shrink-0"
+                  >
+                    <MessageSquare className="w-4 h-4 sm:mr-2" />
+                    <span className="hidden sm:inline">Testimonials</span>
+                    {testimonialCounts.pending > 0 && (
+                      <Badge variant="destructive" className="ml-1 text-xs">{testimonialCounts.pending}</Badge>
+                    )}
                   </Button>
                   <Button 
                     variant="outline" 
@@ -748,95 +802,223 @@ Proposal generated on ${new Date().toLocaleDateString()} for ${request.company |
               </div>
             </div>
 
-            {/* Search and Filter Controls */}
-            <div className="mb-6 space-y-4">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <Input
-                    placeholder="Search by name, email, company, or description..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                    data-testid="input-search"
-                  />
+            {dashboardView === 'projects' ? (
+              <>
+                {/* Search and Filter Controls */}
+                <div className="mb-6 space-y-4">
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex-1 relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      <Input
+                        placeholder="Search by name, email, company, or description..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-10"
+                        data-testid="input-search"
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <Select value={statusFilter} onValueChange={setStatusFilter}>
+                        <SelectTrigger className="w-40" data-testid="select-status-filter">
+                          <Filter className="w-4 h-4 mr-2" />
+                          <SelectValue placeholder="Status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">All Statuses</SelectItem>
+                          <SelectItem value="new">New</SelectItem>
+                          <SelectItem value="responded">Responded</SelectItem>
+                          <SelectItem value="proposal-sent">Proposal Sent</SelectItem>
+                          <SelectItem value="follow-up">Follow-up</SelectItem>
+                          <SelectItem value="won">Won</SelectItem>
+                          <SelectItem value="lost">Lost</SelectItem>
+                          <SelectItem value="archived">Archived</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Select value={projectTypeFilter} onValueChange={setProjectTypeFilter}>
+                        <SelectTrigger className="w-40" data-testid="select-type-filter">
+                          <Filter className="w-4 h-4 mr-2" />
+                          <SelectValue placeholder="Type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">All Types</SelectItem>
+                          <SelectItem value="basic">Basic</SelectItem>
+                          <SelectItem value="premium">Premium Package</SelectItem>
+                          <SelectItem value="custom">Custom Package</SelectItem>
+                          <SelectItem value="prototyping">Rapid Prototyping</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger className="w-40" data-testid="select-status-filter">
-                      <Filter className="w-4 h-4 mr-2" />
-                      <SelectValue placeholder="Status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Statuses</SelectItem>
-                      <SelectItem value="new">New</SelectItem>
-                      <SelectItem value="responded">Responded</SelectItem>
-                      <SelectItem value="proposal-sent">Proposal Sent</SelectItem>
-                      <SelectItem value="follow-up">Follow-up</SelectItem>
-                      <SelectItem value="won">Won</SelectItem>
-                      <SelectItem value="lost">Lost</SelectItem>
-                      <SelectItem value="archived">Archived</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <Select value={projectTypeFilter} onValueChange={setProjectTypeFilter}>
-                    <SelectTrigger className="w-40" data-testid="select-type-filter">
-                      <Filter className="w-4 h-4 mr-2" />
-                      <SelectValue placeholder="Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="basic">Basic</SelectItem>
-                      <SelectItem value="premium">Premium Package</SelectItem>
-                      <SelectItem value="custom">Custom Package</SelectItem>
-                      <SelectItem value="prototyping">Rapid Prototyping</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
+
+                {/* Tabbed Interface */}
+                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                  <TabsList className="grid w-full grid-cols-4">
+                    <TabsTrigger value="active" className="flex items-center gap-2" data-testid="tab-active">
+                      <Inbox className="w-4 h-4" />
+                      <span className="hidden sm:inline">Active</span>
+                      <Badge variant="secondary" className="ml-1">{requestCounts.active}</Badge>
+                    </TabsTrigger>
+                    <TabsTrigger value="completed" className="flex items-center gap-2" data-testid="tab-completed">
+                      <Trophy className="w-4 h-4" />
+                      <span className="hidden sm:inline">Completed</span>
+                      <Badge variant="secondary" className="ml-1">{requestCounts.completed}</Badge>
+                    </TabsTrigger>
+                    <TabsTrigger value="archived" className="flex items-center gap-2" data-testid="tab-archived">
+                      <Archive className="w-4 h-4" />
+                      <span className="hidden sm:inline">Archived</span>
+                      <Badge variant="secondary" className="ml-1">{requestCounts.archived}</Badge>
+                    </TabsTrigger>
+                    <TabsTrigger value="all" className="flex items-center gap-2" data-testid="tab-all">
+                      <Users className="w-4 h-4" />
+                      <span className="hidden sm:inline">All</span>
+                      <Badge variant="secondary" className="ml-1">{requestCounts.all}</Badge>
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <TabsContent value="active" className="mt-6">
+                    {renderRequestsList(currentRequests, 'No active project requests')}
+                  </TabsContent>
+
+                  <TabsContent value="completed" className="mt-6">
+                    {renderRequestsList(currentRequests, 'No completed project requests')}
+                  </TabsContent>
+
+                  <TabsContent value="archived" className="mt-6">
+                    {renderRequestsList(currentRequests, 'No archived project requests')}
+                  </TabsContent>
+
+                  <TabsContent value="all" className="mt-6">
+                    {renderRequestsList(currentRequests, 'No project requests match your filters')}
+                  </TabsContent>
+                </Tabs>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="flex gap-2 text-sm text-slate-600">
+                    <span>Pending: <strong>{testimonialCounts.pending}</strong></span>
+                    <span>|</span>
+                    <span>Approved: <strong>{testimonialCounts.approved}</strong></span>
+                    <span>|</span>
+                    <span>Rejected: <strong>{testimonialCounts.rejected}</strong></span>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Tabbed Interface */}
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="active" className="flex items-center gap-2" data-testid="tab-active">
-                  <Inbox className="w-4 h-4" />
-                  <span className="hidden sm:inline">Active</span>
-                  <Badge variant="secondary" className="ml-1">{requestCounts.active}</Badge>
-                </TabsTrigger>
-                <TabsTrigger value="completed" className="flex items-center gap-2" data-testid="tab-completed">
-                  <Trophy className="w-4 h-4" />
-                  <span className="hidden sm:inline">Completed</span>
-                  <Badge variant="secondary" className="ml-1">{requestCounts.completed}</Badge>
-                </TabsTrigger>
-                <TabsTrigger value="archived" className="flex items-center gap-2" data-testid="tab-archived">
-                  <Archive className="w-4 h-4" />
-                  <span className="hidden sm:inline">Archived</span>
-                  <Badge variant="secondary" className="ml-1">{requestCounts.archived}</Badge>
-                </TabsTrigger>
-                <TabsTrigger value="all" className="flex items-center gap-2" data-testid="tab-all">
-                  <Users className="w-4 h-4" />
-                  <span className="hidden sm:inline">All</span>
-                  <Badge variant="secondary" className="ml-1">{requestCounts.all}</Badge>
-                </TabsTrigger>
-              </TabsList>
+                {adminTestimonials.length === 0 ? (
+                  <div className="text-center py-12">
+                    <MessageSquare className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-slate-600 mb-2">No testimonials yet</h3>
+                    <p className="text-slate-500">Customer testimonials will appear here when submitted.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {adminTestimonials.map((testimonial) => (
+                      <Card key={testimonial.id} className="border border-slate-200" data-testid={`admin-testimonial-${testimonial.id}`}>
+                        <CardContent className="p-4 sm:p-6">
+                          <div className="flex items-start justify-between gap-4 mb-3">
+                            <div>
+                              <div className="flex items-center gap-2 mb-1">
+                                <h3 className="font-bold text-slate-800">{testimonial.name}</h3>
+                                <Badge
+                                  variant={testimonial.status === 'approved' ? 'default' : testimonial.status === 'rejected' ? 'destructive' : 'secondary'}
+                                  className={testimonial.status === 'approved' ? 'bg-green-600' : ''}
+                                >
+                                  {testimonial.status.charAt(0).toUpperCase() + testimonial.status.slice(1)}
+                                </Badge>
+                              </div>
+                              <p className="text-sm text-slate-500">
+                                {testimonial.role}{testimonial.company ? `, ${testimonial.company}` : ''} 
+                                <span className="ml-2">
+                                  {formatDistanceToNow(new Date(testimonial.createdAt), { addSuffix: true })}
+                                </span>
+                              </p>
+                            </div>
+                            <div className="flex gap-1 flex-shrink-0">
+                              {Array.from({ length: testimonial.rating }).map((_, i) => (
+                                <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                              ))}
+                            </div>
+                          </div>
 
-              <TabsContent value="active" className="mt-6">
-                {renderRequestsList(currentRequests, 'No active project requests')}
-              </TabsContent>
+                          <p className="text-sm text-slate-700 mb-4 italic">"{testimonial.content}"</p>
 
-              <TabsContent value="completed" className="mt-6">
-                {renderRequestsList(currentRequests, 'No completed project requests')}
-              </TabsContent>
-
-              <TabsContent value="archived" className="mt-6">
-                {renderRequestsList(currentRequests, 'No archived project requests')}
-              </TabsContent>
-
-              <TabsContent value="all" className="mt-6">
-                {renderRequestsList(currentRequests, 'No project requests match your filters')}
-              </TabsContent>
-            </Tabs>
+                          <div className="flex flex-wrap gap-2">
+                            {testimonial.status !== 'approved' && (
+                              <Button
+                                size="sm"
+                                className="bg-green-600 hover:bg-green-700"
+                                onClick={() => updateTestimonialMutation.mutate({ id: testimonial.id, status: 'approved' })}
+                                disabled={updateTestimonialMutation.isPending}
+                                data-testid={`button-approve-${testimonial.id}`}
+                              >
+                                <CheckCircle className="w-4 h-4 mr-1" />
+                                Approve
+                              </Button>
+                            )}
+                            {testimonial.status !== 'rejected' && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="border-red-500 text-red-600 hover:bg-red-50"
+                                onClick={() => updateTestimonialMutation.mutate({ id: testimonial.id, status: 'rejected' })}
+                                disabled={updateTestimonialMutation.isPending}
+                                data-testid={`button-reject-${testimonial.id}`}
+                              >
+                                <XCircle className="w-4 h-4 mr-1" />
+                                Reject
+                              </Button>
+                            )}
+                            {testimonial.status === 'rejected' && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => updateTestimonialMutation.mutate({ id: testimonial.id, status: 'pending' })}
+                                disabled={updateTestimonialMutation.isPending}
+                              >
+                                Reset to Pending
+                              </Button>
+                            )}
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  className="border-red-500 text-red-600 hover:bg-red-50"
+                                  data-testid={`button-delete-testimonial-${testimonial.id}`}
+                                >
+                                  <Trash2 className="w-4 h-4 mr-1" />
+                                  Delete
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Delete Testimonial</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Are you sure you want to permanently delete this testimonial from <strong>{testimonial.name}</strong>?
+                                    This action cannot be undone.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => deleteTestimonialMutation.mutate(testimonial.id)}
+                                    className="bg-red-600 hover:bg-red-700"
+                                  >
+                                    Delete Permanently
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
           </CardContent>
         </Card>
       </div>

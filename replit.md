@@ -3,6 +3,15 @@
 This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. The site features a glassmorphism-inspired dark theme with project gallery, case study modals, project status tracking via ticket numbers, testimonials, blog articles, and an AI-powered virtual assistant. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
 
 ## Recent Changes (February 24, 2026)
+### Testimonial Submission & Approval System (COMPLETED ✅)
+- **Public testimonial form** - Customers can submit testimonials via "Leave a Testimonial" button
+- **Admin approval workflow** - Testimonials require approval in dashboard before appearing publicly
+- **Dashboard testimonial management** - Projects/Testimonials view switcher with approve/reject/delete actions
+- **Email notifications** - Admin notified via email when new testimonial is submitted
+- **Database-backed** - Testimonials stored in PostgreSQL with pending/approved/rejected status
+- **Hardcoded + dynamic** - Existing 4 testimonials preserved alongside database-driven ones
+- **Email address updated** - All references changed from projects@gavineanthony.com to gavin@gavineanthony.com
+
 ### Major Site Redesign + Virtual AI Assistant (COMPLETED ✅)
 - **Glassmorphism hero card** - Bold hero with 3 CTAs: View Projects, Start a Project, Check Project Status
 - **About/Services/Skills sections removed** - Streamlined site per new spec
