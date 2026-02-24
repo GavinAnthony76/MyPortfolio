@@ -2,6 +2,23 @@
 
 This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. It aims to market web development services and streamline the intake and management of client inquiries through a robust project request system. The application features sections for personal introduction, featured web projects, service offerings (Basic, Premium Package, Custom Package, Rapid Prototyping), and a comprehensive contact form that generates detailed project briefs. These briefs are stored in a database and managed via an administrative dashboard. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
 
+## Recent Changes (February 24, 2026)
+### Complete Dark Theme Redesign (COMPLETED ✅)
+- **Dark theme overhaul** - Entire site redesigned with dark backgrounds, cyan/purple accents inspired by txshowdown.com
+- **New hero section** - Bold gradient hero with ambient glow effects, stat cards, availability badge
+- **Skills/Technologies section added** - Visual icon grid showcasing React, Node.js, TypeScript, PostgreSQL, etc. using react-icons
+- **Client testimonials section added** - 4 client reviews with star ratings for social proof
+- **Blog/Articles section added** - 3 article previews for SEO and expertise demonstration
+- **Newsletter signup added** - Email subscription form in contact section
+- **Booking/scheduling link added** - Consultation booking option in contact section
+- **Noscript fallback added** - Basic HTML content visible when JavaScript is disabled for SEO crawlers
+- **Amazon link added** - Social media links include Amazon affiliate link in about section and footer
+- **Navigation updated** - Dark theme with uppercase tracking, testimonials link added
+- **Footer redesigned** - Dark theme with gradient divider, updated service list
+- **About section enhanced** - Stats row (years experience, projects, satisfaction)
+- **Services section improved** - 2-column layout with color-coded accent per service tier
+- **Projects section refreshed** - Dark cards with gradient overlays and hover effects
+
 ## Recent Changes (October 21, 2025)
 ### Stripe and Pricing Removal (COMPLETED ✅)
 - **Stripe integration removed** - All payment processing functionality eliminated

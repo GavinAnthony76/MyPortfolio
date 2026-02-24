@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { usePortfolioImages } from "@/hooks/use-portfolio-images";
@@ -60,7 +59,7 @@ const getProjects = (images: any): Project[] => [
     id: "5",
     title: "Shape Tap Deluxe",
     description:
-      "Engaging shape-morphing puzzle game featuring multiple game modes (Classic, Endless, Zen, Speed Run, Campaign), difficulty levels, combo system for faster gameplay, daily challenges, stats tracking, and in-game shop. Tap shapes to morph them and earn points with strategic combos.",
+      "Engaging shape-morphing puzzle game featuring multiple game modes, difficulty levels, combo system, daily challenges, stats tracking, and in-game shop.",
     image: images?.shapeTapDeluxe || "/api/assets/shape-tap-deluxe.png",
     category: "web",
     technologies: ["JavaScript", "HTML5", "CSS3"],
@@ -69,7 +68,7 @@ const getProjects = (images: any): Project[] => [
 ];
 
 const filterOptions = [
-  { value: "all", label: "All" },
+  { value: "all", label: "All Projects" },
   { value: "web", label: "Web Apps" },
   { value: "ecommerce", label: "E-commerce" },
 ];
@@ -88,13 +87,13 @@ export default function ProjectsSection() {
 
   if (isLoading) {
     return (
-      <section id="projects" className="py-20 relative">
+      <section id="projects" className="py-20 section-darker relative">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
               Featured <span className="tech-title">Projects</span>
             </h2>
-            <p className="text-lg text-slate-700 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
               Loading portfolio projects...
             </p>
           </div>
@@ -104,21 +103,19 @@ export default function ProjectsSection() {
   }
 
   return (
-    <section id="projects" className="py-12 sm:py-16 md:py-20 relative">
+    <section id="projects" className="py-16 sm:py-20 md:py-28 section-darker relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
             Featured <span className="tech-title">Projects</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto px-2">
-            Showcasing professional development solutions and cutting-edge web
-            applications
+          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto px-2">
+            Showcasing professional development solutions and cutting-edge web applications
           </p>
         </div>
 
-        {/* Filter tabs */}
-        <div className="flex justify-center mb-8 sm:mb-12">
-          <div className="glass-card p-1 sm:p-2 flex flex-wrap gap-1">
+        <div className="flex justify-center mb-10 sm:mb-14">
+          <div className="inline-flex gap-1 p-1 rounded-lg bg-slate-800/60 border border-slate-700/50">
             {filterOptions.map((option) => (
               <Button
                 key={option.value}
@@ -127,7 +124,7 @@ export default function ProjectsSection() {
                 onClick={() =>
                   setActiveFilter(option.value as typeof activeFilter)
                 }
-                className={`${activeFilter === option.value ? "tech-button" : "text-slate-700 hover:text-cyan-600"} text-xs sm:text-sm px-2 sm:px-3`}
+                className={`${activeFilter === option.value ? "bg-cyan-600 hover:bg-cyan-700 text-white" : "text-slate-400 hover:text-white hover:bg-slate-700/50"} text-xs sm:text-sm px-3 sm:px-4`}
                 data-testid={`filter-${option.value}`}
               >
                 {option.label}
@@ -136,41 +133,41 @@ export default function ProjectsSection() {
           </div>
         </div>
 
-        {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
-              className="glass-card overflow-hidden"
+              className="glass-card overflow-hidden group"
               data-testid={`card-project-${project.id}`}
             >
-              <div className="relative overflow-hidden rounded-t-xl">
+              <div className="relative overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-105"
                   data-testid={`img-project-${project.id}`}
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
               </div>
               <div className="p-6">
                 <h3
-                  className="text-xl font-bold text-slate-800 mb-2"
+                  className="text-xl font-bold text-white mb-2"
                   data-testid={`text-title-${project.id}`}
                 >
                   {project.title}
                 </h3>
                 <p
-                  className="text-slate-600 mb-4"
+                  className="text-slate-400 mb-4 text-sm leading-relaxed"
                   data-testid={`text-description-${project.id}`}
                 >
                   {project.description}
                 </p>
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-5">
                   {project.technologies.map((tech) => (
                     <Badge
                       key={tech}
                       variant="secondary"
-                      className="bg-blue-100 text-blue-700"
+                      className="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs"
                       data-testid={`badge-tech-${project.id}-${tech.toLowerCase()}`}
                     >
                       {tech}
@@ -183,6 +180,7 @@ export default function ProjectsSection() {
                       variant="outline"
                       size="sm"
                       onClick={() => window.open(project.liveUrl, "_blank")}
+                      className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 text-xs"
                       data-testid={`button-demo-${project.id}`}
                     >
                       <ExternalLink className="w-4 h-4 mr-1" />
@@ -193,10 +191,11 @@ export default function ProjectsSection() {
                       variant="outline"
                       size="sm"
                       disabled
+                      className="border-slate-700 text-slate-500 text-xs"
                       data-testid={`button-demo-${project.id}`}
                     >
                       <ExternalLink className="w-4 h-4 mr-1" />
-                      Demo Coming Soon
+                      Coming Soon
                     </Button>
                   )}
                   {project.codeUrl ? (
@@ -204,6 +203,7 @@ export default function ProjectsSection() {
                       variant="ghost"
                       size="sm"
                       onClick={() => window.open(project.codeUrl, "_blank")}
+                      className="text-slate-400 hover:text-white text-xs"
                       data-testid={`button-code-${project.id}`}
                     >
                       <Github className="w-4 h-4 mr-1" />
@@ -214,6 +214,7 @@ export default function ProjectsSection() {
                       variant="ghost"
                       size="sm"
                       disabled
+                      className="text-slate-600 text-xs"
                       data-testid={`button-code-${project.id}`}
                     >
                       <Github className="w-4 h-4 mr-1" />

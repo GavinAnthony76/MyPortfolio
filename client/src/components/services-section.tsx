@@ -1,6 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Code, Smartphone, MessageSquare, TrendingUp, Settings, Rocket, Check } from "lucide-react";
+import { Smartphone, TrendingUp, Settings, Rocket, Check, ArrowRight } from "lucide-react";
 
 const services = [
   {
@@ -8,8 +7,7 @@ const services = [
     icon: Smartphone,
     title: 'Basic',
     description: 'Perfect for single page sites. Clean, professional design that gets your message across effectively.',
-    color: 'from-emerald-50 to-green-50',
-    iconBg: 'bg-emerald-600',
+    accent: 'cyan',
     features: [
       'Single page website',
       'Mobile-friendly design',
@@ -23,8 +21,7 @@ const services = [
     icon: Settings,
     title: 'Premium Package',
     description: 'Perfect for small local businesses like hair salons, pet stores, and lawn care companies. Professional 3-5 page website with mobile design.',
-    color: 'from-blue-50 to-indigo-50',
-    iconBg: 'bg-blue-600',
+    accent: 'purple',
     features: [
       'Professional 3-5 page website',
       'Mobile-friendly design',
@@ -38,8 +35,7 @@ const services = [
     icon: TrendingUp,
     title: 'Custom Package',
     description: 'Complete solution for growing local businesses. Full custom website with e-commerce, customer portals, and advanced integrations.',
-    color: 'from-purple-50 to-pink-50',
-    iconBg: 'bg-purple-600',
+    accent: 'amber',
     features: [
       'Full custom website (10+ pages)',
       'E-commerce or advanced booking',
@@ -53,8 +49,7 @@ const services = [
     icon: Rocket,
     title: 'Rapid Prototyping',
     description: 'Rapid development of functional prototypes and proof-of-concepts to validate your ideas quickly using modern frameworks.',
-    color: 'from-orange-50 to-red-50',
-    iconBg: 'bg-orange-600',
+    accent: 'green',
     features: [
       'Full-stack prototypes',
       'Modern tech stacks',
@@ -63,6 +58,13 @@ const services = [
     ]
   }
 ];
+
+const accentColors: Record<string, { bg: string; text: string; border: string; glow: string }> = {
+  cyan: { bg: 'bg-cyan-500/10', text: 'text-cyan-400', border: 'border-cyan-500/20', glow: 'hover:shadow-cyan-500/10' },
+  purple: { bg: 'bg-purple-500/10', text: 'text-purple-400', border: 'border-purple-500/20', glow: 'hover:shadow-purple-500/10' },
+  amber: { bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/20', glow: 'hover:shadow-amber-500/10' },
+  green: { bg: 'bg-green-500/10', text: 'text-green-400', border: 'border-green-500/20', glow: 'hover:shadow-green-500/10' },
+};
 
 export default function ServicesSection() {
   const scrollToContact = () => {
@@ -73,53 +75,62 @@ export default function ServicesSection() {
   };
 
   return (
-    <section id="services" className="py-12 sm:py-16 md:py-20 relative">
+    <section id="services" className="py-16 sm:py-20 md:py-28 section-accent relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            <span className="tech-title">Professional</span> Development Services
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white">
+            <span className="tech-title">Professional</span> Services
           </h2>
-          <p className="text-base sm:text-lg text-slate-700 max-w-2xl mx-auto px-2">
-            Expert code development, rapid prototyping, and comprehensive development services using modern technologies
+          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto px-2">
+            Expert development services using modern technologies — from landing pages to full-scale applications
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {services.map((service) => {
             const IconComponent = service.icon;
+            const colors = accentColors[service.accent];
             return (
               <div 
                 key={service.id} 
-                className="glass-card p-6 sm:p-8"
+                className={`glass-card p-6 sm:p-8 ${colors.glow}`}
                 data-testid={`card-service-${service.id}`}
               >
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 ${service.iconBg} rounded-lg flex items-center justify-center mb-4 sm:mb-6 glass`}>
-                  <IconComponent className="text-white text-lg sm:text-xl" />
+                <div className="flex items-start gap-4 mb-5">
+                  <div className={`w-12 h-12 ${colors.bg} rounded-lg flex items-center justify-center flex-shrink-0 border ${colors.border}`}>
+                    <IconComponent className={`${colors.text} w-6 h-6`} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-white" data-testid={`text-title-${service.id}`}>
+                      {service.title}
+                    </h3>
+                    <p className="text-sm text-slate-500 mt-1 leading-relaxed" data-testid={`text-description-${service.id}`}>
+                      {service.description}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-3 sm:mb-4" data-testid={`text-title-${service.id}`}>
-                  {service.title}
-                </h3>
-                <p className="text-sm sm:text-base text-slate-700 mb-4 sm:mb-6 leading-relaxed" data-testid={`text-description-${service.id}`}>
-                  {service.description}
-                </p>
-                <ul className="space-y-2 text-slate-700 mb-6">
+
+                <ul className="space-y-3 mb-6">
                   {service.features.map((feature, index) => (
                     <li 
                       key={index} 
-                      className="flex items-center text-xs sm:text-sm"
+                      className="flex items-center text-sm text-slate-400"
                       data-testid={`feature-${service.id}-${index}`}
                     >
-                      <Check className="text-emerald-500 mr-2 h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                      <Check className={`${colors.text} mr-3 h-4 w-4 flex-shrink-0`} />
                       {feature}
                     </li>
                   ))}
                 </ul>
+
                 <Button 
                   onClick={scrollToContact}
-                  className={`w-full ${service.iconBg} hover:opacity-90 transition-opacity text-sm sm:text-base py-2 sm:py-3`}
+                  variant="outline"
+                  className={`w-full border ${colors.border} ${colors.text} hover:${colors.bg} text-sm`}
                   data-testid={`button-contact-${service.id}`}
                 >
                   Get Started
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             );
