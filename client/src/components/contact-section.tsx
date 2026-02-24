@@ -26,14 +26,27 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Mail, MapPin, Clock, Send, Calendar, Newspaper } from "lucide-react";
+import { Mail, MapPin, Clock, Send, Copy, Check } from "lucide-react";
 
 const projectTypes = [
-  { value: "basic", label: "Basic" },
-  { value: "premium", label: "Premium Package" },
-  { value: "custom", label: "Custom Package" },
+  { value: "ecommerce", label: "E-Commerce Store" },
+  { value: "saas", label: "SaaS Application" },
+  { value: "marketing", label: "Marketing Site" },
+  { value: "internal", label: "Internal Tool" },
+  { value: "basic", label: "Basic Website" },
+  { value: "premium", label: "Premium Package (3-5 pages)" },
+  { value: "custom", label: "Custom Package (10+ pages)" },
   { value: "prototyping", label: "Rapid Prototyping" },
   { value: "other", label: "Other" },
+];
+
+const budgetRanges = [
+  { value: "under-1k", label: "Under $1,000" },
+  { value: "1k-5k", label: "$1,000 - $5,000" },
+  { value: "5k-10k", label: "$5,000 - $10,000" },
+  { value: "10k-25k", label: "$10,000 - $25,000" },
+  { value: "25k-plus", label: "$25,000+" },
+  { value: "not-sure", label: "Not sure yet" },
 ];
 
 const timelines = [
@@ -47,7 +60,8 @@ const timelines = [
 
 export default function ContactSection() {
   const { toast } = useToast();
-  const [email, setEmail] = useState("");
+  const [ticketNumber, setTicketNumber] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const form = useForm<InsertProjectRequest>({
     resolver: zodResolver(insertProjectRequestSchema),
@@ -57,8 +71,10 @@ export default function ContactSection() {
       email: "",
       company: "",
       projectType: "",
+      budgetRange: "",
       timeline: "",
       description: "",
+      referenceUrl: "",
       targetAudience: "",
       keyFeatures: "",
       techPreferences: "",
@@ -72,19 +88,18 @@ export default function ContactSection() {
       const response = await apiRequest("POST", "/api/project-requests", data);
       return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setTicketNumber(data.id);
       toast({
         title: "Project request submitted!",
-        description:
-          "Thank you for your interest. I'll get back to you within 24 hours.",
+        description: "Save your ticket number to check your project status anytime.",
       });
       form.reset();
     },
     onError: (error) => {
       toast({
         title: "Error submitting request",
-        description:
-          error instanceof Error ? error.message : "Please try again later.",
+        description: error instanceof Error ? error.message : "Please try again later.",
         variant: "destructive",
       });
     },
@@ -94,14 +109,11 @@ export default function ContactSection() {
     submitMutation.mutate(data);
   };
 
-  const handleNewsletterSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      toast({
-        title: "Subscribed!",
-        description: "You'll receive updates on web development tips and insights.",
-      });
-      setEmail("");
+  const copyTicket = () => {
+    if (ticketNumber) {
+      navigator.clipboard.writeText(ticketNumber);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
   };
 
@@ -113,8 +125,7 @@ export default function ContactSection() {
             Start Your <span className="tech-title">Project</span>
           </h2>
           <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto px-2">
-            Ready to build something amazing? Share your vision and I'll respond
-            within 24 hours with a detailed proposal.
+            Share your vision and I'll respond within 24 hours with a detailed proposal.
           </p>
         </div>
 
@@ -126,7 +137,7 @@ export default function ContactSection() {
               </h3>
 
               <div className="space-y-5">
-                <div className="flex items-start space-x-4" data-testid="contact-email">
+                <div className="flex items-start space-x-4">
                   <div className="w-11 h-11 bg-cyan-500/10 rounded-lg flex items-center justify-center flex-shrink-0 border border-cyan-500/20">
                     <Mail className="text-cyan-400 w-5 h-5" />
                   </div>
@@ -136,7 +147,7 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4" data-testid="contact-location">
+                <div className="flex items-start space-x-4">
                   <div className="w-11 h-11 bg-purple-500/10 rounded-lg flex items-center justify-center flex-shrink-0 border border-purple-500/20">
                     <MapPin className="text-purple-400 w-5 h-5" />
                   </div>
@@ -146,7 +157,7 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4" data-testid="contact-response-time">
+                <div className="flex items-start space-x-4">
                   <div className="w-11 h-11 bg-amber-500/10 rounded-lg flex items-center justify-center flex-shrink-0 border border-amber-500/20">
                     <Clock className="text-amber-400 w-5 h-5" />
                   </div>
@@ -155,49 +166,26 @@ export default function ContactSection() {
                     <p className="text-slate-400 text-sm">Within 24 hours</p>
                   </div>
                 </div>
-
-                <div className="flex items-start space-x-4" data-testid="contact-booking">
-                  <div className="w-11 h-11 bg-green-500/10 rounded-lg flex items-center justify-center flex-shrink-0 border border-green-500/20">
-                    <Calendar className="text-green-400 w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-white text-sm mb-0.5">Book a Consultation</h4>
-                    <p className="text-slate-400 text-sm">Schedule a free 15-minute call to discuss your project</p>
-                    <a 
-                      href="mailto:projects@gavineanthony.com?subject=Consultation%20Request"
-                      className="text-cyan-400 text-sm hover:text-cyan-300 transition-colors inline-flex items-center gap-1 mt-1"
-                    >
-                      Schedule Now
-                    </a>
-                  </div>
-                </div>
               </div>
             </div>
 
-            <div className="glass-card p-6 sm:p-8">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-11 h-11 bg-cyan-500/10 rounded-lg flex items-center justify-center flex-shrink-0 border border-cyan-500/20">
-                  <Newspaper className="text-cyan-400 w-5 h-5" />
+            {ticketNumber && (
+              <div className="glass-card p-6 sm:p-8 border-green-500/30">
+                <h4 className="font-bold text-green-400 mb-2">Request Submitted!</h4>
+                <p className="text-slate-400 text-sm mb-3">
+                  Save this ticket number to check your project status anytime:
+                </p>
+                <div className="flex items-center gap-2 p-3 bg-slate-800/60 rounded-lg border border-slate-700">
+                  <code className="text-cyan-400 text-sm font-mono flex-1 break-all">{ticketNumber}</code>
+                  <Button variant="ghost" size="sm" onClick={copyTicket} className="text-slate-400 hover:text-white flex-shrink-0">
+                    {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                  </Button>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-white text-sm">Stay Updated</h4>
-                  <p className="text-slate-500 text-xs">Get web development tips and insights</p>
-                </div>
+                <p className="text-xs text-slate-500 mt-2">
+                  You can check your status in the "Check Project Status" section above.
+                </p>
               </div>
-              <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600 text-sm"
-                  required
-                />
-                <Button type="submit" className="tech-button px-4 flex-shrink-0 text-sm">
-                  Subscribe
-                </Button>
-              </form>
-            </div>
+            )}
           </div>
 
           <div className="glass-card p-6 sm:p-8 order-1 lg:order-2">
@@ -206,11 +194,7 @@ export default function ContactSection() {
             </h3>
 
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
-                data-testid="form-project-request"
-              >
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" data-testid="form-project-request">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
@@ -219,7 +203,7 @@ export default function ContactSection() {
                       <FormItem>
                         <FormLabel className="text-slate-300 text-sm">First Name *</FormLabel>
                         <FormControl>
-                          <Input placeholder="John" {...field} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" data-testid="input-firstName" />
+                          <Input placeholder="John" {...field} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -232,7 +216,7 @@ export default function ContactSection() {
                       <FormItem>
                         <FormLabel className="text-slate-300 text-sm">Last Name *</FormLabel>
                         <FormControl>
-                          <Input placeholder="Doe" {...field} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" data-testid="input-lastName" />
+                          <Input placeholder="Doe" {...field} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -248,7 +232,7 @@ export default function ContactSection() {
                       <FormItem>
                         <FormLabel className="text-slate-300 text-sm">Email *</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="john@example.com" {...field} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" data-testid="input-email" />
+                          <Input type="email" placeholder="john@example.com" {...field} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -261,7 +245,7 @@ export default function ContactSection() {
                       <FormItem>
                         <FormLabel className="text-slate-300 text-sm">Company</FormLabel>
                         <FormControl>
-                          <Input placeholder="Acme Inc." {...field} value={field.value || ""} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" data-testid="input-company" />
+                          <Input placeholder="Acme Inc." {...field} value={field.value || ""} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -275,7 +259,7 @@ export default function ContactSection() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-slate-300 text-sm">Project Type *</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-projectType">
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
                             <SelectValue placeholder="Select project type" />
@@ -292,28 +276,52 @@ export default function ContactSection() {
                   )}
                 />
 
-                <FormField
-                  control={form.control}
-                  name="timeline"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-slate-300 text-sm">Timeline *</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value} data-testid="select-timeline">
-                        <FormControl>
-                          <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
-                            <SelectValue placeholder="Select timeline" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {timelines.map((timeline) => (
-                            <SelectItem key={timeline.value} value={timeline.value}>{timeline.label}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="grid md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="budgetRange"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-slate-300 text-sm">Budget Range</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value || ""}>
+                          <FormControl>
+                            <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                              <SelectValue placeholder="Select budget range" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {budgetRanges.map((b) => (
+                              <SelectItem key={b.value} value={b.value}>{b.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="timeline"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-slate-300 text-sm">Timeline *</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="bg-slate-800/50 border-slate-700 text-white">
+                              <SelectValue placeholder="Select timeline" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {timelines.map((timeline) => (
+                              <SelectItem key={timeline.value} value={timeline.value}>{timeline.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
                 <FormField
                   control={form.control}
@@ -322,7 +330,7 @@ export default function ContactSection() {
                     <FormItem>
                       <FormLabel className="text-slate-300 text-sm">Project Description *</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Describe your project in detail..." className="min-h-[100px] bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" {...field} data-testid="textarea-description" />
+                        <Textarea placeholder="Describe your project..." className="min-h-[100px] bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -331,68 +339,12 @@ export default function ContactSection() {
 
                 <FormField
                   control={form.control}
-                  name="targetAudience"
+                  name="referenceUrl"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-slate-300 text-sm">Target Audience</FormLabel>
+                      <FormLabel className="text-slate-300 text-sm">Existing Site or Reference URL</FormLabel>
                       <FormControl>
-                        <Input placeholder="Who will be using your application?" {...field} value={field.value || ""} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" data-testid="input-targetAudience" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="keyFeatures"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-slate-300 text-sm">Key Features Required</FormLabel>
-                      <FormControl>
-                        <Textarea placeholder="List the main features you need..." className="min-h-[80px] bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" {...field} value={field.value || ""} data-testid="textarea-keyFeatures" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="techPreferences"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-slate-300 text-sm">Technical Preferences</FormLabel>
-                      <FormControl>
-                        <Textarea placeholder="Any specific technologies or integrations?" className="min-h-[60px] bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" {...field} value={field.value || ""} data-testid="textarea-techPreferences" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="designReferences"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-slate-300 text-sm">Design References</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Any websites or apps you like the design of?" {...field} value={field.value || ""} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" data-testid="input-designReferences" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="additionalInfo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-slate-300 text-sm">Additional Information</FormLabel>
-                      <FormControl>
-                        <Textarea placeholder="Anything else you'd like me to know?" className="min-h-[80px] bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" {...field} value={field.value || ""} data-testid="textarea-additionalInfo" />
+                        <Input placeholder="https://..." {...field} value={field.value || ""} className="bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-600" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -403,14 +355,13 @@ export default function ContactSection() {
                   type="submit"
                   className="w-full tech-button py-6 text-base"
                   disabled={submitMutation.isPending}
-                  data-testid="button-submit"
                 >
                   <Send className="mr-2 h-4 w-4" />
-                  {submitMutation.isPending ? "Sending..." : "Send Project Request"}
+                  {submitMutation.isPending ? "Sending..." : "Submit Project Request"}
                 </Button>
 
                 <p className="text-sm text-slate-500 text-center">
-                  I'll review your project details and get back to you within 24 hours with a detailed proposal.
+                  You'll receive a ticket number to track your project status.
                 </p>
               </form>
             </Form>

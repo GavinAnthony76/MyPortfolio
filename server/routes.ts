@@ -444,6 +444,55 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Public project status lookup by ticket number (project ID)
+  app.get("/api/project-status/:ticketNumber", async (req, res) => {
+    try {
+      const { ticketNumber } = req.params;
+      
+      if (!ticketNumber || ticketNumber.length < 10) {
+        return res.status(400).json({ 
+          success: false, 
+          error: "Invalid ticket number format" 
+        });
+      }
+      
+      const request = await storage.getProjectRequestById(ticketNumber);
+      
+      if (!request) {
+        return res.status(404).json({ 
+          success: false, 
+          error: "No project found with that ticket number" 
+        });
+      }
+      
+      const statusLabels: Record<string, string> = {
+        'new': 'Received',
+        'responded': 'In Review',
+        'proposal-sent': 'Proposal Sent',
+        'follow-up': 'Follow Up',
+        'in-progress': 'In Development',
+        'complete': 'Completed',
+        'won': 'Completed',
+        'lost': 'Closed',
+        'archived': 'Archived',
+      };
+      
+      res.json({ 
+        success: true,
+        ticketNumber: request.id,
+        status: statusLabels[request.status] || request.status,
+        projectType: request.projectType,
+        submittedAt: request.createdAt,
+      });
+    } catch (error) {
+      console.error("Error looking up project status:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Failed to look up project status" 
+      });
+    }
+  });
+
   // Upload portfolio images to object storage
   app.post("/api/upload-images", async (req, res) => {
     try {

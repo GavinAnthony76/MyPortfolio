@@ -8,6 +8,7 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   createProjectRequest(request: InsertProjectRequest & { generatedPrompt: string }): Promise<ProjectRequest>;
   getProjectRequests(): Promise<ProjectRequest[]>;
+  getProjectRequestById(id: string): Promise<ProjectRequest | undefined>;
   updateProjectRequestStatus(id: string, status: string): Promise<ProjectRequest | undefined>;
   deleteProjectRequest(id: string): Promise<boolean>;
 }
@@ -41,8 +42,10 @@ export class DatabaseStorage implements IStorage {
         company: requestData.company || "",
         projectType: requestData.projectType,
         budget: requestData.budget,
+        budgetRange: requestData.budgetRange || "",
         timeline: requestData.timeline,
         description: requestData.description,
+        referenceUrl: requestData.referenceUrl || "",
         targetAudience: requestData.targetAudience || "",
         keyFeatures: requestData.keyFeatures || "",
         techPreferences: requestData.techPreferences || "",
@@ -58,6 +61,11 @@ export class DatabaseStorage implements IStorage {
   async getProjectRequests(): Promise<ProjectRequest[]> {
     const requests = await db.select().from(projectRequests).orderBy(desc(projectRequests.createdAt));
     return requests;
+  }
+
+  async getProjectRequestById(id: string): Promise<ProjectRequest | undefined> {
+    const [request] = await db.select().from(projectRequests).where(eq(projectRequests.id, id));
+    return request || undefined;
   }
 
   async updateProjectRequestStatus(id: string, status: string): Promise<ProjectRequest | undefined> {

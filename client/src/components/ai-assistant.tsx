@@ -182,8 +182,8 @@ export default function AIAssistant({ onClose }: AIAssistantProps) {
                     <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
-                    <span className="font-bold text-sm sm:text-base bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">Edasi</span>
-                    <div className="text-xs text-blue-100 opacity-90 hidden sm:block">AI Assistant</div>
+                    <span className="font-bold text-sm sm:text-base bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">AI Assistant</span>
+                    <div className="text-xs text-blue-100 opacity-90 hidden sm:block">Ask me anything</div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-1 relative z-10">

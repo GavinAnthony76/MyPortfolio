@@ -9,11 +9,10 @@ export default function Navigation() {
 
   const navLinks = [
     { href: "/#home", label: "Home" },
-    { href: "/#about", label: "About" },
     { href: "/#projects", label: "Projects" },
-    { href: "/#services", label: "Services" },
     { href: "/#testimonials", label: "Testimonials" },
-    { href: "/#contact", label: "Contact" },
+    { href: "/#project-status", label: "Status" },
+    { href: "/#contact", label: "Start a Project" },
   ];
 
   const handleLinkClick = (href: string) => {

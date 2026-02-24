@@ -6,17 +6,17 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { href: '#about', label: 'About' },
     { href: '#projects', label: 'Projects' },
-    { href: '#services', label: 'Services' },
     { href: '#testimonials', label: 'Testimonials' },
-    { href: '#contact', label: 'Contact' },
+    { href: '#project-status', label: 'Project Status' },
+    { href: '#contact', label: 'Start a Project' },
   ];
 
-  const services = [
-    { label: 'Basic Websites' },
-    { label: 'Premium Package' },
-    { label: 'Custom Package' },
+  const capabilities = [
+    { label: 'E-Commerce Stores' },
+    { label: 'SaaS Applications' },
+    { label: 'Marketing Sites' },
+    { label: 'Custom Web Apps' },
     { label: 'Rapid Prototyping' },
   ];
 
@@ -85,12 +85,12 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="font-bold text-base sm:text-lg mb-4 sm:mb-6 text-white">Services</h4>
+            <h4 className="font-bold text-base sm:text-lg mb-4 sm:mb-6 text-white">Capabilities</h4>
             <ul className="space-y-2 sm:space-y-3">
-              {services.map((service) => (
-                <li key={service.label}>
-                  <span className="text-slate-400 hover:text-cyan-400 transition-colors text-sm cursor-pointer">
-                    {service.label}
+              {capabilities.map((item) => (
+                <li key={item.label}>
+                  <span className="text-slate-400 text-sm">
+                    {item.label}
                   </span>
                 </li>
               ))}

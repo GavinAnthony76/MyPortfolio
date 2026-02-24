@@ -7,9 +7,10 @@ export function generateProjectPrompt(data: InsertProjectRequest): string {
     email,
     company,
     projectType,
-
+    budgetRange,
     timeline,
     description,
+    referenceUrl,
     targetAudience,
     keyFeatures,
     techPreferences,
@@ -31,8 +32,12 @@ export function generateProjectPrompt(data: InsertProjectRequest): string {
 
 ## Project Specifications
 - **Project Type:** ${getProjectTypeLabel(projectType)}
-
+${budgetRange ? `- **Budget Range:** ${getBudgetLabel(budgetRange)}` : ''}
 - **Timeline:** ${getTimelineLabel(timeline)}`;
+
+  if (referenceUrl) {
+    prompt += `\n- **Reference URL:** ${referenceUrl}`;
+  }
 
   if (targetAudience) {
     prompt += `\n- **Target Audience:** ${targetAudience}`;
@@ -88,13 +93,29 @@ ${additionalInfo}`;
 
 function getProjectTypeLabel(type: string): string {
   const labels: Record<string, string> = {
-    'basic': 'Basic',
+    'basic': 'Basic Website',
     'premium': 'Premium Package',
     'custom': 'Custom Package',
     'prototyping': 'Rapid Prototyping',
+    'ecommerce': 'E-Commerce Store',
+    'saas': 'SaaS Application',
+    'marketing': 'Marketing Site',
+    'internal': 'Internal Tool',
     'other': 'Custom Solution',
   };
   return labels[type] || type;
+}
+
+function getBudgetLabel(budget: string): string {
+  const labels: Record<string, string> = {
+    'under-1k': 'Under $1,000',
+    '1k-5k': '$1,000 - $5,000',
+    '5k-10k': '$5,000 - $10,000',
+    '10k-25k': '$10,000 - $25,000',
+    '25k-plus': '$25,000+',
+    'not-sure': 'Not determined yet',
+  };
+  return labels[budget] || budget;
 }
 
 
