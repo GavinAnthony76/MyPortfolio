@@ -1,0 +1,104 @@
+You are inside the Replit project for gavineanthony.com. Implement a CONSTANT “Professional Narrator” site host that is always present across the site. This is NOT a generic chat widget. It is a persistent, minimal-face narrator/concierge that guides visitors through the site with context-aware prompts, action chips, and an optional experience mode.
+
+PRIMARY GOAL
+- Replace the current AI assistant chat box with a persistent “Narrator Host” that feels like a premium guided experience (minimal face / no cartoon character).
+
+DESIGN REQUIREMENTS (OPTION 2)
+- Minimal visual identity: use an abstract orb, monogram, or subtle silhouette (not a human face).
+- Polished, calm, professional tone (like a narrator/concierge).
+- UI should feel like a “guide layer”, not customer support chat.
+- Host is always present but unobtrusive (dock button + expandable panel).
+
+FEATURES (MVP)
+1) Persistent HostDock (floating)
+   - Always visible on all routes
+   - Subtle idle animation (breathing/pulse)
+   - Expand/collapse to HostPanel
+   - Remembers collapsed state
+
+2) HostPanel (Concierge UI)
+   - Context-aware message based on route + visible section
+   - Action chips (recommended next actions)
+   - Optional “Ask about this page” input (site-scoped, not open-ended)
+   - Provide “Start Experience” + “Replay” entry points
+
+3) Experience Mode (Guided Journey)
+   - Scripted multi-step experience through key pages/sections
+   - Spotlight highlight of targets using stable anchors
+   - Shows once by default, replayable anytime
+
+4) Persistence (show once + replay)
+   - localStorage keys (versioned):
+     - ga_host_collapsed_v1
+     - ga_experience_completed_v1
+   - Experience mode should auto-suggest on first visit if not completed, but must allow Skip.
+
+5) Replace/remove the existing generic “Ask me anything” chat assistant widget entirely.
+
+REPO ANALYSIS FIRST (DO THIS BEFORE CODING)
+- Identify stack: Next.js vs React Router vs other; TypeScript vs JS; Vite/CRA; SSR constraints.
+- Identify routing structure and primary pages/sections (Home, Portfolio, Services, About, Contact/Book).
+- Identify how layouts are composed and where to mount global providers/components.
+- Identify styling system (Tailwind/MUI/Chakra/custom) and existing modal/toast patterns.
+- Identify any analytics/event tracking if present.
+
+IMPLEMENTATION APPROACH (PREFERRED)
+- Build a small custom host system using a “Host Playbook”:
+  - hostPlaybook.ts defines:
+    - per route: narrator messages, action chips, highlight targets
+    - optional experience steps (scripted)
+- Add stable anchors to key elements using data attributes:
+  - data-host="hero", data-host="portfolio-grid", data-host="services", data-host="contact-cta", etc.
+- Use IntersectionObserver to detect which section is currently visible and update narrator context.
+- The host should NEVER crash if an element selector is missing; it should fall back gracefully.
+
+UI COMPONENTS TO CREATE
+- HostProvider (global state + orchestration)
+- HostDock (floating orb/monogram button)
+- HostPanel (expanded narrator panel)
+- ExperienceOverlay (spotlight/highlight overlay + step controls)
+- utilities:
+  - useSectionObserver()
+  - safeQuerySelector()
+  - localStorage helpers with SSR guards
+
+NARRATOR BEHAVIOR (IMPORTANT)
+- Prefer action chips over long text.
+- Keep narration concise (1–3 sentences).
+- Offer clear next steps:
+  - “See portfolio”
+  - “Explore services”
+  - “Contact / Book”
+  - “Start 60-second experience”
+- Add a “Replay Experience” button in HostPanel.
+- Add a “Dismiss” option (collapses host) that persists.
+
+AI / BACKEND (DO NOT REQUIRE PAID APIS FOR MVP)
+- MVP must work without paid model APIs.
+- If backend/API routes exist, add an OPTIONAL stub endpoint:
+  - /api/host/ask that returns a placeholder response based on route/section
+- Design interfaces so we can later connect an LLM safely:
+  - responses must be site-scoped only
+  - short answers (max ~90 words)
+  - include recommended links/actions instead of rambling
+
+EXPERIENCE MODE (MINIMUM WORKING SLICE)
+- Implement 3 initial steps that target REAL elements in the existing app.
+- Steps must support route changes if needed.
+- Provide Skip / Next / Back / Finish.
+- On Finish, show a CTA panel (Contact/Book + Portfolio + Social links if present).
+
+OUTPUT FORMAT (WHAT YOU MUST PRINT AFTER WORK)
+1) Repo Findings (stack, routing, mount point, styling)
+2) Decision (custom host + playbook structure and why it fits this repo)
+3) Host Playbook draft (as a code block)
+4) Implementation Plan (Phase 1–4)
+5) Changes Made (files added/modified)
+6) Test Checklist (desktop, mobile, route changes, first-visit, replay, missing selector)
+
+CONSTRAINTS
+- Follow existing project patterns and formatting.
+- Avoid large refactors.
+- Must be mobile-friendly and accessible (keyboard, ARIA, focus trapping in overlay).
+- If SSR (Next.js), guard all window/document/localStorage usage.
+Proceed now without asking me questions unless you are truly blocked.

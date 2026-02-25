@@ -751,6 +751,34 @@ Disallow: /api/`);
     }
   });
 
+  app.post('/api/host/ask', (req, res) => {
+    const { question } = req.body;
+    if (!question || typeof question !== 'string') {
+      return res.status(400).json({ error: 'Question is required' });
+    }
+
+    const q = question.toLowerCase();
+    let answer = 'I can help you navigate the site. Use the action buttons to explore projects, testimonials, or start a project.';
+
+    if (q.includes('project') && (q.includes('start') || q.includes('begin') || q.includes('build'))) {
+      answer = 'You can start a project by filling out the contact form. Scroll down to the "Start Your Project" section or click the action chip below.';
+    } else if (q.includes('portfolio') || q.includes('work') || q.includes('project')) {
+      answer = 'The Projects section showcases completed work. Click any card to see the full case study with problem, solution, and results.';
+    } else if (q.includes('testimonial') || q.includes('review') || q.includes('feedback')) {
+      answer = 'Client testimonials are in the Testimonials section. You can also leave your own testimonial there.';
+    } else if (q.includes('status') || q.includes('ticket') || q.includes('track')) {
+      answer = 'Use the Project Status section to look up your project by ticket number. You received a ticket number when you submitted your project request.';
+    } else if (q.includes('contact') || q.includes('email') || q.includes('reach')) {
+      answer = 'You can reach Gavin at gavin@gavineanthony.com or fill out the project request form in the Contact section.';
+    } else if (q.includes('price') || q.includes('cost') || q.includes('budget') || q.includes('rate')) {
+      answer = 'Pricing depends on the project scope. Fill out the contact form with your details and budget range to get a custom quote.';
+    } else if (q.includes('tech') || q.includes('stack') || q.includes('built')) {
+      answer = 'Gavin works with React, TypeScript, Node.js, PostgreSQL, and modern web technologies. Check the Projects section for specific examples.';
+    }
+
+    res.json({ answer });
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

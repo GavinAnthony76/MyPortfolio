@@ -1,6 +1,22 @@
 # Overview
 
-This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. The site features a glassmorphism-inspired dark theme with project gallery, case study modals, project status tracking via ticket numbers, testimonials, blog articles, and an AI-powered virtual assistant. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
+This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. The site features a glassmorphism-inspired light theme with project gallery, case study modals, project status tracking via ticket numbers, testimonials, blog articles, and a Professional Narrator host guide. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
+
+## Recent Changes (February 25, 2026)
+### Professional Narrator Host System (COMPLETED ✅)
+- **Replaces old AI chat widget** - Old `ai-assistant.tsx` removed from App.tsx, replaced with narrator host
+- **HostDock** - Persistent floating orb button (bottom-right), blue-purple gradient with breathing animation
+- **HostPanel** - Expandable concierge panel with context-aware narrator messages and action chips
+- **Experience Mode** - 3-step guided tour with spotlight overlay, keyboard controls (ESC/arrows), step indicators
+- **Context-aware narration** - IntersectionObserver detects visible section, updates narrator message/chips
+- **Host Playbook** - Configurable per-route and per-section messages, action chips, experience steps
+- **Action chips** - Quick navigation buttons: scroll to sections, start experience, navigate routes
+- **Ask input** - Site-scoped question input with stub API endpoint `/api/host/ask`
+- **First-visit prompt** - Auto-suggests guided experience on first visit, dismissible
+- **localStorage persistence** - Collapsed state and experience completion persisted (versioned keys)
+- **Keyboard accessible** - ESC to skip tour, arrow keys for navigation, ARIA attributes throughout
+- **data-host attributes** - Added to all major sections for spotlight targeting
+- **Files added**: host-provider.tsx, host-dock.tsx, host-panel.tsx, experience-overlay.tsx, host-narrator.tsx, section-observer-bridge.tsx, use-section-observer.ts, host-playbook.ts, host-utils.ts
 
 ## Recent Changes (February 24, 2026)
 ### Testimonial Submission & Approval System (COMPLETED ✅)

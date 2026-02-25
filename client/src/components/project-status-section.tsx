@@ -76,7 +76,7 @@ export default function ProjectStatusSection() {
   const StatusIcon = result ? (statusIcons[result.status] || Clock) : Clock;
 
   return (
-    <section id="project-status" className="py-12 sm:py-16 section-light relative">
+    <section id="project-status" data-host="project-status" className="py-12 sm:py-16 section-light relative">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10">
           <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-slate-800">

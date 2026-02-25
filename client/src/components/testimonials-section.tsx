@@ -107,7 +107,7 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section id="testimonials" className="py-12 sm:py-16 section-light relative">
+    <section id="testimonials" data-host="testimonials" className="py-12 sm:py-16 section-light relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-slate-800">

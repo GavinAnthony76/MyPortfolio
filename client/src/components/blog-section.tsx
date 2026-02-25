@@ -35,7 +35,7 @@ const categoryColors: Record<string, string> = {
 
 export default function BlogSection() {
   return (
-    <section id="blog" className="py-12 sm:py-16 section-darker relative">
+    <section id="blog" data-host="blog" className="py-12 sm:py-16 section-darker relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-slate-800">
