@@ -1,6 +1,6 @@
 # Overview
 
-This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. The site features a glassmorphism-inspired light theme with a project gallery, case study modals, project status tracking via ticket numbers, testimonials, blog articles, and a Whisper Concierge AI guide. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
+This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. The site features a glassmorphism-inspired light theme with a project gallery, case study modals, project status tracking via ticket numbers, testimonials, and blog articles. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
 
 # User Preferences
 
@@ -16,7 +16,7 @@ Preferred communication style: Simple, everyday language.
 - **State Management**: TanStack Query for server state and form handling with React Hook Form
 - **Form Validation**: Zod schemas
 - **UI/UX Decisions**: Glassmorphism hero card, accordion-style project cards in dashboard, status badges with color coding, professional developer photo, abstract tech imagery, streamlined contact form.
-- **Whisper Concierge System**: Replaces previous narrator system with transient, translucent glassmorphism whisper cards. Features a floating sigil/orb button, context-aware whispers based on scroll-pause and CTA hovers, a first-visit introductory flyover mode, and a site-scoped "Ask a question" feature. Whispers auto-dismiss and persist seen status via localStorage.
+
 
 ## Backend Architecture
 - **Runtime**: Node.js with Express.js
@@ -39,7 +39,6 @@ Preferred communication style: Simple, everyday language.
 - **Security**: Helmet middleware for security headers, rate limiting on contact form (5 requests/10 mins/IP), secure cookie configuration for HTTPS.
 - **Project Management Workflow**: Public testimonial form with admin approval workflow. Project lifecycle tracking (new → responded → proposal-sent → in-progress → complete) with contextual action buttons. Proposal generation and download.
 - **Monorepo Structure**: Shared types and schemas for full-stack type safety.
-- **AI Assistant**: OpenAI-powered intelligent assistant integrated for service recommendations and tech stack guidance.
 
 ## Feature Specifications
 - Public-facing portfolio with web application, landing page, and e-commerce project showcases.

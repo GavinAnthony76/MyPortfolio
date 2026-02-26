@@ -13,7 +13,7 @@ import { db } from "./db";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import { sendInternalNotification, sendAutoReply } from "./mailer";
-import { getChatResponse, getGreetingMessage } from "./ai-assistant";
+
 
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -716,67 +716,6 @@ Disallow: /api/`);
   app.get("/favicon.png", (req, res) => {
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     res.sendFile('client/public/favicon.png', { root: process.cwd() });
-  });
-
-  // AI Assistant endpoints
-  app.get('/api/ai/greeting', (req, res) => {
-    try {
-      const greeting = getGreetingMessage();
-      res.json({ message: greeting });
-    } catch (error) {
-      console.error('Greeting error:', error);
-      res.status(500).json({ error: 'Failed to generate greeting' });
-    }
-  });
-
-  app.post('/api/ai/chat', async (req, res) => {
-    try {
-      const { message, conversationHistory = [] } = req.body;
-      
-      if (!message || typeof message !== 'string') {
-        return res.status(400).json({ error: 'Message is required' });
-      }
-
-      // Limit conversation history to last 10 messages to manage token usage
-      const limitedHistory = conversationHistory.slice(-10);
-      
-      const response = await getChatResponse(message, limitedHistory);
-      res.json(response);
-    } catch (error) {
-      console.error('Chat error:', error);
-      res.status(500).json({ 
-        success: false, 
-        message: "I'm experiencing technical difficulties. Please contact support@gavineanthony.com for technical assistance." 
-      });
-    }
-  });
-
-  app.post('/api/whisper/respond', (req, res) => {
-    const { question } = req.body;
-    if (!question || typeof question !== 'string') {
-      return res.status(400).json({ error: 'Question is required' });
-    }
-
-    const q = question.toLowerCase();
-    let text = 'Try the action buttons to explore projects, testimonials, or start a project.';
-
-    if (q.includes('project') && (q.includes('start') || q.includes('begin') || q.includes('build'))) {
-      text = 'Fill out the contact form below to start. You\'ll get a ticket number to track progress.';
-    } else if (q.includes('portfolio') || q.includes('work') || q.includes('project')) {
-      text = 'The Projects section has real case studies. Click any card for the full story.';
-    } else if (q.includes('testimonial') || q.includes('review') || q.includes('feedback')) {
-      text = 'Client testimonials are in the Testimonials section. You can leave your own too.';
-    } else if (q.includes('status') || q.includes('ticket') || q.includes('track')) {
-      text = 'Use the Project Status section with your ticket number to check progress.';
-    } else if (q.includes('contact') || q.includes('email') || q.includes('reach')) {
-      text = 'Reach Gavin at gavin@gavineanthony.com or use the contact form.';
-    } else if (q.includes('price') || q.includes('cost') || q.includes('budget') || q.includes('rate')) {
-      text = 'Pricing depends on scope. Fill out the contact form for a custom quote.';
-    } else if (q.includes('tech') || q.includes('stack') || q.includes('built')) {
-      text = 'React, TypeScript, Node.js, PostgreSQL. See the Projects section for examples.';
-    }
-
-    res.json({ text, actions: [] });
   });
 
   const httpServer = createServer(app);
