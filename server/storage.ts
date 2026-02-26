@@ -1,6 +1,7 @@
 import { users, projectRequests, testimonials, type User, type InsertUser, type ProjectRequest, type InsertProjectRequest, type Testimonial, type InsertTestimonial } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
+import { generateTicketNumber } from "./ticket-generator";
 
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
@@ -9,6 +10,7 @@ export interface IStorage {
   createProjectRequest(request: InsertProjectRequest & { generatedPrompt: string }): Promise<ProjectRequest>;
   getProjectRequests(): Promise<ProjectRequest[]>;
   getProjectRequestById(id: string): Promise<ProjectRequest | undefined>;
+  getProjectRequestByTicket(ticketNumber: string): Promise<ProjectRequest | undefined>;
   updateProjectRequestStatus(id: string, status: string): Promise<ProjectRequest | undefined>;
   deleteProjectRequest(id: string): Promise<boolean>;
   createTestimonial(testimonial: InsertTestimonial): Promise<Testimonial>;
@@ -38,29 +40,41 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createProjectRequest(requestData: InsertProjectRequest & { generatedPrompt: string }): Promise<ProjectRequest> {
-    const [request] = await db
-      .insert(projectRequests)
-      .values({
-        firstName: requestData.firstName,
-        lastName: requestData.lastName,
-        email: requestData.email,
-        company: requestData.company || "",
-        projectType: requestData.projectType,
-        budget: requestData.budget,
-        budgetRange: requestData.budgetRange || "",
-        timeline: requestData.timeline,
-        description: requestData.description,
-        referenceUrl: requestData.referenceUrl || "",
-        targetAudience: requestData.targetAudience || "",
-        keyFeatures: requestData.keyFeatures || "",
-        techPreferences: requestData.techPreferences || "",
-        designReferences: requestData.designReferences || "",
-        additionalInfo: requestData.additionalInfo || "",
-        generatedPrompt: requestData.generatedPrompt,
-        status: 'new',
-      })
-      .returning();
-    return request;
+    const MAX_RETRIES = 5;
+    for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+      try {
+        const [request] = await db
+          .insert(projectRequests)
+          .values({
+            ticketNumber: generateTicketNumber(),
+            firstName: requestData.firstName,
+            lastName: requestData.lastName,
+            email: requestData.email,
+            company: requestData.company || "",
+            projectType: requestData.projectType,
+            budget: requestData.budget,
+            budgetRange: requestData.budgetRange || "",
+            timeline: requestData.timeline,
+            description: requestData.description,
+            referenceUrl: requestData.referenceUrl || "",
+            targetAudience: requestData.targetAudience || "",
+            keyFeatures: requestData.keyFeatures || "",
+            techPreferences: requestData.techPreferences || "",
+            designReferences: requestData.designReferences || "",
+            additionalInfo: requestData.additionalInfo || "",
+            generatedPrompt: requestData.generatedPrompt,
+            status: 'new',
+          })
+          .returning();
+        return request;
+      } catch (err: any) {
+        if (err?.code === '23505' && err?.constraint?.includes('ticket_number') && attempt < MAX_RETRIES - 1) {
+          continue;
+        }
+        throw err;
+      }
+    }
+    throw new Error("Failed to generate unique ticket number");
   }
 
   async getProjectRequests(): Promise<ProjectRequest[]> {
@@ -70,6 +84,11 @@ export class DatabaseStorage implements IStorage {
 
   async getProjectRequestById(id: string): Promise<ProjectRequest | undefined> {
     const [request] = await db.select().from(projectRequests).where(eq(projectRequests.id, id));
+    return request || undefined;
+  }
+
+  async getProjectRequestByTicket(ticketNumber: string): Promise<ProjectRequest | undefined> {
+    const [request] = await db.select().from(projectRequests).where(eq(projectRequests.ticketNumber, ticketNumber));
     return request || undefined;
   }
 

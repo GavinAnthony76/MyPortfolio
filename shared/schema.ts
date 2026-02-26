@@ -11,6 +11,7 @@ export const users = pgTable("users", {
 
 export const projectRequests = pgTable("project_requests", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  ticketNumber: varchar("ticket_number", { length: 12 }).notNull().unique(),
   firstName: text("first_name").notNull(),
   lastName: text("last_name").notNull(),
   email: text("email").notNull(),
@@ -55,6 +56,7 @@ export const insertUserSchema = createInsertSchema(users).pick({
 
 export const insertProjectRequestSchema = createInsertSchema(projectRequests).omit({
   id: true,
+  ticketNumber: true,
   generatedPrompt: true,
   status: true,
   createdAt: true,

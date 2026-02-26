@@ -480,6 +480,7 @@ Proposal generated on ${new Date().toLocaleDateString()} for ${request.company |
                               word.charAt(0).toUpperCase() + word.slice(1)
                             ).join(' ')} Project
                           </h3>
+                          <code className="text-xs font-mono bg-slate-100 text-slate-500 px-2 py-0.5 rounded">{request.ticketNumber}</code>
                           {getStatusBadge(request.status)}
                         </div>
                         <div className="flex items-center gap-4 text-sm text-slate-600">

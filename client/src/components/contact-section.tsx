@@ -89,7 +89,7 @@ export default function ContactSection() {
       return response.json();
     },
     onSuccess: (data) => {
-      setTicketNumber(data.id);
+      setTicketNumber(data.ticketNumber);
       toast({
         title: "Project request submitted!",
         description: "Save your ticket number to check your project status anytime.",

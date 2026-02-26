@@ -364,7 +364,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Continue - don't fail the request if email fails
       }
       
-      res.json({ success: true, id: projectRequest.id });
+      res.json({ success: true, ticketNumber: projectRequest.ticketNumber });
     } catch (error) {
       console.error("Error creating project request:", error);
       res.status(400).json({ 
@@ -449,14 +449,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { ticketNumber } = req.params;
       
-      if (!ticketNumber || ticketNumber.length < 10) {
+      const normalized = ticketNumber?.trim().toUpperCase();
+      if (!normalized || normalized.length < 9) {
         return res.status(400).json({ 
           success: false, 
           error: "Invalid ticket number format" 
         });
       }
       
-      const request = await storage.getProjectRequestById(ticketNumber);
+      const request = await storage.getProjectRequestByTicket(normalized);
       
       if (!request) {
         return res.status(404).json({ 
@@ -479,7 +480,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json({ 
         success: true,
-        ticketNumber: request.id,
+        ticketNumber: request.ticketNumber,
         status: statusLabels[request.status] || request.status,
         projectType: request.projectType,
         submittedAt: request.createdAt,

@@ -38,6 +38,7 @@ Preferred communication style: Simple, everyday language.
 - **Email Services**: SMTP email service with Nodemailer for client confirmations and internal notifications. Graceful error handling for email delivery.
 - **Security**: Helmet middleware for security headers, rate limiting on contact form (5 requests/10 mins/IP), secure cookie configuration for HTTPS.
 - **Project Management Workflow**: Public testimonial form with admin approval workflow. Project lifecycle tracking (new → responded → proposal-sent → in-progress → complete) with contextual action buttons. Proposal generation and download.
+- **Ticket Number Format**: Custom 12-character ticket numbers generated from submission date. Format: interleaved month letters + year digits (positions 1,3,5 = month chars; 2,4,6,7 = year digits) + 2-digit day + 3-char random suffix. Example: F2E0B2625XYZ = Feb 25 2026. Generated in `server/ticket-generator.ts`.
 - **Monorepo Structure**: Shared types and schemas for full-stack type safety.
 
 ## Feature Specifications
