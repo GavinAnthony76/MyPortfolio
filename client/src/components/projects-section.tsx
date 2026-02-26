@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ExternalLink, Github, ArrowRight, Eye } from "lucide-react";
 import { usePortfolioImages } from "@/hooks/use-portfolio-images";
+import txsImage from "@assets/image_1772076982979.png";
 
 interface Project {
   id: string;
@@ -26,7 +27,7 @@ const getProjects = (images: any): Project[] => [
     title: "Texas Showdown 2026",
     shortDescription:
       "Official tournament website for one of the largest fighting game events in the US.",
-    image: images?.fightingGame || "/api/assets/fighting-game-tournament.png",
+    image: txsImage,
     category: "web",
     technologies: ["React", "Node.js", "ASP.NET"],
     liveUrl: "https://txshowdown.com/",
