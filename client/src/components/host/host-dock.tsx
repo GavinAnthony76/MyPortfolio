@@ -20,16 +20,15 @@ export default function HostDock() {
       aria-expanded={isExpanded}
       data-testid="host-dock"
     >
-      <div className="relative w-8 h-8">
-        <div className="absolute inset-0 rounded-full bg-white/20 animate-host-breathe" />
+      <div className="relative w-10 h-10">
+        <div className="absolute inset-0 rounded-full bg-white/15 animate-host-breathe" />
         <svg
-          viewBox="0 0 32 32"
-          className="w-8 h-8 relative z-10"
+          viewBox="0 0 40 40"
+          className="w-10 h-10 relative z-10"
           aria-hidden="true"
         >
-          <circle cx="16" cy="16" r="6" fill="white" opacity="0.9" />
-          <circle cx="16" cy="16" r="10" fill="none" stroke="white" strokeWidth="1.5" opacity="0.4" />
-          <circle cx="16" cy="16" r="14" fill="none" stroke="white" strokeWidth="0.8" opacity="0.2" />
+          <circle cx="20" cy="14" r="7" fill="white" opacity="0.95" />
+          <ellipse cx="20" cy="30" rx="10" ry="7" fill="white" opacity="0.85" />
         </svg>
       </div>
       <span className="sr-only">Site Guide</span>

@@ -135,9 +135,9 @@ export default function ExperienceOverlay() {
             className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full text-center space-y-4"
           >
             <div className="w-12 h-12 mx-auto bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-6 h-6" aria-hidden="true">
-                <circle cx="12" cy="12" r="4" fill="white" />
-                <circle cx="12" cy="12" r="8" fill="none" stroke="white" strokeWidth="1.5" opacity="0.5" />
+              <svg viewBox="0 0 24 24" className="w-7 h-7" aria-hidden="true">
+                <circle cx="12" cy="8.5" r="4.2" fill="white" opacity="0.95" />
+                <ellipse cx="12" cy="18" rx="6" ry="4.2" fill="white" opacity="0.85" />
               </svg>
             </div>
             <h3 className="text-lg font-bold text-slate-800">Tour Complete</h3>

@@ -64,9 +64,9 @@ export default function HostPanel() {
             <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center">
-                  <svg viewBox="0 0 20 20" className="w-4 h-4" aria-hidden="true">
-                    <circle cx="10" cy="10" r="4" fill="white" opacity="0.9" />
-                    <circle cx="10" cy="10" r="7" fill="none" stroke="white" strokeWidth="1" opacity="0.4" />
+                  <svg viewBox="0 0 20 20" className="w-5 h-5" aria-hidden="true">
+                    <circle cx="10" cy="7" r="3.5" fill="white" opacity="0.95" />
+                    <ellipse cx="10" cy="15.5" rx="5" ry="3.5" fill="white" opacity="0.85" />
                   </svg>
                 </div>
                 <span className="text-white font-semibold text-sm">Site Guide</span>
