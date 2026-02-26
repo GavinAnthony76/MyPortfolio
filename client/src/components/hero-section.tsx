@@ -10,7 +10,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="home" data-host="hero" className="relative min-h-screen flex items-center hero-gradient overflow-hidden">
+    <section id="home" data-whisper="hero" className="relative min-h-screen flex items-center hero-gradient overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-[128px] animate-pulse" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-400/8 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '2s' }} />

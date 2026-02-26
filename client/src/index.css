@@ -270,11 +270,11 @@
   }
 }
 
-@keyframes host-breathe {
-  0%, 100% { transform: scale(1); opacity: 0.3; }
-  50% { transform: scale(1.4); opacity: 0.15; }
+@keyframes whisper-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(1.6); opacity: 0.08; }
 }
 
-.animate-host-breathe {
-  animation: host-breathe 3s ease-in-out infinite;
+.animate-whisper-pulse {
+  animation: whisper-pulse 3.5s ease-in-out infinite;
 }

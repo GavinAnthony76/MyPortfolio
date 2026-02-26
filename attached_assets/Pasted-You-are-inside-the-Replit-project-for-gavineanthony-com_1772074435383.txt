@@ -1,0 +1,91 @@
+You are inside the Replit project for gavineanthony.com.
+
+We are building a CUTTING-EDGE “WHISPER CONCIERGE” AI guide.
+This is NOT a chat widget and NOT a persistent panel.
+
+DESIGN VISION (NON-NEGOTIABLE)
+- The concierge behaves like a wind/whisper: it appears briefly to guide or answer, then disappears smoothly and mysteriously.
+- UI must be minimal and ambient. No always-open sidebar. No “site guide chat box” as the primary UI.
+- The only persistent UI is a small subtle “sigil/orb” (summon button). Everything else appears transiently and dissolves.
+
+CORE UX STATES
+1) Dormant: small sigil/orb button (always available, unobtrusive).
+2) Whisper: a translucent “whisper card” appears near an anchor element (or corner fallback), shows 1–2 sentences + 2–4 action chips, then dissolves.
+3) Summoned: clicking the sigil shows a whisper card with recommended actions; optional question input is hidden behind “Ask a quick question” and is collapsed by default.
+
+SMARTNESS REQUIREMENTS (MVP)
+- Context aware: updates based on current route/page and visible section.
+- Proactive triggers:
+  A) First visit: show a single whisper offering “60-second flyover” with Start/Skip. Then dissolve.
+  B) On scroll-pause (user stops scrolling for ~1200ms) near meaningful sections: whisper a relevant suggestion.
+  C) On hover/focus of key CTAs: whisper a micro-guidance (“Want the best example of X?”) with chips.
+- Action-first: guidance is primarily via buttons/chips (navigate/scroll/open/external).
+- Must NEVER render a full chat box interface as the primary UI.
+- Must remove/disable the existing “AI Assistant / Ask me anything” widget.
+
+REPO ANALYSIS FIRST
+- Identify framework (Next.js vs React Router etc), SSR constraints, styling system.
+- Identify key routes/pages and important sections.
+- Add stable anchors to key elements using data attributes:
+  - data-whisper="hero"
+  - data-whisper="portfolio"
+  - data-whisper="services"
+  - data-whisper="contact"
+  - etc.
+
+IMPLEMENTATION COMPONENTS (MVP)
+A) Sigil / Orb
+- Floating subtle button with idle animation (soft pulse/ripple).
+- Keyboard accessible.
+
+B) Whisper Card
+- Translucent glassmorphism style.
+- Appears near a target anchor (use getBoundingClientRect to position).
+- Contains:
+  - Narration text (max 240 chars)
+  - 2–4 action chips
+  - close/dismiss
+- Auto-dismiss with TTL (6–10 seconds) unless user interacts.
+- Dissolve animation: opacity down + blur up + slight drift (CSS keyframes).
+
+C) Context Engine
+- Route detection
+- Visible section detection (IntersectionObserver on data-whisper anchors)
+- Scroll pause detection
+- Hover/focus detection on key CTA elements
+
+D) Brain Interface (Structured Output)
+Implement a deterministic “brain” that returns a Whisper object:
+  { text, actions[], ttlMs, anchor?, priority }
+Use a local siteMap describing routes/sections/CTAs to choose messages/actions.
+Create:
+- /src/concierge/siteMap.ts
+- /src/concierge/brain.ts
+
+E) Persistence
+- localStorage keys:
+  - ga_whisper_seen_v1 (first-visit intro shown)
+  - ga_flyover_completed_v1 (flyover completed)
+- User sees the intro whisper once by default; can replay flyover by summoning the sigil and choosing “Replay Flyover”.
+
+AI INTEGRATION (PHASED)
+- MVP must work WITHOUT paid AI APIs.
+- Add a stub endpoint (if backend exists) /api/whisper/respond that returns structured Whisper responses (hardcoded or rule-based).
+- Architect it so later we can plug in an LLM that MUST output the Whisper JSON shape and must stay site-scoped.
+
+ACCEPTANCE TESTS (MUST PASS)
+1) On first visit, a whisper appears offering “60-second flyover” with Start/Skip, then dissolves.
+2) No chatbox UI is visible by default anywhere.
+3) Sigil is always available and summons a whisper card with actions.
+4) Whisper appears on scroll-pause near a section and suggests a relevant next action.
+5) Hover/focus on a key CTA triggers a small whisper near that CTA.
+6) Whisper auto-dismisses and dissolves smoothly.
+7) Works on mobile; positioning falls back to bottom corner if anchor not found.
+8) Existing “Ask me anything” widget is removed/disabled.
+
+OUTPUT AFTER WORK
+- Repo Findings (stack, routes, mount point)
+- Files changed/added
+- Anchors added (which elements got data-whisper tags)
+- How to test each acceptance test
+Proceed now without asking questions unless truly blocked.

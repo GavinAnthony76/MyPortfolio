@@ -751,32 +751,32 @@ Disallow: /api/`);
     }
   });
 
-  app.post('/api/host/ask', (req, res) => {
+  app.post('/api/whisper/respond', (req, res) => {
     const { question } = req.body;
     if (!question || typeof question !== 'string') {
       return res.status(400).json({ error: 'Question is required' });
     }
 
     const q = question.toLowerCase();
-    let answer = 'I can help you navigate the site. Use the action buttons to explore projects, testimonials, or start a project.';
+    let text = 'Try the action buttons to explore projects, testimonials, or start a project.';
 
     if (q.includes('project') && (q.includes('start') || q.includes('begin') || q.includes('build'))) {
-      answer = 'You can start a project by filling out the contact form. Scroll down to the "Start Your Project" section or click the action chip below.';
+      text = 'Fill out the contact form below to start. You\'ll get a ticket number to track progress.';
     } else if (q.includes('portfolio') || q.includes('work') || q.includes('project')) {
-      answer = 'The Projects section showcases completed work. Click any card to see the full case study with problem, solution, and results.';
+      text = 'The Projects section has real case studies. Click any card for the full story.';
     } else if (q.includes('testimonial') || q.includes('review') || q.includes('feedback')) {
-      answer = 'Client testimonials are in the Testimonials section. You can also leave your own testimonial there.';
+      text = 'Client testimonials are in the Testimonials section. You can leave your own too.';
     } else if (q.includes('status') || q.includes('ticket') || q.includes('track')) {
-      answer = 'Use the Project Status section to look up your project by ticket number. You received a ticket number when you submitted your project request.';
+      text = 'Use the Project Status section with your ticket number to check progress.';
     } else if (q.includes('contact') || q.includes('email') || q.includes('reach')) {
-      answer = 'You can reach Gavin at gavin@gavineanthony.com or fill out the project request form in the Contact section.';
+      text = 'Reach Gavin at gavin@gavineanthony.com or use the contact form.';
     } else if (q.includes('price') || q.includes('cost') || q.includes('budget') || q.includes('rate')) {
-      answer = 'Pricing depends on the project scope. Fill out the contact form with your details and budget range to get a custom quote.';
+      text = 'Pricing depends on scope. Fill out the contact form for a custom quote.';
     } else if (q.includes('tech') || q.includes('stack') || q.includes('built')) {
-      answer = 'Gavin works with React, TypeScript, Node.js, PostgreSQL, and modern web technologies. Check the Projects section for specific examples.';
+      text = 'React, TypeScript, Node.js, PostgreSQL. See the Projects section for examples.';
     }
 
-    res.json({ answer });
+    res.json({ text, actions: [] });
   });
 
   const httpServer = createServer(app);
