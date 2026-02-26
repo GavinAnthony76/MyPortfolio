@@ -1,99 +1,98 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Zap } from "lucide-react";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [location] = useLocation();
-
-  const navLinks = [
-    { href: "/#home", label: "Home" },
-    { href: "/#projects", label: "Projects" },
-    { href: "/#testimonials", label: "Testimonials" },
-    { href: "/#project-status", label: "Status" },
-    { href: "/#contact", label: "Start a Project" },
-  ];
-
-  const handleLinkClick = (href: string) => {
-    setIsMobileMenuOpen(false);
-    
-    if (href.startsWith('/#')) {
-      const elementId = href.substring(2);
-      const element = document.getElementById(elementId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+  const [visible, setVisible] = useState(false);
+  const [liteMode, setLiteMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      return document.body.classList.contains("lite-mode");
     }
-  };
+    return false;
+  });
+
+  useEffect(() => {
+    const timer = setTimeout(() => setVisible(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (liteMode) {
+      document.body.classList.add("lite-mode");
+    } else {
+      document.body.classList.remove("lite-mode");
+    }
+  }, [liteMode]);
+
+  const isWorksPage = location === "/works" || location.startsWith("/works/");
+  const isFocusPage = location === "/";
 
   return (
-    <nav className="sticky top-0 z-50 glass-nav">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-center py-4">
-          <Link href="/" className="flex items-center space-x-3" data-testid="link-home">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">GA</span>
-            </div>
-            <span className="text-xl font-bold text-slate-800">Gavin Anthony</span>
-          </Link>
-          
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(link.href);
-                }}
-                className="text-slate-500 hover:text-blue-600 transition-colors font-medium text-sm uppercase tracking-wider"
-                data-testid={`link-${link.label.toLowerCase()}`}
-              >
-                {link.label}
-              </a>
-            ))}
-            <Link href="/dashboard">
-              <Button variant="outline" size="sm" className="border-blue-500/30 text-blue-600 hover:bg-blue-50 hover:text-blue-700" data-testid="link-dashboard">
-                Dashboard
-              </Button>
-            </Link>
-          </div>
-
-          <Button
-            variant="ghost"
-            size="sm"
-            className="md:hidden text-slate-700 hover:text-blue-600"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            data-testid="button-mobile-menu"
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-opacity ${
+        visible ? "opacity-100" : "opacity-0"
+      }`}
+      style={{ transitionDuration: "var(--duration-slow)" }}
+    >
+      <div className="px-6 sm:px-10 py-6 flex items-center justify-between">
+        <div className="flex items-center gap-8">
+          <Link
+            href="/works"
+            className={`editorial-link ${isWorksPage ? "active" : ""}`}
           >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
+            All
+          </Link>
+          <Link
+            href="/"
+            className={`editorial-link ${isFocusPage ? "active" : ""}`}
+          >
+            Focus
+          </Link>
         </div>
+
+        <div className="hidden md:flex items-center gap-8">
+          <Link href="/about" className={`editorial-link ${location === "/about" ? "active" : ""}`}>
+            About
+          </Link>
+          <Link href="/contact" className={`editorial-link ${location === "/contact" ? "active" : ""}`}>
+            Contact
+          </Link>
+          <button
+            onClick={() => setLiteMode(!liteMode)}
+            className="editorial-link flex items-center gap-1"
+            title={liteMode ? "Disable lite mode" : "Enable lite mode"}
+          >
+            <Zap className="w-3 h-3" />
+          </button>
+          <Link href="/dashboard" className="editorial-link">
+            Dashboard
+          </Link>
+        </div>
+
+        <button
+          className="md:hidden text-white/50 hover:text-white transition-colors p-1"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-lg border-t border-slate-100" data-testid="mobile-menu">
-          <div className="px-6 py-4 space-y-3">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(link.href);
-                }}
-                className="block text-slate-500 hover:text-blue-600 transition-colors font-medium text-sm uppercase tracking-wider"
-                data-testid={`mobile-link-${link.label.toLowerCase()}`}
-              >
-                {link.label}
-              </a>
-            ))}
-            <Link href="/dashboard" className="block">
-              <Button variant="outline" size="sm" className="w-full border-blue-500/30 text-blue-600 hover:bg-blue-50" data-testid="mobile-link-dashboard">
-                Dashboard
-              </Button>
-            </Link>
+        <div className="md:hidden bg-black/95 backdrop-blur-sm border-t border-white/5">
+          <div className="px-6 py-8 flex flex-col gap-5">
+            <Link href="/works" onClick={() => setIsMobileMenuOpen(false)} className={`editorial-link ${isWorksPage ? "active" : ""}`}>All</Link>
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className={`editorial-link ${isFocusPage ? "active" : ""}`}>Focus</Link>
+            <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className={`editorial-link ${location === "/about" ? "active" : ""}`}>About</Link>
+            <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className={`editorial-link ${location === "/contact" ? "active" : ""}`}>Contact</Link>
+            <div className="h-px bg-white/10 my-1" />
+            <button onClick={() => setLiteMode(!liteMode)} className="editorial-link flex items-center gap-2 text-left">
+              <Zap className="w-3 h-3" />
+              <span>{liteMode ? "Lite On" : "Lite Off"}</span>
+            </button>
+            <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="editorial-link">Dashboard</Link>
           </div>
         </div>
       )}

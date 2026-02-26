@@ -1,6 +1,6 @@
 # Overview
 
-This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. The site features a glassmorphism-inspired light theme with a project gallery, case study modals, project status tracking via ticket numbers, testimonials, and blog articles. The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
+This project is a professional portfolio website for a full-stack developer, Gavin Anthony, serving as both a public-facing showcase for web development skills and a business tool for managing client project requests. The site uses a dark, cinematic editorial design inspired by asmobius.co.jp — black background, white uppercase typography, full-screen project imagery, and minimal UI. The homepage is a "Focus" mode (full-screen project slideshow with PREV/NEXT), /works is an "All" mode (vertical project name list), and /works/:id shows project details. Additional pages: /about, /contact (with project request form and ticket status lookup). The business vision is to provide high-quality web development solutions, leveraging a professional online presence and an efficient client management system to attract and serve clients effectively.
 
 # User Preferences
 
@@ -15,7 +15,7 @@ Preferred communication style: Simple, everyday language.
 - **Styling**: Tailwind CSS with custom design tokens and CSS variables
 - **State Management**: TanStack Query for server state and form handling with React Hook Form
 - **Form Validation**: Zod schemas
-- **UI/UX Decisions**: Glassmorphism hero card, accordion-style project cards in dashboard, status badges with color coding, professional developer photo, abstract tech imagery, streamlined contact form.
+- **UI/UX Decisions**: Dark cinematic editorial design (black bg, white uppercase typography), full-screen Focus mode homepage with PREV/NEXT slideshow, vertical All mode project list at /works, minimal navigation with just "All" and "Focus" links, scroll-reveal animations with `prefers-reduced-motion` and lite-mode support. Dashboard retains existing admin styling.
 
 
 ## Backend Architecture
