@@ -3,174 +3,242 @@ import { Link } from "wouter";
 import Navigation from "@/components/navigation";
 import { projects } from "@/lib/projects-data";
 
-export default function Works() {
-  const [loaded, setLoaded] = useState(false);
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
+function ProjectRow({ project, index, isEven }: { project: (typeof projects)[0]; index: number; isEven: boolean }) {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoaded(true), 200);
+    const el = rowRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.12 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <Link href={`/works/${project.id}`}>
+      <div
+        ref={rowRef}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        data-testid={`works-item-${project.id}`}
+        className="relative cursor-pointer"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+      >
+        <div
+          className={`flex flex-col ${isEven ? "lg:flex-row-reverse" : "lg:flex-row"} transition-all`}
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(40px)",
+            transitionDuration: "1s",
+            transitionTimingFunction: "var(--ease-out-expo)",
+            transitionDelay: `${index * 80}ms`,
+          }}
+        >
+          <div
+            className="relative overflow-hidden w-full lg:w-[55%] aspect-[16/9] lg:aspect-auto"
+            style={{ minHeight: "clamp(220px, 30vw, 420px)" }}
+          >
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover"
+              style={{
+                transform: hovered ? "scale(1.04)" : "scale(1)",
+                filter: hovered ? "brightness(0.85)" : "brightness(0.65)",
+                transition: "transform 0.8s var(--ease-out-expo), filter 0.6s ease",
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden" />
+          </div>
+
+          <div
+            className={`flex-1 flex flex-col justify-between p-8 sm:p-10 lg:p-12 xl:p-16 ${
+              isEven ? "lg:pr-0" : "lg:pl-0"
+            }`}
+          >
+            <div>
+              <div className="flex items-center gap-4 mb-6 lg:mb-10">
+                <span
+                  className="font-light tracking-[0.15em] transition-colors"
+                  style={{
+                    fontSize: "11px",
+                    color: hovered ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.2)",
+                    transitionDuration: "0.4s",
+                  }}
+                >
+                  {project.number}
+                </span>
+                <div
+                  className="h-px flex-1 transition-colors"
+                  style={{
+                    background: hovered ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.05)",
+                    transitionDuration: "0.4s",
+                  }}
+                />
+                <span
+                  className="font-light tracking-[0.18em] uppercase transition-colors"
+                  style={{
+                    fontSize: "10px",
+                    color: hovered ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.18)",
+                    transitionDuration: "0.4s",
+                  }}
+                >
+                  {project.category}
+                </span>
+              </div>
+
+              <h2
+                className="font-light uppercase leading-none mb-4 transition-colors"
+                style={{
+                  fontSize: "clamp(28px, 4vw, 60px)",
+                  letterSpacing: "0.04em",
+                  color: hovered ? "#fff" : "rgba(255,255,255,0.82)",
+                  transitionDuration: "0.4s",
+                }}
+              >
+                {project.title}
+              </h2>
+
+              {project.subtitle && (
+                <p
+                  className="font-light uppercase tracking-[0.1em] mb-6 transition-colors"
+                  style={{
+                    fontSize: "clamp(13px, 1.4vw, 18px)",
+                    color: hovered ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.18)",
+                    transitionDuration: "0.4s",
+                  }}
+                >
+                  {project.subtitle}
+                </p>
+              )}
+
+              <p
+                className="font-light leading-relaxed mb-8 lg:mb-12 max-w-sm transition-colors"
+                style={{
+                  fontSize: "13px",
+                  letterSpacing: "0.04em",
+                  color: hovered ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.28)",
+                  transitionDuration: "0.4s",
+                }}
+              >
+                {project.shortDescription}
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <span
+                className="font-light tracking-[0.12em] transition-colors"
+                style={{
+                  fontSize: "11px",
+                  color: "rgba(255,255,255,0.2)",
+                  transitionDuration: "0.4s",
+                }}
+              >
+                {project.year}
+              </span>
+
+              <div
+                className="flex items-center gap-3 transition-all"
+                style={{
+                  opacity: hovered ? 1 : 0,
+                  transform: hovered ? "translateX(0)" : "translateX(-8px)",
+                  transitionDuration: "0.4s",
+                  transitionTimingFunction: "var(--ease-out-expo)",
+                }}
+              >
+                <span
+                  className="uppercase tracking-[0.2em] font-light"
+                  style={{ fontSize: "10px", color: "rgba(255,255,255,0.5)" }}
+                >
+                  View Project
+                </span>
+                <div className="w-8 h-px bg-white/30" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+export default function Works() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      setMousePos({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
-    }
-  };
-
-  const hoveredProject = hoveredId
-    ? projects.find((p) => p.id === hoveredId)
-    : null;
-
   return (
-    <div className="min-h-screen bg-black relative">
+    <div className="min-h-screen bg-black">
       <Navigation />
 
-      {hoveredProject && (
+      <div className="pt-24">
         <div
-          className="fixed pointer-events-none z-30"
+          className="px-8 sm:px-16 lg:px-24 xl:px-32 pb-8"
           style={{
-            left: mousePos.x + 24,
-            top: mousePos.y - 100,
-            width: 320,
-            height: 200,
-            transition: "opacity 0.4s ease",
-            opacity: 1,
+            opacity: loaded ? 1 : 0,
+            transform: loaded ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo)",
           }}
         >
-          <img
-            src={hoveredProject.image}
-            alt=""
-            className="w-full h-full object-cover"
-            style={{
-              clipPath: "inset(0 0 0 0 round 2px)",
-            }}
-          />
-          <div className="absolute inset-0 border border-white/10 rounded-sm" />
-        </div>
-      )}
-
-      <div
-        ref={containerRef}
-        onMouseMove={handleMouseMove}
-        className="relative z-10 flex flex-col justify-center min-h-screen px-8 sm:px-16 lg:px-24 xl:px-32 pt-24 pb-16"
-      >
-        <div
-          className={`mb-16 transition-all ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-          style={{
-            transitionDuration: "0.8s",
-            transitionTimingFunction: "var(--ease-out-expo)",
-            transitionDelay: "100ms",
-          }}
-        >
-          <span className="editorial-number text-xs tracking-[0.3em] text-white/25 block mb-3">
-            SELECTED WORKS
-          </span>
-          <div className="w-12 h-px bg-white/10" />
+          <div className="flex items-end justify-between mb-2">
+            <span
+              className="uppercase font-light tracking-[0.3em]"
+              style={{ fontSize: "10px", color: "rgba(255,255,255,0.22)" }}
+            >
+              Selected Works
+            </span>
+            <span
+              className="font-light tracking-[0.1em]"
+              style={{ fontSize: "11px", color: "rgba(255,255,255,0.18)" }}
+            >
+              {String(projects.length).padStart(2, "0")}
+            </span>
+          </div>
+          <div className="h-px" style={{ background: "rgba(255,255,255,0.06)" }} />
         </div>
 
         <div>
           {projects.map((project, i) => (
-            <Link key={project.id} href={`/works/${project.id}`}>
-              <div
-                className={`group cursor-pointer transition-all ${
-                  loaded
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
-                }`}
-                style={{
-                  transitionDuration: "0.8s",
-                  transitionTimingFunction: "var(--ease-out-expo)",
-                  transitionDelay: `${250 + i * 120}ms`,
-                }}
-                onMouseEnter={() => setHoveredId(project.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                data-testid={`works-item-${project.id}`}
-              >
-                <div className="border-t border-white/[0.07] group-hover:border-white/20 transition-colors" style={{ transitionDuration: "0.4s" }} />
-
-                <div className="py-8 sm:py-10 lg:py-12 flex items-start sm:items-center gap-6 sm:gap-10">
-                  <span
-                    className="text-white/15 group-hover:text-white/40 text-xs sm:text-sm font-light tracking-[0.2em] transition-colors mt-1 sm:mt-0 min-w-[28px]"
-                    style={{ transitionDuration: "0.4s" }}
-                  >
-                    {project.number}
-                  </span>
-
-                  <div className="flex-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-8">
-                    <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
-                      <h2 className="text-white/80 group-hover:text-white text-xl sm:text-2xl lg:text-4xl xl:text-5xl font-light tracking-[0.04em] uppercase transition-colors" style={{ transitionDuration: "0.4s" }}>
-                        {project.title}
-                      </h2>
-                      {project.subtitle && (
-                        <span className="text-white/20 group-hover:text-white/35 text-sm sm:text-base lg:text-lg font-light tracking-[0.08em] uppercase transition-colors" style={{ transitionDuration: "0.4s" }}>
-                          {project.subtitle}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-6 sm:gap-8 shrink-0">
-                      <span className="text-white/15 group-hover:text-white/30 text-[10px] sm:text-xs tracking-[0.2em] uppercase transition-colors" style={{ transitionDuration: "0.4s" }}>
-                        {project.category}
-                      </span>
-                      <span className="text-white/15 group-hover:text-white/30 text-[10px] sm:text-xs tracking-[0.15em] font-light transition-colors" style={{ transitionDuration: "0.4s" }}>
-                        {project.year}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="hidden lg:block">
-                    <svg
-                      className="w-5 h-5 text-white/0 group-hover:text-white/30 transition-all group-hover:translate-x-1"
-                      style={{ transitionDuration: "0.4s" }}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={1}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </Link>
+            <ProjectRow
+              key={project.id}
+              project={project}
+              index={i}
+              isEven={i % 2 === 1}
+            />
           ))}
-
-          <div
-            className={`border-t border-white/[0.07] transition-all ${
-              loaded ? "opacity-100" : "opacity-0"
-            }`}
-            style={{
-              transitionDuration: "0.8s",
-              transitionDelay: `${250 + projects.length * 120}ms`,
-            }}
-          />
         </div>
 
         <div
-          className={`mt-16 flex items-center justify-between transition-all ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-          style={{
-            transitionDuration: "0.8s",
-            transitionTimingFunction: "var(--ease-out-expo)",
-            transitionDelay: `${250 + projects.length * 120 + 200}ms`,
-          }}
-        >
-          <span className="text-white/15 text-[10px] tracking-[0.3em] uppercase">
-            {String(projects.length).padStart(2, "0")} Projects
+          className="h-px"
+          style={{ background: "rgba(255,255,255,0.06)" }}
+        />
+
+        <div className="px-8 sm:px-16 lg:px-24 xl:px-32 py-16 flex items-center justify-between">
+          <span
+            className="uppercase font-light tracking-[0.25em]"
+            style={{ fontSize: "10px", color: "rgba(255,255,255,0.18)" }}
+          >
+            End of Works
           </span>
-          <Link href="/" className="text-white/20 hover:text-white/50 text-[10px] tracking-[0.25em] uppercase transition-colors flex items-center gap-3">
-            <span>Focus Mode</span>
-            <div className="w-8 h-px bg-current" />
+          <Link
+            href="/"
+            className="flex items-center gap-3 group"
+          >
+            <span
+              className="uppercase font-light tracking-[0.2em] group-hover:text-white/60 transition-colors"
+              style={{ fontSize: "10px", color: "rgba(255,255,255,0.22)", transitionDuration: "0.3s" }}
+            >
+              Focus Mode
+            </span>
+            <div className="w-8 h-px bg-white/15 group-hover:bg-white/40 transition-colors" style={{ transitionDuration: "0.3s" }} />
           </Link>
         </div>
       </div>
