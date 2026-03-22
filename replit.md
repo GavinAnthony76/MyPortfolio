@@ -16,8 +16,6 @@ Preferred communication style: Simple, everyday language.
 - **State Management**: TanStack Query for server state and form handling with React Hook Form
 - **Form Validation**: Zod schemas
 - **UI/UX Decisions**: Dark cinematic editorial design (black bg, white uppercase typography), full-screen Focus mode homepage with PREV/NEXT slideshow, vertical All mode project list at /works, minimal navigation with just "All" and "Focus" links, scroll-reveal animations with `prefers-reduced-motion` and lite-mode support. Dashboard retains existing admin styling.
-- **WebGL**: Three.js + GSAP for homepage lens carousel — single WebGL plane blending two textures with displacement shader, circular lens mask with vignette. CSS clip-path fallback for unsupported browsers.
-- **About Page**: Cinematic chapter-based layout with 5 sections (Intro, Portrait, Numbers, Stack, Contact), dot navigation with chapter counter, intersection-observer-driven reveal animations.
 
 
 ## Backend Architecture
