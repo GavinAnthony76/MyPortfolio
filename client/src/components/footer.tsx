@@ -101,9 +101,26 @@ export default function Footer() {
         <div className="h-px bg-slate-700 mt-8 sm:mt-12 mb-6 sm:mb-8" />
         
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-sm text-center md:text-left" data-testid="footer-copyright">
-            &copy; {currentYear} Gavin Anthony. All rights reserved.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5">
+            <p className="text-slate-500 text-sm text-center md:text-left" data-testid="footer-copyright">
+              &copy; {currentYear} Gavin Anthony. All rights reserved.
+            </p>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                window.open('https://www.sitelock.com/verify.php?site=gavineanthony.com', 'SiteLock', 'width=600,height=600,left=160,top=170');
+              }}
+              title="SiteLock"
+            >
+              <img
+                alt="SiteLock"
+                title="SiteLock"
+                src="https://shield.sitelock.com/shield/gavineanthony.com"
+                className="h-8 w-auto"
+              />
+            </a>
+          </div>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 text-center md:text-left">
             <a href="/privacy-policy" className="text-slate-500 hover:text-blue-400 text-xs sm:text-sm transition-colors" data-testid="footer-link-privacy">
               Privacy Policy
