@@ -135,10 +135,29 @@
 
   .editorial-link:hover {
     color: #fff;
+    text-shadow: 0 0 14px rgba(255, 255, 255, 0.55);
   }
 
   .editorial-link.active {
     color: #fff;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+  }
+
+  .glow-hover {
+    transition: color var(--duration-medium) var(--ease-out-expo),
+                text-shadow var(--duration-medium) var(--ease-out-expo),
+                opacity var(--duration-medium) var(--ease-out-expo);
+  }
+
+  .glow-hover:hover {
+    color: #fff;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.5);
+  }
+
+  .group:hover .group-glow {
+    color: #fff;
+    text-shadow: 0 0 22px rgba(255, 255, 255, 0.5),
+                 0 0 44px rgba(255, 255, 255, 0.25);
   }
 
   .reveal {

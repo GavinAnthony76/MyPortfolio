@@ -32,8 +32,8 @@ export default function Home() {
         setProgress(0);
         progressRef.current = 0;
         startTimeRef.current = Date.now();
-        setTimeout(() => setIsTransitioning(false), 100);
-      }, 600);
+        setTimeout(() => setIsTransitioning(false), 60);
+      }, 450);
     },
     [isTransitioning, currentIndex, total]
   );
@@ -102,21 +102,24 @@ export default function Home() {
     <div className="h-screen w-screen overflow-hidden bg-black relative select-none">
       <Navigation />
 
-      <div
-        className="absolute inset-0 transition-opacity"
-        style={{
-          transitionDuration: "0.8s",
-          transitionTimingFunction: "var(--ease-in-out-cubic)",
-          opacity: isTransitioning ? 0 : 1,
-        }}
-      >
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover"
-          style={{ opacity: 0.55 }}
-        />
-      </div>
+      {projects.map((p, i) => (
+        <div
+          key={p.id}
+          className="absolute inset-0 transition-opacity"
+          style={{
+            transitionDuration: "1.2s",
+            transitionTimingFunction: "var(--ease-in-out-cubic)",
+            opacity: i === currentIndex ? 1 : 0,
+          }}
+        >
+          <img
+            src={p.image}
+            alt={p.title}
+            className="w-full h-full object-cover"
+            style={{ opacity: 0.55 }}
+          />
+        </div>
+      ))}
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 pointer-events-none" />
 
@@ -133,26 +136,26 @@ export default function Home() {
         <Link href={`/works/${project.id}`}>
           <div className="flex flex-col items-center justify-center cursor-pointer group">
             <h2
-              className={`project-title text-white text-center text-xl sm:text-2xl lg:text-3xl tracking-[0.15em] mb-1 group-hover:opacity-70 transition-all ${
+              className={`project-title group-glow text-white text-center text-xl sm:text-2xl lg:text-3xl tracking-[0.15em] mb-1 transition-all ${
                 isTransitioning ? "opacity-0 translate-y-3" : "opacity-100 translate-y-0"
               }`}
               style={{
-                transitionDuration: "0.6s",
+                transitionDuration: "0.45s",
                 transitionTimingFunction: "var(--ease-out-expo)",
-                transitionDelay: isTransitioning ? "0s" : "0.3s",
+                transitionDelay: isTransitioning ? "0s" : "0.25s",
               }}
             >
               {project.title}
             </h2>
             {project.subtitle && (
               <p
-                className={`project-title text-white/65 text-center text-xs sm:text-sm tracking-[0.12em] transition-all ${
+                className={`project-title text-white/70 text-center text-xs sm:text-sm tracking-[0.12em] transition-all ${
                   isTransitioning ? "opacity-0 translate-y-3" : "opacity-100 translate-y-0"
                 }`}
                 style={{
-                  transitionDuration: "0.6s",
+                  transitionDuration: "0.45s",
                   transitionTimingFunction: "var(--ease-out-expo)",
-                  transitionDelay: isTransitioning ? "0s" : "0.4s",
+                  transitionDelay: isTransitioning ? "0s" : "0.32s",
                 }}
               >
                 {project.subtitle}
@@ -164,10 +167,10 @@ export default function Home() {
 
       <button
         onClick={goPrev}
-        className={`absolute left-6 sm:left-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/55 hover:text-white/80 transition-all z-20 ${
+        className={`glow-hover absolute left-6 sm:left-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/70 z-20 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
-        style={{ transitionDuration: "0.3s", transitionDelay: loaded ? "0.5s" : "0s" }}
+        style={{ transitionDelay: loaded ? "0.5s" : "0s" }}
       >
         <span className="text-[10px] tracking-[0.25em] uppercase">Prev</span>
         <div className="w-12 sm:w-20 h-px bg-current" />
@@ -175,10 +178,10 @@ export default function Home() {
 
       <button
         onClick={goNext}
-        className={`absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/55 hover:text-white/80 transition-all z-20 ${
+        className={`glow-hover absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/70 z-20 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
-        style={{ transitionDuration: "0.3s", transitionDelay: loaded ? "0.5s" : "0s" }}
+        style={{ transitionDelay: loaded ? "0.5s" : "0s" }}
       >
         <div className="w-12 sm:w-20 h-px bg-current" />
         <span className="text-[10px] tracking-[0.25em] uppercase">Next</span>
@@ -190,9 +193,9 @@ export default function Home() {
         }`}
         style={{ transitionDuration: "1s", transitionDelay: "0.6s" }}
       >
-        <span className="text-white/60 text-xs font-light tracking-[0.1em]">{yearFirst}</span>
-        <span className="text-white/10 text-[10px]">——</span>
-        <span className="text-white/60 text-xs font-light tracking-[0.1em]">{yearLast}</span>
+        <span className="text-white/75 text-xs font-light tracking-[0.1em]">{yearFirst}</span>
+        <span className="text-white/30 text-[10px]">——</span>
+        <span className="text-white/75 text-xs font-light tracking-[0.1em]">{yearLast}</span>
       </div>
 
       <div
@@ -201,11 +204,11 @@ export default function Home() {
         }`}
         style={{ transitionDuration: "1s", transitionDelay: "0.6s" }}
       >
-        <span className="text-white/70 text-xs font-light tracking-[0.1em]">
+        <span className="text-white/75 text-xs font-light tracking-[0.1em]">
           {String(currentIndex + 1).padStart(2, "0")}
         </span>
-        <span className="text-white/15 text-[10px]">——</span>
-        <span className="text-white/70 text-xs font-light tracking-[0.1em]">
+        <span className="text-white/30 text-[10px]">——</span>
+        <span className="text-white/75 text-xs font-light tracking-[0.1em]">
           {String(total).padStart(2, "0")}
         </span>
       </div>
