@@ -177,7 +177,7 @@ export default function Works() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[#141414]">
       <Navigation />
 
       <div className="pt-24">
@@ -234,7 +234,7 @@ export default function Works() {
             className="flex items-center gap-3 group"
           >
             <span
-              className="uppercase font-light tracking-[0.2em] group-hover:text-white/80 transition-colors"
+              className="uppercase font-light tracking-[0.2em] group-hover:text-white/90 transition-colors"
               style={{ fontSize: "10px", color: "rgba(255,255,255,0.22)", transitionDuration: "0.3s" }}
             >
               Focus Mode

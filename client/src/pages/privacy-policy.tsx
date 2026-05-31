@@ -3,14 +3,14 @@ import Footer from "@/components/footer";
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[#141414]">
       <Navigation />
       <div className="max-w-4xl mx-auto px-6 pt-28 pb-16">
         <div className="border border-white/10 bg-white/[0.02] p-8 md:p-12">
           <h1 className="text-4xl font-bold text-white mb-8">Privacy Policy</h1>
-          <div className="prose prose-invert max-w-none space-y-6 text-white/80">
+          <div className="prose prose-invert max-w-none space-y-6 text-white/90">
             
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-white/85">
               <strong>Effective Date:</strong> August 14, 2025<br />
               <strong>Last Updated:</strong> August 14, 2025
             </p>
@@ -140,7 +140,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <div className="border-t border-white/10 pt-6 mt-8">
-              <p className="text-sm text-white/70">
+              <p className="text-sm text-white/85">
                 This privacy policy is based on open-source templates and has been customized for our specific services and practices. 
                 It is designed to be transparent, comprehensive, and compliant with applicable privacy laws including GDPR and CCPA.
               </p>

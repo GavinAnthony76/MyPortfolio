@@ -34,7 +34,7 @@ const chapters = [
             <br />
             Anthony
           </h1>
-          <p className="text-white/60 text-xs tracking-[0.2em] uppercase">
+          <p className="text-white/80 text-xs tracking-[0.2em] uppercase">
             Full-Stack Developer &middot; Austin, TX
           </p>
         </div>
@@ -73,11 +73,11 @@ const chapters = [
               transitionDelay: "0.2s",
             }}
           >
-            <p className="text-white/80 text-sm sm:text-base leading-[2.2] mb-8">
+            <p className="text-white/90 text-sm sm:text-base leading-[2.2] mb-8">
               Over five years building modern web applications — e-commerce
               platforms, SaaS tools, marketing sites, and everything in between.
             </p>
-            <p className="text-white/65 text-sm leading-[2.2]">
+            <p className="text-white/80 text-sm leading-[2.2]">
               I specialize in creating sophisticated digital experiences that
               combine innovation with reliability. From rapid prototyping to
               full-scale applications, every project is built with attention to
@@ -164,7 +164,7 @@ const chapters = [
                     transitionDelay: `${200 + i * 60}ms`,
                   }}
                 >
-                  <span className="text-white/60 text-[11px] tracking-[0.15em] uppercase block py-3 border-b border-white/5">
+                  <span className="text-white/80 text-[11px] tracking-[0.15em] uppercase block py-3 border-b border-white/5">
                     {skill}
                   </span>
                 </div>
@@ -192,7 +192,7 @@ const chapters = [
           <p className="editorial-label mb-8">Get in touch</p>
           <a
             href="mailto:gavin@gavineanthony.com"
-            className="text-white/75 hover:text-white transition-colors text-sm sm:text-base tracking-[0.1em] uppercase block mb-12"
+            className="text-white/85 hover:text-white transition-colors text-sm sm:text-base tracking-[0.1em] uppercase block mb-12"
             style={{ transitionDuration: "0.3s" }}
           >
             gavin@gavineanthony.com
@@ -275,7 +275,7 @@ export default function About() {
   };
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-black relative">
+    <div ref={containerRef} className="min-h-screen bg-[#141414] relative">
       <Navigation />
 
       <div
@@ -303,8 +303,8 @@ export default function About() {
             <span
               className={`text-[9px] tracking-[0.15em] uppercase transition-all hidden sm:block ${
                 activeChapter === i
-                  ? "text-white/75"
-                  : "text-white/0 group-hover:text-white/60"
+                  ? "text-white/85"
+                  : "text-white/0 group-hover:text-white/80"
               }`}
               style={{ transitionDuration: "0.3s" }}
             >

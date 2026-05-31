@@ -4,10 +4,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/5 py-10 px-6 sm:px-10 bg-black">
+    <footer className="border-t border-white/5 py-10 px-6 sm:px-10 bg-[#141414]">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-          <p className="text-white/55 text-[10px] tracking-[0.15em] uppercase" data-testid="footer-copyright">
+          <p className="text-white/75 text-[10px] tracking-[0.15em] uppercase" data-testid="footer-copyright">
             &copy; {currentYear} Gavin Anthony
           </p>
           <a
@@ -29,16 +29,16 @@ export default function Footer() {
         </div>
 
         <div className="flex items-center flex-wrap gap-x-6 gap-y-2">
-          <Link href="/privacy-policy" className="editorial-link text-white/55 hover:text-white/75" data-testid="footer-link-privacy">
+          <Link href="/privacy-policy" className="editorial-link text-white/75 hover:text-white/85" data-testid="footer-link-privacy">
             Privacy
           </Link>
-          <Link href="/terms-of-service" className="editorial-link text-white/55 hover:text-white/75" data-testid="footer-link-terms">
+          <Link href="/terms-of-service" className="editorial-link text-white/75 hover:text-white/85" data-testid="footer-link-terms">
             Terms
           </Link>
-          <a href="https://x.com/gavineanthony" target="_blank" rel="noopener noreferrer" className="editorial-link text-white/55 hover:text-white/75" data-testid="footer-link-twitter">
+          <a href="https://x.com/gavineanthony" target="_blank" rel="noopener noreferrer" className="editorial-link text-white/75 hover:text-white/85" data-testid="footer-link-twitter">
             Twitter
           </a>
-          <a href="https://amzn.to/49MnhQq" target="_blank" rel="noopener noreferrer" className="editorial-link text-white/55 hover:text-white/75" data-testid="footer-link-amazon">
+          <a href="https://amzn.to/49MnhQq" target="_blank" rel="noopener noreferrer" className="editorial-link text-white/75 hover:text-white/85" data-testid="footer-link-amazon">
             Amazon
           </a>
         </div>

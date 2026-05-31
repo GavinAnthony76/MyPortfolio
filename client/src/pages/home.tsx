@@ -99,7 +99,7 @@ export default function Home() {
   const yearLast = project.year.slice(2);
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-black relative select-none">
+    <div className="h-screen w-screen overflow-hidden bg-[#141414] relative select-none">
       <Navigation />
 
       {projects.map((p, i) => (
@@ -149,7 +149,7 @@ export default function Home() {
             </h2>
             {project.subtitle && (
               <p
-                className={`project-title text-white/70 text-center text-xs sm:text-sm tracking-[0.12em] transition-all ${
+                className={`project-title text-white/85 text-center text-xs sm:text-sm tracking-[0.12em] transition-all ${
                   isTransitioning ? "opacity-0 translate-y-3" : "opacity-100 translate-y-0"
                 }`}
                 style={{
@@ -167,7 +167,7 @@ export default function Home() {
 
       <button
         onClick={goPrev}
-        className={`glow-hover absolute left-6 sm:left-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/70 z-20 ${
+        className={`glow-hover absolute left-6 sm:left-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/85 z-20 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
         style={{ transitionDelay: loaded ? "0.5s" : "0s" }}
@@ -178,7 +178,7 @@ export default function Home() {
 
       <button
         onClick={goNext}
-        className={`glow-hover absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/70 z-20 ${
+        className={`glow-hover absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/85 z-20 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
         style={{ transitionDelay: loaded ? "0.5s" : "0s" }}
@@ -193,9 +193,9 @@ export default function Home() {
         }`}
         style={{ transitionDuration: "1s", transitionDelay: "0.6s" }}
       >
-        <span className="text-white/75 text-xs font-light tracking-[0.1em]">{yearFirst}</span>
+        <span className="text-white/85 text-xs font-light tracking-[0.1em]">{yearFirst}</span>
         <span className="text-white/30 text-[10px]">——</span>
-        <span className="text-white/75 text-xs font-light tracking-[0.1em]">{yearLast}</span>
+        <span className="text-white/85 text-xs font-light tracking-[0.1em]">{yearLast}</span>
       </div>
 
       <div
@@ -204,11 +204,11 @@ export default function Home() {
         }`}
         style={{ transitionDuration: "1s", transitionDelay: "0.6s" }}
       >
-        <span className="text-white/75 text-xs font-light tracking-[0.1em]">
+        <span className="text-white/85 text-xs font-light tracking-[0.1em]">
           {String(currentIndex + 1).padStart(2, "0")}
         </span>
         <span className="text-white/30 text-[10px]">——</span>
-        <span className="text-white/75 text-xs font-light tracking-[0.1em]">
+        <span className="text-white/85 text-xs font-light tracking-[0.1em]">
           {String(total).padStart(2, "0")}
         </span>
       </div>

@@ -3,18 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(0 0% 0%);
+  --background: hsl(0 0% 9%);
   --foreground: hsl(0 0% 100%);
-  --card: hsl(0 0% 5%);
+  --card: hsl(0 0% 12%);
   --card-foreground: hsl(0 0% 100%);
-  --popover: hsl(0 0% 5%);
+  --popover: hsl(0 0% 12%);
   --popover-foreground: hsl(0 0% 100%);
   --primary: hsl(0 0% 100%);
   --primary-foreground: hsl(0 0% 0%);
   --secondary: hsl(0 0% 12%);
   --secondary-foreground: hsl(0 0% 80%);
-  --muted: hsl(0 0% 12%);
-  --muted-foreground: hsl(0 0% 50%);
+  --muted: hsl(0 0% 16%);
+  --muted-foreground: hsl(0 0% 68%);
   --accent: hsl(0 0% 12%);
   --accent-foreground: hsl(0 0% 100%);
   --destructive: hsl(0 70% 50%);
@@ -59,7 +59,7 @@
 
   body {
     @apply antialiased;
-    background: #000;
+    background: #171717;
     color: #fff;
     min-height: 100vh;
     font-family: var(--font-sans);
@@ -79,7 +79,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-sans);
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.1;
     letter-spacing: 0.02em;
     text-transform: uppercase;
@@ -111,14 +111,14 @@
     font-weight: 400;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.85);
   }
 
   .editorial-number {
     font-family: var(--font-sans);
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.72);
   }
 
   .editorial-link {
@@ -127,7 +127,7 @@
     font-weight: 400;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     transition: color var(--duration-fast) var(--ease-out-expo);
     cursor: pointer;
@@ -178,14 +178,14 @@
   .reveal-delay-4 { transition-delay: 400ms; }
 
   .glass-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 2px;
     transition: border-color 0.3s ease;
   }
 
   .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.22);
   }
 
   .tech-button {
@@ -206,16 +206,16 @@
   }
 
   .section-light {
-    background: #000;
+    background: #171717;
   }
 
   .section-accent {
-    background: #000;
+    background: #1c1c1c;
   }
 
   .divider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.14);
   }
 
   .project-title {

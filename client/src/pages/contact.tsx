@@ -90,8 +90,8 @@ interface StatusResult {
   submittedAt: string;
 }
 
-const inputClass = "bg-transparent border-white/10 text-white placeholder:text-white/55 focus:border-white/30 rounded-none text-sm";
-const labelClass = "editorial-label text-white/70";
+const inputClass = "bg-transparent border-white/10 text-white placeholder:text-white/75 focus:border-white/30 rounded-none text-sm";
+const labelClass = "editorial-label text-white/85";
 
 export default function Contact() {
   const { toast } = useToast();
@@ -187,7 +187,7 @@ export default function Contact() {
   const StatusIcon = lookupResult ? (statusIcons[lookupResult.status] || Clock) : Clock;
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[#141414]">
       <Navigation />
 
       <div className="px-6 sm:px-10 pt-28 pb-20">
@@ -203,7 +203,7 @@ export default function Contact() {
           <h1 className="project-title text-white text-3xl sm:text-4xl lg:text-5xl mb-4">
             Contact
           </h1>
-          <p className="text-white/70 text-sm mb-16 max-w-md leading-relaxed">
+          <p className="text-white/85 text-sm mb-16 max-w-md leading-relaxed">
             Share your vision. I'll respond within 24 hours.
           </p>
         </div>
@@ -285,7 +285,7 @@ export default function Contact() {
                           </FormControl>
                           <SelectContent className="bg-neutral-900 border-white/10">
                             {projectTypes.map((type) => (
-                              <SelectItem key={type.value} value={type.value} className="text-white/80 focus:bg-white/5 focus:text-white">
+                              <SelectItem key={type.value} value={type.value} className="text-white/90 focus:bg-white/5 focus:text-white">
                                 {type.label}
                               </SelectItem>
                             ))}
@@ -311,7 +311,7 @@ export default function Contact() {
                             </FormControl>
                             <SelectContent className="bg-neutral-900 border-white/10">
                               {budgetRanges.map((b) => (
-                                <SelectItem key={b.value} value={b.value} className="text-white/80 focus:bg-white/5 focus:text-white">
+                                <SelectItem key={b.value} value={b.value} className="text-white/90 focus:bg-white/5 focus:text-white">
                                   {b.label}
                                 </SelectItem>
                               ))}
@@ -335,7 +335,7 @@ export default function Contact() {
                             </FormControl>
                             <SelectContent className="bg-neutral-900 border-white/10">
                               {timelines.map((t) => (
-                                <SelectItem key={t.value} value={t.value} className="text-white/80 focus:bg-white/5 focus:text-white">
+                                <SelectItem key={t.value} value={t.value} className="text-white/90 focus:bg-white/5 focus:text-white">
                                   {t.label}
                                 </SelectItem>
                               ))}
@@ -388,13 +388,13 @@ export default function Contact() {
 
             {ticketNumber && (
               <div className="mt-8 p-6 border border-white/10">
-                <p className="editorial-label text-white/80 mb-2">Request Submitted</p>
-                <p className="text-white/70 text-xs mb-4">
+                <p className="editorial-label text-white/90 mb-2">Request Submitted</p>
+                <p className="text-white/85 text-xs mb-4">
                   Save your ticket number to check status:
                 </p>
                 <div className="flex items-center gap-3 p-3 bg-white/5 border border-white/10">
-                  <code className="text-white/80 text-sm font-mono flex-1 break-all">{ticketNumber}</code>
-                  <button onClick={copyTicket} className="text-white/70 hover:text-white transition-colors flex-shrink-0">
+                  <code className="text-white/90 text-sm font-mono flex-1 break-all">{ticketNumber}</code>
+                  <button onClick={copyTicket} className="text-white/85 hover:text-white transition-colors flex-shrink-0">
                     {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                   </button>
                 </div>
@@ -419,7 +419,7 @@ export default function Contact() {
                   <button
                     onClick={handleLookup}
                     disabled={!lookupTicket.trim() || lookupLoading}
-                    className="px-6 bg-white/5 border border-white/10 text-white/80 hover:text-white hover:bg-white/10 transition-colors text-[10px] tracking-[0.15em] uppercase disabled:opacity-30 flex-shrink-0 flex items-center gap-2"
+                    className="px-6 bg-white/5 border border-white/10 text-white/90 hover:text-white hover:bg-white/10 transition-colors text-[10px] tracking-[0.15em] uppercase disabled:opacity-30 flex-shrink-0 flex items-center gap-2"
                     data-testid="button-lookup-status"
                   >
                     <Search className="w-3 h-3" />
@@ -428,7 +428,7 @@ export default function Contact() {
                 </div>
 
                 {lookupError && (
-                  <div className="flex items-center gap-3 p-4 border border-white/10 text-white/75 text-xs">
+                  <div className="flex items-center gap-3 p-4 border border-white/10 text-white/85 text-xs">
                     <AlertCircle className="w-4 h-4 flex-shrink-0" />
                     <p>{lookupError}</p>
                   </div>
@@ -437,17 +437,17 @@ export default function Contact() {
                 {lookupResult && (
                   <div className="space-y-4 p-6 border border-white/10">
                     <div className="flex items-center gap-2">
-                      <StatusIcon className="w-3 h-3 text-white/80" />
-                      <span className="text-white/80 text-xs tracking-wider uppercase">{lookupResult.status}</span>
+                      <StatusIcon className="w-3 h-3 text-white/90" />
+                      <span className="text-white/90 text-xs tracking-wider uppercase">{lookupResult.status}</span>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <p className="editorial-label mb-1">Project Type</p>
-                        <p className="text-white/80 text-xs">{projectTypeLabels[lookupResult.projectType] || lookupResult.projectType}</p>
+                        <p className="text-white/90 text-xs">{projectTypeLabels[lookupResult.projectType] || lookupResult.projectType}</p>
                       </div>
                       <div>
                         <p className="editorial-label mb-1">Submitted</p>
-                        <p className="text-white/80 text-xs">{new Date(lookupResult.submittedAt).toLocaleDateString()}</p>
+                        <p className="text-white/90 text-xs">{new Date(lookupResult.submittedAt).toLocaleDateString()}</p>
                       </div>
                     </div>
                   </div>
@@ -459,17 +459,17 @@ export default function Contact() {
               <div className="space-y-8 border-t border-white/5 pt-8">
                 <div>
                   <p className="editorial-label mb-2">Email</p>
-                  <a href="mailto:gavin@gavineanthony.com" className="editorial-link text-white/80 hover:text-white">
+                  <a href="mailto:gavin@gavineanthony.com" className="editorial-link text-white/90 hover:text-white">
                     gavin@gavineanthony.com
                   </a>
                 </div>
                 <div>
                   <p className="editorial-label mb-2">Location</p>
-                  <p className="text-white/70 text-xs">Austin, TX</p>
+                  <p className="text-white/85 text-xs">Austin, TX</p>
                 </div>
                 <div>
                   <p className="editorial-label mb-2">Response Time</p>
-                  <p className="text-white/70 text-xs">Within 24 hours</p>
+                  <p className="text-white/85 text-xs">Within 24 hours</p>
                 </div>
               </div>
             </ScrollReveal>

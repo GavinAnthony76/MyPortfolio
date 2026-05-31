@@ -3,14 +3,14 @@ import Footer from "@/components/footer";
 
 export default function TermsOfServicePage() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[#141414]">
       <Navigation />
       <div className="max-w-4xl mx-auto px-6 pt-28 pb-16">
         <div className="border border-white/10 bg-white/[0.02] p-8 md:p-12">
           <h1 className="text-4xl font-bold text-white mb-8">Terms of Service</h1>
-          <div className="prose prose-invert max-w-none space-y-6 text-white/80">
+          <div className="prose prose-invert max-w-none space-y-6 text-white/90">
             
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-white/85">
               <strong>Effective Date:</strong> August 14, 2025<br />
               <strong>Last Updated:</strong> August 14, 2025
             </p>
@@ -37,12 +37,12 @@ export default function TermsOfServicePage() {
 
             <section>
               <h2 className="text-2xl font-semibold text-white mb-4">3. Project Engagement Process</h2>
-              <h3 className="text-lg font-semibold text-white/80 mb-2">3.1 Initial Inquiry</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2">3.1 Initial Inquiry</h3>
               <p>
                 Project engagement begins when you submit a project inquiry through our contact form. This inquiry is not a binding agreement but a request for proposal.
               </p>
               
-              <h3 className="text-lg font-semibold text-white/80 mb-2 mt-4">3.2 Proposal and Agreement</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2 mt-4">3.2 Proposal and Agreement</h3>
               <p>
                 After reviewing your inquiry, we will provide a detailed proposal including:
               </p>
@@ -53,7 +53,7 @@ export default function TermsOfServicePage() {
                 <li>Technical specifications</li>
               </ul>
               
-              <h3 className="text-lg font-semibold text-white/80 mb-2 mt-4">3.3 Project Execution</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2 mt-4">3.3 Project Execution</h3>
               <p>
                 Work begins only after written agreement and initial payment. All projects follow our standard development phases with regular communication and progress updates.
               </p>
@@ -61,7 +61,7 @@ export default function TermsOfServicePage() {
 
             <section>
               <h2 className="text-2xl font-semibold text-white mb-4">4. Payment Terms</h2>
-              <h3 className="text-lg font-semibold text-white/80 mb-2">4.1 Payment Structure</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2">4.1 Payment Structure</h3>
               <ul className="list-disc pl-6 space-y-2">
                 <li>50% deposit required to begin work</li>
                 <li>Remaining 50% due upon project completion</li>
@@ -69,7 +69,7 @@ export default function TermsOfServicePage() {
                 <li>All payments are due within 30 days of invoice</li>
               </ul>
               
-              <h3 className="text-lg font-semibold text-white/80 mb-2 mt-4">4.2 Payment Methods</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2 mt-4">4.2 Payment Methods</h3>
               <p>We accept payment via:</p>
               <ul className="list-disc pl-6 space-y-1">
                 <li>PayPal: Payment link will be provided upon service agreement</li>
@@ -80,7 +80,7 @@ export default function TermsOfServicePage() {
 
             <section>
               <h2 className="text-2xl font-semibold text-white mb-4">5. Intellectual Property</h2>
-              <h3 className="text-lg font-semibold text-white/80 mb-2">5.1 Client Ownership</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2">5.1 Client Ownership</h3>
               <p>
                 Upon full payment, you own all custom code, designs, and content created specifically for your project. This includes:
               </p>
@@ -91,12 +91,12 @@ export default function TermsOfServicePage() {
                 <li>Documentation and user guides</li>
               </ul>
               
-              <h3 className="text-lg font-semibold text-white/80 mb-2 mt-4">5.2 Third-Party Components</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2 mt-4">5.2 Third-Party Components</h3>
               <p>
                 Projects may include open-source libraries, frameworks, and tools which retain their original licenses. We provide documentation of all third-party components used.
               </p>
               
-              <h3 className="text-lg font-semibold text-white/80 mb-2 mt-4">5.3 Portfolio Usage</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2 mt-4">5.3 Portfolio Usage</h3>
               <p>
                 We reserve the right to showcase your project in our portfolio and marketing materials unless explicitly requested otherwise in writing.
               </p>
@@ -104,7 +104,7 @@ export default function TermsOfServicePage() {
 
             <section>
               <h2 className="text-2xl font-semibold text-white mb-4">6. Project Timeline and Delivery</h2>
-              <h3 className="text-lg font-semibold text-white/80 mb-2">6.1 Timeline Estimates</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2">6.1 Timeline Estimates</h3>
               <p>
                 All timeline estimates are based on project complexity and current workload. Actual delivery may vary due to:
               </p>
@@ -115,7 +115,7 @@ export default function TermsOfServicePage() {
                 <li>Third-party service dependencies</li>
               </ul>
               
-              <h3 className="text-lg font-semibold text-white/80 mb-2 mt-4">6.2 Client Responsibilities</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2 mt-4">6.2 Client Responsibilities</h3>
               <p>Timely project delivery requires client cooperation including:</p>
               <ul className="list-disc pl-6 space-y-1">
                 <li>Prompt feedback on deliverables</li>
@@ -127,12 +127,12 @@ export default function TermsOfServicePage() {
 
             <section>
               <h2 className="text-2xl font-semibold text-white mb-4">7. Revisions and Changes</h2>
-              <h3 className="text-lg font-semibold text-white/80 mb-2">7.1 Included Revisions</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2">7.1 Included Revisions</h3>
               <p>
                 Each project includes a reasonable number of revisions as specified in the proposal. Additional revisions beyond the agreed scope may incur additional charges.
               </p>
               
-              <h3 className="text-lg font-semibold text-white/80 mb-2 mt-4">7.2 Scope Changes</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2 mt-4">7.2 Scope Changes</h3>
               <p>
                 Significant changes to project scope require written agreement and may affect timeline and pricing. We provide transparent communication about any additional costs before proceeding.
               </p>
@@ -140,12 +140,12 @@ export default function TermsOfServicePage() {
 
             <section>
               <h2 className="text-2xl font-semibold text-white mb-4">8. Warranties and Disclaimers</h2>
-              <h3 className="text-lg font-semibold text-white/80 mb-2">8.1 Service Warranty</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2">8.1 Service Warranty</h3>
               <p>
                 We warrant that services will be performed with professional skill and in accordance with industry standards. We provide 30 days of complimentary bug fixes after project completion.
               </p>
               
-              <h3 className="text-lg font-semibold text-white/80 mb-2 mt-4">8.2 Disclaimer</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2 mt-4">8.2 Disclaimer</h3>
               <p>
                 Except as expressly stated, all services are provided "as is" without warranty. We disclaim all warranties, including merchantability and fitness for a particular purpose.
               </p>
@@ -160,12 +160,12 @@ export default function TermsOfServicePage() {
 
             <section>
               <h2 className="text-2xl font-semibold text-white mb-4">10. Termination</h2>
-              <h3 className="text-lg font-semibold text-white/80 mb-2">10.1 Termination by Client</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2">10.1 Termination by Client</h3>
               <p>
                 You may terminate a project at any time with written notice. Payment is due for all work completed up to the termination date.
               </p>
               
-              <h3 className="text-lg font-semibold text-white/80 mb-2 mt-4">10.2 Termination by Developer</h3>
+              <h3 className="text-lg font-semibold text-white/90 mb-2 mt-4">10.2 Termination by Developer</h3>
               <p>
                 We may terminate a project for non-payment, breach of agreement, or if continued work is not feasible. Refunds are provided for unperformed work.
               </p>
@@ -206,7 +206,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <div className="border-t border-white/10 pt-6 mt-8">
-              <p className="text-sm text-white/70">
+              <p className="text-sm text-white/85">
                 These Terms of Service are based on open-source templates and industry best practices, customized for our specific development services. 
                 They are designed to protect both client and developer interests while maintaining transparency and professionalism.
               </p>
