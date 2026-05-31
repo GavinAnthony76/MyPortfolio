@@ -146,7 +146,7 @@ export default function Home() {
             </h2>
             {project.subtitle && (
               <p
-                className={`project-title text-white/35 text-center text-xs sm:text-sm tracking-[0.12em] transition-all ${
+                className={`project-title text-white/65 text-center text-xs sm:text-sm tracking-[0.12em] transition-all ${
                   isTransitioning ? "opacity-0 translate-y-3" : "opacity-100 translate-y-0"
                 }`}
                 style={{
@@ -164,7 +164,7 @@ export default function Home() {
 
       <button
         onClick={goPrev}
-        className={`absolute left-6 sm:left-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/25 hover:text-white/60 transition-all z-20 ${
+        className={`absolute left-6 sm:left-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/55 hover:text-white/80 transition-all z-20 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
         style={{ transitionDuration: "0.3s", transitionDelay: loaded ? "0.5s" : "0s" }}
@@ -175,7 +175,7 @@ export default function Home() {
 
       <button
         onClick={goNext}
-        className={`absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/25 hover:text-white/60 transition-all z-20 ${
+        className={`absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 flex items-center gap-4 text-white/55 hover:text-white/80 transition-all z-20 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
         style={{ transitionDuration: "0.3s", transitionDelay: loaded ? "0.5s" : "0s" }}
@@ -190,9 +190,9 @@ export default function Home() {
         }`}
         style={{ transitionDuration: "1s", transitionDelay: "0.6s" }}
       >
-        <span className="text-white/30 text-xs font-light tracking-[0.1em]">{yearFirst}</span>
+        <span className="text-white/60 text-xs font-light tracking-[0.1em]">{yearFirst}</span>
         <span className="text-white/10 text-[10px]">——</span>
-        <span className="text-white/30 text-xs font-light tracking-[0.1em]">{yearLast}</span>
+        <span className="text-white/60 text-xs font-light tracking-[0.1em]">{yearLast}</span>
       </div>
 
       <div
@@ -201,11 +201,11 @@ export default function Home() {
         }`}
         style={{ transitionDuration: "1s", transitionDelay: "0.6s" }}
       >
-        <span className="text-white/40 text-xs font-light tracking-[0.1em]">
+        <span className="text-white/70 text-xs font-light tracking-[0.1em]">
           {String(currentIndex + 1).padStart(2, "0")}
         </span>
         <span className="text-white/15 text-[10px]">——</span>
-        <span className="text-white/40 text-xs font-light tracking-[0.1em]">
+        <span className="text-white/70 text-xs font-light tracking-[0.1em]">
           {String(total).padStart(2, "0")}
         </span>
       </div>

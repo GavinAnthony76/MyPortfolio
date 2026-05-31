@@ -234,7 +234,7 @@ export default function Works() {
             className="flex items-center gap-3 group"
           >
             <span
-              className="uppercase font-light tracking-[0.2em] group-hover:text-white/60 transition-colors"
+              className="uppercase font-light tracking-[0.2em] group-hover:text-white/80 transition-colors"
               style={{ fontSize: "10px", color: "rgba(255,255,255,0.22)", transitionDuration: "0.3s" }}
             >
               Focus Mode

@@ -8,9 +8,9 @@ export default function PrivacyPolicyPage() {
       <div className="max-w-4xl mx-auto px-6 pt-28 pb-16">
         <div className="border border-white/10 bg-white/[0.02] p-8 md:p-12">
           <h1 className="text-4xl font-bold text-white mb-8">Privacy Policy</h1>
-          <div className="prose prose-invert max-w-none space-y-6 text-white/60">
+          <div className="prose prose-invert max-w-none space-y-6 text-white/80">
             
-            <p className="text-sm text-white/40">
+            <p className="text-sm text-white/70">
               <strong>Effective Date:</strong> August 14, 2025<br />
               <strong>Last Updated:</strong> August 14, 2025
             </p>
@@ -89,7 +89,7 @@ export default function PrivacyPolicyPage() {
                 <li><strong>Objection:</strong> Object to processing of your personal information</li>
               </ul>
               <p className="mt-4">
-                To exercise these rights, please contact us at <a href="mailto:gavin@gavineanthony.com" className="text-white hover:text-white/70">gavin@gavineanthony.com</a>.
+                To exercise these rights, please contact us at <a href="mailto:gavin@gavineanthony.com" className="text-white hover:text-white/85">gavin@gavineanthony.com</a>.
               </p>
             </section>
 
@@ -133,14 +133,14 @@ export default function PrivacyPolicyPage() {
               </p>
               <div className="bg-white/[0.03] border border-white/10 p-4 rounded-lg mt-4">
                 <p><strong>Gavin Anthony - Guidato LLC</strong></p>
-                <p>Email: <a href="mailto:gavin@gavineanthony.com" className="text-white hover:text-white/70">gavin@gavineanthony.com</a></p>
+                <p>Email: <a href="mailto:gavin@gavineanthony.com" className="text-white hover:text-white/85">gavin@gavineanthony.com</a></p>
 
                 <p>Location: Austin, Texas, United States</p>
               </div>
             </section>
 
             <div className="border-t border-white/10 pt-6 mt-8">
-              <p className="text-sm text-white/40">
+              <p className="text-sm text-white/70">
                 This privacy policy is based on open-source templates and has been customized for our specific services and practices. 
                 It is designed to be transparent, comprehensive, and compliant with applicable privacy laws including GDPR and CCPA.
               </p>

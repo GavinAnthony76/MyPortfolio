@@ -54,7 +54,7 @@ export default function WorkDetail() {
             {project.title}
           </h1>
           {project.subtitle && (
-            <p className="project-title text-white/30 text-lg sm:text-xl mb-6">
+            <p className="project-title text-white/60 text-lg sm:text-xl mb-6">
               {project.subtitle}
             </p>
           )}
@@ -108,7 +108,7 @@ export default function WorkDetail() {
       <div className="px-6 sm:px-10 py-20">
         <div className="max-w-2xl">
           <p
-            className={`text-white/60 text-sm sm:text-base leading-[2] mb-12 transition-all ${
+            className={`text-white/80 text-sm sm:text-base leading-[2] mb-12 transition-all ${
               loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{
@@ -119,7 +119,7 @@ export default function WorkDetail() {
             {project.problem}
           </p>
           <p
-            className={`text-white/40 text-sm leading-[2] transition-all ${
+            className={`text-white/70 text-sm leading-[2] transition-all ${
               loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{
@@ -153,7 +153,7 @@ export default function WorkDetail() {
           <Link href={`/works/${prevProject.id}`}>
             <span className="group cursor-pointer">
               <span className="editorial-label block mb-2">Prev</span>
-              <span className="project-title text-white/60 text-sm sm:text-base group-hover:text-white transition-colors">
+              <span className="project-title text-white/80 text-sm sm:text-base group-hover:text-white transition-colors">
                 {prevProject.title}
               </span>
             </span>
@@ -162,7 +162,7 @@ export default function WorkDetail() {
           <Link href={`/works/${nextProject.id}`}>
             <span className="group cursor-pointer text-right">
               <span className="editorial-label block mb-2">Next</span>
-              <span className="project-title text-white/60 text-sm sm:text-base group-hover:text-white transition-colors">
+              <span className="project-title text-white/80 text-sm sm:text-base group-hover:text-white transition-colors">
                 {nextProject.title}
               </span>
             </span>

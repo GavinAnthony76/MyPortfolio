@@ -1,6 +1,6 @@
 import txsImage from "@assets/screenshots/txshowdown_com.png";
 import jamaicaImage from "@assets/screenshots/jamaicanyammingz_com.png";
-import lambImage from "@assets/screenshots/powerofthelamb_com.png";
+import lambImage from "@assets/generated_images/power_of_the_lamb_hero.png";
 import shapeTapImage from "@assets/generated_images/shape_tap_deluxe_hero.png";
 
 export interface Project {

@@ -72,7 +72,7 @@ export default function Navigation() {
         </div>
 
         <button
-          className="md:hidden text-white/50 hover:text-white transition-colors p-1"
+          className="md:hidden text-white/75 hover:text-white transition-colors p-1"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
