@@ -99,7 +99,7 @@ export default function Home() {
   const yearLast = project.year.slice(2);
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#141414] relative select-none">
+    <div className="h-screen w-screen overflow-hidden bg-[#292929] relative select-none">
       <Navigation />
 
       {projects.map((p, i) => (

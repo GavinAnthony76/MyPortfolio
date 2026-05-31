@@ -90,7 +90,7 @@ interface StatusResult {
   submittedAt: string;
 }
 
-const inputClass = "bg-transparent border-white/10 text-white placeholder:text-white/75 focus:border-white/30 rounded-none text-sm";
+const inputClass = "bg-white/[0.04] border-white/25 text-white placeholder:text-white/45 focus:border-white/50 rounded-none text-sm";
 const labelClass = "editorial-label text-white/85";
 
 export default function Contact() {
@@ -187,7 +187,7 @@ export default function Contact() {
   const StatusIcon = lookupResult ? (statusIcons[lookupResult.status] || Clock) : Clock;
 
   return (
-    <div className="min-h-screen bg-[#141414]">
+    <div className="min-h-screen bg-[#292929]">
       <Navigation />
 
       <div className="px-6 sm:px-10 pt-28 pb-20">

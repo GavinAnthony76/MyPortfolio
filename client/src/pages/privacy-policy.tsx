@@ -3,7 +3,7 @@ import Footer from "@/components/footer";
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-[#141414]">
+    <div className="min-h-screen bg-[#292929]">
       <Navigation />
       <div className="max-w-4xl mx-auto px-6 pt-28 pb-16">
         <div className="border border-white/10 bg-white/[0.02] p-8 md:p-12">

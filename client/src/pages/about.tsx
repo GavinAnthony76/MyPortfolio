@@ -275,7 +275,7 @@ export default function About() {
   };
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-[#141414] relative">
+    <div ref={containerRef} className="min-h-screen bg-[#292929] relative">
       <Navigation />
 
       <div

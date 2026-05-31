@@ -17,7 +17,7 @@ export default function WorkDetail() {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-[#141414]">
+      <div className="min-h-screen bg-[#292929]">
         <Navigation />
         <div className="pt-40 text-center px-6">
           <h1 className="project-title text-white text-xl mb-8">Project not found</h1>
@@ -37,7 +37,7 @@ export default function WorkDetail() {
   const totalImages = project.features.length;
 
   return (
-    <div className="min-h-screen bg-[#141414]">
+    <div className="min-h-screen bg-[#292929]">
       <Navigation />
 
       <div className="px-6 sm:px-10 pt-28 pb-12">

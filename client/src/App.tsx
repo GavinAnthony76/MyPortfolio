@@ -21,8 +21,8 @@ function ProtectedRoute({ component: Component }: { component: React.ComponentTy
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#141414] flex items-center justify-center">
-        <p className="text-sm text-white/75 tracking-[0.15em] uppercase">Loading</p>
+      <div className="min-h-screen bg-[#292929] flex items-center justify-center">
+        <p className="text-sm text-white/90 tracking-[0.15em] uppercase">Loading</p>
       </div>
     );
   }

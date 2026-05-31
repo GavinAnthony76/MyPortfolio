@@ -68,7 +68,7 @@ function ProjectRow({ project, index, isEven }: { project: (typeof projects)[0];
                   className="font-light tracking-[0.15em] transition-colors"
                   style={{
                     fontSize: "11px",
-                    color: hovered ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.2)",
+                    color: hovered ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.6)",
                     transitionDuration: "0.4s",
                   }}
                 >
@@ -85,7 +85,7 @@ function ProjectRow({ project, index, isEven }: { project: (typeof projects)[0];
                   className="font-light tracking-[0.18em] uppercase transition-colors"
                   style={{
                     fontSize: "10px",
-                    color: hovered ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.18)",
+                    color: hovered ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.62)",
                     transitionDuration: "0.4s",
                   }}
                 >
@@ -110,7 +110,7 @@ function ProjectRow({ project, index, isEven }: { project: (typeof projects)[0];
                   className="font-light uppercase tracking-[0.1em] mb-6 transition-colors"
                   style={{
                     fontSize: "clamp(13px, 1.4vw, 18px)",
-                    color: hovered ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.18)",
+                    color: hovered ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.68)",
                     transitionDuration: "0.4s",
                   }}
                 >
@@ -123,7 +123,7 @@ function ProjectRow({ project, index, isEven }: { project: (typeof projects)[0];
                 style={{
                   fontSize: "13px",
                   letterSpacing: "0.04em",
-                  color: hovered ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.28)",
+                  color: hovered ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.78)",
                   transitionDuration: "0.4s",
                 }}
               >
@@ -136,7 +136,7 @@ function ProjectRow({ project, index, isEven }: { project: (typeof projects)[0];
                 className="font-light tracking-[0.12em] transition-colors"
                 style={{
                   fontSize: "11px",
-                  color: "rgba(255,255,255,0.2)",
+                  color: "rgba(255,255,255,0.72)",
                   transitionDuration: "0.4s",
                 }}
               >
@@ -154,7 +154,7 @@ function ProjectRow({ project, index, isEven }: { project: (typeof projects)[0];
               >
                 <span
                   className="uppercase tracking-[0.2em] font-light"
-                  style={{ fontSize: "10px", color: "rgba(255,255,255,0.5)" }}
+                  style={{ fontSize: "10px", color: "rgba(255,255,255,0.85)" }}
                 >
                   View Project
                 </span>
@@ -177,7 +177,7 @@ export default function Works() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#141414]">
+    <div className="min-h-screen bg-[#292929]">
       <Navigation />
 
       <div className="pt-24">
@@ -192,13 +192,13 @@ export default function Works() {
           <div className="flex items-end justify-between mb-2">
             <span
               className="uppercase font-light tracking-[0.3em]"
-              style={{ fontSize: "10px", color: "rgba(255,255,255,0.22)" }}
+              style={{ fontSize: "10px", color: "rgba(255,255,255,0.72)" }}
             >
               Selected Works
             </span>
             <span
               className="font-light tracking-[0.1em]"
-              style={{ fontSize: "11px", color: "rgba(255,255,255,0.18)" }}
+              style={{ fontSize: "11px", color: "rgba(255,255,255,0.68)" }}
             >
               {String(projects.length).padStart(2, "0")}
             </span>
@@ -225,7 +225,7 @@ export default function Works() {
         <div className="px-8 sm:px-16 lg:px-24 xl:px-32 py-16 flex items-center justify-between">
           <span
             className="uppercase font-light tracking-[0.25em]"
-            style={{ fontSize: "10px", color: "rgba(255,255,255,0.18)" }}
+            style={{ fontSize: "10px", color: "rgba(255,255,255,0.68)" }}
           >
             End of Works
           </span>
@@ -235,7 +235,7 @@ export default function Works() {
           >
             <span
               className="uppercase font-light tracking-[0.2em] group-hover:text-white/90 transition-colors"
-              style={{ fontSize: "10px", color: "rgba(255,255,255,0.22)", transitionDuration: "0.3s" }}
+              style={{ fontSize: "10px", color: "rgba(255,255,255,0.72)", transitionDuration: "0.3s" }}
             >
               Focus Mode
             </span>

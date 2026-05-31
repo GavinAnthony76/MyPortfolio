@@ -3,24 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(0 0% 9%);
+  --background: hsl(0 0% 16%);
   --foreground: hsl(0 0% 100%);
-  --card: hsl(0 0% 12%);
+  --card: hsl(0 0% 20%);
   --card-foreground: hsl(0 0% 100%);
-  --popover: hsl(0 0% 12%);
+  --popover: hsl(0 0% 20%);
   --popover-foreground: hsl(0 0% 100%);
   --primary: hsl(0 0% 100%);
   --primary-foreground: hsl(0 0% 0%);
-  --secondary: hsl(0 0% 12%);
-  --secondary-foreground: hsl(0 0% 80%);
-  --muted: hsl(0 0% 16%);
-  --muted-foreground: hsl(0 0% 68%);
-  --accent: hsl(0 0% 12%);
+  --secondary: hsl(0 0% 22%);
+  --secondary-foreground: hsl(0 0% 90%);
+  --muted: hsl(0 0% 24%);
+  --muted-foreground: hsl(0 0% 80%);
+  --accent: hsl(0 0% 22%);
   --accent-foreground: hsl(0 0% 100%);
   --destructive: hsl(0 70% 50%);
   --destructive-foreground: hsl(0 0% 100%);
-  --border: hsl(0 0% 18%);
-  --input: hsl(0 0% 15%);
+  --border: hsl(0 0% 32%);
+  --input: hsl(0 0% 26%);
   --ring: hsl(0 0% 100%);
   --chart-1: hsl(0 0% 80%);
   --chart-2: hsl(0 0% 60%);
@@ -59,7 +59,7 @@
 
   body {
     @apply antialiased;
-    background: #171717;
+    background: #292929;
     color: #fff;
     min-height: 100vh;
     font-family: var(--font-sans);
@@ -178,14 +178,14 @@
   .reveal-delay-4 { transition-delay: 400ms; }
 
   .glass-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 2px;
     transition: border-color 0.3s ease;
   }
 
   .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.28);
   }
 
   .tech-button {
@@ -206,16 +206,16 @@
   }
 
   .section-light {
-    background: #171717;
+    background: #292929;
   }
 
   .section-accent {
-    background: #1c1c1c;
+    background: #333333;
   }
 
   .divider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.18);
   }
 
   .project-title {
