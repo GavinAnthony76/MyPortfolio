@@ -1,5 +1,7 @@
 import txsImage from "@assets/screenshots/txshowdown_com.png";
 import jamaicaImage from "@assets/screenshots/jamaicanyammingz_com.png";
+import lambImage from "@assets/screenshots/powerofthelamb_com.png";
+import shapeTapImage from "@assets/generated_images/shape_tap_deluxe_hero.png";
 
 export interface Project {
   id: string;
@@ -89,7 +91,7 @@ export const projects: Project[] = [
     category: "Platform",
     shortDescription:
       "Biblical prophecy teaching platform with course registration and payment processing.",
-    image: "/api/assets/power-of-lamb-ministry.png",
+    image: lambImage,
     technologies: ["WordPress", "PHP", "Stripe"],
     liveUrl: "https://powerofthelamb.com/",
     problem:
@@ -119,7 +121,7 @@ export const projects: Project[] = [
     category: "Game",
     shortDescription:
       "Engaging shape-morphing puzzle game with multiple modes, combos, and daily challenges.",
-    image: "/api/assets/shape-tap-deluxe.png",
+    image: shapeTapImage,
     technologies: ["JavaScript", "HTML5", "CSS3"],
     liveUrl: "https://gavinanthony76.github.io/shape-tap-deluxe/",
     problem:
