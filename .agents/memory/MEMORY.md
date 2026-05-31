@@ -1,0 +1,2 @@
+- [Cinematic design rollback cause](portfolio-cinematic-design.md) — the dark editorial overhaul was rolled back once due to a WebGL lens; never re-add WebGL/three.js to this portfolio.
+- [Project images](portfolio-cinematic-design.md) — featured project images use real live-site screenshots under attached_assets/screenshots, imported via @assets alias (attached_assets is NOT web-served).

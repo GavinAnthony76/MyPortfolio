@@ -1,18 +1,22 @@
+import Navigation from "@/components/navigation";
+import Footer from "@/components/footer";
+
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      <div className="max-w-4xl mx-auto px-6 py-16">
-        <div className="glass-card p-8 md:p-12">
-          <h1 className="text-4xl font-bold text-slate-800 mb-8">Privacy Policy</h1>
-          <div className="prose prose-slate max-w-none space-y-6 text-slate-700">
+    <div className="min-h-screen bg-black">
+      <Navigation />
+      <div className="max-w-4xl mx-auto px-6 pt-28 pb-16">
+        <div className="border border-white/10 bg-white/[0.02] p-8 md:p-12">
+          <h1 className="text-4xl font-bold text-white mb-8">Privacy Policy</h1>
+          <div className="prose prose-invert max-w-none space-y-6 text-white/60">
             
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-white/40">
               <strong>Effective Date:</strong> August 14, 2025<br />
               <strong>Last Updated:</strong> August 14, 2025
             </p>
 
             <section>
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">Information We Collect</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">Information We Collect</h2>
               <p>
                 When you use our website and submit project inquiries through our contact form, we collect the following information:
               </p>
@@ -25,7 +29,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">How We Use Your Information</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">How We Use Your Information</h2>
               <p>We use the information we collect to:</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>Respond to your project inquiries and provide development services</li>
@@ -37,7 +41,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">Information Sharing and Disclosure</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">Information Sharing and Disclosure</h2>
               <p>
                 We do not sell, trade, or otherwise transfer your personal information to third parties. Your information may be disclosed only in the following circumstances:
               </p>
@@ -50,7 +54,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">Data Security</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">Data Security</h2>
               <p>
                 We implement appropriate security measures to protect your personal information:
               </p>
@@ -63,7 +67,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">Cookies and Tracking</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">Cookies and Tracking</h2>
               <p>
                 Our website uses minimal cookies and tracking:
               </p>
@@ -75,7 +79,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">Your Rights</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">Your Rights</h2>
               <p>You have the following rights regarding your personal information:</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li><strong>Access:</strong> Request a copy of the personal information we hold about you</li>
@@ -85,12 +89,12 @@ export default function PrivacyPolicyPage() {
                 <li><strong>Objection:</strong> Object to processing of your personal information</li>
               </ul>
               <p className="mt-4">
-                To exercise these rights, please contact us at <a href="mailto:gavin@gavineanthony.com" className="text-blue-600 hover:text-blue-800">gavin@gavineanthony.com</a>.
+                To exercise these rights, please contact us at <a href="mailto:gavin@gavineanthony.com" className="text-white hover:text-white/70">gavin@gavineanthony.com</a>.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">Data Retention</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">Data Retention</h2>
               <p>
                 We retain your personal information for as long as necessary to provide our services and fulfill the purposes outlined in this privacy policy. Project inquiry data is typically retained for:
               </p>
@@ -102,41 +106,41 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">Children's Privacy</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">Children's Privacy</h2>
               <p>
                 Our website and services are not directed to children under 13. We do not knowingly collect personal information from children under 13. If we become aware that we have collected personal information from a child under 13, we will delete such information promptly.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">International Data Transfers</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">International Data Transfers</h2>
               <p>
                 Your information may be stored and processed in the United States or other countries where our service providers operate. We ensure appropriate safeguards are in place for international data transfers in compliance with applicable privacy laws.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">Changes to This Privacy Policy</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">Changes to This Privacy Policy</h2>
               <p>
                 We may update this privacy policy from time to time. We will notify you of any material changes by posting the new privacy policy on this page and updating the "Last Updated" date. Your continued use of our website after such changes constitutes acceptance of the updated policy.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-slate-800 mb-4">Contact Information</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">Contact Information</h2>
               <p>
                 If you have any questions, concerns, or requests regarding this privacy policy or our data practices, please contact us:
               </p>
-              <div className="bg-slate-50 p-4 rounded-lg mt-4">
+              <div className="bg-white/[0.03] border border-white/10 p-4 rounded-lg mt-4">
                 <p><strong>Gavin Anthony - Guidato LLC</strong></p>
-                <p>Email: <a href="mailto:gavin@gavineanthony.com" className="text-blue-600 hover:text-blue-800">gavin@gavineanthony.com</a></p>
+                <p>Email: <a href="mailto:gavin@gavineanthony.com" className="text-white hover:text-white/70">gavin@gavineanthony.com</a></p>
 
                 <p>Location: Austin, Texas, United States</p>
               </div>
             </section>
 
-            <div className="border-t border-slate-200 pt-6 mt-8">
-              <p className="text-sm text-slate-500">
+            <div className="border-t border-white/10 pt-6 mt-8">
+              <p className="text-sm text-white/40">
                 This privacy policy is based on open-source templates and has been customized for our specific services and practices. 
                 It is designed to be transparent, comprehensive, and compliant with applicable privacy laws including GDPR and CCPA.
               </p>
@@ -144,6 +148,7 @@ export default function PrivacyPolicyPage() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
