@@ -4,13 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ExternalLink, Github, ArrowRight, Layers, Eye } from "lucide-react";
 import { usePortfolioImages } from "@/hooks/use-portfolio-images";
+import greenSynkImage from "@assets/screenshots/greensynk_com.png";
 
 interface Project {
   id: string;
   title: string;
   shortDescription: string;
   image: string;
-  category: "web" | "ecommerce" | "game";
+  category: "web" | "ecommerce" | "game" | "saas";
   technologies: string[];
   liveUrl?: string;
   codeUrl?: string;
@@ -129,6 +130,34 @@ const getProjects = (images: any): Project[] => [
       "Instant load times",
     ],
   },
+  {
+    id: "5",
+    title: "GreenSynk",
+    shortDescription:
+      "All-in-one operations platform for landscaping and lawn care businesses, covering scheduling, invoicing, routing, and CRM.",
+    image: greenSynkImage,
+    category: "saas",
+    technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
+    liveUrl: "https://greensynk.com/",
+    problem:
+      "Outdoor service businesses like landscaping and lawn care crews were juggling spreadsheets, paper invoices, and disconnected apps to manage scheduling, customer details, and payments, leading to missed jobs, delayed invoicing, and inefficient routes.",
+    solution:
+      "Built a full-stack SaaS platform that brings scheduling, route optimization, invoicing, customer CRM, team management, and growth analytics into one beautiful, easy-to-use dashboard with tiered subscription plans for businesses of every size.",
+    features: [
+      "Drag-and-drop scheduling with recurring job plans",
+      "Automated invoicing with one-click online payments",
+      "Smart route optimization to cut drive time and fuel costs",
+      "Customer CRM with property details and service history",
+      "Team management with crew assignments and permissions",
+      "Revenue and growth analytics dashboard",
+    ],
+    outcomes: [
+      "500+ outdoor service businesses onboarded",
+      "50,000+ jobs scheduled through the platform",
+      "$8M+ in invoices processed",
+      "Tiered pricing plans serving solo operators to multi-crew teams",
+    ],
+  },
 ];
 
 export default function ProjectsSection() {
@@ -203,7 +232,7 @@ export default function ProjectsSection() {
                     Featured
                   </Badge>
                   <span className="text-xs text-slate-400 uppercase tracking-wider font-medium">
-                    {featured.category === "ecommerce" ? "E-Commerce" : featured.category === "game" ? "Game" : "Web App"}
+                    {featured.category === "ecommerce" ? "E-Commerce" : featured.category === "game" ? "Game" : featured.category === "saas" ? "SaaS Platform" : "Web App"}
                   </span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2">
@@ -271,7 +300,7 @@ export default function ProjectsSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                   <span className="absolute top-3 left-3 text-[10px] text-white/90 uppercase tracking-wider font-medium bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">
-                    {project.category === "ecommerce" ? "E-Commerce" : project.category === "game" ? "Game" : "Web App"}
+                    {project.category === "ecommerce" ? "E-Commerce" : project.category === "game" ? "Game" : project.category === "saas" ? "SaaS Platform" : "Web App"}
                   </span>
                   <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                     <span className="inline-flex items-center gap-1 text-xs text-white bg-blue-600/90 backdrop-blur-sm px-3 py-1 rounded-full">

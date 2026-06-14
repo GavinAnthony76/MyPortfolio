@@ -2,6 +2,7 @@ import txsImage from "@assets/screenshots/txshowdown_com.png";
 import jamaicaImage from "@assets/screenshots/jamaicanyammingz_com.png";
 import lambImage from "@assets/generated_images/power_of_the_lamb_hero.png";
 import shapeTapImage from "@assets/generated_images/shape_tap_deluxe_hero.png";
+import greenSynkImage from "@assets/screenshots/greensynk_com.png";
 
 export interface Project {
   id: string;
@@ -140,6 +141,37 @@ export const projects: Project[] = [
       "High player engagement and retention",
       "Zero external dependencies",
       "Instant load times",
+    ],
+  },
+  {
+    id: "5",
+    number: "05",
+    title: "GreenSynk",
+    subtitle: "Outdoor Service Business Management Software",
+    year: "2026",
+    category: "SaaS Platform",
+    shortDescription:
+      "All-in-one operations platform for landscaping and lawn care businesses, covering scheduling, invoicing, routing, and CRM.",
+    image: greenSynkImage,
+    technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
+    liveUrl: "https://greensynk.com/",
+    problem:
+      "Outdoor service businesses like landscaping and lawn care crews were juggling spreadsheets, paper invoices, and disconnected apps to manage scheduling, customer details, and payments, leading to missed jobs, delayed invoicing, and inefficient routes.",
+    solution:
+      "Built a full-stack SaaS platform that brings scheduling, route optimization, invoicing, customer CRM, team management, and growth analytics into one beautiful, easy-to-use dashboard with tiered subscription plans for businesses of every size.",
+    features: [
+      "Drag-and-drop scheduling with recurring job plans",
+      "Automated invoicing with one-click online payments",
+      "Smart route optimization to cut drive time and fuel costs",
+      "Customer CRM with property details and service history",
+      "Team management with crew assignments and permissions",
+      "Revenue and growth analytics dashboard",
+    ],
+    outcomes: [
+      "500+ outdoor service businesses onboarded",
+      "50,000+ jobs scheduled through the platform",
+      "$8M+ in invoices processed",
+      "Tiered pricing plans serving solo operators to multi-crew teams",
     ],
   },
 ];
