@@ -12,6 +12,7 @@ import pgSession from "connect-pg-simple";
 import { db } from "./db";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
+import { z } from "zod";
 import { sendInternalNotification, sendAutoReply } from "./mailer";
 
 
@@ -75,10 +76,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     legacyHeaders: false,
     keyGenerator: (req) => {
       // Use X-Forwarded-For header if available, otherwise fall back to connection IP
-      return (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || 
-             req.socket.remoteAddress || 
+      return (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ||
+             req.socket.remoteAddress ||
              'unknown';
     }
+  });
+
+  // Rate limiting for login attempts
+  const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // Limit each IP to 5 login attempts per windowMs
+    message: { message: "Too many login attempts, please try again later" },
+    standardHeaders: true,
+    legacyHeaders: false,
+    skipSuccessfulRequests: true,
+    keyGenerator: (req) => {
+      return (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ||
+             req.socket.remoteAddress ||
+             'unknown';
+    }
+  });
+
+  // Login request validation
+  const loginSchema = z.object({
+    username: z.string().min(1).max(64),
+    password: z.string().min(1).max(128),
   });
 
   // Session configuration with persistent storage
@@ -88,12 +110,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   try {
     if (process.env.DATABASE_URL && isProduction) {
       const PostgresqlStore = pgSession(session);
-      
+
       // Create session store with PostgreSQL
       sessionStore = new PostgresqlStore({
         conObject: {
           connectionString: process.env.DATABASE_URL,
-          ssl: { rejectUnauthorized: false }
+          ssl: { rejectUnauthorized: true }
         },
         tableName: 'user_sessions',
         createTableIfMissing: true,
@@ -105,6 +127,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   } catch (error) {
     console.error('Failed to create PostgreSQL session store:', error);
 
+  }
+
+  // Refuse to start in production with an in-memory session store
+  if (isProduction && !sessionStore) {
+    throw new Error('Failed to initialize persistent session store in production');
   }
 
   // Trust proxy for proper IP/cookie handling in production
@@ -124,6 +151,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     next();
   });
 
+  if (isProduction && !process.env.SESSION_SECRET) {
+    throw new Error('SESSION_SECRET environment variable is required in production');
+  }
+
   const sessionConfig = {
     secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production-12345',
     resave: false,
@@ -132,7 +163,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     cookie: {
       secure: isProduction,          // requires HTTPS
       httpOnly: true,
-      sameSite: 'none' as const,     // cross-site safe
+      sameSite: 'lax' as const,      // same-site app; mitigates CSRF
       domain: isProduction ? '.gavineanthony.com' : undefined,
       path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000
@@ -217,11 +248,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   };
 
   // Login endpoint
-  app.post('/api/login', noCache, async (req, res) => {
+  app.post('/api/login', noCache, loginLimiter, async (req, res) => {
     try {
-      const { username, password } = req.body;
+      const parsed = loginSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ message: 'Invalid username or password' });
+      }
+      const { username, password } = parsed.data;
 
-      
       const user = await storage.getUserByUsername(username);
       if (!user) {
 
