@@ -14,6 +14,10 @@ run = ["npm", "run", "start"]
 localPort = 5000
 externalPort = 80
 
+[[ports]]
+localPort = 5001
+externalPort = 3001
+
 [env]
 PORT = "5000"
 
@@ -47,3 +51,8 @@ defaultBucketID = "replit-objstore-8bc54ab4-e363-417b-8b27-e968676ed84e"
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 180000
+
+[userenv]
+
+[userenv.shared]
+ADMIN_EMAIL = "gavinanthony1@gmail.com"

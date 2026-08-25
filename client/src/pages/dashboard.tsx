@@ -15,11 +15,14 @@ import { formatDistanceToNow } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useMemo } from "react";
 import type { ProjectRequest, Testimonial } from "@shared/schema";
+import { useClerk } from "@clerk/react";
 
 export default function Dashboard() {
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const { signOut } = useClerk();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [activeTab, setActiveTab] = useState('active');
   const [dashboardView, setDashboardView] = useState<'projects' | 'testimonials'>('projects');
   const [searchTerm, setSearchTerm] = useState('');
@@ -27,29 +30,18 @@ export default function Dashboard() {
   const [projectTypeFilter, setProjectTypeFilter] = useState('all');
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
 
-  const logoutMutation = useMutation({
-    mutationFn: async () => {
-      await apiRequest('POST', '/api/logout');
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/auth/status'] });
-      toast({
-        title: "Logged out successfully",
-        description: "You have been securely logged out",
-      });
-      setLocation('/');
-    },
-    onError: () => {
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await signOut({ redirectUrl: "/" });
+    } catch {
+      setIsLoggingOut(false);
       toast({
         title: "Logout failed",
         description: "There was an error logging out",
         variant: "destructive",
       });
     }
-  });
-
-  const handleLogout = () => {
-    logoutMutation.mutate();
   };
 
   const handleGoHome = () => {
@@ -792,12 +784,12 @@ Proposal generated on ${new Date().toLocaleDateString()} for ${request.company |
                     variant="outline" 
                     size="sm"
                     onClick={handleLogout}
-                    disabled={logoutMutation.isPending}
+                    disabled={isLoggingOut}
                     data-testid="button-logout"
                     className="flex-shrink-0"
                   >
                     <LogOut className="w-4 h-4 sm:mr-2" />
-                    <span className="hidden sm:inline">{logoutMutation.isPending ? 'Logging out...' : 'Logout'}</span>
+                    <span className="hidden sm:inline">{isLoggingOut ? 'Logging out...' : 'Logout'}</span>
                   </Button>
                 </div>
               </div>

@@ -6,14 +6,10 @@ import { storage } from "./storage";
 import { insertProjectRequestSchema, insertTestimonialSchema } from "@shared/schema";
 import { generateProjectPrompt } from "../client/src/lib/prompt-generator";
 import StorageManager from "./storage-manager";
-import bcrypt from "bcrypt";
-import session from "express-session";
-import pgSession from "connect-pg-simple";
-import { db } from "./db";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-import { z } from "zod";
 import { sendInternalNotification, sendAutoReply } from "./mailer";
+import { requireAdmin } from "./middlewares/clerkAuth";
 
 
 
@@ -32,6 +28,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           "https://fonts.googleapis.com",
           "https://www.googletagmanager.com",
           "https://ssl.google-analytics.com"
+          ,"https://*.clerk.accounts.dev"
+          ,"https://*.clerk.com"
+          ,"https://challenges.cloudflare.com"
         ],
         styleSrc: [
           "'self'", 
@@ -55,9 +54,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
           "https://www.google-analytics.com",
           "https://ssl.google-analytics.com",
           "https://stats.g.doubleclick.net"
+            ,"https://*.clerk.accounts.dev"
+            ,"https://*.clerk.com"
+            ,"https://challenges.cloudflare.com"
         ],
         frameSrc: [
           "https://www.googletagmanager.com"
+          ,"https://challenges.cloudflare.com"
+          ,"https://*.clerk.accounts.dev"
+          ,"https://*.clerk.com"
         ],
         formAction: [
           "'self'"
@@ -82,274 +87,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Rate limiting for login attempts
-  const loginLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // Limit each IP to 5 login attempts per windowMs
-    message: { message: "Too many login attempts, please try again later" },
-    standardHeaders: true,
-    legacyHeaders: false,
-    skipSuccessfulRequests: true,
-    keyGenerator: (req) => {
-      return (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ||
-             req.socket.remoteAddress ||
-             'unknown';
-    }
-  });
-
-  // Login request validation
-  const loginSchema = z.object({
-    username: z.string().min(1).max(64),
-    password: z.string().min(1).max(128),
-  });
-
-  // Session configuration with persistent storage
-  const isProduction = process.env.NODE_ENV === 'production';
-  let sessionStore;
-  
-  try {
-    if (process.env.DATABASE_URL && isProduction) {
-      const PostgresqlStore = pgSession(session);
-
-      // Create session store with PostgreSQL
-      sessionStore = new PostgresqlStore({
-        conObject: {
-          connectionString: process.env.DATABASE_URL,
-          ssl: { rejectUnauthorized: true }
-        },
-        tableName: 'user_sessions',
-        createTableIfMissing: true,
-      });
-
-    } else {
-
-    }
-  } catch (error) {
-    console.error('Failed to create PostgreSQL session store:', error);
-
-  }
-
-  // Refuse to start in production with an in-memory session store
-  if (isProduction && !sessionStore) {
-    throw new Error('Failed to initialize persistent session store in production');
-  }
-
-  // Trust proxy for proper IP/cookie handling in production
-  if (isProduction) {
-    app.set('trust proxy', 1);
-  }
-
-  // Canonical host redirection for production
-  app.use((req, res, next) => {
-    if (process.env.NODE_ENV === 'production') {
-      const host = req.headers.host || '';
-      // choose one canonical host; here I use "www"
-      if (host === 'gavineanthony.com') {
-        return res.redirect(301, `https://www.gavineanthony.com${req.originalUrl}`);
-      }
-    }
-    next();
-  });
-
-  if (isProduction && !process.env.SESSION_SECRET) {
-    throw new Error('SESSION_SECRET environment variable is required in production');
-  }
-
-  const sessionConfig = {
-    secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production-12345',
-    resave: false,
-    saveUninitialized: false,
-    name: 'auth_session',
-    cookie: {
-      secure: isProduction,          // requires HTTPS
-      httpOnly: true,
-      sameSite: 'lax' as const,      // same-site app; mitigates CSRF
-      domain: isProduction ? '.gavineanthony.com' : undefined,
-      path: '/',
-      maxAge: 7 * 24 * 60 * 60 * 1000
-    },
-    rolling: true,
-    proxy: isProduction, // Trust proxy in production
-  };
-
-  if (sessionStore) {
-    (sessionConfig as any).store = sessionStore;
-  }
-
-  app.use(session(sessionConfig));
-
-  // Enhanced authentication middleware
-  const requireAuth = async (req: any, res: any, next: any) => {
-    try {
-      const userId = req.session.userId;
-      
-      if (!userId) {
-        return res.status(401).json({ message: 'Unauthorized - No session' });
-      }
-      
-      // Verify user still exists in database
-      const user = await storage.getUser(userId);
-      if (!user) {
-        // User doesn't exist, destroy invalid session
-        req.session.destroy((err: any) => {
-          if (err) console.error('Session destroy error:', err);
-        });
-        return res.status(401).json({ message: 'Unauthorized - Invalid user' });
-      }
-      
-      // Extend session on activity
-      req.session.touch();
-      
-      // Add user info to request for use in handlers
-      req.user = user;
-      next();
-    } catch (error) {
-      console.error('Auth middleware error:', error);
-      res.status(500).json({ message: 'Authentication error' });
-    }
-  };
-
-  // Create admin user if doesn't exist
-  const initializeAdmin = async () => {
-    try {
-      const adminUsername = process.env.ADMIN_USERNAME || 'admin';
-      const adminPassword = process.env.ADMIN_PASSWORD;
-      
-      if (!adminPassword) {
-        console.error('ADMIN_PASSWORD environment variable is required');
-        return;
-      }
-      
-      const existingAdmin = await storage.getUserByUsername(adminUsername);
-      if (!existingAdmin) {
-        const hashedPassword = await bcrypt.hash(adminPassword, 10);
-        await storage.createUser({
-          username: adminUsername,
-          password: hashedPassword
-        });
-
-      }
-    } catch (error) {
-      console.error('Error initializing admin user:', error);
-    }
-  };
-
-  await initializeAdmin();
-
-  // No-cache middleware for auth endpoints
-  const noCache = (_req: any, res: any, next: any) => {
-    res.set({
-      "Cache-Control": "no-store, no-cache, must-revalidate",
-      "Pragma": "no-cache", 
-      "Expires": "0",
-      "Vary": "Cookie"
-    });
-    next();
-  };
-
-  // Login endpoint
-  app.post('/api/login', noCache, loginLimiter, async (req, res) => {
-    try {
-      const parsed = loginSchema.safeParse(req.body);
-      if (!parsed.success) {
-        return res.status(400).json({ message: 'Invalid username or password' });
-      }
-      const { username, password } = parsed.data;
-
-      const user = await storage.getUserByUsername(username);
-      if (!user) {
-
-        return res.status(401).json({ message: 'Invalid credentials' });
-      }
-
-      const isValidPassword = await bcrypt.compare(password, user.password);
-      if (!isValidPassword) {
-
-        return res.status(401).json({ message: 'Invalid credentials' });
-      }
-
-      // Set session data
-      (req.session as any).userId = user.id;
-      (req.session as any).username = user.username;
-      (req.session as any).loginTime = new Date().toISOString();
-      
-      // Save session explicitly and regenerate session ID for security
-      req.session.regenerate((err) => {
-        if (err) {
-          console.error('Session regeneration error:', err);
-          return res.status(500).json({ message: 'Session error' });
-        }
-        
-        // Re-set session data after regeneration
-        (req.session as any).userId = user.id;
-        (req.session as any).username = user.username;
-        (req.session as any).loginTime = new Date().toISOString();
-        
-        req.session.save((saveErr) => {
-          if (saveErr) {
-            console.error('Session save error:', saveErr);
-            return res.status(500).json({ message: 'Session error' });
-          }
-
-          res.json({ 
-            success: true, 
-            message: 'Login successful',
-            sessionId: req.session.id 
-          });
-        });
-      });
-    } catch (error) {
-      console.error('Login error:', error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  });
-
-  // Logout endpoint
-  app.post('/api/logout', noCache, (req, res) => {
-    req.session.destroy((err) => {
-      if (err) {
-        return res.status(500).json({ message: 'Could not log out' });
-      }
-      res.json({ success: true, message: 'Logged out successfully' });
-    });
-  });
-
-  // Check auth status
-  app.get('/api/auth/status', noCache, async (req, res) => {
-    try {
-      const userId = (req.session as any).userId;
-      const username = (req.session as any).username;
-      const loginTime = (req.session as any).loginTime;
-      
-
-      
-      if (userId) {
-        // Verify user still exists in database
-        const user = await storage.getUser(userId);
-        if (user) {
-          // Touch session to extend expiration
-          req.session.touch();
-          res.json({ 
-            authenticated: true,
-            sessionId: req.session.id,
-            username: username,
-            loginTime: loginTime
-          });
-        } else {
-          // User doesn't exist anymore, destroy session
-          req.session.destroy((err) => {
-            if (err) console.error('Session destroy error:', err);
-          });
-          res.json({ authenticated: false, reason: 'user_not_found' });
-        }
-      } else {
-        res.json({ authenticated: false, reason: 'no_session' });
-      }
-    } catch (error) {
-      console.error('Auth status error:', error);
-      res.json({ authenticated: false, reason: 'server_error' });
-    }
-  });
   // Submit project request with email notifications
   app.post("/api/project-requests", contactLimiter, async (req, res) => {
     try {
@@ -409,7 +146,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get all project requests (for developer dashboard) - Protected
-  app.get("/api/project-requests", requireAuth, async (req, res) => {
+  app.get("/api/project-requests", requireAdmin, async (req, res) => {
     try {
       const requests = await storage.getProjectRequests();
       res.json(requests);
@@ -423,7 +160,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Update project request status - Protected
-  app.patch("/api/project-requests/:id/status", requireAuth, async (req, res) => {
+  app.patch("/api/project-requests/:id/status", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       const { status } = req.body;
@@ -455,7 +192,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Delete project request - Protected
-  app.delete("/api/project-requests/:id", requireAuth, async (req, res) => {
+  app.delete("/api/project-requests/:id", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       
@@ -579,7 +316,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/admin/testimonials", requireAuth, async (_req, res) => {
+  app.get("/api/admin/testimonials", requireAdmin, async (_req, res) => {
     try {
       const all = await storage.getAllTestimonials();
       res.json(all);
@@ -589,7 +326,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/admin/testimonials/:id/status", requireAuth, async (req, res) => {
+  app.patch("/api/admin/testimonials/:id/status", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       const { status } = req.body;
@@ -607,7 +344,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/admin/testimonials/:id", requireAuth, async (req, res) => {
+  app.delete("/api/admin/testimonials/:id", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       const deleted = await storage.deleteTestimonial(id);
@@ -622,7 +359,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Upload portfolio images to object storage
-  app.post("/api/upload-images", async (req, res) => {
+  app.post("/api/upload-images", requireAdmin, async (req, res) => {
     try {
 
       await storageManager.uploadAllPortfolioImages();
@@ -658,7 +395,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // List all objects in storage (for debugging)
-  app.get("/api/storage/list", async (req, res) => {
+  app.get("/api/storage/list", requireAdmin, async (req, res) => {
     try {
       const objects = await storageManager.listAllObjects();
       res.json({ objects });

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, CheckCircle2, Clock, FileText, AlertCircle } from "lucide-react";
+import { apiRequest } from "@/lib/queryClient";
 
 interface StatusResult {
   ticketNumber: string;
@@ -58,7 +59,7 @@ export default function ProjectStatusSection() {
     setResult(null);
 
     try {
-      const response = await fetch(`/api/project-status/${ticketNumber.trim()}`);
+      const response = await apiRequest("GET", `/api/project-status/${ticketNumber.trim()}`);
       const data = await response.json();
 
       if (data.success) {

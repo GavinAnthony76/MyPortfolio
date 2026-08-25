@@ -170,7 +170,7 @@ export default function Contact() {
     setLookupError(null);
     setLookupResult(null);
     try {
-      const response = await fetch(`/api/project-status/${lookupTicket.trim()}`);
+      const response = await apiRequest("GET", `/api/project-status/${lookupTicket.trim()}`);
       const data = await response.json();
       if (data.success) {
         setLookupResult(data);

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 48" role="img" aria-labelledby="title">
+  <title>Gavin Anthony</title>
+  <rect width="160" height="48" rx="8" fill="#292929"/>
+  <path d="M18 34V14h7l6 10 6-10h7v20h-6V23l-7 11-7-11v11z" fill="#a78bfa"/>
+  <text x="56" y="30" fill="#fff" font-family="Inter,Arial,sans-serif" font-size="16" letter-spacing="2">GA</text>
+</svg>

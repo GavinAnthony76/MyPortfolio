@@ -12,14 +12,12 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const isAuthEndpoint = url.includes('/auth/') || url.includes('/login') || url.includes('/logout');
-  
   const res = await fetch(url, {
     method,
     headers: data ? { "Content-Type": "application/json" } : {},
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
-    cache: isAuthEndpoint ? 'no-store' : 'default', // No cache for auth endpoints
+    cache: 'default',
   });
 
   await throwIfResNotOk(res);
@@ -33,11 +31,9 @@ export const getQueryFn: <T>(options: {
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
     const url = queryKey.join("/") as string;
-    const isAuthEndpoint = url.includes('/auth/') || url.includes('/login') || url.includes('/logout');
-    
     const res = await fetch(url, {
       credentials: "include",
-      cache: isAuthEndpoint ? 'no-store' : 'default', // No cache for auth endpoints
+      cache: 'default',
     });
 
     if (unauthorizedBehavior === "returnNull" && res.status === 401) {

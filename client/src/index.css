@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.cl-formFieldInput::placeholder {
+  color: #cbd5e1;
+  opacity: 1;
+}
+
 :root {
   --background: hsl(0 0% 16%);
   --foreground: hsl(0 0% 100%);

@@ -23,7 +23,7 @@ Preferred communication style: Simple, everyday language.
 - **API Design**: RESTful API endpoints for project request management, including project status and testimonial submission.
 - **Request Handling**: Express middleware for JSON parsing, CORS, and request logging.
 - **Error Handling**: Centralized middleware with proper HTTP status codes.
-- **Authentication**: Secure, PostgreSQL-based persistent session storage with HTTP-only cookies, session regeneration on login, and activity-based extension. Bcrypt hashing (10 salt rounds) for passwords.
+- **Authentication**: Clerk-managed cookie sessions. Dashboard APIs require the Clerk user’s primary email to match the server-only `ADMIN_EMAIL` allowlist; authorized users are provisioned into the local users table only after that check. The client provides sign-in only, not public self-service sign-up.
 - **Development Server**: Vite integration for hot module replacement.
 
 ## Data Storage Solutions
