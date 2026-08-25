@@ -217,7 +217,7 @@ export default function About() {
     new Array(chapters.length).fill(false)
   );
   const [loaded, setLoaded] = useState(false);
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
