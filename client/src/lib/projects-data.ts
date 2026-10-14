@@ -3,6 +3,7 @@ import jamaicaImage from "@assets/screenshots/jamaicanyammingz_com.png";
 import lambImage from "@assets/generated_images/power_of_the_lamb_hero.png";
 import shapeTapImage from "@assets/generated_images/shape_tap_deluxe_hero.png";
 import greenSynkImage from "@assets/screenshots/greensynk_com.png";
+import livingMannaImage from "@assets/screenshots/livingmanna_church.jpg";
 
 export interface Project {
   id: string;
@@ -172,6 +173,35 @@ export const projects: Project[] = [
       "50,000+ jobs scheduled through the platform",
       "$8M+ in invoices processed",
       "Tiered pricing plans serving solo operators to multi-crew teams",
+    ],
+  },
+  {
+    id: "6",
+    number: "06",
+    title: "Living Manna",
+    subtitle: "Online Sanctuary",
+    year: "2026",
+    category: "Community Platform",
+    shortDescription:
+      "Church community platform with Discord and Patreon integrations, bringing an online sanctuary to life.",
+    image: livingMannaImage,
+    technologies: ["React", "Node.js", "TypeScript", "PostgreSQL", "Discord", "Patreon"],
+    liveUrl: "https://livingmanna.church/",
+    problem:
+      "Living Manna needed a welcoming online home where visitors could discover the church, explore its ministries, and connect with its community.",
+    solution:
+      "Built a full-stack church community platform with a warm, gold-accented design, clear navigation for ministry content, and Discord and Patreon integrations to connect the website with the wider community.",
+    features: [
+      "Discord community integration",
+      "Patreon integration",
+      "Ministry and church information",
+      "Navigation for live viewing, podcasts, and events",
+      "Community connection and membership entry points",
+    ],
+    outcomes: [
+      "Completed church community website",
+      "Unified online home for Living Manna",
+      "Connected website experience with Discord and Patreon",
     ],
   },
 ];
