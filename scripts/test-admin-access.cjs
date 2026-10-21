@@ -8,7 +8,7 @@ const compiled = ts.transpileModule(source, {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
 }).outputText;
 
-async function check({ signedIn = true, configured = true, email = "owner@example.invalid", verified = true, unavailable = false, expected, privileged = false }) {
+async function check({ signedIn = true, configured = true, email = "owner@example.invalid", verified = true, unavailable = false, expected, privileged = false, existingAdmin = false }) {
   let dbCalls = 0;
   let nextCalls = 0;
   const exports = {};
@@ -24,7 +24,13 @@ async function check({ signedIn = true, configured = true, email = "owner@exampl
           return { primaryEmailAddress: { emailAddress: email, verification: { status: verified ? "verified" : "unverified" } } };
         } } },
       };
-      if (name === "../db") return { db: new Proxy({}, { get() { dbCalls++; throw new Error("Database access is forbidden in this test"); } }) };
+      if (name === "../db") return { db: new Proxy({}, { get(_target, prop) {
+        dbCalls++;
+        if (existingAdmin && prop === "select") {
+          return () => ({ from: () => ({ where: () => ({ limit: async () => [{ id: "isolated-user", username: "isolated-admin" }] }) }) });
+        }
+        throw new Error("Database writes and unexpected reads are forbidden in this test");
+      } }) };
       if (name === "drizzle-orm") return { eq() {} };
       if (name === "@shared/schema") return { users: {} };
       throw new Error(`Unexpected dependency: ${name}`);
@@ -37,10 +43,17 @@ async function check({ signedIn = true, configured = true, email = "owner@exampl
     status(code) { this.statusCode = code; return this; },
     json(body) { this.body = body; return this; },
   };
-  await exports[privileged ? "requireAdmin" : "requireAdminAccess"]({}, response, () => { nextCalls++; });
+  let resolveNext;
+  const finished = new Promise((resolve) => { resolveNext = resolve; });
+  const request = {};
+  await exports[privileged ? "requireAdmin" : "requireAdminAccess"](request, response, () => { nextCalls++; resolveNext(); });
+  if (existingAdmin) {
+    await Promise.race([finished, new Promise((_, reject) => setTimeout(() => reject(new Error("Admin handler did not continue")), 1000))]);
+    assert.equal(request.dbUser.id, "isolated-user");
+  }
   assert.equal(response.statusCode, expected);
   assert.equal(nextCalls, expected === 200 ? 1 : 0);
-  assert.equal(dbCalls, 0, "Access checks and denials must not touch the database");
+  assert.equal(dbCalls, existingAdmin ? 1 : 0, "Only the privileged existing-admin case may read the database stub");
   assert.equal(response.headers["Cache-Control"], "no-store");
 }
 
@@ -53,5 +66,6 @@ async function check({ signedIn = true, configured = true, email = "owner@exampl
   await check({ email: "OWNER@example.invalid", expected: 200 });
   await check({ email: "visitor@example.invalid", expected: 403, privileged: true });
   await check({ signedIn: false, expected: 401, privileged: true });
-  console.log("PASS: 8 authorization cases; no network or database access.");
+  await check({ expected: 200, privileged: true, existingAdmin: true });
+  console.log("PASS: 9 authorization cases, including an existing authorized admin; no network or real database access.");
 })().catch((error) => { console.error(error); process.exitCode = 1; });

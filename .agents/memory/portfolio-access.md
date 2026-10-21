@@ -9,6 +9,12 @@ The homepage must remain usable for signed-in visitors, including Google account
 
 **How to apply:** Keep administrator authorization server-side, but ensure denial, session expiry, and authorization-service errors always offer navigation back to the portfolio and a sign-out option.
 
+Successful administrator sign-in should open the dashboard, while manually visiting Home must still open the public portfolio.
+
+**Why:** The owner expects authorized login to reach the dashboard, not merely to return Home after the denied-access recovery fix.
+
+**How to apply:** Verify both allowed-admin and denied-account navigation when changing authentication routing; testing the denial branch alone does not establish that administrator sign-in works.
+
 Do not create test accounts or database records when verifying these flows.
 
 **Why:** The owner explicitly requested that testing not pollute the database.

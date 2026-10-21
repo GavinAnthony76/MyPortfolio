@@ -1,6 +1,6 @@
 import { Switch, Route, Redirect, useLocation, Router as WouterRouter } from "wouter";
 import { useEffect, useLayoutEffect, useRef } from "react";
-import { ClerkProvider, SignIn, useClerk } from "@clerk/react";
+import { ClerkProvider, SignIn, useAuth, useClerk } from "@clerk/react";
 import { publishableKeyFromHost } from "@clerk/react/internal";
 import { shadcn } from "@clerk/themes";
 import { queryClient } from "./lib/queryClient";
@@ -24,9 +24,7 @@ const clerkPubKey = publishableKeyFromHost(
 );
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
-const clerkProxyUrl = import.meta.env.PROD
-  ? `${basePath}/api/__clerk`
-  : import.meta.env.VITE_CLERK_PROXY_URL;
+const clerkProxyUrl = import.meta.env.VITE_CLERK_PROXY_URL;
 
 function stripBase(path: string): string {
   return basePath && path.startsWith(basePath)
@@ -87,9 +85,19 @@ const clerkAppearance = {
 };
 
 function SignInPage() {
+  const { isLoaded, isSignedIn } = useAuth();
+
+  // An existing authenticated session must go through the server-backed
+  // admin gate, not Clerk's default already-signed-in redirect to Home.
+  if (isLoaded && isSignedIn) return <Redirect to="/dashboard" />;
+
   return (
     <div className="flex min-h-[100dvh] items-center justify-center bg-[#292929] px-4">
-      <SignIn routing="path" path={`${basePath}/sign-in`} />
+      <SignIn
+        routing="path"
+        path={`${basePath}/sign-in`}
+        forceRedirectUrl={`${basePath}/dashboard`}
+      />
     </div>
   );
 }
@@ -158,6 +166,7 @@ function ClerkProviderWithRoutes() {
       proxyUrl={clerkProxyUrl}
       appearance={clerkAppearance}
       signInUrl={`${basePath}/sign-in`}
+      signInForceRedirectUrl={`${basePath}/dashboard`}
       localization={{
         signIn: {
           start: {
