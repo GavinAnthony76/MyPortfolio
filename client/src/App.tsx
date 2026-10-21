@@ -1,6 +1,6 @@
 import { Switch, Route, Redirect, useLocation, Router as WouterRouter } from "wouter";
 import { useEffect, useLayoutEffect, useRef } from "react";
-import { ClerkProvider, SignIn, useAuth, useClerk } from "@clerk/react";
+import { ClerkProvider, SignIn, useClerk } from "@clerk/react";
 import { publishableKeyFromHost } from "@clerk/react/internal";
 import { shadcn } from "@clerk/themes";
 import { queryClient } from "./lib/queryClient";
@@ -16,6 +16,7 @@ import Dashboard from "@/pages/dashboard";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import TermsOfService from "@/pages/terms-of-service";
 import NotFound from "@/pages/not-found";
+import AdminRoute from "@/components/admin-route";
 
 const clerkPubKey = publishableKeyFromHost(
   window.location.hostname,
@@ -115,34 +116,6 @@ function ClerkQueryClientCacheInvalidator() {
   return null;
 }
 
-function HomeRedirect() {
-  const { isLoaded, isSignedIn } = useAuth();
-
-  if (!isLoaded) {
-    return <Home />;
-  }
-
-  return isSignedIn ? <Redirect to="/dashboard" /> : <Home />;
-}
-
-function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
-  const { isLoaded, isSignedIn } = useAuth();
-
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen bg-[#292929] flex items-center justify-center">
-        <p className="text-sm text-white/90 tracking-[0.15em] uppercase">Loading</p>
-      </div>
-    );
-  }
-
-  if (!isSignedIn) {
-    return <Redirect to="/sign-in" />;
-  }
-
-  return <Component />;
-}
-
 function Router() {
   const [location] = useLocation();
 
@@ -153,7 +126,7 @@ function Router() {
   return (
     <div key={location} className="page-enter">
       <Switch>
-        <Route path="/" component={HomeRedirect} />
+        <Route path="/" component={Home} />
         <Route path="/works" component={Works} />
         <Route path="/works/:id" component={WorkDetail} />
         <Route path="/about" component={About} />
@@ -168,7 +141,7 @@ function Router() {
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/terms-of-service" component={TermsOfService} />
         <Route path="/dashboard">
-          <ProtectedRoute component={Dashboard} />
+          <AdminRoute><Dashboard /></AdminRoute>
         </Route>
         <Route component={NotFound} />
       </Switch>

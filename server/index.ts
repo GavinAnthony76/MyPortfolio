@@ -11,6 +11,8 @@ import {
 } from "./middlewares/clerkProxyMiddleware";
 
 const app = express();
+// Trust the immediate hosting proxy, not arbitrary client-supplied hops.
+app.set("trust proxy", 1);
 
 // Security middleware
 app.use((req, res, next) => {
@@ -29,35 +31,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Rate limiting for production
-if (process.env.NODE_ENV === 'production') {
-  const rateLimit = new Map();
-  app.use((req, res, next) => {
-    const ip = req.ip || req.connection.remoteAddress;
-    const now = Date.now();
-    const windowMs = 15 * 60 * 1000; // 15 minutes
-    const maxRequests = 100; // max requests per window
-    
-    if (!rateLimit.has(ip)) {
-      rateLimit.set(ip, { count: 1, resetTime: now + windowMs });
-      return next();
-    }
-    
-    const record = rateLimit.get(ip);
-    if (now > record.resetTime) {
-      record.count = 1;
-      record.resetTime = now + windowMs;
-      return next();
-    }
-    
-    if (record.count >= maxRequests) {
-      return res.status(429).json({ message: 'Too many requests' });
-    }
-    
-    record.count++;
-    next();
-  });
-}
+// Public pages, assets, and Clerk's proxy must remain reachable. Contact and
+// testimonial submissions retain their endpoint-specific abuse protection.
 
 app.use(CLERK_PROXY_PATH, clerkProxyMiddleware());
 app.use(
