@@ -11,9 +11,9 @@
     "db:push": "drizzle-kit push"
   },
   "dependencies": {
-    "@clerk/express": "^2.1.63",
-    "@clerk/react": "^6.14.7",
-    "@clerk/shared": "^4.30.1",
+    "@clerk/express": "^2.1.82",
+    "@clerk/react": "^6.18.0",
+    "@clerk/shared": "^4.41.0",
     "@clerk/themes": "^2.4.57",
     "@hookform/resolvers": "^3.10.0",
     "@jridgewell/trace-mapping": "^0.3.25",

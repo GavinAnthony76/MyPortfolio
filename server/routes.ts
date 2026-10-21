@@ -58,7 +58,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
             ,"https://*.clerk.com"
             ,"https://challenges.cloudflare.com"
         ],
+        // Clerk's bot protection uses blob workers. Keep their permission
+        // separate from script-src instead of permitting arbitrary blob scripts.
+        workerSrc: ["'self'", "blob:"],
         frameSrc: [
+          "'self'",
           "https://www.googletagmanager.com"
           ,"https://challenges.cloudflare.com"
           ,"https://*.clerk.accounts.dev"

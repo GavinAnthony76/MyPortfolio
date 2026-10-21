@@ -4,6 +4,8 @@ import { clerkMiddleware } from "@clerk/express";
 import { publishableKeyFromHost } from "@clerk/shared/keys";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { clerkClient } from "@clerk/express";
+import { bootstrapAdminIdentity } from "./auth/adminBootstrap";
 import {
   CLERK_PROXY_PATH,
   clerkProxyMiddleware,
@@ -112,5 +114,28 @@ app.use((req, res, next) => {
   }
   server.listen(listenOptions, () => {
     log(`serving on port ${port}`);
+    // Run after listening so provider latency cannot prevent health checks.
+    // This uses the deployment's own managed Clerk credentials, never dev IDs.
+    if (process.env.NODE_ENV === "production") {
+      void bootstrapAdminIdentity(
+        process.env.NODE_ENV,
+        process.env.ADMIN_EMAIL,
+        {
+          find: (email) => clerkClient.users.getUserList({
+            emailAddress: [email],
+            limit: 2,
+          }),
+          create: (options) => clerkClient.users.createUser(options),
+        },
+      ).then((status) => {
+        log(`[admin-bootstrap] ${status}`);
+        if (status === "existing-needs-review") {
+          console.error("[admin-bootstrap] Existing account needs a verified primary email matching ADMIN_EMAIL; no account settings were changed.");
+        }
+      }).catch(() => {
+        // Do not log provider payloads, keys, email addresses, or account IDs.
+        console.error("[admin-bootstrap] Failed to establish the configured production admin identity. Dashboard authorization remains enforced.");
+      });
+    }
   });
 })();

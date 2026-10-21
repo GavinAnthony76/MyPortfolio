@@ -15,6 +15,12 @@ Successful administrator sign-in should open the dashboard, while manually visit
 
 **How to apply:** Verify both allowed-admin and denied-account navigation when changing authentication routing; testing the denial branch alone does not establish that administrator sign-in works. Keep development-preview and production verification separate; never describe a preview-only confirmation as resolving a live-site issue.
 
+Keep first-administrator onboarding restricted to the owner-configured email rather than enabling public self-service registration to solve production login failures.
+
+**Why:** Preview and production identities are separate. A sign-in-only portfolio must still establish its real owner in production, without opening registration to visitors or copying development passwords and identities.
+
+**How to apply:** Use the target environment's identity provider, preserve existing account settings and restrictions, and never seed test accounts or default passwords. Treat the administrator email configuration as an explicit trust decision.
+
 Do not create test accounts or database records when verifying these flows.
 
 **Why:** The owner explicitly requested that testing not pollute the database.
